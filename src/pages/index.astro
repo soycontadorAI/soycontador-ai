@@ -169,7 +169,7 @@ const lineasTerminal = [
       <div class="container-default guia-inner">
         <div>
           <p class="folio guia-folio">DESCARGA <b>GRATUITA</b></p>
-          <h2>5 prompts para auditar XMLs con Claude</h2>
+          <h2 class="guia-titulo">5 prompts para auditar XMLs con Claude</h2>
           <p class="guia-texto">
             La misma guía que uso en mis talleres. Te la mando al correo, junto con
             una idea accionable de IA fiscal cada semana.
@@ -227,7 +227,8 @@ const lineasTerminal = [
   h1 .verde {
     color: var(--color-accent);
   }
-  h2 {
+  /* Solo el título del lead magnet: los demás h2 son folios de sección */
+  .guia-titulo {
     font-weight: 700;
     font-size: clamp(1.5rem, 3vw, 2.1rem);
     letter-spacing: -0.02em;
@@ -417,7 +418,7 @@ const lineasTerminal = [
   .guia .guia-folio b {
     color: var(--color-terminal-ok);
   }
-  .guia h2 {
+  .guia .guia-titulo {
     color: #ffffff;
     margin: 0.8rem 0;
   }
