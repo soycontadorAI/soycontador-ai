@@ -1,0 +1,11 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "redirects": [
+    {
+      "source": "/(.*)",
+      "has": [{ "type": "host", "value": "www.soycontador.ai" }],
+      "destination": "https://soycontador.ai/$1",
+      "permanent": true
+    }
+  ]
+}
