@@ -8,7 +8,7 @@
 
 import type { APIRoute } from "astro";
 
-import { EMPRESARIAL, ORGANIZACIONES, SESION_MENSUAL } from "../lib/capacitacion";
+import { CASO_AUDITOR, EMPRESARIAL, ORGANIZACIONES, SESION_MENSUAL } from "../lib/capacitacion";
 import { FAQ_CAPACITACION, FAQ_CLUB, FAQ_HOME, FAQ_SOLUCIONES } from "../lib/faqs";
 import { HERRAMIENTAS } from "../lib/herramientas";
 import { CLUB, EBOOK, PERSONA, PROGRAMA, SITE } from "../lib/site";
@@ -35,6 +35,12 @@ ${PERSONA.bioCorta}
 - Perfiles: ${PERSONA.sameAs.join(" · ")}
 
 ## Capacitación en IA para contadores (https://soycontador.ai/capacitacion)
+
+### Caso real: ${CASO_AUDITOR.titulo}
+
+${CASO_AUDITOR.parrafos.join("\n\n")}
+
+Expediente: ${CASO_AUDITOR.expediente.filas.map((f) => `${f.concepto}: ${f.cargo}`).join(" · ")} · ${CASO_AUDITOR.expediente.total.concepto}: ${CASO_AUDITOR.expediente.total.cargo}.
 
 ### ${SESION_MENSUAL.nombre} (${SESION_MENSUAL.precio} por persona)
 

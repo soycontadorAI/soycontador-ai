@@ -53,6 +53,32 @@ export const SESION_MENSUAL = {
   ],
 } as const;
 
+/**
+ * Caso real "auditor con poderes" (expediente verificado; publicado
+ * ANONIMIZADO: sin nombre, sector, municipio ni cifras exactas ligables.
+ * El honorario NO se publica. Pendiente: consentimiento por escrito del
+ * cliente/contador referente antes de presumirlo con más detalle).
+ */
+export const CASO_AUDITOR = {
+  titulo: "Esto es lo que cambia cuando el auditor trae IA",
+  parrafos: [
+    "Un despacho me trajo el caso de una empresa con décadas de operación: cinco ejercicios fiscales, 257 páginas de declaraciones y balanzas, 513 cuentas contables y un testimonio notarial de 84 páginas escaneadas. Trabajo de semanas para un equipo tradicional.",
+    "El núcleo del análisis salió en una noche: la IA hizo la lectura pesada y yo puse el criterio. El diagnóstico respondió la pregunta original del cliente (el cambio de régimen que pedía le habría costado hasta un millón de pesos al año, a cambio de nada) y encontró más de 11 millones de pesos en saldos a favor sin recuperar, además de un error de casi 850 mil pesos en su control de pérdidas.",
+    "Cada cifra del informe salió con su fuente y su número de página: 90 partidas trazadas una por una, porque el trabajo de un contador no se firma con \"me lo dijo la máquina\".",
+    "Eso hace un auditor con poderes: no cobra por las horas que tarda, cobra por lo que encuentra en ellas. Y esa forma de trabajar es exactamente la que enseño aquí.",
+  ],
+  expediente: {
+    filas: [
+      { concepto: "Ejercicios fiscales revisados", cargo: "5" },
+      { concepto: "Páginas de PDF leídas", cargo: "257" },
+      { concepto: "Cuentas contables verificadas", cargo: "513" },
+      { concepto: "Cifras trazadas a su fuente", cargo: "90" },
+    ],
+    total: { concepto: "Núcleo del análisis", cargo: "1 noche" },
+    nota: "// de documentación recibida a informe entregado: 14 días",
+  },
+} as const;
+
 export const ORGANIZACIONES = {
   nombre: "Para organizaciones y capacitadoras",
   descripcion:
