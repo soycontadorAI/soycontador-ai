@@ -20,7 +20,8 @@
   /* Tinta */
   --color-ink: #101828;
   --color-ink-soft: #3D4A5C;
-  --color-ink-dim: #77839A;
+  /* ink-dim cumple AA (>=4.5:1) sobre bg, surface y surface-raised */
+  --color-ink-dim: #5F6B80;
 
   /* Marca: verde registro (solo en momentos de acción/IA, nunca decorativo) */
   --color-accent: #0A7B45;

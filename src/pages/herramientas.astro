@@ -31,15 +31,16 @@ const jsonLd = graph(
 
     <section>
       <div class="container-default">
+        <div class="sec-head"><h2 class="folio">EL <b>CATÁLOGO</b></h2></div>
         <div class="lista">
           {HERRAMIENTAS.map((h, i) => (
             <article class="fila" data-reveal>
               <span class="num">{String(i + 1).padStart(2, "0")}</span>
               <div>
-                <h2>
+                <h3>
                   {h.nombre}
                   <span class={`estado estado-${h.estado === "disponible" ? "ok" : "beta"}`}>{h.estado}</span>
-                </h2>
+                </h3>
                 <p>{h.descripcion}</p>
               </div>
               <a class="go" href={h.url} rel="noopener">visitar →</a>
@@ -94,7 +95,7 @@ const jsonLd = graph(
     font-weight: 700;
     color: var(--color-ink-dim);
   }
-  .fila h2 {
+  .fila h3 {
     margin: 0;
     font-size: 1.25rem;
     font-weight: 700;

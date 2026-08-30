@@ -67,13 +67,13 @@ const diario = [
 
     <section>
       <div class="container-default">
-        <div class="sec-head"><span class="folio">LIBRO <b>DIARIO</b> · LA HISTORIA</span></div>
+        <div class="sec-head"><h2 class="folio">LIBRO <b>DIARIO</b> · LA HISTORIA</h2></div>
         <div class="diario">
           {diario.map((asiento) => (
             <article class="diario-asiento" data-reveal>
               <span class="anio">{asiento.anio}</span>
               <div>
-                <h2>{asiento.titulo}</h2>
+                <h3>{asiento.titulo}</h3>
                 <p>{asiento.texto}</p>
               </div>
             </article>
@@ -84,7 +84,7 @@ const diario = [
 
     <section>
       <div class="container-narrow" data-reveal>
-        <div class="sec-head"><span class="folio">NOTA <b>ACLARATORIA</b></span></div>
+        <div class="sec-head"><h2 class="folio">NOTA <b>ACLARATORIA</b></h2></div>
         <div class="nota">
           <p>
             Una confesión: hoy casi no escribo código. <strong>Lo leo, lo entiendo
@@ -177,7 +177,7 @@ const diario = [
     font-size: 1.05rem;
     color: var(--color-ink-dim);
   }
-  .diario-asiento h2 {
+  .diario-asiento h3 {
     margin: 0 0 0.4rem;
     font-size: 1.25rem;
     font-weight: 700;

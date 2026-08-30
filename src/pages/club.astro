@@ -39,12 +39,12 @@ const jsonLd = graph(
 
     <section>
       <div class="container-default">
-        <div class="sec-head"><span class="folio">LOS <b>3 PILARES</b></span></div>
+        <div class="sec-head"><h2 class="folio">LOS <b>3 PILARES</b></h2></div>
         <div class="grid3">
           {CLUB.pilares.map((pilar, i) => (
             <article class="pilar" data-reveal style={`--reveal-delay:${i * 0.08}s`}>
               <span class="num">{String(i + 1).padStart(2, "0")}</span>
-              <h2>{pilar.titulo}</h2>
+              <h3>{pilar.titulo}</h3>
               <p>{pilar.texto}</p>
             </article>
           ))}
@@ -73,7 +73,7 @@ const jsonLd = graph(
 
     <section>
       <div class="container-narrow">
-        <div class="sec-head"><span class="folio">PREGUNTAS <b>DIRECTAS</b></span></div>
+        <div class="sec-head"><h2 class="folio">PREGUNTAS <b>DIRECTAS</b></h2></div>
         <FaqBlock items={FAQ_CLUB} />
       </div>
     </section>
@@ -112,7 +112,7 @@ const jsonLd = graph(
     font-weight: 700;
     color: var(--color-ink-dim);
   }
-  .pilar h2 {
+  .pilar h3 {
     margin: 0.7rem 0 0.5rem;
     font-size: 1.15rem;
     font-weight: 700;

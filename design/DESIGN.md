@@ -14,7 +14,7 @@ colors:
   line-strong: "#101828"
   ink: "#101828"
   ink-soft: "#3D4A5C"
-  ink-dim: "#77839A"
+  ink-dim: "#5F6B80"
   accent: "#0A7B45"
   accent-hover: "#066035"
   accent-contrast: "#FFFFFF"
