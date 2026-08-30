@@ -14,6 +14,12 @@ export interface SuscribirInput {
   nombre?: string;
   /** Sendy rechaza el alta si no es URL válida: solo se manda cuando parsea */
   referrer?: string;
+  /**
+   * Campos personalizados de la lista de Sendy (el nombre del campo tal cual
+   * está en Sendy, ej. Whatsapp/Rol/Interes/Mensaje). Los usa el formulario
+   * de calificación de leads.
+   */
+  campos?: Record<string, string>;
 }
 
 export async function suscribir(input: SuscribirInput): Promise<EstadoSendy> {
@@ -32,6 +38,9 @@ export async function suscribir(input: SuscribirInput): Promise<EstadoSendy> {
     if (input.nombre) body.set("name", input.nombre);
     if (input.referrer && URL.canParse?.(input.referrer)) {
       body.set("referrer", input.referrer);
+    }
+    for (const [campo, valor] of Object.entries(input.campos ?? {})) {
+      if (valor) body.set(campo, valor.slice(0, 500));
     }
 
     const resp = await fetch(SENDY_ACTION_URL, {

@@ -1,0 +1,50 @@
+---
+/**
+ * Bloque de preguntas directas. El JSON-LD FAQPage se emite por página con
+ * faqPage() de lib/schema.ts sobre el MISMO arreglo que recibe este bloque.
+ */
+
+import type { FaqItem } from "../lib/faqs";
+
+interface Props {
+  items: readonly FaqItem[];
+}
+
+const { items } = Astro.props;
+---
+
+<div class="faq-lista">
+  {items.map((item) => (
+    <article class="faq-item" data-reveal>
+      <h3>{item.pregunta}</h3>
+      <p>{item.respuesta}</p>
+    </article>
+  ))}
+</div>
+
+<style>
+  .faq-item {
+    border: 1px solid var(--color-line);
+    border-radius: var(--radius-md);
+    background: var(--color-surface-raised);
+    padding: 1.6rem 1.8rem;
+    margin-bottom: 1rem;
+  }
+  .faq-item h3 {
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin: 0 0 0.5rem;
+    letter-spacing: -0.01em;
+  }
+  .faq-item h3::before {
+    content: "Q  ";
+    font-family: var(--font-mono);
+    color: var(--color-accent);
+    white-space: pre;
+  }
+  .faq-item p {
+    margin: 0;
+    color: var(--color-ink-soft);
+    font-size: 0.95rem;
+  }
+</style>

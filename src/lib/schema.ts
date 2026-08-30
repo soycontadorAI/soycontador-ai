@@ -43,19 +43,45 @@ export function webSite(): JsonLdObject {
   };
 }
 
-/** Talleres y capacitación (sin priceRange: el precio no se publica). */
-export function talleresService(): JsonLdObject {
+/**
+ * Capacitación. La sesión mensual abierta SÍ publica precio ($4,999 MXN,
+ * decisión de Israel); empresarial y organizaciones se cotizan.
+ */
+export function capacitacionService(): JsonLdObject {
   return {
     "@type": "ProfessionalService",
-    "@id": `${SITE.url}/talleres#servicio`,
-    name: "Talleres de IA para contadores y despachos contables",
+    "@id": `${SITE.url}/capacitacion#servicio`,
+    name: "Capacitación en IA para contadores y despachos contables",
     description:
-      "Capacitación en inteligencia artificial aplicada al trabajo fiscal para despachos, empresas y colegios de contadores en México. Online o presencial, con casos reales del SAT.",
-    url: `${SITE.url}/talleres`,
+      "Capacitación en inteligencia artificial aplicada al trabajo fiscal: sesión mensual abierta de 8 horas, programas para empresas y despachos, y licenciamiento para organizaciones y capacitadoras en México.",
+    url: `${SITE.url}/capacitacion`,
     provider: personRef(),
     areaServed: { "@type": "Country", name: "México" },
     availableLanguage: "es",
     serviceType: "Capacitación en IA para despachos contables",
+    offers: {
+      "@type": "Offer",
+      name: "Sesión mensual de automatización (8 horas en vivo)",
+      price: "4999",
+      priceCurrency: "MXN",
+      url: `${SITE.url}/capacitacion`,
+    },
+  };
+}
+
+/** Soluciones a la medida (sin precio: cierre por diagnóstico). */
+export function solucionesService(): JsonLdObject {
+  return {
+    "@type": "Service",
+    "@id": `${SITE.url}/soluciones#servicio`,
+    name: "Soluciones a la medida: automatización de procesos contables",
+    description:
+      "Desarrollo de automatizaciones para procesos específicos de despachos y empresas en México: reportes recurrentes, conciliaciones, concentrados y auditoría de flujos operativos con código.",
+    url: `${SITE.url}/soluciones`,
+    provider: personRef(),
+    areaServed: { "@type": "Country", name: "México" },
+    availableLanguage: "es",
+    serviceType: "Automatización de procesos con IA y Python",
   };
 }
 

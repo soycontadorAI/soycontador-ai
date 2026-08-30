@@ -1,0 +1,115 @@
+---
+/**
+ * Captura de correo para el lead magnet (banda oscura). POST a /api/newsletter
+ * (Sendy, doble opt-in). Honeypot en el campo "hp".
+ */
+
+interface Props {
+  boton?: string;
+}
+
+const { boton = "Mándame la guía" } = Astro.props;
+---
+
+<form class="nl-form" method="post" action="/api/newsletter" data-newsletter>
+  <div class="nl-campos">
+    <input
+      type="email"
+      name="email"
+      required
+      placeholder="tu@correo.com"
+      aria-label="Tu correo"
+      autocomplete="email"
+    />
+    <input type="text" name="hp" tabindex="-1" autocomplete="off" aria-hidden="true" class="nl-hp" />
+    <button type="submit">{boton}</button>
+  </div>
+  <small data-nl-msg>Sin spam. Te das de baja con un clic.</small>
+</form>
+
+<style>
+  .nl-campos {
+    display: flex;
+    gap: 0.6rem;
+    flex-wrap: wrap;
+  }
+  .nl-form input[type="email"] {
+    flex: 1;
+    min-width: 220px;
+    padding: 0.85rem 1rem;
+    font-size: 0.92rem;
+    font-family: var(--font-mono);
+    border: 1px solid #33415c;
+    background: #1a2436;
+    color: #ffffff;
+    border-radius: var(--radius-sm);
+  }
+  .nl-form input[type="email"]::placeholder {
+    color: var(--color-terminal-dim);
+  }
+  .nl-hp {
+    position: absolute;
+    left: -9999px;
+    height: 0;
+    width: 0;
+    opacity: 0;
+  }
+  .nl-form button {
+    padding: 0.85rem 1.4rem;
+    font-weight: 700;
+    font-size: 0.92rem;
+    cursor: pointer;
+    font-family: var(--font-body);
+    background: var(--color-terminal-ok);
+    color: var(--color-terminal-bg);
+    border: none;
+    border-radius: var(--radius-sm);
+  }
+  .nl-form button:hover {
+    opacity: 0.9;
+  }
+  .nl-form small {
+    display: block;
+    margin-top: 0.8rem;
+    color: #8da2c0;
+    font-size: 0.78rem;
+  }
+</style>
+
+<script>
+  document.querySelectorAll<HTMLFormElement>("[data-newsletter]").forEach((form) => {
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const msg = form.querySelector<HTMLElement>("[data-nl-msg]");
+      const boton = form.querySelector<HTMLButtonElement>("button");
+      const data = new FormData(form);
+      if (boton) boton.disabled = true;
+      try {
+        const resp = await fetch("/api/newsletter", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            email: data.get("email"),
+            hp: data.get("hp"),
+            referrer: location.href,
+          }),
+        });
+        const body = await resp.json();
+        if (msg) {
+          if (body.status === "confirm") {
+            msg.textContent = "Listo. Revisa tu correo y confirma tu alta para recibir la guía.";
+          } else if (body.status === "already") {
+            msg.textContent = "Ya estás en la lista. Revisa tu correo.";
+          } else {
+            msg.textContent = body.error ?? "No pudimos suscribirte. Inténtalo de nuevo.";
+          }
+        }
+        if (body.ok) form.reset();
+      } catch {
+        if (msg) msg.textContent = "No pudimos suscribirte. Inténtalo de nuevo.";
+      } finally {
+        if (boton) boton.disabled = false;
+      }
+    });
+  });
+</script>

@@ -1,0 +1,63 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import LeadForm from "../components/LeadForm.astro";
+import { breadcrumbs, graph } from "../lib/schema";
+
+const jsonLd = graph(
+  breadcrumbs([
+    { name: "Inicio", path: "/" },
+    { name: "Contacto", path: "/contacto" },
+  ]),
+);
+---
+
+<BaseLayout
+  title="Contacto: platiquemos de tu caso"
+  description="¿Quieres capacitar a tu equipo, automatizar un proceso o conocer las herramientas? Déjame tu correo o WhatsApp, cuéntame qué buscas y te contacto directamente."
+  jsonLd={jsonLd}
+>
+  <main>
+    <section class="encabezado">
+      <div class="container-default">
+        <p class="folio">CONTACTO · <b>SIN INTERMEDIARIOS</b></p>
+        <h1 class="titulo-xl">Dime cómo te ayudo</h1>
+        <p class="intro-page">
+          Este formulario me llega directo. Respondo yo, no un bot, y sin
+          compromiso: si lo que necesitas no es algo mío, también te lo digo.
+        </p>
+      </div>
+    </section>
+
+    <section>
+      <div class="container-default">
+        <LeadForm />
+        <p class="alterno">
+          ¿Prefieres redes? Encuéntrame en
+          <a href="https://www.linkedin.com/in/soyisracastro/" rel="me noopener">LinkedIn</a>
+          o en los comentarios del
+          <a href="https://www.youtube.com/@todoconta" rel="me noopener">canal de YouTube</a>.
+        </p>
+      </div>
+    </section>
+  </main>
+</BaseLayout>
+
+<style>
+  section {
+    padding: 3.4rem 0;
+  }
+  .encabezado {
+    padding-top: 4.5rem;
+    padding-bottom: 0.5rem;
+  }
+  .alterno {
+    margin-top: 1.6rem;
+    color: var(--color-ink-soft);
+    font-size: 0.92rem;
+  }
+  .alterno a {
+    color: var(--color-accent);
+    font-weight: 700;
+    text-decoration: none;
+  }
+</style>

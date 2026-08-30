@@ -12,8 +12,23 @@ Stack: Astro 7 estático + adapter Vercel (solo `/api/newsletter` es serverless)
 - Nombre: "Israel Castro" (formal) o "Isca" (informal). NUNCA "Isca Castro".
 - Contexto siempre MX: SAT, CFDI, ISR, pesos MXN. Nunca IRS/AEAT/euros.
 - CERO menciones públicas de Fiscalistas.AI o Pepe Lara (la alianza no se anuncia).
-- NO publicar precios de talleres ni del Club de Automatización Fiscal (cierre por diagnóstico/aplicación).
-- Posicionamiento: "yo sí programo, para que tú no tengas que hacerlo". No vender "aprende a programar".
+- PRECIOS (decisión Israel 2026-08-30): la sesión mensual abierta SÍ publica precio
+  ($4,999 MXN) y el ebook también ($297 MXN). NO publicar: el ancla de organizaciones
+  ($3,500-4,000/hora, referencia interna de cotización), la capacitación empresarial
+  (solo cotización por llamada tras formulario) ni el Club (cierre por aplicación).
+- Posicionamiento: "contador que ENTIENDE el código". NUNCA "yo sí programo" (hoy Israel
+  casi no escribe código: lo lee, lo entiende y se lo pide a la IA en los términos correctos;
+  además "yo sí programo" señala al que no). La habilidad que se vende: saber nombrar el
+  problema en términos técnicos para que la IA lo resuelva a la primera.
+- HONESTIDAD TÉCNICA (correcciones de Israel 2026-08-30):
+  - TodoConta nació en 2012 como proyecto/blog; como SOFTWARE es de 2026. No afirmar
+    "construyo software desde 2012". El arco real: 2012 blog WordPress, 2019 estudia
+    programación, 2021-2023 desarrollador en startup mexicana, hoy automatiza su despacho.
+  - El MCP trabaja vía la cuenta de TodoConta (app online + servidor): NO prometer "ningún
+    dato sale de tu computadora" para el MCP. Eso solo aplica a la app de ESCRITORIO.
+    El contraste honesto: canal controlado vs pegar datos de clientes en chats públicos.
+- Ángulo Avatar A: la experiencia es la VENTAJA ("con todo lo que sé + IA supero a cualquier
+  recién egresado"); nunca tratar la edad como carencia.
 
 ## Regla anti-duplicación (SEO)
 

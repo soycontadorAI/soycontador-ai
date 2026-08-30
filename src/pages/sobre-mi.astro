@@ -1,0 +1,225 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { breadcrumbs, graph, person } from "../lib/schema";
+import { PERSONA } from "../lib/site";
+
+const jsonLd = graph(
+  person(),
+  breadcrumbs([
+    { name: "Inicio", path: "/" },
+    { name: "Sobre mí", path: "/sobre-mi" },
+  ]),
+);
+
+const diario = [
+  {
+    anio: "2012",
+    titulo: "Me gradúo de contador y nace TodoConta",
+    texto:
+      "Empiezo en el despacho como todos: capturando pólizas y peleando con el portal del SAT. Por pura curiosidad abro un blog en WordPress, TodoConta, para compartir lo que voy aprendiendo.",
+  },
+  {
+    anio: "2019",
+    titulo: "Decido formalizar la otra mitad",
+    texto:
+      "Años de curiosidad tecnológica se vuelven estudio en serio: me meto a aprender programación en línea, con la contabilidad como campo de pruebas.",
+  },
+  {
+    anio: "2021",
+    titulo: "Desarrollador en una startup mexicana",
+    texto:
+      "Dos años construyendo producto digital con un equipo de ingeniería. Ahí aprendo cómo se crean soluciones que escalan, y confirmo que mi ventaja es hablar los dos idiomas: el contable y el técnico.",
+  },
+  {
+    anio: "Hoy",
+    titulo: "De vuelta en el despacho, con superpoderes",
+    texto:
+      "TodoConta deja de ser blog y se convierte en software: descarga masiva de CFDI, conexión MCP para trabajar con Claude y Abacus en WhatsApp. Automatizo mi propia operación y cada jueves enseño cómo, en vivo.",
+  },
+];
+---
+
+<BaseLayout
+  title="Quién es Israel Castro, el contador que también entiende el código"
+  description={PERSONA.bioCorta}
+  type="profile"
+  jsonLd={jsonLd}
+>
+  <main>
+    <section class="encabezado">
+      <div class="container-default hero-grid">
+        <div>
+          <p class="folio">SOBRE MÍ · <b>ISRAEL CASTRO</b></p>
+          <h1 class="titulo-xl">Contador público de formación. Técnico por curiosidad. Las dos cosas a propósito.</h1>
+          <p class="intro-page">
+            Quince años en la contabilidad me enseñaron dónde duele la operación
+            de un despacho. Los años del otro lado del teclado me enseñaron cómo
+            quitarle ese dolor. En medio de las dos cosas está todo lo que
+            encuentras en este sitio.
+          </p>
+        </div>
+        <figure class="retrato">
+          <img src="/assets/israel-castro.jpg" alt="Israel Castro" width="400" height="400" />
+          <figcaption class="folio">CP · DEV · MÉXICO</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section>
+      <div class="container-default">
+        <div class="sec-head"><span class="folio">LIBRO <b>DIARIO</b> · LA HISTORIA</span></div>
+        <div class="diario">
+          {diario.map((asiento) => (
+            <article class="diario-asiento" data-reveal>
+              <span class="anio">{asiento.anio}</span>
+              <div>
+                <h2>{asiento.titulo}</h2>
+                <p>{asiento.texto}</p>
+              </div>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="container-narrow" data-reveal>
+        <div class="sec-head"><span class="folio">NOTA <b>ACLARATORIA</b></span></div>
+        <div class="nota">
+          <p>
+            Una confesión: hoy casi no escribo código. <strong>Lo leo, lo entiendo
+            y se lo pido a la IA en los términos correctos</strong>, que es lo que
+            hace la diferencia entre resolver un problema en minutos o dar vueltas
+            durante días. Con esa habilidad, más todo lo que ya sabes de
+            contabilidad, no hay recién egresado que te alcance.
+          </p>
+          <p>
+            Por eso este proyecto no te vende "aprende a programar". Te propone
+            algo mejor: que tu experiencia sea la ventaja, y que la tecnología
+            trabaje para ti.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="cierre">
+      <div class="container-default" data-reveal>
+        <div class="cierre-caja">
+          <p class="titulo-lg">¿Platicamos de tu caso?</p>
+          <div class="cierre-acciones">
+            <a class="btn btn-primary" href="/contacto">Agenda un diagnóstico</a>
+            <a class="btn btn-ghost" href="/jueves">Ve el live de los jueves</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+</BaseLayout>
+
+<style>
+  section {
+    padding: 3.4rem 0;
+  }
+  .encabezado {
+    padding-top: 4.5rem;
+  }
+  .hero-grid {
+    display: grid;
+    grid-template-columns: 1.4fr auto;
+    gap: 3rem;
+    align-items: center;
+  }
+  @media (max-width: 860px) {
+    .hero-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+  .retrato {
+    margin: 0;
+    text-align: center;
+  }
+  .retrato img {
+    width: 220px;
+    height: 220px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 1.5px solid var(--color-line-strong);
+    box-shadow: 6px 6px 0 var(--color-line);
+  }
+  .retrato figcaption {
+    margin-top: 0.9rem;
+  }
+  .diario {
+    border-left: 1.5px solid var(--color-line-strong);
+    margin-left: 0.4rem;
+  }
+  .diario-asiento {
+    display: grid;
+    grid-template-columns: 6rem 1fr;
+    gap: 1.6rem;
+    padding: 1.6rem 0 1.6rem 1.8rem;
+    position: relative;
+  }
+  .diario-asiento::before {
+    content: "";
+    position: absolute;
+    left: -6px;
+    top: 2.3rem;
+    width: 10px;
+    height: 10px;
+    background: var(--color-accent);
+    border-radius: 2px;
+    rotate: 45deg;
+  }
+  .diario-asiento .anio {
+    font-family: var(--font-mono);
+    font-weight: 700;
+    font-size: 1.05rem;
+    color: var(--color-ink-dim);
+  }
+  .diario-asiento h2 {
+    margin: 0 0 0.4rem;
+    font-size: 1.25rem;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+  }
+  .diario-asiento p {
+    margin: 0;
+    color: var(--color-ink-soft);
+    max-width: 62ch;
+  }
+  @media (max-width: 700px) {
+    .diario-asiento {
+      grid-template-columns: 1fr;
+      gap: 0.4rem;
+    }
+  }
+  .nota {
+    background: var(--color-surface-raised);
+    border: 1px solid var(--color-line-strong);
+    border-radius: var(--radius-md);
+    box-shadow: 6px 6px 0 var(--color-line);
+    padding: 1.8rem 2rem;
+  }
+  .nota p {
+    color: var(--color-ink-soft);
+    margin: 0 0 1rem;
+  }
+  .nota p:last-child {
+    margin-bottom: 0;
+  }
+  .nota strong {
+    color: var(--color-ink);
+  }
+  .cierre-caja {
+    text-align: center;
+    padding: 1rem 0 2rem;
+  }
+  .cierre-acciones {
+    margin-top: 1.4rem;
+    display: flex;
+    gap: 0.9rem;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+</style>

@@ -1,0 +1,162 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { breadcrumbs, graph } from "../lib/schema";
+import { HERRAMIENTAS } from "../lib/herramientas";
+
+const jsonLd = graph(
+  breadcrumbs([
+    { name: "Inicio", path: "/" },
+    { name: "Herramientas", path: "/herramientas" },
+  ]),
+);
+---
+
+<BaseLayout
+  title="Herramientas de Israel Castro: TodoConta y la conexión MCP con el SAT"
+  description="Las herramientas que construí para el trabajo fiscal en México: TodoConta (descarga masiva de CFDI, constancias, opinión 32-D, listas negras y nómina), la conexión MCP para trabajar tus CFDI con Claude y Abacus, el asistente fiscal por WhatsApp."
+  jsonLd={jsonLd}
+>
+  <main>
+    <section class="encabezado">
+      <div class="container-default">
+        <p class="folio">HERRAMIENTAS · <b>SOFTWARE EN PRODUCCIÓN</b></p>
+        <h1 class="titulo-xl">Mis credenciales no son diplomas: son herramientas funcionando</h1>
+        <p class="intro-page">
+          Todo lo que enseño sale de software que construí y que se usa todos los
+          días. Aquí está el catálogo; cada herramienta vive en su propia casa y
+          este sitio solo te lleva a ella.
+        </p>
+      </div>
+    </section>
+
+    <section>
+      <div class="container-default">
+        <div class="lista">
+          {HERRAMIENTAS.map((h, i) => (
+            <article class="fila" data-reveal>
+              <span class="num">{String(i + 1).padStart(2, "0")}</span>
+              <div>
+                <h2>
+                  {h.nombre}
+                  <span class={`estado estado-${h.estado === "disponible" ? "ok" : "beta"}`}>{h.estado}</span>
+                </h2>
+                <p>{h.descripcion}</p>
+              </div>
+              <a class="go" href={h.url} rel="noopener">visitar →</a>
+            </article>
+          ))}
+        </div>
+        <p class="nota folio">// LAS HERRAMIENTAS SE DOCUMENTAN Y VENDEN EN SUS PROPIOS SITIOS; AQUÍ SOLO TE CUENTO QUÉ RESUELVEN</p>
+      </div>
+    </section>
+
+    <section class="cierre">
+      <div class="container-default" data-reveal>
+        <div class="cierre-caja">
+          <p class="titulo-lg">¿Quieres que estas herramientas trabajen en tu despacho?</p>
+          <div class="cierre-acciones">
+            <a class="btn btn-primary" href="/capacitacion">Capacita a tu equipo</a>
+            <a class="btn btn-ghost" href="/club">Conoce el Club</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+</BaseLayout>
+
+<style>
+  section {
+    padding: 3.4rem 0;
+  }
+  .encabezado {
+    padding-top: 4.5rem;
+  }
+  .lista {
+    border: 1px solid var(--color-line-strong);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    background: var(--color-surface-raised);
+  }
+  .fila {
+    display: grid;
+    grid-template-columns: 5.5rem 1fr auto;
+    gap: 1.5rem;
+    align-items: center;
+    padding: 1.8rem;
+    border-bottom: 1px solid var(--color-line);
+  }
+  .fila:last-child {
+    border-bottom: none;
+  }
+  .fila .num {
+    font-family: var(--font-mono);
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--color-ink-dim);
+  }
+  .fila h2 {
+    margin: 0;
+    font-size: 1.25rem;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+    flex-wrap: wrap;
+  }
+  .estado {
+    font-family: var(--font-mono);
+    font-size: 0.62rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 0.22rem 0.55rem;
+    border-radius: 999px;
+  }
+  .estado-ok {
+    background: var(--color-accent-soft);
+    color: var(--color-accent);
+  }
+  .estado-beta {
+    background: var(--color-surface);
+    color: var(--color-ink-dim);
+    border: 1px solid var(--color-line);
+  }
+  .fila p {
+    margin: 0.4rem 0 0;
+    font-size: 0.94rem;
+    color: var(--color-ink-soft);
+    max-width: 64ch;
+  }
+  .fila .go {
+    font-family: var(--font-mono);
+    font-weight: 700;
+    color: var(--color-accent);
+    font-size: 0.9rem;
+    text-decoration: none;
+    white-space: nowrap;
+  }
+  @media (max-width: 760px) {
+    .fila {
+      grid-template-columns: 1fr;
+      gap: 0.5rem;
+    }
+    .fila .num {
+      font-size: 1.1rem;
+    }
+  }
+  .nota {
+    margin-top: 1.2rem;
+  }
+  .cierre-caja {
+    text-align: center;
+    padding: 1rem 0 2rem;
+  }
+  .cierre-acciones {
+    margin-top: 1.4rem;
+    display: flex;
+    gap: 0.9rem;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+</style>

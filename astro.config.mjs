@@ -23,6 +23,7 @@ export default defineConfig({
   },
   redirects: {
     '/jueves-de-contadoria': '/jueves',
+    '/talleres': '/capacitacion',
   },
   env: {
     schema: {

@@ -1,0 +1,139 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import FaqBlock from "../components/FaqBlock.astro";
+import LeadForm from "../components/LeadForm.astro";
+import { FAQ_CLUB } from "../lib/faqs";
+import { breadcrumbs, clubService, faqPage, graph } from "../lib/schema";
+import { CLUB, SITE } from "../lib/site";
+
+const jsonLd = graph(
+  clubService(),
+  faqPage(FAQ_CLUB, `${SITE.url}/club`),
+  breadcrumbs([
+    { name: "Inicio", path: "/" },
+    { name: "Club de Automatización Fiscal", path: "/club" },
+  ]),
+);
+---
+
+<BaseLayout
+  title="Club de Automatización Fiscal: membresía para automatizar tu despacho"
+  description="Membresía anual con lugares limitados para despachos contables en México: TodoConta con conexión MCP, un bootcamp de implementación en vivo cada mes y soporte humano cuando el equipo se atora. La entrada es por aplicación."
+  jsonLd={jsonLd}
+>
+  <main>
+    <section class="encabezado">
+      <div class="container-default">
+        <p class="folio">MEMBRESÍA · <b>{CLUB.siglas}</b> · LUGARES LIMITADOS</p>
+        <h1 class="titulo-xl">{CLUB.nombre}</h1>
+        <p class="intro-page">
+          Para el despacho que ya decidió dejar la operación hormiga. No es un
+          curso: es tu despacho automatizándose mes con mes, con software,
+          implementación en vivo y alguien que te destraba cuando hace falta.
+        </p>
+        <div class="acciones">
+          <a class="btn btn-primary" href="#aplicar">Aplicar al Club</a>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="container-default">
+        <div class="sec-head"><span class="folio">LOS <b>3 PILARES</b></span></div>
+        <div class="grid3">
+          {CLUB.pilares.map((pilar, i) => (
+            <article class="pilar" data-reveal style={`--reveal-delay:${i * 0.08}s`}>
+              <span class="num">{String(i + 1).padStart(2, "0")}</span>
+              <h2>{pilar.titulo}</h2>
+              <p>{pilar.texto}</p>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="cita">
+      <div class="container-default" data-reveal>
+        <span class="folio">ASIENTO DE CIERRE</span>
+        <blockquote>
+          Los cursos se acumulan. Los procesos automatizados <span class="hl">se quedan trabajando</span>.
+        </blockquote>
+      </div>
+    </section>
+
+    <section id="aplicar">
+      <div class="container-default" data-reveal>
+        <LeadForm
+          titulo="Aplica al Club de Automatización Fiscal"
+          intro="Los lugares son limitados y reviso cada aplicación personalmente. Cuéntame de tu despacho y qué quieres automatizar; si el Club es para ti, te contacto con los siguientes pasos."
+          interesDefault="Club de Automatización Fiscal"
+        />
+      </div>
+    </section>
+
+    <section>
+      <div class="container-narrow">
+        <div class="sec-head"><span class="folio">PREGUNTAS <b>DIRECTAS</b></span></div>
+        <FaqBlock items={FAQ_CLUB} />
+      </div>
+    </section>
+  </main>
+</BaseLayout>
+
+<style>
+  section {
+    padding: 3.4rem 0;
+  }
+  .encabezado {
+    padding-top: 4.5rem;
+  }
+  .acciones {
+    margin-top: 2rem;
+  }
+  .grid3 {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.2rem;
+  }
+  @media (max-width: 860px) {
+    .grid3 {
+      grid-template-columns: 1fr;
+    }
+  }
+  .pilar {
+    background: var(--color-surface-raised);
+    border: 1px solid var(--color-line);
+    border-radius: var(--radius-md);
+    padding: 1.8rem;
+  }
+  .pilar .num {
+    font-family: var(--font-mono);
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--color-ink-dim);
+  }
+  .pilar h2 {
+    margin: 0.7rem 0 0.5rem;
+    font-size: 1.15rem;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+  }
+  .pilar p {
+    margin: 0;
+    font-size: 0.93rem;
+    color: var(--color-ink-soft);
+  }
+  .cita {
+    text-align: center;
+    padding: 4.5rem 0;
+  }
+  .cita blockquote {
+    font-family: var(--font-serif-detail);
+    font-style: italic;
+    font-size: clamp(1.4rem, 3vw, 2rem);
+    line-height: 1.35;
+    max-width: 28ch;
+    margin: 1.2rem auto 0;
+    color: var(--color-ink);
+  }
+</style>

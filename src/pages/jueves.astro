@@ -1,0 +1,177 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import NewsletterForm from "../components/NewsletterForm.astro";
+import { breadcrumbs, graph, juevesSeries } from "../lib/schema";
+import { PROGRAMA } from "../lib/site";
+
+const jsonLd = graph(
+  juevesSeries(),
+  breadcrumbs([
+    { name: "Inicio", path: "/" },
+    { name: "Jueves de ContadorIA", path: "/jueves" },
+  ]),
+);
+---
+
+<BaseLayout
+  title="Jueves de ContadorIA, el live semanal de IA para contadores"
+  description="Cada jueves a las 11:00 (hora del centro de México) resuelvo en vivo un problema real de un despacho usando IA: CFDI, conciliaciones, papeles de trabajo y automatización, sin humo y con casos del SAT."
+  jsonLd={jsonLd}
+>
+  <main>
+    <section class="encabezado">
+      <div class="container-default">
+        <p class="folio"><span class="vivo" aria-hidden="true"></span> EN VIVO · <b>JUEVES 11:00</b> · HORA DEL CENTRO</p>
+        <h1 class="titulo-xl">{PROGRAMA.nombre}</h1>
+        <p class="intro-page">
+          Un problema real de un despacho, resuelto con IA frente a ti. Sin
+          diapositivas de relleno: pantalla compartida, casos del SAT y el paso a
+          paso completo, incluyendo lo que sale mal.
+        </p>
+        <div class="acciones">
+          <a class="btn btn-primary" href={PROGRAMA.canal} rel="noopener">Ir al canal y suscribirme</a>
+          <a class="btn btn-ghost" href="#recordatorio">Recuérdamelo por correo</a>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="container-default">
+        <div class="sec-head"><span class="folio">CÓMO <b>FUNCIONA</b></span></div>
+        <div class="grid3">
+          <article class="paso" data-reveal>
+            <span class="num">01</span>
+            <h2>Un caso real por semana</h2>
+            <p>Auditar CFDI, conciliar contra estados de cuenta, armar papeles de
+               trabajo, automatizar descargas: lo que un despacho vive cada mes.</p>
+          </article>
+          <article class="paso" data-reveal style="--reveal-delay:.08s">
+            <span class="num">02</span>
+            <h2>Resuelto en vivo, con IA</h2>
+            <p>Ves los prompts completos, las herramientas y el criterio detrás de
+               cada decisión. Lo que funciona se explica; lo que falla, también.</p>
+          </article>
+          <article class="paso" data-reveal style="--reveal-delay:.16s">
+            <span class="num">03</span>
+            <h2>Te llevas el método</h2>
+            <p>Cada emisión deja material replicable para tu propio despacho. Y si
+               quieres implementarlo con acompañamiento, para eso están la
+               capacitación y el Club.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="recordatorio" class="guia">
+      <div class="container-default guia-inner">
+        <div>
+          <p class="folio guia-folio">CADA <b>SEMANA</b></p>
+          <h2 class="titulo-lg guia-titulo">Que no se te pase el live</h2>
+          <p class="guia-texto">
+            Déjame tu correo y te aviso qué caso toca cada jueves, con el link
+            directo y una idea accionable de IA fiscal por semana.
+          </p>
+        </div>
+        <div>
+          <NewsletterForm boton="Avísame cada jueves" />
+        </div>
+      </div>
+    </section>
+  </main>
+</BaseLayout>
+
+<style>
+  section {
+    padding: 3.4rem 0;
+  }
+  .encabezado {
+    padding-top: 4.5rem;
+  }
+  .vivo {
+    display: inline-block;
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background: #e5484d;
+    margin-right: 0.4rem;
+    animation: pulso 1.6s ease-in-out infinite;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .vivo {
+      animation: none;
+    }
+  }
+  @keyframes pulso {
+    50% {
+      opacity: 0.35;
+    }
+  }
+  .acciones {
+    margin-top: 2rem;
+    display: flex;
+    gap: 0.9rem;
+    flex-wrap: wrap;
+  }
+  .grid3 {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.2rem;
+  }
+  @media (max-width: 860px) {
+    .grid3 {
+      grid-template-columns: 1fr;
+    }
+  }
+  .paso {
+    background: var(--color-surface-raised);
+    border: 1px solid var(--color-line);
+    border-radius: var(--radius-md);
+    padding: 1.8rem;
+  }
+  .paso .num {
+    font-family: var(--font-mono);
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--color-ink-dim);
+  }
+  .paso h2 {
+    margin: 0.7rem 0 0.5rem;
+    font-size: 1.15rem;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+  }
+  .paso p {
+    margin: 0;
+    font-size: 0.93rem;
+    color: var(--color-ink-soft);
+  }
+  .guia {
+    background: var(--color-line-strong);
+  }
+  .guia-inner {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: 3rem;
+    align-items: center;
+  }
+  @media (max-width: 760px) {
+    .guia-inner {
+      grid-template-columns: 1fr;
+    }
+  }
+  .guia .guia-folio {
+    color: #8da2c0;
+  }
+  .guia .guia-folio b {
+    color: var(--color-terminal-ok);
+  }
+  .guia-titulo {
+    color: #ffffff;
+    margin: 0.8rem 0;
+  }
+  .guia-texto {
+    color: #aebbd1;
+    max-width: 46ch;
+    margin: 0;
+  }
+</style>

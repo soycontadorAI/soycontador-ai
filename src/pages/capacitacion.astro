@@ -1,0 +1,221 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import FaqBlock from "../components/FaqBlock.astro";
+import FormCapacitacion from "../components/FormCapacitacion.astro";
+import { EMPRESARIAL, ORGANIZACIONES, SESION_MENSUAL } from "../lib/capacitacion";
+import { FAQ_CAPACITACION } from "../lib/faqs";
+import { breadcrumbs, capacitacionService, faqPage, graph } from "../lib/schema";
+import { SITE } from "../lib/site";
+
+const jsonLd = graph(
+  capacitacionService(),
+  faqPage(FAQ_CAPACITACION, `${SITE.url}/capacitacion`),
+  breadcrumbs([
+    { name: "Inicio", path: "/" },
+    { name: "Capacitación", path: "/capacitacion" },
+  ]),
+);
+---
+
+<BaseLayout
+  title="Capacitación en IA para contadores y despachos contables"
+  description="Talleres de inteligencia artificial aplicada al trabajo fiscal en México: sesión mensual de 8 horas con acompañamiento de 30 días, capacitación para empresas y despachos, y licenciamiento para organizaciones y capacitadoras."
+  jsonLd={jsonLd}
+>
+  <main>
+    <section class="encabezado">
+      <div class="container-default">
+        <p class="folio">CAPACITACIÓN · <b>IA PARA CONTADORES</b></p>
+        <h1 class="titulo-xl">Tu equipo, trabajando con IA sobre casos reales del SAT</h1>
+        <p class="intro-page">
+          No es un curso de teoría: en cada sesión automatizamos procesos reales
+          (CFDI, conciliaciones, papeles de trabajo) y tu equipo se lleva prompts
+          y flujos funcionando. Tres formas de tomarla, según tu caso.
+        </p>
+      </div>
+    </section>
+
+    <section>
+      <div class="container-default">
+        <div class="sec-head"><span class="folio">MODALIDAD <b>01</b> · SESIÓN MENSUAL</span></div>
+        <div class="mensual" data-reveal>
+          <div class="mensual-info">
+            <h2 class="titulo-lg">{SESION_MENSUAL.nombre}</h2>
+            <p class="precio"><b>{SESION_MENSUAL.precio}</b> <span>por persona · {SESION_MENSUAL.duracion}</span></p>
+            <ul class="incluye">
+              {SESION_MENSUAL.incluye.map((item) => (
+                <li>{item}</li>
+              ))}
+            </ul>
+            <a class="btn btn-primary" href="#precalificacion">Quiero mi lugar en la próxima sesión</a>
+          </div>
+          <div class="temario">
+            <p class="folio temario-titulo">TEMARIO · 8 HORAS</p>
+            {SESION_MENSUAL.temario.map((bloque) => (
+              <div class="temario-bloque">
+                <h3>{bloque.bloque}</h3>
+                <p>{bloque.temas}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="container-default">
+        <div class="sec-head"><span class="folio">MODALIDAD <b>02</b> · EMPRESAS Y DESPACHOS</span></div>
+        <div class="dos-cols" data-reveal>
+          <div>
+            <h2 class="titulo-lg">{EMPRESARIAL.nombre}</h2>
+            <p class="texto">{EMPRESARIAL.descripcion}</p>
+            <ul class="puntos">
+              {EMPRESARIAL.puntos.map((punto) => (
+                <li>{punto}</li>
+              ))}
+            </ul>
+            <a class="btn btn-ghost" href="#precalificacion">Llenar el formulario y agendar llamada</a>
+          </div>
+          <div>
+            <h2 class="titulo-lg">{ORGANIZACIONES.nombre}</h2>
+            <p class="texto">{ORGANIZACIONES.descripcion}</p>
+            <ul class="puntos">
+              {ORGANIZACIONES.puntos.map((punto) => (
+                <li>{punto}</li>
+              ))}
+            </ul>
+            <a class="btn btn-ghost" href="#precalificacion">Platiquemos el modelo</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="container-default" data-reveal>
+        <FormCapacitacion />
+      </div>
+    </section>
+
+    <section>
+      <div class="container-narrow">
+        <div class="sec-head"><span class="folio">PREGUNTAS <b>DIRECTAS</b></span></div>
+        <FaqBlock items={FAQ_CAPACITACION} />
+      </div>
+    </section>
+  </main>
+</BaseLayout>
+
+<style>
+  section {
+    padding: 3.4rem 0;
+  }
+  .encabezado {
+    padding-top: 4.5rem;
+  }
+  .mensual {
+    display: grid;
+    grid-template-columns: 1fr 1.1fr;
+    gap: 3rem;
+    align-items: start;
+  }
+  @media (max-width: 900px) {
+    .mensual {
+      grid-template-columns: 1fr;
+    }
+  }
+  .precio {
+    margin: 1rem 0 1.4rem;
+    font-family: var(--font-mono);
+  }
+  .precio b {
+    font-size: 1.9rem;
+    font-weight: 700;
+    color: var(--color-accent);
+    letter-spacing: -0.02em;
+  }
+  .precio span {
+    color: var(--color-ink-dim);
+    font-size: 0.85rem;
+  }
+  .incluye {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 1.8rem;
+  }
+  .incluye li {
+    padding: 0.55rem 0 0.55rem 1.6rem;
+    position: relative;
+    color: var(--color-ink-soft);
+    border-bottom: 1px solid var(--color-line);
+    font-size: 0.96rem;
+  }
+  .incluye li::before {
+    content: "✓";
+    position: absolute;
+    left: 0;
+    font-family: var(--font-mono);
+    font-weight: 700;
+    color: var(--color-accent);
+  }
+  .temario {
+    background: var(--color-surface-raised);
+    border: 1px solid var(--color-line-strong);
+    border-radius: var(--radius-md);
+    box-shadow: 6px 6px 0 var(--color-line);
+    padding: 1.6rem 1.8rem;
+  }
+  .temario-titulo {
+    display: block;
+    margin-bottom: 1.1rem;
+  }
+  .temario-bloque {
+    padding: 0.9rem 0;
+    border-top: 1px solid var(--color-line);
+  }
+  .temario-bloque h3 {
+    margin: 0 0 0.3rem;
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    color: var(--color-ink);
+  }
+  .temario-bloque p {
+    margin: 0;
+    font-size: 0.9rem;
+    color: var(--color-ink-soft);
+  }
+  .dos-cols {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+  }
+  @media (max-width: 900px) {
+    .dos-cols {
+      grid-template-columns: 1fr;
+    }
+  }
+  .texto {
+    color: var(--color-ink-soft);
+    margin: 0.9rem 0 1.1rem;
+    max-width: 52ch;
+  }
+  .puntos {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 1.6rem;
+  }
+  .puntos li {
+    padding: 0.45rem 0 0.45rem 1.6rem;
+    position: relative;
+    color: var(--color-ink-soft);
+    font-size: 0.95rem;
+  }
+  .puntos li::before {
+    content: "·";
+    position: absolute;
+    left: 0;
+    font-family: var(--font-mono);
+    color: var(--color-accent);
+  }
+</style>

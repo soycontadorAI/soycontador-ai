@@ -1,0 +1,32 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+---
+
+<BaseLayout title="Página no encontrada" description="Esta página no existe." noindex>
+  <main>
+    <section class="mensaje">
+      <div class="container-narrow">
+        <p class="folio">ERROR <b>404</b> · PARTIDA SIN CONTRAPARTIDA</p>
+        <h1 class="titulo-xl">Esta página no cuadra</h1>
+        <p class="intro-page">
+          La dirección que buscas no existe o cambió de lugar. Regresa al inicio
+          y de ahí todo está a un clic.
+        </p>
+        <a class="btn btn-primary" href="/">Volver al inicio</a>
+      </div>
+    </section>
+  </main>
+</BaseLayout>
+
+<style>
+  .mensaje {
+    padding: 6rem 0;
+    text-align: center;
+  }
+  .mensaje .intro-page {
+    margin-inline: auto;
+  }
+  .mensaje .btn {
+    margin-top: 2rem;
+  }
+</style>

@@ -1,0 +1,250 @@
+---
+/**
+ * Precalificación de capacitación (sesión mensual, empresarial u
+ * organizaciones). Formulario extendido a propósito: quien llega aquí ya
+ * tiene interés, así que pedimos el contexto completo ANTES de la llamada.
+ * POST a /api/lead con campos personalizados de Sendy.
+ */
+
+import { CALENDARIO_URL } from "../lib/site";
+---
+
+<div class="cap-card" id="precalificacion">
+  <div class="cap-head">
+    <span class="folio">FOLIO <b>CAP-01</b> · PRECALIFICACIÓN</span>
+  </div>
+  <div class="cap-body">
+    <h3>Cuéntame de tu equipo antes de agendar</h3>
+    <p class="cap-intro">
+      Con esto llego a la llamada conociendo tu operación y la reunión se va
+      directo a lo importante: qué automatizar primero y cómo se ve el programa
+      para tu caso.
+    </p>
+    <form method="post" action="/api/lead" data-cap>
+      <div class="campo">
+        <label for="cap-nombre">Tu nombre *</label>
+        <input id="cap-nombre" type="text" name="nombre" required autocomplete="name" />
+      </div>
+      <div class="campo">
+        <label for="cap-email">Tu correo *</label>
+        <input id="cap-email" type="email" name="email" required placeholder="tu@correo.com" autocomplete="email" />
+      </div>
+      <div class="campo">
+        <label for="cap-whatsapp">WhatsApp (opcional)</label>
+        <input id="cap-whatsapp" type="tel" name="whatsapp" placeholder="+52 " autocomplete="tel" />
+      </div>
+      <div class="campo">
+        <label for="cap-empresa">Empresa, despacho u organización *</label>
+        <input id="cap-empresa" type="text" name="empresa" required autocomplete="organization" />
+      </div>
+      <div class="campo">
+        <label for="cap-modalidad">¿Qué modalidad te interesa?</label>
+        <select id="cap-modalidad" name="rol">
+          <option value="Capacitación: sesión mensual">La sesión mensual (mi lugar individual)</option>
+          <option value="Capacitación: empresarial">Capacitación para mi empresa o despacho</option>
+          <option value="Capacitación: organización">Licenciar el taller para mi organización o comunidad</option>
+        </select>
+      </div>
+      <div class="campo">
+        <label for="cap-equipo">¿Cuántas personas son?</label>
+        <select id="cap-equipo" name="equipo">
+          <option value="Solo yo">Solo yo</option>
+          <option value="2-5">2 a 5</option>
+          <option value="6-20">6 a 20</option>
+          <option value="21-50">21 a 50</option>
+          <option value="50+">Más de 50</option>
+        </select>
+      </div>
+      <div class="campo">
+        <label for="cap-nivel">¿Qué tanto usan IA hoy?</label>
+        <select id="cap-nivel" name="nivelIA">
+          <option value="No la usamos">Todavía no la usamos</option>
+          <option value="Probamos sin método">La probamos, pero sin método</option>
+          <option value="Uso diario">La usamos casi a diario</option>
+        </select>
+      </div>
+      <div class="campo">
+        <label for="cap-cuando">¿Para cuándo lo necesitas?</label>
+        <select id="cap-cuando" name="cuando">
+          <option value="Lo antes posible">Lo antes posible</option>
+          <option value="Este trimestre">En los próximos 3 meses</option>
+          <option value="Explorando">Apenas estoy explorando</option>
+        </select>
+      </div>
+      <div class="campo campo-full">
+        <label for="cap-mensaje">¿Qué procesos te gustaría automatizar? *</label>
+        <textarea
+          id="cap-mensaje"
+          name="mensaje"
+          rows="3"
+          required
+          maxlength="500"
+          placeholder="Ej. descargamos CFDI a mano para 40 clientes y las conciliaciones nos toman una semana cada cierre…"></textarea>
+      </div>
+      <input type="text" name="hp" tabindex="-1" autocomplete="off" aria-hidden="true" class="cap-hp" />
+      <div class="campo-full cap-envio">
+        <button type="submit" class="btn btn-primary">Enviar y agendar llamada</button>
+        <small data-cap-msg>
+          Al enviarlo te llega un correo para confirmar y de ahí agendamos la llamada.
+        </small>
+      </div>
+    </form>
+    {CALENDARIO_URL && (
+      <p class="cap-calendario">
+        ¿Ya lo enviaste? <a href={CALENDARIO_URL} rel="noopener">Agenda tu llamada directamente aquí</a>.
+      </p>
+    )}
+  </div>
+</div>
+
+<style>
+  .cap-card {
+    background: var(--color-surface-raised);
+    border: 1px solid var(--color-line-strong);
+    border-radius: var(--radius-md);
+    box-shadow: 6px 6px 0 var(--color-line);
+    overflow: hidden;
+  }
+  .cap-head {
+    padding: 0.8rem 1.6rem;
+    border-bottom: 1px solid var(--color-line-strong);
+    background: var(--color-surface);
+  }
+  .cap-body {
+    padding: 1.8rem 1.6rem 2rem;
+  }
+  .cap-body h3 {
+    margin: 0 0 0.4rem;
+    font-size: 1.35rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+  }
+  .cap-intro {
+    margin: 0 0 1.4rem;
+    color: var(--color-ink-soft);
+    font-size: 0.95rem;
+    max-width: 58ch;
+  }
+  form {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem 1.2rem;
+  }
+  @media (max-width: 700px) {
+    form {
+      grid-template-columns: 1fr;
+    }
+  }
+  .campo-full {
+    grid-column: 1 / -1;
+  }
+  label {
+    display: block;
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--color-ink-dim);
+    margin-bottom: 0.4rem;
+  }
+  input,
+  select,
+  textarea {
+    width: 100%;
+    padding: 0.75rem 0.9rem;
+    font-size: 0.95rem;
+    font-family: var(--font-body);
+    color: var(--color-ink);
+    background: var(--color-bg);
+    border: 1px solid var(--color-line);
+    border-radius: var(--radius-sm);
+    box-sizing: border-box;
+  }
+  input:focus,
+  select:focus,
+  textarea:focus {
+    border-color: var(--color-accent);
+    outline: none;
+  }
+  textarea {
+    resize: vertical;
+  }
+  .cap-hp {
+    position: absolute;
+    left: -9999px;
+    height: 0;
+    width: 0;
+    opacity: 0;
+  }
+  .cap-envio {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+  .cap-envio button {
+    cursor: pointer;
+    border: none;
+  }
+  .cap-envio small {
+    color: var(--color-ink-dim);
+    font-size: 0.8rem;
+    max-width: 38ch;
+  }
+  .cap-calendario {
+    margin: 1.2rem 0 0;
+    font-size: 0.9rem;
+    color: var(--color-ink-soft);
+  }
+  .cap-calendario a {
+    color: var(--color-accent);
+    font-weight: 700;
+  }
+</style>
+
+<script>
+  document.querySelectorAll<HTMLFormElement>("[data-cap]").forEach((form) => {
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const msg = form.querySelector<HTMLElement>("[data-cap-msg]");
+      const boton = form.querySelector<HTMLButtonElement>("button[type=submit]");
+      const data = new FormData(form);
+      if (boton) boton.disabled = true;
+      try {
+        const resp = await fetch("/api/lead", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            nombre: data.get("nombre"),
+            email: data.get("email"),
+            whatsapp: data.get("whatsapp"),
+            empresa: data.get("empresa"),
+            rol: data.get("rol"),
+            equipo: data.get("equipo"),
+            nivelIA: data.get("nivelIA"),
+            cuando: data.get("cuando"),
+            mensaje: data.get("mensaje"),
+            interes: "Capacitación",
+            hp: data.get("hp"),
+            referrer: location.href,
+          }),
+        });
+        const body = await resp.json();
+        if (msg) {
+          if (body.ok) {
+            msg.textContent =
+              "Recibido. Confirma el correo que te acaba de llegar y de ahí agendamos la llamada.";
+          } else {
+            msg.textContent = body.error ?? "No pudimos registrarte. Inténtalo de nuevo.";
+          }
+        }
+        if (body.ok) form.reset();
+      } catch {
+        if (msg) msg.textContent = "No pudimos registrarte. Inténtalo de nuevo.";
+      } finally {
+        if (boton) boton.disabled = false;
+      }
+    });
+  });
+</script>

@@ -4,6 +4,16 @@
  * JSON-LD (schema.ts), el SEO por página, llms-full.txt y el footer se generan
  * de este objeto. Si un dato de identidad cambia, se cambia AQUÍ y en ningún
  * otro lado.
+ *
+ * Reglas de honestidad del copy (2026-08-30):
+ * - Israel NO "escribe código" hoy: lo lee, lo entiende y se lo pide a la IA
+ *   en los términos correctos. Posicionamiento: "contador que entiende el
+ *   código", nunca "yo sí programo".
+ * - TodoConta nació en 2012 como proyecto/blog; como SOFTWARE es de 2026.
+ *   No afirmar "construyo software desde 2012".
+ * - El MCP trabaja vía la cuenta de TodoConta (app online + servidor): NO
+ *   prometer "ningún dato sale de tu computadora" (eso solo aplica a la app
+ *   de escritorio). El contraste honesto es vs pegar datos en chats públicos.
  */
 
 export const SITE = {
@@ -13,9 +23,9 @@ export const SITE = {
   lang: "es-MX",
 
   titleDefault:
-    "Israel Castro. Contador público y desarrollador de software. IA para contadores en México",
+    "Israel Castro. Contador público que entiende el código. IA para contadores en México",
   descriptionDefault:
-    "Soy Israel Castro, contador público y desarrollador de software. Ayudo a contadores y despachos de México a automatizar su operación fiscal con IA: talleres, herramientas como TodoConta y MCP, y el live semanal Jueves de ContadorIA.",
+    "Soy Israel Castro, contador público que entiende el código. Ayudo a contadores y despachos de México a automatizar su operación fiscal con IA: talleres, soluciones a la medida, herramientas como TodoConta y su conexión MCP, y el live semanal Jueves de ContadorIA.",
 
   claim:
     "La IA no te va a reemplazar. Pero un contador que sabe usar IA para volverse infraestructura sí va a reemplazar al que no.",
@@ -27,7 +37,7 @@ export const PERSONA = {
   alternateName: "Isca",
   jobTitles: ["Contador Público", "Desarrollador de Software"],
   bioCorta:
-    "Contador público con 15 años de ejercicio y desarrollador de software. Creador de TodoConta (software fiscal en producción desde 2012), de la conexión MCP que integra Claude con los CFDI del SAT sin exponer datos, y del live semanal Jueves de ContadorIA.",
+    "Contador público con 15 años de ejercicio que también entiende el código: estudió programación, trabajó como desarrollador en una startup mexicana y hoy automatiza su propio despacho con IA. Creador de TodoConta (proyecto nacido en 2012, hoy software fiscal con conexión MCP) y del live semanal Jueves de ContadorIA.",
   pais: "MX",
 
   sameAs: [
@@ -43,6 +53,7 @@ export const PERSONA = {
     "Claude para contadores",
     "automatización de despachos contables",
     "automatización fiscal",
+    "automatización de procesos con Python",
     "SAT",
     "CFDI",
     "descarga masiva de XML del SAT",
@@ -63,12 +74,12 @@ export const CLUB = {
   nombre: "Club de Automatización Fiscal",
   siglas: "CAF",
   descripcion:
-    "Membresía anual con lugares limitados para despachos que quieren automatizar su operación fiscal: software (TodoConta Enterprise con conexión MCP), un bootcamp de implementación en vivo cada mes y soporte humano cuando el equipo se atora. La entrada es por aplicación.",
+    "Membresía anual con lugares limitados para despachos que quieren automatizar su operación fiscal: software (TodoConta con conexión MCP), un bootcamp de implementación en vivo cada mes y soporte humano cuando el equipo se atora. La entrada es por aplicación.",
   pilares: [
     {
       titulo: "Software listo para usar",
       texto:
-        "TodoConta Enterprise multi-RFC: descarga masiva de CFDI, constancias, opinión 32-D, listas negras y nómina. Con conexión MCP para trabajar con Claude sin que un dato salga de tu equipo.",
+        "TodoConta multi-RFC: descarga masiva de CFDI, constancias, opinión 32-D, listas negras y nómina. Con conexión MCP para pedirle a Claude cálculos, conciliaciones y reportes en lenguaje natural.",
     },
     {
       titulo: "Bootcamp mensual de implementación",
@@ -83,13 +94,40 @@ export const CLUB = {
   ],
 } as const;
 
+export const EBOOK = {
+  titulo: "IA para Contadores",
+  subtitulo: "Conceptos, herramientas y estrategia para el profesional contable",
+  headline: "Entiende la IA antes de que la IA te rebase",
+  pitch:
+    "17 capítulos, 3 apéndices, cero código y cero jerga sin explicar. No te va a convertir en programador: te va a convertir en un contador que entiende la herramienta más importante de la próxima década.",
+  precio: "$297 MXN",
+  /** TODO(Israel): aún no existe página pública de venta (se venderá en nas.io).
+   *  Mientras sea null, el CTA manda al formulario de contacto. */
+  url: null as string | null,
+} as const;
+
+/** Nav del sitio: 3 anclas de la home + CTA (decisión de Israel 2026-08-30). */
 export const NAV = [
-  { label: "Quién soy", href: "/sobre-mi" },
-  { label: "Talleres", href: "/talleres" },
-  { label: "Herramientas", href: "/herramientas" },
-  { label: "Jueves", href: "/jueves" },
-  { label: "Club", href: "/club" },
+  { label: "Quién soy", href: "/#quien" },
+  { label: "Qué encuentras aquí", href: "/#ofertas" },
+  { label: "Preguntas", href: "/#faq" },
 ] as const;
+
+/** Páginas internas, para el footer y el crawleo. */
+export const NAV_PAGINAS = [
+  { label: "Sobre mí", href: "/sobre-mi" },
+  { label: "Capacitación", href: "/capacitacion" },
+  { label: "Soluciones a la medida", href: "/soluciones" },
+  { label: "Herramientas", href: "/herramientas" },
+  { label: "Jueves de ContadorIA", href: "/jueves" },
+  { label: "Club de Automatización Fiscal", href: "/club" },
+  { label: "Contacto", href: "/contacto" },
+] as const;
+
+/** TODO(Israel): URL del calendario para agendar la llamada de capacitación
+ *  empresarial (Calendly/Cal.com/Google). Mientras sea null, el flujo termina
+ *  en el formulario y el seguimiento va por correo. */
+export const CALENDARIO_URL: string | null = null;
 
 export const FOOTER_LINKS = [
   { label: "YouTube", href: "https://www.youtube.com/@todoconta" },

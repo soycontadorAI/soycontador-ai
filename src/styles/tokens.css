@@ -35,6 +35,8 @@
   --color-terminal-bright: #E8EDF5;
   --color-terminal-dim: #5A6B85;
   --color-terminal-ok: #3DD68C;
+  /* Marcador inline de citas: el mismo verde de "resultado" de la terminal */
+  --color-marker: #3DD68C;
 
   /* Tipografía */
   --font-display: "Space Grotesk Variable", -apple-system, sans-serif;

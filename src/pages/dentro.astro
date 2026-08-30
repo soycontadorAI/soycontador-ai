@@ -1,0 +1,45 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+---
+
+<BaseLayout
+  title="Estás dentro"
+  description="Confirmaste tu correo: ya estás dentro."
+  noindex
+>
+  <main>
+    <section class="mensaje">
+      <div class="container-narrow">
+        <p class="folio">FOLIO <b>OK-02</b> · CONFIRMADO</p>
+        <h1 class="titulo-xl">Estás dentro</h1>
+        <p class="intro-page">
+          Tu correo quedó confirmado. En unos minutos te llega el primer mensaje
+          con lo tuyo (la guía, el aviso del live o mi respuesta, según lo que
+          pediste). Mientras tanto, el live es cada jueves a las 11:00, hora del
+          centro.
+        </p>
+        <div class="acciones">
+          <a class="btn btn-primary" href="/jueves">Conoce el live de los jueves</a>
+          <a class="btn btn-ghost" href="/">Volver al inicio</a>
+        </div>
+      </div>
+    </section>
+  </main>
+</BaseLayout>
+
+<style>
+  .mensaje {
+    padding: 6rem 0;
+    text-align: center;
+  }
+  .mensaje .intro-page {
+    margin-inline: auto;
+  }
+  .acciones {
+    margin-top: 2rem;
+    display: flex;
+    gap: 0.9rem;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+</style>

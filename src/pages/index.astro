@@ -1,17 +1,433 @@
 ---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import FaqBlock from "../components/FaqBlock.astro";
+import LeadForm from "../components/LeadForm.astro";
+import NewsletterForm from "../components/NewsletterForm.astro";
+import Poliza from "../components/Poliza.astro";
+import Terminal from "../components/Terminal.astro";
+import { FAQ_HOME } from "../lib/faqs";
+import { faqPage, graph, person, webSite } from "../lib/schema";
+import { EBOOK, SITE } from "../lib/site";
 
+const jsonLd = graph(person(), webSite(), faqPage(FAQ_HOME, `${SITE.url}/`));
+
+const asientos = [
+  {
+    num: "01",
+    titulo: "Capacitación en IA",
+    texto:
+      "Sesión mensual de 8 horas en vivo con grabación, material y 30 días de acompañamiento. Y programas completos para empresas, despachos y organizaciones.",
+    href: "/capacitacion",
+    cta: "conoce →",
+  },
+  {
+    num: "02",
+    titulo: "Soluciones a la medida",
+    texto:
+      "¿Prefieres que lo haga por ti? Automatizo tu proceso: como el concentrado mensual que tomaba 7 horas de captura y hoy corre en segundos.",
+    href: "/soluciones",
+    cta: "platícame →",
+  },
+  {
+    num: "03",
+    titulo: "Herramientas",
+    texto:
+      "TodoConta: descarga masiva de CFDI, constancias y opinión 32-D en un clic. Más la conexión MCP para trabajar tus CFDI con Claude.",
+    href: "/herramientas",
+    cta: "conoce →",
+  },
+  {
+    num: "04",
+    titulo: `Ebook: ${EBOOK.titulo}`,
+    texto: `${EBOOK.headline}. 17 capítulos y 3 apéndices, cero código y cero jerga sin explicar. ${EBOOK.precio}.`,
+    href: EBOOK.url ?? "/contacto",
+    cta: "consíguelo →",
+  },
+  {
+    num: "05",
+    titulo: "Jueves de ContadorIA",
+    texto:
+      "En vivo cada jueves a las 11:00, hora del centro: un problema real de un despacho, resuelto con IA frente a ti.",
+    href: "/jueves",
+    cta: "suscríbete →",
+  },
+  {
+    num: "06",
+    titulo: "Club de Automatización Fiscal",
+    texto:
+      "Membresía anual con lugares limitados: software, un bootcamp de implementación cada mes y soporte humano cuando te atoras.",
+    href: "/club",
+    cta: "aplica →",
+  },
+];
+
+const lineasTerminal = [
+  { tipo: "user" as const, texto: "concilia los CFDI de marzo contra el estado de cuenta" },
+  { tipo: "dim" as const, texto: "→ mcp: todoconta · leyendo 3,412 XML…" },
+  { tipo: "ok" as const, texto: "✓ 3,398 conciliados · 14 diferencias detectadas" },
+  { tipo: "ok" as const, texto: "✓ reporte listo en 31 segundos" },
+  { tipo: "dim" as const, texto: "# las 14 diferencias quedan para tu criterio" },
+];
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<BaseLayout jsonLd={jsonLd}>
+  <main>
+    <section class="hero">
+      <div class="container-default margen hero-grid">
+        <div>
+          <p class="folio"><b>ISRAEL CASTRO</b> · CONTADOR PÚBLICO + DESARROLLADOR DE SOFTWARE</p>
+          <h1>La IA no te va a reemplazar. Al que la ignora, <span class="verde">sí</span>.</h1>
+          <p class="hero-sub">
+            Un contador que usa IA para volverse infraestructura reemplaza al que no.
+            Llevo 15 años en la contabilidad y varios del otro lado del teclado:
+            hoy automatizo mi propio despacho y te enseño a hacer lo mismo con el tuyo.
+          </p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#contacto">Platiquemos de tu caso</a>
+            <a class="btn btn-ghost" href="/jueves">Ve el live de los jueves</a>
+          </div>
+        </div>
+        <div>
+          <Poliza
+            folio="PÓLIZA Dr-001"
+            titulo="TU DESPACHO"
+            filas={[
+              { concepto: "Descargas manuales del SAT", cargo: "8 h/mes" },
+              { concepto: "Validaciones y listas negras", cargo: "5 h/mes" },
+              { concepto: "Capturas y reportes en Excel", cargo: "7 h/mes" },
+            ]}
+            total={{ concepto: "Honorarios no facturados al año", cargo: "$240,000" }}
+            nota="// la operación hormiga también se contabiliza"
+            foto="/assets/israel-castro.jpg"
+            fotoAlt="Israel Castro"
+          />
+        </div>
+      </div>
+    </section>
+
+    <section id="quien">
+      <div class="container-default margen">
+        <div class="sec-head"><span class="folio">CUENTA <b>01</b> · QUIÉN SOY</span></div>
+        <div class="bio-grid">
+          <div class="bio" data-reveal>
+            <p class="lede">Soy contador público. También entiendo el código.</p>
+            <p>
+              Empecé capturando pólizas y peleando con el portal del SAT, como todos.
+              La curiosidad me llevó a estudiar programación y a trabajar como
+              desarrollador en una startup; hoy estoy de vuelta en el despacho,
+              automatizando todo lo que se repite.
+            </p>
+            <p>
+              <strong>Casi no escribo código: lo leo, lo entiendo y se lo pido a la IA
+              en los términos correctos.</strong> Esa es la habilidad que te quiero
+              transferir, porque tu experiencia contable más esa habilidad no la
+              alcanza ningún recién egresado.
+            </p>
+            <div class="chips">
+              <span class="chip"><b>15</b> años de fiscal</span>
+              <span class="chip">TodoConta · desde <b>2012</b></span>
+              <span class="chip">MCP <b>SAT</b></span>
+              <span class="chip">Live semanal · <b>jueves 11:00</b></span>
+            </div>
+            <p class="mas"><a href="/sobre-mi">Toda la historia →</a></p>
+          </div>
+          <div data-reveal style="--reveal-delay: .12s">
+            <Terminal lineas={lineasTerminal} />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="ofertas">
+      <div class="container-default margen">
+        <div class="sec-head"><span class="folio">CUENTA <b>02</b> · QUÉ ENCUENTRAS AQUÍ</span></div>
+        <div class="asientos" data-reveal>
+          {asientos.map((a) => (
+            <a class="asiento" href={a.href}>
+              <span class="num">{a.num}</span>
+              <span>
+                <h3>{a.titulo}</h3>
+                <p>{a.texto}</p>
+              </span>
+              <span class="go">{a.cta}</span>
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="cita">
+      <div class="container-default" data-reveal>
+        <span class="folio">ASIENTO DE CIERRE</span>
+        <blockquote>
+          A la infraestructura de un negocio nunca la despiden, y tampoco le <span class="hl">regatean el precio</span>.
+        </blockquote>
+      </div>
+    </section>
+
+    <section class="guia">
+      <div class="container-default guia-inner">
+        <div>
+          <p class="folio guia-folio">DESCARGA <b>GRATUITA</b></p>
+          <h2>5 prompts para auditar XMLs con Claude</h2>
+          <p class="guia-texto">
+            La misma guía que uso en mis talleres. Te la mando al correo, junto con
+            una idea accionable de IA fiscal cada semana.
+          </p>
+        </div>
+        <div>
+          <NewsletterForm />
+        </div>
+      </div>
+    </section>
+
+    <section id="faq">
+      <div class="container-narrow">
+        <div class="sec-head"><span class="folio">CUENTA <b>03</b> · PREGUNTAS DIRECTAS</span></div>
+        <FaqBlock items={FAQ_HOME} />
+      </div>
+    </section>
+
+    <section class="cierre">
+      <div class="container-default" data-reveal>
+        <LeadForm />
+      </div>
+    </section>
+  </main>
+</BaseLayout>
+
+<style>
+  .margen {
+    position: relative;
+  }
+  .margen::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0.5rem;
+    border-left: 1px solid #d9e3f0;
+  }
+  @media (max-width: 900px) {
+    .margen::before {
+      display: none;
+    }
+  }
+  section {
+    padding: 4.2rem 0;
+  }
+  h1 {
+    font-weight: 700;
+    font-size: clamp(2rem, 4.4vw, 3.15rem);
+    line-height: 1.1;
+    letter-spacing: -0.03em;
+    max-width: 22ch;
+    margin: 1.1rem 0 0;
+  }
+  h1 .verde {
+    color: var(--color-accent);
+  }
+  h2 {
+    font-weight: 700;
+    font-size: clamp(1.5rem, 3vw, 2.1rem);
+    letter-spacing: -0.02em;
+    line-height: 1.15;
+    margin: 0;
+  }
+  h3 {
+    margin: 0;
+  }
+
+  /* Hero */
+  .hero {
+    padding: 5rem 0 4rem;
+  }
+  .hero-grid {
+    display: grid;
+    grid-template-columns: 1.25fr 1fr;
+    gap: 3.5rem;
+    align-items: center;
+  }
+  @media (max-width: 900px) {
+    .hero-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+  .hero-sub {
+    margin-top: 1.4rem;
+    max-width: 50ch;
+    color: var(--color-ink-soft);
+  }
+  .hero-actions {
+    margin-top: 2rem;
+    display: flex;
+    gap: 0.9rem;
+    flex-wrap: wrap;
+  }
+
+  /* Quién soy */
+  .bio-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    align-items: center;
+  }
+  @media (max-width: 900px) {
+    .bio-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+  .bio p {
+    margin: 0 0 1.1rem;
+    color: var(--color-ink-soft);
+  }
+  .bio p strong {
+    color: var(--color-ink);
+  }
+  .bio .lede {
+    font-size: 1.3rem;
+    font-weight: 500;
+    color: var(--color-ink);
+    line-height: 1.45;
+  }
+  .chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 1.4rem;
+  }
+  .chip {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    font-weight: 500;
+    padding: 0.35rem 0.7rem;
+    border: 1px solid var(--color-line);
+    border-radius: 999px;
+    background: var(--color-surface-raised);
+    color: var(--color-ink-soft);
+  }
+  .chip b {
+    color: var(--color-accent);
+    font-weight: 700;
+  }
+  .mas {
+    margin-top: 1.3rem;
+  }
+  .mas a {
+    font-weight: 700;
+    font-size: 0.92rem;
+    color: var(--color-accent);
+    text-decoration: none;
+  }
+
+  /* Asientos */
+  .asientos {
+    border: 1px solid var(--color-line-strong);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    background: var(--color-surface-raised);
+  }
+  .asiento {
+    display: grid;
+    grid-template-columns: 5.5rem 1fr auto;
+    gap: 1.5rem;
+    align-items: center;
+    padding: 1.7rem 1.8rem;
+    border-bottom: 1px solid var(--color-line);
+    text-decoration: none;
+    color: inherit;
+    transition: background 0.15s ease;
+  }
+  .asiento:last-child {
+    border-bottom: none;
+  }
+  .asiento:hover {
+    background: var(--color-accent-soft);
+  }
+  .asiento .num {
+    font-family: var(--font-mono);
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--color-ink-dim);
+  }
+  .asiento:hover .num {
+    color: var(--color-accent);
+  }
+  .asiento h3 {
+    font-size: 1.2rem;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+  }
+  .asiento p {
+    font-size: 0.92rem;
+    color: var(--color-ink-soft);
+    margin: 0.3rem 0 0;
+    max-width: 58ch;
+  }
+  .asiento .go {
+    font-family: var(--font-mono);
+    font-weight: 700;
+    color: var(--color-accent);
+    font-size: 0.9rem;
+    white-space: nowrap;
+  }
+  @media (max-width: 760px) {
+    .asiento {
+      grid-template-columns: 1fr;
+      gap: 0.5rem;
+    }
+    .asiento .num {
+      font-size: 1.1rem;
+    }
+  }
+
+  /* Cita */
+  .cita {
+    text-align: center;
+    padding: 5rem 0;
+  }
+  .cita blockquote {
+    font-family: var(--font-serif-detail);
+    font-style: italic;
+    font-size: clamp(1.5rem, 3.2vw, 2.2rem);
+    line-height: 1.35;
+    max-width: 26ch;
+    margin: 1.2rem auto 0;
+    color: var(--color-ink);
+  }
+
+  /* Lead magnet */
+  .guia {
+    background: var(--color-line-strong);
+  }
+  .guia-inner {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: 3rem;
+    align-items: center;
+  }
+  @media (max-width: 760px) {
+    .guia-inner {
+      grid-template-columns: 1fr;
+    }
+  }
+  .guia .guia-folio {
+    color: #8da2c0;
+  }
+  .guia .guia-folio b {
+    color: var(--color-terminal-ok);
+  }
+  .guia h2 {
+    color: #ffffff;
+    margin: 0.8rem 0;
+  }
+  .guia-texto {
+    color: #aebbd1;
+    max-width: 46ch;
+    margin: 0;
+  }
+
+  .cierre {
+    padding-bottom: 5rem;
+  }
+</style>

@@ -1,0 +1,37 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+---
+
+<BaseLayout
+  title="Revisa tu correo"
+  description="Un paso más: confirma tu correo para completar tu registro."
+  noindex
+>
+  <main>
+    <section class="mensaje">
+      <div class="container-narrow">
+        <p class="folio">FOLIO <b>OK-01</b> · CASI LISTO</p>
+        <h1 class="titulo-xl">Revisa tu correo</h1>
+        <p class="intro-page">
+          Te acabo de mandar un mensaje para confirmar tu registro. Ábrelo, dale
+          clic al botón y quedamos conectados. Si no lo ves en un par de minutos,
+          busca en promociones o spam.
+        </p>
+        <a class="btn btn-ghost" href="/">Volver al inicio</a>
+      </div>
+    </section>
+  </main>
+</BaseLayout>
+
+<style>
+  .mensaje {
+    padding: 6rem 0;
+    text-align: center;
+  }
+  .mensaje .intro-page {
+    margin-inline: auto;
+  }
+  .mensaje .btn {
+    margin-top: 2rem;
+  }
+</style>

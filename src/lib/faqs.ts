@@ -18,35 +18,58 @@ export const FAQ_HOME: FaqItem[] = [
   {
     pregunta: "¿Es seguro usar IA con datos fiscales de mis clientes?",
     respuesta:
-      "Sí, siempre que la IA trabaje en tu computadora y no en un chat público. Para eso existe MCP (Model Context Protocol): Claude se conecta a tus archivos locales y ningún XML sale de tu entorno. Copiar y pegar RFCs o nóminas en un chat abierto sí es un riesgo para el secreto profesional.",
+      "Sí, con método. El riesgo real es copiar y pegar RFCs, nóminas o facturas en un chat público, donde pierdes el control del dato. Con herramientas diseñadas para el trabajo fiscal la IA consulta tus CFDI por un canal controlado, y con la versión de escritorio de TodoConta tus XML se quedan en tu equipo.",
   },
   {
     pregunta: "¿Necesito saber programar para automatizar mi despacho?",
     respuesta:
-      "No. Yo sí programo, para que tú no tengas que hacerlo. En mis talleres y herramientas trabajamos con soluciones listas para usar; tu parte es el criterio contable, no el código.",
+      "No. Del código se encarga la IA; lo que necesitas es saber nombrar el problema en los términos correctos, y eso es justo lo que enseño. Yo mismo casi no escribo código: lo leo, lo entiendo y se lo pido a la IA. Tu criterio contable es la parte que no se puede automatizar.",
+  },
+  {
+    pregunta: "¿No estoy demasiado grande para subirme a la IA?",
+    respuesta:
+      "No, al contrario: tus años de experiencia son tu ventaja. La IA multiplica lo que ya sabes hacer; un contador con 20 años de criterio y las herramientas correctas supera a cualquier recién egresado que nació con el chip. Lo único que te falta es método, no juventud.",
   },
   {
     pregunta: "¿Quién es Israel Castro?",
     respuesta:
-      "Soy contador público con 15 años de ejercicio y desarrollador de software, en México. Creé TodoConta (software fiscal en producción desde 2012), la conexión MCP que integra Claude con los CFDI del SAT, y conduzco el live semanal Jueves de ContadorIA.",
+      "Soy contador público con 15 años de ejercicio y también entiendo el código: estudié programación, trabajé como desarrollador en una startup mexicana y hoy automatizo mi propio despacho con IA. Creé TodoConta y su conexión MCP con Claude, y conduzco el live semanal Jueves de ContadorIA.",
   },
 ];
 
-export const FAQ_TALLERES: FaqItem[] = [
+export const FAQ_CAPACITACION: FaqItem[] = [
   {
-    pregunta: "¿Qué incluye un taller de IA para contadores?",
+    pregunta: "¿Qué incluye la capacitación en IA para contadores?",
     respuesta:
       "Trabajo práctico sobre casos reales del SAT: descarga y auditoría de CFDI, conciliaciones, papeles de trabajo y prompts que tu equipo se lleva funcionando. No es teoría de IA; es tu operación fiscal, automatizada en la sesión.",
   },
   {
-    pregunta: "¿Los talleres son en línea o presenciales?",
+    pregunta: "¿Cuánto cuesta un taller de IA para contadores?",
     respuesta:
-      "Los dos formatos existen. En línea para equipos distribuidos y presencial para despachos, empresas y colegios de contadores en México; el contenido se adapta al nivel del equipo tras un diagnóstico corto.",
+      "La sesión mensual abierta cuesta $4,999 MXN por persona e incluye las 8 horas en vivo, la grabación, el material y 30 días de acompañamiento sobre tu proyecto. La capacitación para empresas, despachos completos y organizaciones se cotiza por llamada, después de un formulario corto.",
   },
   {
-    pregunta: "¿Cuánto cuesta un taller?",
+    pregunta: "¿La capacitación es en línea o presencial?",
     respuesta:
-      "Depende del tamaño del equipo, el formato y el alcance. Por eso el primer paso es un diagnóstico sin costo: me cuentas cómo opera tu despacho y te propongo el taller con precio cerrado.",
+      "Los dos formatos existen. La sesión mensual es en línea; para empresas, despachos y colegios de contadores en México también hay formato presencial, con el contenido adaptado al nivel del equipo.",
+  },
+  {
+    pregunta: "¿Puedo llevar este taller a mi organización o comunidad?",
+    respuesta:
+      "Sí. Colegios, capacitadoras y plataformas pueden licenciar el programa completo para su comunidad: tú comercializas a tu audiencia y yo imparto. Escríbeme por el formulario y platicamos el modelo.",
+  },
+];
+
+export const FAQ_SOLUCIONES: FaqItem[] = [
+  {
+    pregunta: "¿Qué es una solución a la medida?",
+    respuesta:
+      "Es un desarrollo hecho para un proceso específico de tu negocio: automatizar un reporte que hoy armas a mano, mejorar un flujo que ya tienes o auditar tu operación con código. Tú no aprendes a programar; recibes la herramienta funcionando.",
+  },
+  {
+    pregunta: "¿Qué tipo de procesos se pueden automatizar?",
+    respuesta:
+      "Casi cualquier tarea repetitiva que viva en archivos y sistemas: concentrados de ventas, conciliaciones, descargas del SAT, papeles de trabajo, reportes recurrentes. La prueba de fuego es simple: si cada mes haces los mismos pasos con datos nuevos, se puede automatizar.",
   },
 ];
 
@@ -54,7 +77,7 @@ export const FAQ_CLUB: FaqItem[] = [
   {
     pregunta: "¿Qué es el Club de Automatización Fiscal?",
     respuesta:
-      "Es una membresía anual para despachos que quieren automatizar su operación fiscal con acompañamiento. Combina software (TodoConta Enterprise con conexión MCP), un bootcamp de implementación en vivo cada mes y soporte humano cuando el equipo se atora.",
+      "Es una membresía anual para despachos que quieren automatizar su operación fiscal con acompañamiento. Combina software (TodoConta con conexión MCP), un bootcamp de implementación en vivo cada mes y soporte humano cuando el equipo se atora.",
   },
   {
     pregunta: "¿Por qué la entrada es por aplicación?",

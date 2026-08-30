@@ -1,0 +1,145 @@
+---
+/**
+ * Terminal con conversación MCP. Las líneas se "tipean" cuando la sección
+ * entra al viewport (IntersectionObserver, una sola vez). Sin JS o con
+ * prefers-reduced-motion se muestra el texto completo.
+ */
+
+export interface LineaTerminal {
+  tipo: "user" | "sys" | "ok" | "dim";
+  texto: string;
+}
+
+interface Props {
+  lineas: LineaTerminal[];
+  label?: string;
+}
+
+const { lineas, label = "Conversación de ejemplo entre un contador y Claude conectado por MCP" } =
+  Astro.props;
+---
+
+<div class="terminal" role="img" aria-label={label}>
+  <div class="terminal-bar" aria-hidden="true">
+    <i class="rojo"></i><i class="ambar"></i><i class="verde"></i>
+  </div>
+  <div class="terminal-body" data-terminal>
+    {lineas.map((linea) => (
+      <div class={`linea ${linea.tipo}`} data-texto={linea.texto}>{linea.texto}</div>
+    ))}
+  </div>
+</div>
+
+<style>
+  .terminal {
+    background: var(--color-terminal-bg);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    border: 1px solid var(--color-line-strong);
+    box-shadow: 6px 6px 0 var(--color-line);
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    line-height: 1.7;
+  }
+  .terminal-bar {
+    display: flex;
+    gap: 6px;
+    padding: 0.7rem 1rem;
+    background: var(--color-terminal-chrome);
+  }
+  .terminal-bar i {
+    width: 11px;
+    height: 11px;
+    border-radius: 50%;
+  }
+  /* Semáforo macOS */
+  .terminal-bar .rojo {
+    background: #ff5f57;
+  }
+  .terminal-bar .ambar {
+    background: #febc2e;
+  }
+  .terminal-bar .verde {
+    background: #28c840;
+  }
+  .terminal-body {
+    padding: 1.1rem 1.3rem 1.4rem;
+    color: var(--color-terminal-ink);
+    min-height: 9.5em; /* evita brinco de layout mientras tipea */
+  }
+  .linea.user {
+    color: var(--color-terminal-bright);
+  }
+  .linea.user::before {
+    content: "tú → claude  ";
+    color: var(--color-terminal-dim);
+  }
+  .linea.ok {
+    color: var(--color-terminal-ok);
+  }
+  .linea.dim {
+    color: var(--color-terminal-dim);
+  }
+  .linea.escribiendo::after {
+    content: "▋";
+    color: var(--color-terminal-bright);
+    animation: parpadeo 0.9s steps(1) infinite;
+  }
+  @keyframes parpadeo {
+    50% {
+      opacity: 0;
+    }
+  }
+</style>
+
+<script>
+  const REDUCED = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  function tipear(body: HTMLElement) {
+    const lineas = Array.from(body.querySelectorAll<HTMLElement>(".linea"));
+    for (const linea of lineas) {
+      linea.textContent = "";
+      linea.style.display = "none";
+    }
+
+    let i = 0;
+    const siguiente = () => {
+      const linea = lineas[i];
+      if (!linea) return;
+      const texto = linea.dataset.texto ?? "";
+      // El humano tipea; las salidas del sistema "imprimen" más rápido
+      const velocidad = linea.classList.contains("user") ? 26 : 8;
+      linea.style.display = "";
+      linea.classList.add("escribiendo");
+      let c = 0;
+      const tick = () => {
+        linea.textContent = texto.slice(0, ++c);
+        if (c < texto.length) {
+          setTimeout(tick, velocidad);
+        } else {
+          linea.classList.remove("escribiendo");
+          i++;
+          setTimeout(siguiente, linea.classList.contains("user") ? 350 : 180);
+        }
+      };
+      tick();
+    };
+    siguiente();
+  }
+
+  document.querySelectorAll<HTMLElement>("[data-terminal]").forEach((body) => {
+    if (REDUCED) return; // texto completo, sin animación
+    const io = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (entry.isIntersecting) {
+            io.unobserve(entry.target);
+            tipear(entry.target as HTMLElement);
+          }
+        }
+      },
+      { threshold: 0.4 },
+    );
+    io.observe(body);
+  });
+</script>

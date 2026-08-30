@@ -3,18 +3,19 @@ import "../styles/global.css";
 
 import JsonLd from "../components/JsonLd.astro";
 import SEO from "../components/SEO.astro";
-import { FOOTER_LINKS, NAV, SITE } from "../lib/site";
+import { FOOTER_LINKS, NAV, NAV_PAGINAS, SITE } from "../lib/site";
 
 interface Props {
   title?: string;
   description?: string;
   image?: string;
+  type?: "website" | "article" | "profile";
   noindex?: boolean;
   /** Grafo JSON-LD ya armado con graph(...) de lib/schema.ts */
   jsonLd?: Record<string, unknown>;
 }
 
-const { title, description, image, noindex, jsonLd } = Astro.props;
+const { title, description, image, type, noindex, jsonLd } = Astro.props;
 const year = new Date().getFullYear();
 ---
 
@@ -25,7 +26,7 @@ const year = new Date().getFullYear();
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="sitemap" href="/sitemap-index.xml" />
-    <SEO {title} {description} {image} {noindex} />
+    <SEO {title} {description} {image} {type} {noindex} />
     {jsonLd && <JsonLd data={jsonLd} />}
     <meta name="generator" content={Astro.generator} />
   </head>
@@ -44,21 +45,48 @@ const year = new Date().getFullYear();
 
     <slot />
 
+    <script>
+      // Reveal on scroll: html.js-reveal activa el ocultamiento (así el
+      // contenido nunca queda invisible sin JS).
+      document.documentElement.classList.add("js-reveal");
+      const io = new IntersectionObserver(
+        (entries) => {
+          for (const entry of entries) {
+            if (entry.isIntersecting) {
+              entry.target.classList.add("is-visible");
+              io.unobserve(entry.target);
+            }
+          }
+        },
+        { threshold: 0.15, rootMargin: "0px 0px -40px 0px" },
+      );
+      document.querySelectorAll("[data-reveal]").forEach((el) => io.observe(el));
+    </script>
+
     <footer class="site-footer">
-      <div class="container-default site-foot">
-        <small>soycontador.ai · Israel Castro · Hecho en México · {year}</small>
-        <ul class="site-links">
-          {FOOTER_LINKS.map((item) => (
-            <li>
-              <a
-                href={item.href}
-                rel={item.href.startsWith("http") ? "me noopener" : undefined}
-              >
-                {item.label}
-              </a>
-            </li>
-          ))}
-        </ul>
+      <div class="container-default">
+        <nav class="site-foot-paginas" aria-label="Páginas del sitio">
+          <ul class="site-links">
+            {NAV_PAGINAS.map((item) => (
+              <li><a href={item.href}>{item.label}</a></li>
+            ))}
+          </ul>
+        </nav>
+        <div class="site-foot">
+          <small>soycontador.ai · Israel Castro · Hecho en México · {year}</small>
+          <ul class="site-links">
+            {FOOTER_LINKS.map((item) => (
+              <li>
+                <a
+                  href={item.href}
+                  rel={item.href.startsWith("http") ? "me noopener" : undefined}
+                >
+                  {item.label}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
       </div>
     </footer>
   </body>
@@ -123,6 +151,10 @@ const year = new Date().getFullYear();
     background: var(--color-surface-raised);
     border-top: 1.5px solid var(--color-line-strong);
     margin-top: 4rem;
+  }
+  .site-foot-paginas {
+    border-bottom: 1px solid var(--color-line);
+    padding-block: 1.4rem;
   }
   .site-foot {
     display: flex;

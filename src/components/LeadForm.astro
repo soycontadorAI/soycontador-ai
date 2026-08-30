@@ -1,0 +1,217 @@
+---
+/**
+ * Formulario de contacto/calificación de leads (cierre de la home y
+ * /contacto). Pide correo (y WhatsApp opcional) y califica con dos selects.
+ * POST a /api/lead → Sendy con campos personalizados.
+ */
+
+interface Props {
+  titulo?: string;
+  intro?: string;
+  /** Preselecciona la opción de "¿Qué estás buscando?" (value exacto) */
+  interesDefault?: string;
+}
+
+const {
+  titulo = "Platiquemos de tu caso",
+  intro = "Déjame tu correo (y tu WhatsApp si prefieres que te escriba por ahí), cuéntame qué buscas y te contacto. Sin compromiso y sin rodeos.",
+  interesDefault,
+} = Astro.props;
+
+const opcionesInteres = [
+  { value: "Taller o capacitación", label: "Un taller o capacitación para mi equipo" },
+  { value: "Solución a la medida", label: "Que automatices un proceso por mí" },
+  { value: "Herramientas", label: "Usar las herramientas (TodoConta, MCP)" },
+  { value: "Club de Automatización Fiscal", label: "Entrar al Club de Automatización Fiscal" },
+  { value: "Solo contenido", label: "Por ahora, solo el contenido" },
+];
+---
+
+<div class="lead-card" id="contacto">
+  <div class="lead-head">
+    <span class="folio">FOLIO <b>DIAG-01</b> · DIAGNÓSTICO</span>
+  </div>
+  <div class="lead-body">
+    <h3>{titulo}</h3>
+    <p class="lead-intro">{intro}</p>
+    <form method="post" action="/api/lead" data-lead>
+      <div class="campo">
+        <label for="lead-email">Tu correo *</label>
+        <input id="lead-email" type="email" name="email" required placeholder="tu@correo.com" autocomplete="email" />
+      </div>
+      <div class="campo">
+        <label for="lead-whatsapp">WhatsApp (opcional)</label>
+        <input id="lead-whatsapp" type="tel" name="whatsapp" placeholder="+52 " autocomplete="tel" />
+      </div>
+      <div class="campo">
+        <label for="lead-rol">¿Cuál es tu caso?</label>
+        <select id="lead-rol" name="rol">
+          <option value="Contador independiente">Soy contador independiente</option>
+          <option value="Despacho">Tengo o trabajo en un despacho</option>
+          <option value="Empresa u organización">Represento una empresa u organización</option>
+          <option value="Otro">Otro</option>
+        </select>
+      </div>
+      <div class="campo">
+        <label for="lead-interes">¿Qué estás buscando?</label>
+        <select id="lead-interes" name="interes">
+          {opcionesInteres.map((op) => (
+            <option value={op.value} selected={op.value === interesDefault}>{op.label}</option>
+          ))}
+        </select>
+      </div>
+      <div class="campo campo-full">
+        <label for="lead-mensaje">Cuéntame en una línea qué necesitas (opcional)</label>
+        <textarea id="lead-mensaje" name="mensaje" rows="2" maxlength="500" placeholder="Ej. cada mes pierdo dos días armando el mismo reporte…"></textarea>
+      </div>
+      <input type="text" name="hp" tabindex="-1" autocomplete="off" aria-hidden="true" class="lead-hp" />
+      <div class="campo-full lead-envio">
+        <button type="submit" class="btn btn-primary">Quiero que me contactes</button>
+        <small data-lead-msg>Te llega un correo para confirmar; en cuanto confirmes, te escribo.</small>
+      </div>
+    </form>
+  </div>
+</div>
+
+<style>
+  .lead-card {
+    background: var(--color-surface-raised);
+    border: 1px solid var(--color-line-strong);
+    border-radius: var(--radius-md);
+    box-shadow: 6px 6px 0 var(--color-line);
+    overflow: hidden;
+  }
+  .lead-head {
+    padding: 0.8rem 1.6rem;
+    border-bottom: 1px solid var(--color-line-strong);
+    background: var(--color-surface);
+  }
+  .lead-head .folio b {
+    color: var(--color-accent);
+  }
+  .lead-body {
+    padding: 1.8rem 1.6rem 2rem;
+  }
+  .lead-body h3 {
+    margin: 0 0 0.4rem;
+    font-size: 1.35rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+  }
+  .lead-intro {
+    margin: 0 0 1.4rem;
+    color: var(--color-ink-soft);
+    font-size: 0.95rem;
+    max-width: 56ch;
+  }
+  form {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem 1.2rem;
+  }
+  @media (max-width: 700px) {
+    form {
+      grid-template-columns: 1fr;
+    }
+  }
+  .campo-full {
+    grid-column: 1 / -1;
+  }
+  label {
+    display: block;
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--color-ink-dim);
+    margin-bottom: 0.4rem;
+  }
+  input,
+  select,
+  textarea {
+    width: 100%;
+    padding: 0.75rem 0.9rem;
+    font-size: 0.95rem;
+    font-family: var(--font-body);
+    color: var(--color-ink);
+    background: var(--color-bg);
+    border: 1px solid var(--color-line);
+    border-radius: var(--radius-sm);
+    box-sizing: border-box;
+  }
+  input:focus,
+  select:focus,
+  textarea:focus {
+    border-color: var(--color-accent);
+    outline: none;
+  }
+  textarea {
+    resize: vertical;
+  }
+  .lead-hp {
+    position: absolute;
+    left: -9999px;
+    height: 0;
+    width: 0;
+    opacity: 0;
+  }
+  .lead-envio {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+  .lead-envio button {
+    cursor: pointer;
+    border: none;
+  }
+  .lead-envio small {
+    color: var(--color-ink-dim);
+    font-size: 0.8rem;
+    max-width: 34ch;
+  }
+</style>
+
+<script>
+  document.querySelectorAll<HTMLFormElement>("[data-lead]").forEach((form) => {
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const msg = form.querySelector<HTMLElement>("[data-lead-msg]");
+      const boton = form.querySelector<HTMLButtonElement>("button[type=submit]");
+      const data = new FormData(form);
+      if (boton) boton.disabled = true;
+      try {
+        const resp = await fetch("/api/lead", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            email: data.get("email"),
+            whatsapp: data.get("whatsapp"),
+            rol: data.get("rol"),
+            interes: data.get("interes"),
+            mensaje: data.get("mensaje"),
+            hp: data.get("hp"),
+            referrer: location.href,
+          }),
+        });
+        const body = await resp.json();
+        if (msg) {
+          if (body.status === "confirm") {
+            msg.textContent =
+              "Recibido. Te llegó un correo para confirmar; en cuanto confirmes, te contacto.";
+          } else if (body.status === "already") {
+            msg.textContent = "Ya te tenía registrado. Te contacto pronto.";
+          } else {
+            msg.textContent = body.error ?? "No pudimos registrarte. Inténtalo de nuevo.";
+          }
+        }
+        if (body.ok) form.reset();
+      } catch {
+        if (msg) msg.textContent = "No pudimos registrarte. Inténtalo de nuevo.";
+      } finally {
+        if (boton) boton.disabled = false;
+      }
+    });
+  });
+</script>

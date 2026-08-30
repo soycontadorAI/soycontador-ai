@@ -1,0 +1,133 @@
+---
+/**
+ * La póliza: tarjeta con tabla contable y doble raya de suma bajo el total.
+ * Elemento de firma de la identidad (ver design/DESIGN.md).
+ */
+
+interface Fila {
+  concepto: string;
+  cargo: string;
+}
+
+interface Props {
+  folio: string;
+  titulo: string;
+  columnaCargo?: string;
+  filas: Fila[];
+  total: Fila;
+  nota?: string;
+  /** Foto circular en el encabezado (ruta pública) */
+  foto?: string;
+  fotoAlt?: string;
+}
+
+const { folio, titulo, columnaCargo = "Cargo", filas, total, nota, foto, fotoAlt } = Astro.props;
+---
+
+<div class="poliza">
+  <div class="poliza-head">
+    <span class="folio">{folio} · {titulo}</span>
+    {foto && (
+      <span class="foto"><img src={foto} alt={fotoAlt ?? ""} width="44" height="44" loading="lazy" /></span>
+    )}
+  </div>
+  <table>
+    <thead>
+      <tr><th>Concepto</th><th class="num">{columnaCargo}</th></tr>
+    </thead>
+    <tbody>
+      {filas.map((fila) => (
+        <tr>
+          <td>{fila.concepto}</td>
+          <td class="num">{fila.cargo}</td>
+        </tr>
+      ))}
+      <tr class="total">
+        <td>{total.concepto}</td>
+        <td class="num">{total.cargo}</td>
+      </tr>
+    </tbody>
+  </table>
+  {nota && <p class="poliza-foot">{nota}</p>}
+</div>
+
+<style>
+  .poliza {
+    background: var(--color-surface-raised);
+    border: 1px solid var(--color-line-strong);
+    border-radius: var(--radius-md);
+    box-shadow: 6px 6px 0 var(--color-line);
+    overflow: hidden;
+  }
+  .poliza-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.8rem 1.2rem;
+    border-bottom: 1px solid var(--color-line-strong);
+    background: var(--color-surface);
+  }
+  .foto {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 1.5px solid var(--color-line-strong);
+    flex: none;
+  }
+  .foto img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: var(--font-mono);
+    font-size: 0.82rem;
+  }
+  th {
+    text-align: left;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    font-size: 0.66rem;
+    color: var(--color-ink-dim);
+    padding: 0.7rem 1.2rem 0.4rem;
+    border-bottom: 1px solid var(--color-line);
+  }
+  td {
+    padding: 0.62rem 1.2rem;
+    border-bottom: 1px solid var(--color-line);
+    color: var(--color-ink-soft);
+  }
+  td.num,
+  th.num {
+    text-align: right;
+    white-space: nowrap;
+  }
+  td.num {
+    font-weight: 500;
+    color: var(--color-ink);
+  }
+  tr.total td {
+    border-bottom: none;
+    border-top: 1.5px solid var(--color-line-strong);
+    box-shadow: 0 3px 0 -1px var(--color-line-strong);
+    font-weight: 700;
+    color: var(--color-ink);
+    padding-block: 0.8rem;
+  }
+  tr.total td.num {
+    color: var(--color-accent);
+    font-size: 1rem;
+  }
+  .poliza-foot {
+    padding: 0.7rem 1.2rem;
+    margin: 0;
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    color: var(--color-ink-dim);
+  }
+</style>
