@@ -27,7 +27,7 @@ export default defineConfig({
   env: {
     schema: {
       SENDY_API_KEY: envField.string({ context: 'server', access: 'secret', optional: true }),
-      SENDY_URL: envField.string({ context: 'server', access: 'public', optional: true }),
+      SENDY_ACTION_URL: envField.string({ context: 'server', access: 'public', optional: true }),
       SENDY_LIST_ID: envField.string({ context: 'server', access: 'public', optional: true }),
     },
   },

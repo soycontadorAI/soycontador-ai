@@ -1,0 +1,137 @@
+---
+import "../styles/global.css";
+
+import JsonLd from "../components/JsonLd.astro";
+import SEO from "../components/SEO.astro";
+import { FOOTER_LINKS, NAV, SITE } from "../lib/site";
+
+interface Props {
+  title?: string;
+  description?: string;
+  image?: string;
+  noindex?: boolean;
+  /** Grafo JSON-LD ya armado con graph(...) de lib/schema.ts */
+  jsonLd?: Record<string, unknown>;
+}
+
+const { title, description, image, noindex, jsonLd } = Astro.props;
+const year = new Date().getFullYear();
+---
+
+<!doctype html>
+<html lang={SITE.lang}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+    <SEO {title} {description} {image} {noindex} />
+    {jsonLd && <JsonLd data={jsonLd} />}
+    <meta name="generator" content={Astro.generator} />
+  </head>
+  <body>
+    <header class="site-header">
+      <nav class="container-default site-nav" aria-label="Principal">
+        <a class="site-logo" href="/">soycontador<span>.ai</span></a>
+        <ul class="site-links">
+          {NAV.map((item) => (
+            <li><a href={item.href}>{item.label}</a></li>
+          ))}
+        </ul>
+        <a class="site-cta" href="/contacto">Agenda un diagnóstico</a>
+      </nav>
+    </header>
+
+    <slot />
+
+    <footer class="site-footer">
+      <div class="container-default site-foot">
+        <small>soycontador.ai · Israel Castro · Hecho en México · {year}</small>
+        <ul class="site-links">
+          {FOOTER_LINKS.map((item) => (
+            <li>
+              <a
+                href={item.href}
+                rel={item.href.startsWith("http") ? "me noopener" : undefined}
+              >
+                {item.label}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </footer>
+  </body>
+</html>
+
+<style>
+  /* Estructura mínima; la identidad completa llega con la dirección elegida */
+  .site-header {
+    border-bottom: 1px solid var(--color-line);
+  }
+  .site-nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding-block: 1.1rem;
+  }
+  .site-logo {
+    font-weight: 700;
+    font-size: 1.1rem;
+    text-decoration: none;
+    letter-spacing: -0.02em;
+  }
+  .site-logo span {
+    color: var(--color-accent);
+  }
+  .site-links {
+    display: flex;
+    gap: 1.4rem;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    flex-wrap: wrap;
+  }
+  .site-links a {
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--color-ink-soft);
+  }
+  .site-links a:hover {
+    color: var(--color-accent);
+  }
+  .site-cta {
+    font-weight: 600;
+    font-size: 0.9rem;
+    text-decoration: none;
+    color: var(--color-accent-contrast);
+    background: var(--color-accent);
+    padding: 0.55rem 1.1rem;
+    border-radius: var(--radius-sm);
+  }
+  .site-cta:hover {
+    background: var(--color-accent-hover);
+  }
+  .site-footer {
+    border-top: 1px solid var(--color-line);
+    margin-top: 4rem;
+  }
+  .site-foot {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+    padding-block: 2rem 2.5rem;
+  }
+  .site-foot small {
+    color: var(--color-ink-dim);
+  }
+  @media (max-width: 760px) {
+    .site-nav .site-links {
+      display: none;
+    }
+  }
+</style>

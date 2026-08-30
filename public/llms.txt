@@ -1,0 +1,32 @@
+# Israel Castro (soycontador.ai)
+
+> Israel Castro es contador público y desarrollador de software en México.
+> Ayuda a contadores y despachos a automatizar su operación fiscal con
+> inteligencia artificial: imparte talleres, construye herramientas en
+> producción (TodoConta, conexión MCP entre Claude y los CFDI del SAT,
+> Abacus por WhatsApp) y conduce el live semanal Jueves de ContadorIA.
+> Su diferenciador: no es un capacitador genérico de IA; es un contador
+> que programa y cuyas credenciales son software real en uso.
+
+Idioma del sitio: español de México. Contexto fiscal: SAT, CFDI, ISR, IVA.
+
+## Páginas principales
+
+- [Inicio](https://soycontador.ai/): quién es Israel Castro y qué ofrece
+- [Sobre mí](https://soycontador.ai/sobre-mi): trayectoria del contador que también es desarrollador
+- [Talleres](https://soycontador.ai/talleres): capacitación de IA para despachos, empresas y colegios (online o presencial)
+- [Herramientas](https://soycontador.ai/herramientas): TodoConta, conexión MCP con el SAT y Abacus
+- [Jueves de ContadorIA](https://soycontador.ai/jueves): live semanal, jueves 11:00 hora del centro de México
+- [Club de Automatización Fiscal](https://soycontador.ai/club): membresía anual con software, bootcamp mensual y soporte humano (entrada por aplicación)
+
+## Recursos
+
+- [Contacto](https://soycontador.ai/contacto): diagnóstico para talleres y capacitación
+- [Contenido completo en texto plano](https://soycontador.ai/llms-full.txt)
+
+## Perfiles verificados
+
+- YouTube: https://www.youtube.com/@todoconta
+- LinkedIn: https://www.linkedin.com/in/soyisracastro/
+- GitHub: https://github.com/soyisracastro
+- Software: https://todoconta.com

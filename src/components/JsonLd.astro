@@ -1,0 +1,10 @@
+---
+interface Props {
+  /** Objeto ya envuelto con graph(...) de lib/schema.ts */
+  data: Record<string, unknown>;
+}
+
+const { data } = Astro.props;
+---
+
+<script type="application/ld+json" set:html={JSON.stringify(data)} />

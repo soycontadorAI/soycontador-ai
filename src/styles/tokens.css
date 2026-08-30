@@ -1,0 +1,37 @@
+/*
+ * ÚNICO punto de inyección de la identidad visual.
+ * Vocabulario semántico fijo: las 3 direcciones de diseño (design/mockups/)
+ * solo cambian estos VALORES, nunca los nombres. Placeholder neutral hasta
+ * que Israel elija dirección.
+ */
+
+@theme {
+  /* Superficie */
+  --color-bg: #FAFAFA;
+  --color-surface: #F1F1F1;
+  --color-surface-raised: #FFFFFF;
+  --color-line: #E3E3E3;
+  --color-line-strong: #171717;
+
+  /* Tinta */
+  --color-ink: #171717;
+  --color-ink-soft: #454545;
+  --color-ink-dim: #8A8A8A;
+
+  /* Marca */
+  --color-accent: #333333;
+  --color-accent-hover: #111111;
+  --color-accent-contrast: #FFFFFF;
+  --color-accent-soft: #EDEDED;
+
+  /* Tipografía (las fuentes reales se instalan al elegir dirección) */
+  --font-display: ui-serif, Georgia, serif;
+  --font-body: -apple-system, "Segoe UI", sans-serif;
+  --font-mono: ui-monospace, "SF Mono", monospace;
+
+  /* Forma y ritmo */
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --container-narrow: 46rem;
+  --container-default: 70rem;
+}
