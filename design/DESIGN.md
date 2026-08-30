@@ -44,6 +44,48 @@ Elegida por Israel el 2026-08-29 entre 3 direcciones (ver `mockups/`). El
 mockup de referencia es `mockups/b-libro-mayor-terminal.html`; ante cualquier
 duda visual, ese archivo manda.
 
+## La marca: "La contrapartida"
+
+Diseñada en Claude Design el 2026-08-30 sobre esta identidad. El isotipo es la
+**cuenta T del libro mayor**: el cargo asentado en tinta a la izquierda y, del
+lado del abono, el mismo asiento en verde. La lectura es la tesis del proyecto:
+**la IA no es un total al pie del registro, es la contrapartida que completa la
+partida doble.** Sin ella el asiento queda cojo.
+
+**Archivos** (en `public/`):
+
+| Archivo | Uso |
+|---|---|
+| `favicon.svg` | Favicon principal: versión simplificada (un renglón de cargo, abono completo) sobre cuadro `#0D1420` redondeado |
+| `favicon.ico` | Respaldo multi-tamaño 16/32/48; el de 16px usa barras más gruesas |
+| `apple-touch-icon.png` | 180×180, isotipo claro sobre terminal |
+| `icon-192.png` · `icon-512.png` | PWA / `site.webmanifest` |
+| `assets/isotipo.svg` | Isotipo completo para fondo claro (tinta + `#0A7B45`) |
+| `assets/isotipo-oscuro.svg` | Isotipo para fondo oscuro (`#E8EDF5` + `#3DD68C`) |
+| `og-default.png` | Open Graph, con logotipo completo |
+
+**Logotipo**: dos líneas, siempre. `soycontador` en Space Grotesk 700 con
+tracking -0.035em, y `.ai` en JetBrains Mono 700 en verde: la única parte que
+cambia de familia, el guiño al dominio y a la terminal. En el header va con el
+isotipo a la izquierda (`BaseLayout.astro`, viewBox recortado a `5 18 86 60`
+para que el asiento ocupe la caja sin aire muerto).
+
+**Reglas de uso** (del documento de marca):
+
+- Mínimo **24px** de alto para el isotipo completo. Abajo de eso, la versión
+  simplificada del favicon: la T y la contrapartida sobreviven, el detalle no
+  hace falta.
+- Sobre fondo oscuro, variante clara con verde `#3DD68C`; el `#0A7B45` **no se
+  lee** sobre `#0D1420`.
+- El abono verde **nunca** cambia de lado ni de color: siempre a la derecha,
+  siempre verde.
+- Nunca: degradados, sombra difusa, rotación, contorno, ni un color que no sea
+  tinta o verde.
+- Sobre foto: solo dentro de un bloque sólido de papel o terminal, nunca directo
+  encima.
+- Espacio libre: un renglón del asiento (la altura de una barra de cargo) por
+  los cuatro lados. Nada entra ahí, ni el propio logotipo.
+
 ## Elementos de firma
 
 - **La póliza**: tarjeta con tabla contable (concepto/cargo), encabezado gris,

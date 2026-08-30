@@ -25,6 +25,10 @@ const year = new Date().getFullYear();
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" sizes="16x16 32x32 48x48" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <meta name="theme-color" content="#0D1420" />
     <link rel="sitemap" href="/sitemap-index.xml" />
     <SEO {title} {description} {image} {type} {noindex} />
     {jsonLd && <JsonLd data={jsonLd} />}
@@ -33,7 +37,20 @@ const year = new Date().getFullYear();
   <body>
     <header class="site-header">
       <nav class="container-default site-nav" aria-label="Principal">
-        <a class="site-logo" href="/">soycontador<span>.ai</span></a>
+        <a class="site-logo" href="/" aria-label="soycontador.ai, inicio">
+          <svg class="site-isotipo" viewBox="5 18 86 60" fill="none" aria-hidden="true">
+            <rect x="12" y="25" width="72" height="5" fill="currentColor"></rect>
+            <rect x="45.5" y="25" width="5" height="46" fill="currentColor"></rect>
+            <rect x="16" y="39" width="24" height="7" fill="currentColor"></rect>
+            <rect x="16" y="52" width="17" height="7" fill="currentColor"></rect>
+            <rect x="56" y="39" width="24" height="7" fill="var(--color-accent)"></rect>
+            <rect x="56" y="52" width="17" height="7" fill="var(--color-accent)"></rect>
+          </svg>
+          <span class="site-wordmark">
+            <span class="site-wordmark-nombre">soycontador</span>
+            <span class="site-wordmark-tld">.ai</span>
+          </span>
+        </a>
         <ul class="site-links">
           {NAV.map((item) => (
             <li><a href={item.href}>{item.label}</a></li>
@@ -108,14 +125,39 @@ const year = new Date().getFullYear();
     gap: 1rem;
     padding-block: 1rem;
   }
+  /*
+   * Logotipo: isotipo (cuenta T, abono verde a la derecha) + wordmark de dos
+   * líneas. "soycontador" en la sans del sitio, ".ai" en mono y en verde: la
+   * única parte que cambia de familia. Ver design/DESIGN.md.
+   */
   .site-logo {
-    font-family: var(--font-mono);
-    font-weight: 700;
-    font-size: 1.05rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
     text-decoration: none;
-    letter-spacing: -0.02em;
+    color: var(--color-ink);
   }
-  .site-logo span {
+  /* viewBox recortado al asiento (deja un renglón de aire por lado) */
+  .site-isotipo {
+    height: 1.7rem;
+    width: auto;
+    flex: none;
+  }
+  .site-wordmark {
+    display: flex;
+    flex-direction: column;
+    line-height: 0.94;
+  }
+  .site-wordmark-nombre {
+    font-size: 1.05rem;
+    font-weight: 700;
+    letter-spacing: -0.035em;
+  }
+  .site-wordmark-tld {
+    font-family: var(--font-mono);
+    font-size: 0.82rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
     color: var(--color-accent);
   }
   .site-links {
