@@ -1,0 +1,464 @@
+---
+/**
+ * Flujo animado del caso de los cortes de gasolinera: las hojas diarias
+ * entran, el script las procesa y sale un solo concentrado. Cierra con la
+ * comparativa de tiempo, que es el remate.
+ *
+ * El texto es HTML (indexable y accesible); el SVG solo dibuja las formas.
+ * La secuencia corre una vez al entrar en viewport, vía el data-reveal global,
+ * y con prefers-reduced-motion se muestra el estado final sin animar.
+ */
+---
+
+<figure class="flujo" data-reveal>
+  <figcaption class="flujo-titulo folio">DEL ESCRITORIO AL <b>SCRIPT</b></figcaption>
+
+  <div class="flujo-pasos">
+    <div class="paso" style="--paso: 0">
+      <div class="paso-arte">
+        <svg viewBox="0 0 84 72" fill="none" aria-hidden="true">
+          {[0, 1, 2, 3, 4].map((i) => (
+            <rect
+              class="hoja"
+              style={`--i: ${i}`}
+              x={4 + i * 8}
+              y={4 + i * 5}
+              width="44"
+              height="56"
+              rx="2"
+              fill="var(--color-surface-raised)"
+              stroke="var(--color-line-strong)"
+              stroke-width="1.5"
+            />
+          ))}
+        </svg>
+      </div>
+      <p class="paso-dato">Hasta <b>31 hojas</b></p>
+      <p class="paso-pie">Una por cada día del mes, en un Excel por sucursal</p>
+    </div>
+
+    <div class="conector" style="--paso: 1" aria-hidden="true">
+      <span class="linea"></span>
+      <span class="paquete"></span>
+    </div>
+
+    <div class="paso paso-motor" style="--paso: 2">
+      <div class="paso-arte">
+        <div class="motor">
+          <span class="motor-punto" style="--i: 0"></span>
+          <span class="motor-punto" style="--i: 1"></span>
+          <span class="motor-punto" style="--i: 2"></span>
+          <code>extractor.py</code>
+        </div>
+      </div>
+      <p class="paso-dato">Lo <b>encuentra todo</b></p>
+      <p class="paso-pie">Aunque cada sucursal acomode sus tablas distinto</p>
+    </div>
+
+    <div class="conector" style="--paso: 3" aria-hidden="true">
+      <span class="linea"></span>
+      <span class="paquete"></span>
+    </div>
+
+    <div class="paso" style="--paso: 4">
+      <div class="paso-arte">
+        <svg viewBox="0 0 84 72" fill="none" aria-hidden="true">
+          <rect
+            class="salida"
+            x="18"
+            y="6"
+            width="48"
+            height="60"
+            rx="2"
+            fill="var(--color-surface-raised)"
+            stroke="var(--color-line-strong)"
+            stroke-width="1.5"
+          />
+          {[0, 1, 2, 3].map((i) => (
+            <rect
+              class="renglon"
+              style={`--i: ${i}`}
+              x="26"
+              y={18 + i * 11}
+              width={i === 3 ? 20 : 32}
+              height="5"
+              rx="1"
+              fill={i === 3 ? "var(--color-accent)" : "var(--color-ink-dim)"}
+            />
+          ))}
+        </svg>
+      </div>
+      <p class="paso-dato"><b>1 concentrado</b></p>
+      <p class="paso-pie">Resumen diario, clientes, vales y gastos</p>
+    </div>
+  </div>
+
+  <div class="tiempo">
+    <div class="tiempo-fila">
+      <span class="tiempo-etiqueta">Antes</span>
+      <span class="tiempo-barra"><span class="barra barra-antes"></span></span>
+      <span class="tiempo-valor">6 a 7 horas al mes</span>
+    </div>
+    <div class="tiempo-fila">
+      <span class="tiempo-etiqueta">Hoy</span>
+      <span class="tiempo-barra"><span class="barra barra-hoy"></span></span>
+      <span class="tiempo-valor tiempo-valor-fuerte">Segundos</span>
+    </div>
+  </div>
+</figure>
+
+<style>
+  .flujo {
+    margin: 0;
+    background: var(--color-surface-raised);
+    border: 1px solid var(--color-line-strong);
+    border-radius: var(--radius-md);
+    box-shadow: 6px 6px 0 var(--color-line);
+    padding: 1.8rem 2rem 2rem;
+  }
+  .flujo-titulo {
+    display: block;
+    margin-bottom: 1.6rem;
+  }
+
+  /* ---------- Pasos ---------- */
+  .flujo-pasos {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr auto 1fr;
+    gap: 0.8rem;
+    align-items: start;
+  }
+  .paso {
+    text-align: center;
+  }
+  .paso-arte {
+    height: 84px;
+    display: grid;
+    place-items: center;
+    margin-bottom: 0.9rem;
+  }
+  .paso-arte svg {
+    width: 96px;
+    height: 82px;
+    overflow: visible;
+  }
+  .paso-dato {
+    margin: 0;
+    font-size: 1rem;
+    color: var(--color-ink-soft);
+  }
+  .paso-dato b {
+    color: var(--color-ink);
+    font-weight: 700;
+  }
+  .paso-pie {
+    margin: 0.35rem 0 0;
+    font-size: 0.83rem;
+    color: var(--color-ink-dim);
+    max-width: 24ch;
+    margin-inline: auto;
+  }
+
+  /* El motor: un mini terminal */
+  .motor {
+    background: var(--color-terminal-bg);
+    border-radius: var(--radius-sm);
+    padding: 0.75rem 0.9rem 0.85rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    align-items: flex-start;
+    min-width: 132px;
+  }
+  .motor code {
+    font-family: var(--font-mono);
+    font-size: 0.74rem;
+    color: var(--color-terminal-ok);
+  }
+  .motor-punto {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--color-terminal-dim);
+    display: inline-block;
+    position: absolute;
+  }
+  .motor {
+    position: relative;
+    padding-top: 1.5rem;
+  }
+  .motor-punto:nth-of-type(1) {
+    top: 0.6rem;
+    left: 0.9rem;
+  }
+  .motor-punto:nth-of-type(2) {
+    top: 0.6rem;
+    left: 1.65rem;
+  }
+  .motor-punto:nth-of-type(3) {
+    top: 0.6rem;
+    left: 2.4rem;
+  }
+
+  /* ---------- Conectores ---------- */
+  .conector {
+    position: relative;
+    height: 84px;
+    display: flex;
+    align-items: center;
+    min-width: 54px;
+  }
+  .linea {
+    display: block;
+    width: 100%;
+    height: 1.5px;
+    background: var(--color-line);
+  }
+  .paquete {
+    position: absolute;
+    left: 0;
+    width: 9px;
+    height: 9px;
+    border-radius: 2px;
+    background: var(--color-accent);
+    opacity: 0;
+  }
+
+  /* ---------- Comparativa de tiempo ---------- */
+  .tiempo {
+    margin-top: 2rem;
+    padding-top: 1.4rem;
+    border-top: 1px solid var(--color-line);
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+  .tiempo-fila {
+    display: grid;
+    grid-template-columns: 4.5rem 1fr auto;
+    gap: 1rem;
+    align-items: center;
+  }
+  .tiempo-etiqueta {
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--color-ink-dim);
+  }
+  .tiempo-barra {
+    display: block;
+    height: 12px;
+    background: var(--color-surface);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+  .barra {
+    display: block;
+    height: 100%;
+    border-radius: 2px;
+    transform-origin: left center;
+    transform: scaleX(0);
+  }
+  .barra-antes {
+    width: 100%;
+    background: var(--color-ink-dim);
+  }
+  .barra-hoy {
+    width: 1.6%;
+    background: var(--color-accent);
+  }
+  .tiempo-valor {
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    color: var(--color-ink-soft);
+    white-space: nowrap;
+  }
+  .tiempo-valor-fuerte {
+    color: var(--color-accent);
+    font-weight: 700;
+  }
+
+  @media (max-width: 780px) {
+    .flujo {
+      padding: 1.4rem 1.2rem 1.6rem;
+    }
+    .flujo-pasos {
+      grid-template-columns: 1fr;
+      gap: 0.4rem;
+    }
+    .conector {
+      height: 34px;
+      min-width: 0;
+      justify-content: center;
+    }
+    .linea {
+      width: 1.5px;
+      height: 100%;
+    }
+    .paquete {
+      left: 50%;
+      margin-left: -4.5px;
+    }
+    .tiempo-fila {
+      grid-template-columns: 3.6rem 1fr;
+    }
+    .tiempo-valor {
+      grid-column: 2;
+      font-size: 0.8rem;
+    }
+  }
+
+  /*
+   * Animación: nada corre hasta que la figura entra en viewport (.is-visible
+   * lo pone el IntersectionObserver global). Sin JS o con movimiento reducido,
+   * todo queda en su estado final.
+   */
+  .hoja,
+  .salida,
+  .renglon,
+  .paso-arte,
+  .paso-dato,
+  .paso-pie {
+    opacity: 1;
+  }
+
+  :global(html.js-reveal) .flujo .hoja,
+  :global(html.js-reveal) .flujo .salida,
+  :global(html.js-reveal) .flujo .renglon {
+    opacity: 0;
+  }
+  :global(html.js-reveal) .flujo .paso-dato,
+  :global(html.js-reveal) .flujo .paso-pie {
+    opacity: 0;
+  }
+
+  .flujo.is-visible .hoja {
+    animation: entra-hoja 0.42s ease-out both;
+    animation-delay: calc(0.06s * var(--i));
+  }
+  .flujo.is-visible .salida {
+    animation: entra-hoja 0.45s ease-out both;
+    animation-delay: 1.5s;
+  }
+  .flujo.is-visible .renglon {
+    animation: entra-renglon 0.34s ease-out both;
+    animation-delay: calc(1.75s + 0.1s * var(--i));
+  }
+  .flujo.is-visible .paso-dato,
+  .flujo.is-visible .paso-pie {
+    animation: sube 0.45s ease-out both;
+    animation-delay: calc(0.35s + 0.42s * var(--paso, 0));
+  }
+  .flujo.is-visible .paquete {
+    animation: viaja 0.75s cubic-bezier(0.5, 0, 0.5, 1) both;
+    animation-delay: calc(0.55s + 0.62s * var(--paso, 0));
+  }
+  .flujo.is-visible .motor code {
+    animation: parpadeo-codigo 0.5s steps(2) 3 both;
+    animation-delay: 1.05s;
+  }
+  .flujo.is-visible .motor-punto {
+    animation: prende 0.3s ease-out both;
+    animation-delay: calc(1s + 0.12s * var(--i, 0));
+  }
+  /*
+   * El contraste de ritmo ES el mensaje: la barra de "antes" se arrastra 1.2 s
+   * y la de "hoy" entra de golpe. No igualar estas duraciones.
+   */
+  .flujo.is-visible .barra-antes {
+    animation: crece 1.2s cubic-bezier(0.32, 0, 0.67, 0) both;
+    animation-delay: 1.9s;
+  }
+  .flujo.is-visible .barra-hoy {
+    animation: crece 0.16s cubic-bezier(0.22, 1, 0.36, 1) both;
+    animation-delay: 3.25s;
+  }
+  .flujo.is-visible .tiempo-valor {
+    animation: sube 0.4s ease-out both;
+    animation-delay: 2.1s;
+  }
+  .flujo.is-visible .tiempo-valor-fuerte {
+    animation-delay: 3.35s;
+  }
+
+  @keyframes entra-hoja {
+    from {
+      opacity: 0;
+      transform: translate(-10px, 6px);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+  @keyframes entra-renglon {
+    from {
+      opacity: 0;
+      transform: scaleX(0.2);
+      transform-origin: left center;
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+  @keyframes sube {
+    from {
+      opacity: 0;
+      transform: translateY(8px);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+  @keyframes viaja {
+    0% {
+      opacity: 0;
+      transform: translateX(0);
+    }
+    15% {
+      opacity: 1;
+    }
+    85% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 0;
+      transform: translateX(calc(100% + 44px));
+    }
+  }
+  @keyframes prende {
+    to {
+      background: var(--color-terminal-ok);
+    }
+  }
+  @keyframes parpadeo-codigo {
+    50% {
+      opacity: 0.35;
+    }
+  }
+  @keyframes crece {
+    to {
+      transform: scaleX(1);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    :global(html.js-reveal) .flujo .hoja,
+    :global(html.js-reveal) .flujo .salida,
+    :global(html.js-reveal) .flujo .renglon,
+    :global(html.js-reveal) .flujo .paso-dato,
+    :global(html.js-reveal) .flujo .paso-pie {
+      opacity: 1;
+    }
+    .flujo .barra {
+      transform: scaleX(1);
+    }
+    .flujo * {
+      animation: none !important;
+    }
+  }
+</style>
