@@ -1,33 +1,46 @@
 /*
  * ÚNICO punto de inyección de la identidad visual.
- * Vocabulario semántico fijo: las 3 direcciones de diseño (design/mockups/)
- * solo cambian estos VALORES, nunca los nombres. Placeholder neutral hasta
- * que Israel elija dirección.
+ * Dirección elegida: B "Libro mayor × terminal" (design/mockups/b-*.html,
+ * documentada en design/DESIGN.md). Los componentes solo usan este
+ * vocabulario semántico, nunca valores crudos.
  */
+
+@import "@fontsource-variable/space-grotesk";
+@import "@fontsource-variable/jetbrains-mono";
+@import "@fontsource-variable/source-serif-4/wght-italic.css";
 
 @theme {
   /* Superficie */
-  --color-bg: #FAFAFA;
-  --color-surface: #F1F1F1;
+  --color-bg: #FAFBFD;
+  --color-surface: #F1F4F9;
   --color-surface-raised: #FFFFFF;
-  --color-line: #E3E3E3;
-  --color-line-strong: #171717;
+  --color-line: #DFE6EF;
+  --color-line-strong: #101828;
 
   /* Tinta */
-  --color-ink: #171717;
-  --color-ink-soft: #454545;
-  --color-ink-dim: #8A8A8A;
+  --color-ink: #101828;
+  --color-ink-soft: #3D4A5C;
+  --color-ink-dim: #77839A;
 
-  /* Marca */
-  --color-accent: #333333;
-  --color-accent-hover: #111111;
+  /* Marca: verde registro (solo en momentos de acción/IA, nunca decorativo) */
+  --color-accent: #0A7B45;
+  --color-accent-hover: #066035;
   --color-accent-contrast: #FFFFFF;
-  --color-accent-soft: #EDEDED;
+  --color-accent-soft: #E4F4EB;
 
-  /* Tipografía (las fuentes reales se instalan al elegir dirección) */
-  --font-display: ui-serif, Georgia, serif;
-  --font-body: -apple-system, "Segoe UI", sans-serif;
-  --font-mono: ui-monospace, "SF Mono", monospace;
+  /* Terminal (bloques oscuros de código/chat) */
+  --color-terminal-bg: #0D1420;
+  --color-terminal-chrome: #141D2E;
+  --color-terminal-ink: #9FB0C9;
+  --color-terminal-bright: #E8EDF5;
+  --color-terminal-dim: #5A6B85;
+  --color-terminal-ok: #3DD68C;
+
+  /* Tipografía */
+  --font-display: "Space Grotesk Variable", -apple-system, sans-serif;
+  --font-body: "Space Grotesk Variable", -apple-system, sans-serif;
+  --font-mono: "JetBrains Mono Variable", ui-monospace, monospace;
+  --font-serif-detail: "Source Serif 4 Variable", Georgia, serif; /* solo citas en cursiva */
 
   /* Forma y ritmo */
   --radius-sm: 4px;

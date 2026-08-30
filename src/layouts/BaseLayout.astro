@@ -65,20 +65,25 @@ const year = new Date().getFullYear();
 </html>
 
 <style>
-  /* Estructura mínima; la identidad completa llega con la dirección elegida */
+  /* Chrome de la identidad "Libro mayor × terminal" (ver design/DESIGN.md) */
   .site-header {
+    background: var(--color-surface-raised);
     border-bottom: 1px solid var(--color-line);
+    position: sticky;
+    top: 0;
+    z-index: 5;
   }
   .site-nav {
     display: flex;
     align-items: center;
     justify-content: space-between;
     gap: 1rem;
-    padding-block: 1.1rem;
+    padding-block: 1rem;
   }
   .site-logo {
+    font-family: var(--font-mono);
     font-weight: 700;
-    font-size: 1.1rem;
+    font-size: 1.05rem;
     text-decoration: none;
     letter-spacing: -0.02em;
   }
@@ -87,7 +92,7 @@ const year = new Date().getFullYear();
   }
   .site-links {
     display: flex;
-    gap: 1.4rem;
+    gap: 1.5rem;
     list-style: none;
     margin: 0;
     padding: 0;
@@ -95,7 +100,7 @@ const year = new Date().getFullYear();
   }
   .site-links a {
     text-decoration: none;
-    font-size: 0.9rem;
+    font-size: 0.88rem;
     font-weight: 500;
     color: var(--color-ink-soft);
   }
@@ -103,8 +108,8 @@ const year = new Date().getFullYear();
     color: var(--color-accent);
   }
   .site-cta {
-    font-weight: 600;
-    font-size: 0.9rem;
+    font-weight: 700;
+    font-size: 0.85rem;
     text-decoration: none;
     color: var(--color-accent-contrast);
     background: var(--color-accent);
@@ -115,7 +120,8 @@ const year = new Date().getFullYear();
     background: var(--color-accent-hover);
   }
   .site-footer {
-    border-top: 1px solid var(--color-line);
+    background: var(--color-surface-raised);
+    border-top: 1.5px solid var(--color-line-strong);
     margin-top: 4rem;
   }
   .site-foot {
@@ -127,6 +133,11 @@ const year = new Date().getFullYear();
     padding-block: 2rem 2.5rem;
   }
   .site-foot small {
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
     color: var(--color-ink-dim);
   }
   @media (max-width: 760px) {
