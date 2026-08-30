@@ -3,7 +3,7 @@
  * con estos bloques y lo emiten vía <JsonLd graph={[...]} />.
  */
 
-import { CLUB, PERSONA, PROGRAMA, SITE } from "./site";
+import { CLUB, PERSONA, PROGRAMA, SITE, TRAILER } from "./site";
 import type { FaqItem } from "./faqs";
 
 type JsonLdObject = Record<string, unknown>;
@@ -112,6 +112,29 @@ export function juevesSeries(): JsonLdObject {
     location: { "@type": "VirtualLocation", url: PROGRAMA.canal },
     eventAttendanceMode: "https://schema.org/OnlineEventAttendanceMode",
     inLanguage: "es",
+  };
+}
+
+/**
+ * Tráiler del canal. Incluye `transcript`: es lo que permite que buscadores y
+ * LLMs indexen lo que se DICE en el video, no solo su título.
+ */
+export function trailerVideo(): JsonLdObject {
+  return {
+    "@type": "VideoObject",
+    "@id": `${SITE.url}/jueves#trailer`,
+    name: TRAILER.titulo,
+    description: TRAILER.descripcion,
+    thumbnailUrl: `${SITE.url}${TRAILER.poster}`,
+    uploadDate: TRAILER.fechaPublicacion,
+    duration: TRAILER.duracionISO,
+    embedUrl: `https://www.youtube.com/embed/${TRAILER.videoId}`,
+    contentUrl: `https://www.youtube.com/watch?v=${TRAILER.videoId}`,
+    transcript: TRAILER.transcripcion,
+    inLanguage: "es-MX",
+    creator: personRef(),
+    publisher: personRef(),
+    isPartOf: { "@id": `${SITE.url}/jueves#serie` },
   };
 }
 

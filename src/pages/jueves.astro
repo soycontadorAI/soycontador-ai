@@ -1,11 +1,13 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import NewsletterForm from "../components/NewsletterForm.astro";
-import { breadcrumbs, graph, juevesSeries } from "../lib/schema";
-import { PROGRAMA } from "../lib/site";
+import VideoFacade from "../components/VideoFacade.astro";
+import { breadcrumbs, graph, juevesSeries, trailerVideo } from "../lib/schema";
+import { PROGRAMA, TRAILER } from "../lib/site";
 
 const jsonLd = graph(
   juevesSeries(),
+  trailerVideo(),
   breadcrumbs([
     { name: "Inicio", path: "/" },
     { name: "Jueves de ContadorIA", path: "/jueves" },
@@ -31,6 +33,36 @@ const jsonLd = graph(
         <div class="acciones">
           <a class="btn btn-primary" href={PROGRAMA.canal} rel="noopener">Ir al canal y suscribirme</a>
           <a class="btn btn-ghost" href="#recordatorio">Recuérdamelo por correo</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="trailer">
+      <div class="container-default trailer-grid">
+        <div data-reveal>
+          <VideoFacade
+            videoId={TRAILER.videoId}
+            titulo={TRAILER.titulo}
+            poster={TRAILER.poster}
+            aria={`Reproducir el video de bienvenida: ${TRAILER.titulo}`}
+          />
+        </div>
+        <div class="trailer-texto" data-reveal style="--reveal-delay:.1s">
+          <h2 class="folio">EL <b>TRÁILER</b> · {TRAILER.duracionTexto.toUpperCase()}</h2>
+          <p class="trailer-lede">
+            No solo uso la inteligencia artificial todos los días: construyo
+            herramientas fiscales con ella.
+          </p>
+          <p class="trailer-p">
+            Descarga masiva de CFDI del portal del SAT, un agente que atiende
+            desde la palma de tu mano y una API que ya usan otras empresas.
+            Productos de verdad, en producción.
+          </p>
+          <p class="trailer-p">
+            Cada jueves te enseño a usarla y a construir con ella sin ser
+            programador. En palabras simples, de colega a colega, para que le
+            ganes horas de trabajo y dejes de tenerle miedo a la tecnología.
+          </p>
         </div>
       </div>
     </section>
@@ -111,6 +143,33 @@ const jsonLd = graph(
     display: flex;
     gap: 0.9rem;
     flex-wrap: wrap;
+  }
+  .trailer {
+    padding-top: 1.5rem;
+  }
+  .trailer-grid {
+    display: grid;
+    grid-template-columns: 1.35fr 1fr;
+    gap: 3rem;
+    align-items: center;
+  }
+  @media (max-width: 900px) {
+    .trailer-grid {
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+  }
+  .trailer-lede {
+    margin: 1.1rem 0 0;
+    font-size: 1.2rem;
+    font-weight: 500;
+    line-height: 1.4;
+    color: var(--color-ink);
+  }
+  .trailer-p {
+    margin: 0.9rem 0 0;
+    color: var(--color-ink-soft);
+    font-size: 0.96rem;
   }
   .grid3 {
     display: grid;

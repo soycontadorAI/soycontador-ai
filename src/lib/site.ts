@@ -70,6 +70,20 @@ export const PROGRAMA = {
   canal: "https://www.youtube.com/@todoconta",
 } as const;
 
+/** Tráiler del canal. La transcripción alimenta el VideoObject del JSON-LD. */
+export const TRAILER = {
+  videoId: "9y2Amy7AlIc",
+  titulo: "IA para contadores: úsala y constrúyela sin ser programador",
+  descripcion:
+    "Israel Castro, contador público y desarrollador de software, presenta Jueves de ContadorIA: cada jueves enseña a usar y construir con inteligencia artificial sin ser programador, de colega a colega, para ganarle horas al trabajo fiscal.",
+  duracionISO: "PT1M4S",
+  duracionTexto: "1 minuto",
+  fechaPublicacion: "2026-08-15",
+  poster: "/assets/jueves-trailer.jpg",
+  transcripcion:
+    "¿Sientes que la inteligencia artificial va a reemplazar a los contadores y no sabes ni por dónde empezar? Descuida, llegaste al lugar correcto. Hola, soy Israel Castro, contador público y desarrollador de software. Y no solo utilizo la inteligencia artificial todos los días: construyo herramientas fiscales con ella. Herramientas que te permiten descarga masiva de CFDI de la página del SAT, un agente que te atiende 24/7 desde la palma de tu mano, así como una API que ya utilizan otras empresas. Productos de verdad, en producción. Cada jueves en Jueves de ContadorIA te enseño a usar y a construir con inteligencia artificial sin ser programador. En palabras simples, de colega a colega, para que le ganes horas de trabajo y dejes de tenerle miedo a la tecnología. Suscríbete y activa la campanita. Nos vemos el jueves a las 11 de la mañana.",
+} as const;
+
 export const CLUB = {
   nombre: "Club de Automatización Fiscal",
   siglas: "CAF",

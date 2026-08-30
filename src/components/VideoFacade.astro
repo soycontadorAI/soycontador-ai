@@ -1,0 +1,137 @@
+---
+/**
+ * Video de YouTube con fachada: hasta que el visitante da clic, la página solo
+ * carga una imagen local. Nada de YouTube (ni su ~1 MB de JS, ni sus cookies)
+ * entra al primer render, así que el sitio conserva su performance y no
+ * rastrea a nadie sin permiso. Al hacer clic se inserta el iframe de
+ * youtube-nocookie con autoplay.
+ */
+
+interface Props {
+  videoId: string;
+  titulo: string;
+  poster: string;
+  /** Texto del botón para lectores de pantalla */
+  aria?: string;
+  /** Cinta sobre la carátula. Omitir cuando la carátula ya trae su propio pie */
+  cinta?: string;
+}
+
+const { videoId, titulo, poster, aria, cinta } = Astro.props;
+---
+
+<div class="video" data-video={videoId}>
+  <button type="button" class="video-btn" aria-label={aria ?? `Reproducir: ${titulo}`}>
+    <img src={poster} alt="" width="1280" height="720" loading="lazy" decoding="async" />
+    <span class="video-play" aria-hidden="true">
+      <svg viewBox="0 0 24 24" fill="none"><path d="M8 5.5v13l11-6.5-11-6.5Z" fill="currentColor"></path></svg>
+    </span>
+    {cinta && <span class="video-cinta" aria-hidden="true">{cinta}</span>}
+  </button>
+</div>
+
+<style>
+  .video {
+    position: relative;
+    border: 1px solid var(--color-line-strong);
+    border-radius: var(--radius-md);
+    box-shadow: 6px 6px 0 var(--color-line);
+    overflow: hidden;
+    background: var(--color-terminal-bg);
+    aspect-ratio: 16 / 9;
+  }
+  .video-btn {
+    display: block;
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    border: none;
+    background: none;
+    cursor: pointer;
+    position: relative;
+  }
+  .video-btn img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  /* Abajo a la derecha: la carátula lleva su propio mensaje al centro */
+  .video-play {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    margin: 0.9rem;
+    width: 66px;
+    height: 66px;
+    display: grid;
+    place-items: center;
+    border-radius: 50%;
+    background: var(--color-accent);
+    color: var(--color-accent-contrast);
+    box-shadow: 0 8px 28px -8px rgba(13, 20, 32, 0.6);
+    transition:
+      transform 0.18s ease,
+      background 0.18s ease;
+  }
+  .video-play svg {
+    width: 30px;
+    height: 30px;
+    margin-left: 3px;
+  }
+  .video-btn:hover .video-play,
+  .video-btn:focus-visible .video-play {
+    transform: scale(1.07);
+    background: var(--color-accent-hover);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .video-play {
+      transition: none;
+    }
+    .video-btn:hover .video-play {
+      transform: none;
+    }
+  }
+  .video-cinta {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    margin: 0.9rem;
+    padding: 0.4rem 0.75rem;
+    border-radius: var(--radius-sm);
+    background: var(--color-terminal-bg);
+    color: var(--color-terminal-bright);
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+  .video :global(iframe) {
+    width: 100%;
+    height: 100%;
+    border: 0;
+    display: block;
+  }
+</style>
+
+<script>
+  document.querySelectorAll<HTMLElement>("[data-video]").forEach((caja) => {
+    const boton = caja.querySelector("button");
+    boton?.addEventListener(
+      "click",
+      () => {
+        const id = caja.dataset.video;
+        const iframe = document.createElement("iframe");
+        iframe.src = `https://www.youtube-nocookie.com/embed/${id}?autoplay=1&rel=0&modestbranding=1`;
+        iframe.title = boton.getAttribute("aria-label") ?? "";
+        iframe.allow =
+          "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share";
+        iframe.allowFullscreen = true;
+        caja.replaceChildren(iframe);
+        iframe.focus();
+      },
+      { once: true },
+    );
+  });
+</script>
