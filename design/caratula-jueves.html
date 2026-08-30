@@ -2,87 +2,31 @@
 <html>
 <head>
 <meta charset="utf-8">
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
 <style>
 * { margin: 0; box-sizing: border-box; }
 body {
   width: 1280px; height: 720px; overflow: hidden;
   background: #0D1420;
-  background-image: repeating-linear-gradient(to bottom, transparent 0, transparent 39px, rgba(255,255,255,.035) 39px, rgba(255,255,255,.035) 40px);
+  background-image: repeating-linear-gradient(to bottom, transparent 0, transparent 43px, rgba(255,255,255,.03) 43px, rgba(255,255,255,.03) 44px);
   font-family: "Space Grotesk", sans-serif; color: #E8EDF5;
-  position: relative;
-  display: flex; flex-direction: column; justify-content: space-between;
-  padding: 52px 64px 56px;
+  display: flex; align-items: center; gap: 64px;
+  padding: 0 80px;
 }
-body::before {
-  content: ""; position: absolute; top: 0; bottom: 0; left: 34px;
-  border-left: 2px solid rgba(255,255,255,.09);
+h1 {
+  font-size: 76px; font-weight: 700; letter-spacing: -0.035em; line-height: 1.03;
+  flex: 1;
 }
-.top { display: flex; align-items: center; justify-content: space-between; }
-.marca { display: flex; align-items: center; gap: 13px; }
-.marca svg { height: 38px; width: auto; }
-.wm { display: flex; flex-direction: column; line-height: 0.94; }
-.wm .n { font-size: 23px; font-weight: 700; letter-spacing: -0.035em; color: #E8EDF5; }
-.wm .t { font-family: "JetBrains Mono", monospace; font-size: 18px; font-weight: 700; letter-spacing: -0.02em; color: #3DD68C; }
-.vivo {
-  display: inline-flex; align-items: center; gap: 9px;
-  font-family: "JetBrains Mono", monospace; font-size: 15px; font-weight: 500;
-  letter-spacing: 0.16em; color: #9FB0C9;
-}
-.vivo i { width: 10px; height: 10px; border-radius: 50%; background: #E5484D; }
-.vivo b { color: #3DD68C; font-weight: 700; }
-
-.mid { display: flex; align-items: center; gap: 56px; }
-.texto { flex: 1; }
-h1 { font-size: 68px; font-weight: 700; letter-spacing: -0.035em; line-height: 1.04; }
 h1 .verde { color: #3DD68C; }
-.quien {
-  margin-top: 26px; font-family: "JetBrains Mono", monospace;
-  font-size: 17px; font-weight: 500; letter-spacing: 0.1em; color: #9FB0C9;
-}
 .foto {
-  width: 300px; height: 300px; border-radius: 50%; overflow: hidden;
-  flex: none; border: 3px solid rgba(232,237,245,.22);
+  width: 340px; height: 340px; border-radius: 50%; overflow: hidden;
+  flex: none; border: 3px solid rgba(232,237,245,.18);
 }
 .foto img { width: 100%; height: 100%; object-fit: cover; }
-
-.chips { display: flex; gap: 11px; }
-.chip {
-  font-family: "JetBrains Mono", monospace; font-size: 15px; font-weight: 500;
-  padding: 9px 16px; border: 1px solid rgba(232,237,245,.2);
-  border-radius: 999px; color: #9FB0C9;
-}
-.chip b { color: #3DD68C; font-weight: 700; }
 </style>
 </head>
 <body>
-  <div class="top">
-    <div class="marca">
-      <svg viewBox="5 18 86 60" fill="none">
-        <rect x="12" y="25" width="72" height="5" fill="#E8EDF5"></rect>
-        <rect x="45.5" y="25" width="5" height="46" fill="#E8EDF5"></rect>
-        <rect x="16" y="39" width="24" height="7" fill="#E8EDF5"></rect>
-        <rect x="16" y="52" width="17" height="7" fill="#E8EDF5"></rect>
-        <rect x="56" y="39" width="24" height="7" fill="#3DD68C"></rect>
-        <rect x="56" y="52" width="17" height="7" fill="#3DD68C"></rect>
-      </svg>
-      <span class="wm"><span class="n">soycontador</span><span class="t">.ai</span></span>
-    </div>
-    <span class="vivo"><i></i> JUEVES <b>11:00</b> · HORA DEL CENTRO</span>
-  </div>
-
-  <div class="mid">
-    <div class="texto">
-      <h1>No solo uso la IA.<br><span class="verde">Construyo</span> con ella.</h1>
-      <div class="quien">ISRAEL CASTRO · CONTADOR PÚBLICO + DESARROLLADOR</div>
-    </div>
-    <div class="foto"><img src="/Users/isca/Code/projects/soycontador-ai/public/assets/israel-castro.jpg"></div>
-  </div>
-
-  <div class="chips">
-    <span class="chip">Descarga masiva de <b>CFDI</b></span>
-    <span class="chip">Agente <b>24/7</b></span>
-    <span class="chip">API en <b>producción</b></span>
-  </div>
+  <h1>No solo uso la IA.<br><span class="verde">Construyo</span> con ella.</h1>
+  <div class="foto"><img src="/Users/isca/Code/projects/soycontador-ai/public/assets/israel-castro.jpg"></div>
 </body>
 </html>

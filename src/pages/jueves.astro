@@ -22,46 +22,63 @@ const jsonLd = graph(
 >
   <main>
     <section class="encabezado">
-      <div class="container-default">
-        <p class="folio"><span class="vivo" aria-hidden="true"></span> EN VIVO · <b>JUEVES 11:00</b> · HORA DEL CENTRO</p>
-        <h1 class="titulo-xl">{PROGRAMA.nombre}</h1>
-        <p class="intro-page">
-          Un problema real de un despacho, resuelto con IA frente a ti. Sin
-          diapositivas de relleno: pantalla compartida, casos del SAT y el paso a
-          paso completo, incluyendo lo que sale mal.
-        </p>
-        <div class="acciones">
-          <a class="btn btn-primary" href={PROGRAMA.canal} rel="noopener">Ir al canal y suscribirme</a>
-          <a class="btn btn-ghost" href="#recordatorio">Recuérdamelo por correo</a>
+      <div class="container-default hero-grid">
+        <div>
+          <p class="folio"><span class="vivo" aria-hidden="true"></span> EN VIVO · <b>JUEVES 11:00</b> · HORA DEL CENTRO</p>
+          <h1 class="titulo-xl">{PROGRAMA.nombre}</h1>
+          <p class="intro-page">
+            Un problema real de un despacho, resuelto con IA frente a ti. Sin
+            diapositivas de relleno: pantalla compartida, casos del SAT y el paso a
+            paso completo, incluyendo lo que sale mal.
+          </p>
+          <div class="acciones">
+            <a class="btn btn-primary" href={PROGRAMA.canal} rel="noopener">Ir al canal y suscribirme</a>
+            <a class="btn btn-ghost" href="#recordatorio">Recuérdamelo por correo</a>
+          </div>
         </div>
-      </div>
-    </section>
-
-    <section class="trailer">
-      <div class="container-default trailer-grid">
-        <div data-reveal>
+        <div class="hero-video">
           <VideoFacade
             videoId={TRAILER.videoId}
             titulo={TRAILER.titulo}
             poster={TRAILER.poster}
             aria={`Reproducir el video de bienvenida: ${TRAILER.titulo}`}
+            cinta={`El tráiler · ${TRAILER.duracionTexto}`}
           />
         </div>
-        <div class="trailer-texto" data-reveal style="--reveal-delay:.1s">
-          <h2 class="folio">EL <b>TRÁILER</b> · {TRAILER.duracionTexto.toUpperCase()}</h2>
-          <p class="trailer-lede">
-            No solo uso la inteligencia artificial todos los días: construyo
-            herramientas fiscales con ella.
+      </div>
+    </section>
+
+    <section class="trailer">
+      <div class="container-narrow">
+        <div class="sec-head"><h2 class="folio">EL <b>TRÁILER</b> · {TRAILER.duracionTexto.toUpperCase()}</h2></div>
+        <div class="guion">
+          <p class="guion-lede" data-reveal>
+            No solo uso la inteligencia artificial todos los días:{" "}
+            <span class="hl">construyo herramientas fiscales con ella</span>.
           </p>
-          <p class="trailer-p">
-            Descarga masiva de CFDI del portal del SAT, un agente que atiende
-            desde la palma de tu mano y una API que ya usan otras empresas.
-            Productos de verdad, en producción.
-          </p>
-          <p class="trailer-p">
+          <ul class="guion-pruebas">
+            <li data-reveal style="--reveal-delay:.10s">
+              <span class="guion-num">01</span>
+              <span><b>Descarga masiva de CFDI</b> del portal del SAT</span>
+            </li>
+            <li data-reveal style="--reveal-delay:.20s">
+              <span class="guion-num">02</span>
+              <span>Un <b>agente</b> que atiende desde la palma de tu mano</span>
+            </li>
+            <li data-reveal style="--reveal-delay:.30s">
+              <span class="guion-num">03</span>
+              <span>Una <b>API</b> que ya usan otras empresas</span>
+            </li>
+            <li class="guion-total" data-reveal style="--reveal-delay:.42s">
+              <span class="guion-num">=</span>
+              <span>Productos de verdad, <b>en producción</b></span>
+            </li>
+          </ul>
+          <p class="guion-cierre" data-reveal style="--reveal-delay:.5s">
             Cada jueves te enseño a usarla y a construir con ella sin ser
             programador. En palabras simples, de colega a colega, para que le
-            ganes horas de trabajo y dejes de tenerle miedo a la tecnología.
+            ganes horas de trabajo y{" "}
+            <span class="hl">dejes de tenerle miedo a la tecnología</span>.
           </p>
         </div>
       </div>
@@ -144,32 +161,75 @@ const jsonLd = graph(
     gap: 0.9rem;
     flex-wrap: wrap;
   }
-  .trailer {
-    padding-top: 1.5rem;
-  }
-  .trailer-grid {
+  .hero-grid {
     display: grid;
-    grid-template-columns: 1.35fr 1fr;
-    gap: 3rem;
+    grid-template-columns: 1fr 1.05fr;
+    gap: 3.5rem;
     align-items: center;
   }
-  @media (max-width: 900px) {
-    .trailer-grid {
+  @media (max-width: 960px) {
+    .hero-grid {
       grid-template-columns: 1fr;
-      gap: 2rem;
+      gap: 2.4rem;
     }
   }
-  .trailer-lede {
-    margin: 1.1rem 0 0;
-    font-size: 1.2rem;
+
+  /*
+   * El guion del tráiler, animado con CSS: cada prueba se "asienta" en cascada
+   * al entrar en viewport (data-reveal + --reveal-delay), y las dos frases
+   * ancla se subrayan con el marcador de la marca.
+   */
+  .guion-lede {
+    margin: 0;
+    font-size: clamp(1.3rem, 2.6vw, 1.7rem);
     font-weight: 500;
-    line-height: 1.4;
+    line-height: 1.35;
+    letter-spacing: -0.015em;
     color: var(--color-ink);
   }
-  .trailer-p {
-    margin: 0.9rem 0 0;
+  .guion-pruebas {
+    list-style: none;
+    margin: 2rem 0;
+    padding: 0;
+    border-top: 1px solid var(--color-line);
+  }
+  .guion-pruebas li {
+    display: grid;
+    grid-template-columns: 3.2rem 1fr;
+    gap: 1rem;
+    align-items: baseline;
+    padding: 0.95rem 0;
+    border-bottom: 1px solid var(--color-line);
     color: var(--color-ink-soft);
-    font-size: 0.96rem;
+  }
+  .guion-num {
+    font-family: var(--font-mono);
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--color-ink-dim);
+  }
+  .guion-pruebas b {
+    color: var(--color-ink);
+    font-weight: 700;
+  }
+  .guion-total {
+    border-bottom: none !important;
+    border-top: 1.5px solid var(--color-line-strong);
+    box-shadow: 0 3px 0 -1px var(--color-line-strong);
+    margin-top: 0.3rem;
+  }
+  .guion-total .guion-num {
+    color: var(--color-accent);
+    font-size: 1.1rem;
+  }
+  .guion-total b {
+    color: var(--color-accent);
+  }
+  .guion-cierre {
+    margin: 2.2rem 0 0;
+    color: var(--color-ink-soft);
+    font-size: 1.02rem;
+    line-height: 1.6;
   }
   .grid3 {
     display: grid;

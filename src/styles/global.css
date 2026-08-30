@@ -162,32 +162,31 @@ html.js-reveal [data-reveal].is-visible {
  * en UN renglón (la banda es un rectángulo absoluto), por eso el nowrap.
  */
 .hl {
-  position: relative;
-  display: inline;
-  z-index: 0;
-  white-space: nowrap;
+  /*
+   * El marcador es un background (va detrás del texto por definición, sin
+   * pelear con el apilamiento) que se pinta de izquierda a derecha al entrar
+   * en viewport. `--hl-alto` sube la banda en citas grandes.
+   */
+  background-image: linear-gradient(
+    to top,
+    var(--color-marker) 0,
+    var(--color-marker) var(--hl-alto, 0.42em),
+    transparent var(--hl-alto, 0.42em)
+  );
+  background-repeat: no-repeat;
+  background-size: 0 100%;
+  transition: background-size 0.9s cubic-bezier(0.22, 1, 0.36, 1) 0.4s;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
 }
-.hl::after {
-  content: "";
-  position: absolute;
-  left: -0.08em;
-  right: -0.08em;
-  bottom: 0.02em;
-  height: 0.62em;
-  background: var(--color-marker);
-  transform: scaleX(0);
-  transform-origin: left center;
-  z-index: -1;
-  transition: transform 0.9s cubic-bezier(0.22, 1, 0.36, 1) 0.4s;
-}
-.is-visible .hl::after,
-.hl.is-visible::after,
-html:not(.js-reveal) .hl::after {
-  transform: scaleX(1);
+.is-visible .hl,
+.hl.is-visible,
+html:not(.js-reveal) .hl {
+  background-size: 100% 100%;
 }
 @media (prefers-reduced-motion: reduce) {
-  .hl::after {
+  .hl {
     transition: none;
-    transform: scaleX(1);
+    background-size: 100% 100%;
   }
 }
