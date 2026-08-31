@@ -191,7 +191,12 @@ export const APENDICES: Pieza[] = [
   },
 ];
 
-/** Los dos productos que se venden en nas.io. El precio SÍ se publica. */
+/**
+ * El libro se vende solo, a un precio y sin escalones. El Pack de Prompts dejó
+ * de ofrecerse aquí como paquete más caro (decisión de Israel 2026-08-31): va a
+ * formar parte de la membresía del Club, igual que el libro, con la diferencia
+ * de que el libro sí se puede llevar suelto.
+ */
 function conUtm(url: string, contenido: string): string {
   const u = new URL(url);
   u.searchParams.set("utm_source", "soycontador");
@@ -211,13 +216,12 @@ export const COMPRA = {
     precioTexto: "$297 MXN",
     detalle: "PDF completo: 17 capítulos y 3 apéndices",
     url: conUtm(`${NAS_BASE}&productId=69cd0ae3e2df2b4a3aa7eb2a`, "solo-ebook"),
-  },
-  bundle: {
-    nombre: "IA para Contadores + Pack de Prompts",
-    precio: "597",
-    precioTexto: "$597 MXN",
-    detalle: "El libro completo más los 25 prompts con el contexto fiscal mexicano ya incorporado",
-    url: conUtm(`${NAS_BASE}&productId=69cd0f8e84606b692086aba1`, "bundle"),
+    incluye: [
+      "Las 162 páginas en PDF, listas para leer en cualquier dispositivo",
+      "17 capítulos y 3 apéndices, sin una sola línea de código",
+      "Las actualizaciones de edición te llegan sin costo",
+      "Contexto fiscal mexicano: CFDI, ISR, SAT y pesos",
+    ],
   },
   garantia: "Garantía de 7 días: si no te sirve, te devuelvo tu dinero sin preguntas.",
 } as const;
@@ -245,7 +249,7 @@ export const FAQ_EBOOK = [
   {
     pregunta: "¿Cuánto cuesta el ebook de IA para contadores?",
     respuesta:
-      "$297 MXN el libro completo en PDF, o $597 MXN junto con el Pack de Prompts para Contadores. Los dos se pagan una vez y las actualizaciones de edición te llegan sin costo.",
+      "$297 MXN el libro completo en PDF. Es un pago único, no una suscripción, y las actualizaciones de edición te llegan sin costo.",
   },
   {
     pregunta: "¿Sirve si trabajo con el SAT y la legislación mexicana?",

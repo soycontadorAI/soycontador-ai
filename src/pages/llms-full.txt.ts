@@ -83,7 +83,7 @@ ${HERRAMIENTAS.map((h) => `### ${h.nombre} (${h.estado})\n\n${h.descripcion}\n\n
 ${EBOOK.headline}. ${EBOOK.pitch}
 
 ${EDICION.nombre} (${EDICION.fecha}), ${EDICION.paginas} páginas en PDF.
-Precios: ${COMPRA.ebook.precioTexto} solo el libro · ${COMPRA.bundle.precioTexto} con el Pack de Prompts. ${COMPRA.garantia}
+Precio: ${COMPRA.ebook.precioTexto}, pago único. ${COMPRA.garantia}
 
 Temario:
 

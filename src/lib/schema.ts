@@ -144,26 +144,15 @@ export function ebookBook(): JsonLdObject {
       ...capitulos,
       ...APENDICES.map((ap) => ({ "@type": "Chapter", name: `Apéndice ${ap.num}. ${ap.titulo}`, abstract: ap.resumen })),
     ],
-    offers: [
-      {
-        "@type": "Offer",
-        name: COMPRA.ebook.nombre,
-        description: COMPRA.ebook.detalle,
-        price: COMPRA.ebook.precio,
-        priceCurrency: "MXN",
-        availability: "https://schema.org/InStock",
-        url: `${SITE.url}/ebook`,
-      },
-      {
-        "@type": "Offer",
-        name: COMPRA.bundle.nombre,
-        description: COMPRA.bundle.detalle,
-        price: COMPRA.bundle.precio,
-        priceCurrency: "MXN",
-        availability: "https://schema.org/InStock",
-        url: `${SITE.url}/ebook`,
-      },
-    ],
+    offers: {
+      "@type": "Offer",
+      name: COMPRA.ebook.nombre,
+      description: COMPRA.ebook.detalle,
+      price: COMPRA.ebook.precio,
+      priceCurrency: "MXN",
+      availability: "https://schema.org/InStock",
+      url: `${SITE.url}/ebook`,
+    },
   };
 }
 

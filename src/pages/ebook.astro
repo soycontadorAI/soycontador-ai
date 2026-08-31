@@ -161,31 +161,17 @@ const totalCapitulos = PARTES.reduce((n, parte) => n + parte.piezas.length, 0);
     <section>
       <div class="container-default">
         <div class="sec-head"><h2 class="folio">CÓMO <b>CONSEGUIRLO</b></h2></div>
-        <div class="compra" data-reveal>
-          <article class="opcion">
-            <p class="folio">OPCIÓN 01 · SOLO EL LIBRO</p>
-            <p class="precio"><b>{COMPRA.ebook.precioTexto}</b> <span>pago único</span></p>
-            <p class="opcion-detalle">{COMPRA.ebook.detalle}</p>
-            <ul class="incluye">
-              <li>{EDICION.paginas} páginas en PDF, listo para leer en cualquier dispositivo</li>
-              <li>Las actualizaciones de edición te llegan sin costo</li>
-              <li>Cero código y cero jerga sin explicar</li>
-            </ul>
-            <a class="btn btn-ghost" href={COMPRA.ebook.url} rel="noopener">Comprar el libro</a>
-          </article>
-          <article class="opcion opcion-destacada">
-            <p class="folio">OPCIÓN 02 · <b>LIBRO + PROMPTS</b></p>
-            <p class="precio"><b>{COMPRA.bundle.precioTexto}</b> <span>pago único</span></p>
-            <p class="opcion-detalle">{COMPRA.bundle.detalle}</p>
-            <ul class="incluye">
-              <li>Todo lo del libro completo</li>
-              <li>Pack de Prompts para Contadores, con el contexto fiscal mexicano ya incorporado</li>
-              <li>Del concepto a la instrucción que puedes pegar hoy mismo</li>
-            </ul>
-            <a class="btn btn-primary" href={COMPRA.bundle.url} rel="noopener">Llevarme los dos</a>
-          </article>
-        </div>
-        <p class="garantia folio">// {COMPRA.garantia.toUpperCase()}</p>
+        <article class="compra" data-reveal>
+          <p class="folio">EL LIBRO <b>COMPLETO</b> · PDF</p>
+          <p class="precio"><b>{COMPRA.ebook.precioTexto}</b> <span>pago único, no suscripción</span></p>
+          <ul class="incluye">
+            {COMPRA.ebook.incluye.map((item) => (
+              <li>{item}</li>
+            ))}
+          </ul>
+          <a class="btn btn-primary" href={COMPRA.ebook.url} rel="noopener">Comprar el libro</a>
+          <p class="garantia folio">// {COMPRA.garantia.toUpperCase()}</p>
+        </article>
       </div>
     </section>
 
@@ -401,39 +387,15 @@ const totalCapitulos = PARTES.reduce((n, parte) => n + parte.piezas.length, 0);
   }
 
   .compra {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 1.6rem;
-    align-items: stretch;
-  }
-  @media (max-width: 880px) {
-    .compra {
-      grid-template-columns: 1fr;
-    }
-  }
-  .opcion {
-    display: flex;
-    flex-direction: column;
+    max-width: 34rem;
     border: 1px solid var(--color-line-strong);
     border-radius: var(--radius-md);
     background: var(--color-surface-raised);
-    padding: 1.8rem;
-  }
-  /* El CTA se ancla abajo para que los dos botones queden a la misma altura. */
-  .opcion .btn {
-    margin-top: auto;
-    align-self: flex-start;
-  }
-  .opcion-destacada {
     box-shadow: 8px 8px 0 var(--color-accent-soft);
+    padding: 1.9rem 2rem;
   }
-  .opcion .precio {
-    margin: 0.9rem 0 0.5rem;
-  }
-  .opcion-detalle {
-    margin: 0 0 1.2rem;
-    font-size: 0.94rem;
-    color: var(--color-ink-soft);
+  .compra .precio {
+    margin: 0.9rem 0 1.3rem;
   }
   .incluye {
     list-style: none;
@@ -456,8 +418,7 @@ const totalCapitulos = PARTES.reduce((n, parte) => n + parte.piezas.length, 0);
     color: var(--color-accent);
   }
   .garantia {
-    margin-top: 1.4rem;
-    text-align: center;
+    margin: 1.4rem 0 0;
   }
 
   .autor {
