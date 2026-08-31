@@ -61,13 +61,24 @@ export const EDICION = {
   urlEbook: "https://soycontador.ai/ebook",
 };
 
-/** Geometría de página. Medida de ~6 in para que el renglón no se alargue. */
+/**
+ * Geometría de página. Medida de ~6 in para que el renglón no se alargue.
+ *
+ * El margen derecho es 0.1 in más corto que el izquierdo a propósito, y esa
+ * diferencia se devuelve como `SANGRADO` en el padding del body. La columna de
+ * texto queda exactamente igual (432 pt, empezando a 90 pt), pero el área
+ * imprimible se extiende 7.2 pt más allá: sin ese respiro, el borde derecho de
+ * los recuadros cae justo en el límite del recorte de Chrome (sale adelgazado o
+ * no sale) y la sombra dura, que sobresale 5 pt, se pierde entera.
+ */
+export const SANGRADO = "7.2pt";
+
 export const PAGINA = {
   margen: {
     top: "0.85in",
     bottom: "0.95in",
     left: "1.25in",
-    right: "1.25in",
+    right: "1.15in",
   },
 };
 
@@ -1143,9 +1154,14 @@ export function decorar(html) {
  * menos tinta si alguien lo imprime.
  */
 function documento(cuerpo, { papel = false } = {}) {
+  // El sangrado solo aplica al cuerpo: las hojas de cortesía van a sangre, con
+  // margen 0, y ahí un padding correría la hoja de 8.5 in fuera de la página.
+  const ajuste = papel
+    ? ""
+    : `\nbody{background:#FFFFFF;padding-right:${SANGRADO};}`;
   return `<!DOCTYPE html>
 <html lang="es">
-<head><meta charset="UTF-8"><style>${CSS}${papel ? "" : "\nbody{background:#FFFFFF;}"}</style></head>
+<head><meta charset="UTF-8"><style>${CSS}${ajuste}</style></head>
 <body>
 ${cuerpo}
 </body>
