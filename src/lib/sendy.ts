@@ -12,7 +12,13 @@ import {
   SENDY_LIST_ID,
 } from "astro:env/server";
 
-export type EstadoSendy = "confirm" | "already" | "error";
+/**
+ * `invalido` existe porque Sendy rechaza direcciones con "+" (devuelve
+ * "Invalid email address") aunque sean perfectamente válidas según el RFC.
+ * Sin este estado el formulario decía "inténtalo de nuevo", que es un consejo
+ * inútil: reintentar la misma dirección va a fallar siempre.
+ */
+export type EstadoSendy = "confirm" | "already" | "invalido" | "error";
 
 /**
  * Listas de Sendy del sitio. "general" recibe newsletter y leads; "ebook" es la
@@ -73,6 +79,7 @@ export async function suscribir(input: SuscribirInput): Promise<EstadoSendy> {
     const texto = (await resp.text()).trim();
     if (texto === "1" || texto === "true") return "confirm";
     if (texto === "Already subscribed.") return "already";
+    if (/invalid email/i.test(texto)) return "invalido";
     console.warn("[sendy] respondió: %s", texto.slice(0, 120));
     return "error";
   } catch (err) {

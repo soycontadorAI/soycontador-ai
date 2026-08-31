@@ -20,9 +20,13 @@ export const prerender = false;
 
 interface NewsletterResponse {
   ok: boolean;
-  status?: "confirm" | "already" | "error";
+  status?: "confirm" | "already" | "invalido" | "error";
   error?: string;
 }
+
+/** Sendy no acepta el "+" de los alias, aunque la dirección sea válida. */
+const AVISO_INVALIDO =
+  "Sendy no acepta direcciones con “+”. Prueba con tu correo sin el alias.";
 
 const json = (status: number, body: NewsletterResponse): Response =>
   new Response(JSON.stringify(body), {
@@ -54,6 +58,9 @@ export const POST: APIRoute = async ({ request }) => {
 
   const status = await suscribir({ email, referrer, lista });
 
+  if (status === "invalido") {
+    return json(400, { ok: false, status, error: AVISO_INVALIDO });
+  }
   if (status === "error") {
     return json(502, { ok: false, status, error: "No pudimos suscribirte. Inténtalo de nuevo." });
   }
