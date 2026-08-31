@@ -15,16 +15,14 @@ html {
   }
 }
 
+/*
+ * El fondo va liso. Tuvo un rayado horizontal cada 32px y se retiró: unos
+ * renglones sueltos leen como libreta común, no como hoja tabular. Lo que
+ * diría "libro contable" son las columnas de cifras, y eso ya lo hacen la
+ * póliza y las tablas en mono, no una textura de fondo.
+ */
 body {
   background: var(--color-bg);
-  /* rayado de papel de libro mayor, casi imperceptible */
-  background-image: repeating-linear-gradient(
-    to bottom,
-    transparent 0,
-    transparent 31px,
-    #edf1f7 31px,
-    #edf1f7 32px
-  );
   color: var(--color-ink);
   font-family: var(--font-body);
   font-size: 1.04rem;

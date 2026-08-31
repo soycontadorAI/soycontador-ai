@@ -196,9 +196,15 @@ body {
   color: var(--lg-verde);
 }
 
-/* --- Hojas de cortesía (portada y colofón, a sangre) --------------------- */
+/*
+ * Hojas de cortesía (portada y colofón, a sangre).
+ *
+ * El papel va liso. Tuvo un rayado horizontal cada 32px, igual que el sitio, y
+ * se retiró por la misma razón (decisión de Israel, 2026-08-31): unos renglones
+ * sueltos leen como libreta común, no como hoja tabular. Lo contable lo dicen
+ * la póliza, la cuenta T y las cifras en mono. No reintroducir la textura.
+ */
 .hoja {
-  position: relative;
   width: 8.5in;
   height: 10.98in;
   overflow: hidden;
@@ -208,28 +214,8 @@ body {
 }
 .hoja:last-child { page-break-after: auto; }
 
-/* Rayado de libro mayor: un renglón cada 32px. En pantalla el token --line
-   (#DFE6EF) se pierde sobre --bg, así que el papel usa un tono medio grado
-   más oscuro; sigue siendo textura, no decoración. */
-/* La especificidad importa: .portada > * y .colofon > * suben el contenido por
-   encima del papel, y sin este selector más fuerte se llevarían al rayado. */
-.hoja > .rayado {
-  position: absolute;
-  inset: 0;
-  background-image:
-    repeating-linear-gradient(to bottom, transparent 0, transparent 31px, #E5EBF3 31px, #E5EBF3 32px);
-}
-/* Línea de margen del libro mayor. */
-.rayado::after {
-  content: "";
-  position: absolute;
-  top: 0; bottom: 0; left: 0.95in;
-  border-left: 1px solid #D5DFEC;
-}
-
 /* --- Portada ------------------------------------------------------------- */
 .portada { display: flex; flex-direction: column; padding: 0.95in 0.95in 0; }
-.portada > * { position: relative; }
 .portada-cabeza { display: flex; align-items: flex-start; gap: 16pt; }
 .portada-cuerpo { margin-top: auto; padding-bottom: 34pt; }
 .portada-folio {
@@ -329,7 +315,6 @@ body {
 .portada-pie .prompt { color: ${C.termOk}; font-weight: 700; margin-right: 7pt; }
 
 /* --- Colofón ------------------------------------------------------------- */
-.colofon > * { position: relative; }
 .colofon-folio {
   font-family: ${F.mono};
   font-size: 8pt;
@@ -887,7 +872,6 @@ export function portadaHtml({ chip = null, ficha } = {}) {
     .join("\n      ");
 
   return `<div class="hoja portada">
-  <div class="rayado"></div>
   <div class="portada-cabeza">
     ${isotipo({ alto: 40 })}
     ${logotipo({ tam: 15 })}
@@ -921,7 +905,6 @@ export function colofonHtml({ filas, nota }) {
     .join("\n    ");
 
   return `<div class="hoja colofon">
-  <div class="rayado"></div>
   <p class="colofon-folio">Registro de la edición</p>
   <h2>${esc(EDICION.titulo)}</h2>
   <p class="colofon-sub">${esc(EDICION.subtitulo)}</p>
@@ -1149,10 +1132,15 @@ export function decorar(html) {
 // Render
 // ---------------------------------------------------------------------------
 
-function documento(cuerpo, { rayado = false } = {}) {
+/**
+ * `papel` deja el fondo crudo del papel (--bg) para las hojas de cortesía, que
+ * van a sangre; el cuerpo del libro va sobre blanco para leerse mejor y gastar
+ * menos tinta si alguien lo imprime.
+ */
+function documento(cuerpo, { papel = false } = {}) {
   return `<!DOCTYPE html>
 <html lang="es">
-<head><meta charset="UTF-8"><style>${CSS}${rayado ? "" : "\nbody{background:#FFFFFF;}"}</style></head>
+<head><meta charset="UTF-8"><style>${CSS}${papel ? "" : "\nbody{background:#FFFFFF;}"}</style></head>
 <body>
 ${cuerpo}
 </body>
@@ -1183,7 +1171,7 @@ export async function renderLibro({ cortesia, cuerpo, salida, meta = {} }) {
     return bytes;
   }
 
-  const cortesiaPdf = await aPdf(documento(cortesia, { rayado: true }), {
+  const cortesiaPdf = await aPdf(documento(cortesia, { papel: true }), {
     margin: { top: "0", bottom: "0", left: "0", right: "0" },
   });
 

@@ -3,9 +3,10 @@ version: 1.0.0
 name: Libro mayor × terminal
 description: >
   Identidad de soycontador.ai. La retícula del libro mayor se encuentra con la
-  terminal: el contador con traje de ingeniero, literal. Fondo claro frío con
-  rayado de papel contable, verde registro como único acento, mono protagonista
-  en cifras y folios, serif solo en citas en cursiva.
+  terminal: el contador con traje de ingeniero, literal. Fondo claro frío y
+  liso, verde registro como único acento, mono protagonista en cifras y folios,
+  serif solo en citas en cursiva. Lo contable lo dice la columna de cifras, no
+  una textura.
 colors:
   bg: "#FAFBFD"
   surface: "#F1F4F9"
@@ -93,9 +94,11 @@ para que el asiento ocupe la caja sin aire muerto).
   total (utilidad `doble-raya`). Es el hero y el patrón para datos duros.
 - **Folios**: toda sección abre con etiqueta mono en versalitas
   (`CUENTA 01 · QUIÉN SOY`); la parte resaltada va en accent.
-- **Rayado de libro mayor**: fondo del body con línea horizontal cada 32px
-  (casi imperceptible) + línea de margen vertical en el gutter izquierdo en
-  secciones anchas.
+- **Fondo liso**. Hubo un rayado horizontal cada 32px en el body y se retiró
+  (decisión de Israel, 2026-08-31): unos renglones sueltos leen como libreta
+  común, no como hoja tabular. Lo que diría "libro contable" es la tabulación
+  de cantidades en columnas, y de eso ya se encargan la póliza y las tablas en
+  mono. No reintroducir la textura.
 - **Terminal**: bloques oscuros (#0D1420) con la conversación MCP; verde
   `terminal-ok` para resultados. Es el ÚNICO lugar oscuro de la página junto
   con la banda del lead magnet.
