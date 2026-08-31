@@ -251,8 +251,13 @@ const calendario = calendarioDe("capacitacion");
             msg.textContent = body.error ?? "No pudimos registrarte. Inténtalo de nuevo.";
           }
         }
-        // El enlace para agendar se descubre al enviar, no antes.
-        if (agenda && body.ok) agenda.hidden = false;
+        // El enlace para agendar se descubre al enviar, no antes. Al aparecer,
+        // el botón de enviar se retira: ya hizo su trabajo, y dejar dos botones
+        // primarios juntos compite por la atención e invita a reenviar.
+        if (agenda && body.ok) {
+          agenda.hidden = false;
+          if (boton) boton.hidden = true;
+        }
         if (body.ok) form.reset();
       } catch {
         if (msg) msg.textContent = "No pudimos registrarte. Inténtalo de nuevo.";

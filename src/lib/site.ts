@@ -155,7 +155,8 @@ export const NAV_PAGINAS = [
 export type PropositoCita = "diagnostico" | "cotizacion" | "capacitacion";
 
 const CALENDARIOS: Partial<Record<PropositoCita, string>> & { default: string | null } = {
-  default: null,
+  /** "Llamada con Israel Castro", 30 min, con Meet. Programación de citas de Workspace. */
+  default: "https://calendar.app.google/6t1odpL5MRgM5hSu8",
 };
 
 export function calendarioDe(proposito?: PropositoCita): string | null {
