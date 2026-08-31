@@ -30,6 +30,8 @@ export default defineConfig({
       SENDY_API_KEY: envField.string({ context: 'server', access: 'secret', optional: true }),
       SENDY_ACTION_URL: envField.string({ context: 'server', access: 'public', optional: true }),
       SENDY_LIST_ID: envField.string({ context: 'server', access: 'public', optional: true }),
+      // Lista propia del ebook. Si falta, el alta cae en SENDY_LIST_ID.
+      SENDY_EBOOK_LIST_ID: envField.string({ context: 'server', access: 'public', optional: true }),
     },
   },
   vite: {

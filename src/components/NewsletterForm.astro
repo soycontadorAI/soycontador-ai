@@ -6,12 +6,22 @@
 
 interface Props {
   boton?: string;
+  /** Lista de Sendy destino. "ebook" manda a la lista propia del lead magnet. */
+  lista?: "general" | "ebook";
+  /** Confirmación tras el alta; cámbiala según lo que se prometió. */
+  exito?: string;
+  nota?: string;
 }
 
-const { boton = "Mándame la guía" } = Astro.props;
+const {
+  boton = "Mándame la guía",
+  lista = "general",
+  exito = "Listo. Revisa tu correo y confirma tu alta para recibir la guía.",
+  nota = "Sin spam. Te das de baja con un clic.",
+} = Astro.props;
 ---
 
-<form class="nl-form" method="post" action="/api/newsletter" data-newsletter>
+<form class="nl-form" method="post" action="/api/newsletter" data-newsletter data-lista={lista} data-exito={exito}>
   <div class="nl-campos">
     <input
       type="email"
@@ -24,7 +34,7 @@ const { boton = "Mándame la guía" } = Astro.props;
     <input type="text" name="hp" tabindex="-1" autocomplete="off" aria-hidden="true" class="nl-hp" />
     <button type="submit">{boton}</button>
   </div>
-  <small data-nl-msg>Sin spam. Te das de baja con un clic.</small>
+  <small data-nl-msg>{nota}</small>
 </form>
 
 <style>
@@ -92,12 +102,14 @@ const { boton = "Mándame la guía" } = Astro.props;
             email: data.get("email"),
             hp: data.get("hp"),
             referrer: location.href,
+            lista: form.dataset.lista,
           }),
         });
         const body = await resp.json();
         if (msg) {
           if (body.status === "confirm") {
-            msg.textContent = "Listo. Revisa tu correo y confirma tu alta para recibir la guía.";
+            msg.textContent =
+              form.dataset.exito ?? "Listo. Revisa tu correo y confirma tu alta.";
           } else if (body.status === "already") {
             msg.textContent = "Ya estás en la lista. Revisa tu correo.";
           } else {

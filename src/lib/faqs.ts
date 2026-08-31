@@ -23,7 +23,7 @@ export const FAQ_HOME: FaqItem[] = [
   {
     pregunta: "¿Necesito saber programar para automatizar mi despacho?",
     respuesta:
-      "No. Del código se encarga la IA; lo que necesitas es saber nombrar el problema en los términos correctos, y eso es justo lo que enseño. Yo mismo casi no escribo código: lo leo, lo entiendo y se lo pido a la IA. Tu criterio contable es la parte que no se puede automatizar.",
+      "No. Del código se encarga la IA; lo que necesitas es saber nombrar el problema en los términos correctos, y eso es justo lo que enseño. Soy desarrollador de software y ni yo tecleo código hoy: se lo describo a la IA y reviso lo que devuelve. Tu criterio contable es la parte que no se puede automatizar.",
   },
   {
     pregunta: "¿No estoy demasiado grande para subirme a la IA?",
@@ -33,7 +33,7 @@ export const FAQ_HOME: FaqItem[] = [
   {
     pregunta: "¿Quién es Israel Castro?",
     respuesta:
-      "Soy contador público con 15 años de ejercicio y también entiendo el código: estudié programación, trabajé como desarrollador en una startup mexicana y hoy automatizo mi propio despacho con IA. Creé TodoConta y su conexión MCP con Claude, y conduzco el live semanal Jueves de ContadorIA.",
+      "Soy contador público con 15 años de ejercicio y desarrollador de software: estudié programación, trabajé como desarrollador en una startup mexicana y hoy automatizo mi propio despacho con IA. Creé TodoConta y su conexión MCP con Claude, y conduzco el live semanal Jueves de ContadorIA.",
   },
 ];
 

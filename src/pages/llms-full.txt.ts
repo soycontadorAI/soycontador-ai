@@ -9,6 +9,7 @@
 import type { APIRoute } from "astro";
 
 import { CASO_AUDITOR, EMPRESARIAL, ORGANIZACIONES, SESION_MENSUAL } from "../lib/capacitacion";
+import { APENDICES, COMPRA, EDICION, FAQ_EBOOK, PARTES } from "../lib/ebook";
 import { FAQ_CAPACITACION, FAQ_CLUB, FAQ_HOME, FAQ_SOLUCIONES } from "../lib/faqs";
 import { HERRAMIENTAS } from "../lib/herramientas";
 import { CLUB, EBOOK, PERSONA, PROGRAMA, SITE } from "../lib/site";
@@ -77,9 +78,27 @@ ${CASO_GASOLINERA.detalle}
 
 ${HERRAMIENTAS.map((h) => `### ${h.nombre} (${h.estado})\n\n${h.descripcion}\n\nURL: ${h.url}`).join("\n\n")}
 
-## Ebook "${EBOOK.titulo}" (${EBOOK.precio})
+## Ebook "${EBOOK.titulo}" (https://soycontador.ai/ebook)
 
 ${EBOOK.headline}. ${EBOOK.pitch}
+
+${EDICION.nombre} (${EDICION.fecha}), ${EDICION.paginas} páginas en PDF.
+Precios: ${COMPRA.ebook.precioTexto} solo el libro · ${COMPRA.bundle.precioTexto} con el Pack de Prompts. ${COMPRA.garantia}
+
+Temario:
+
+${PARTES.map(
+  (parte) =>
+    `### Parte ${parte.romano}. ${parte.nombre} (${parte.verbo})\n\n${parte.piezas
+      .map((p) => `- ${p.num}. ${p.titulo}: ${p.resumen}`)
+      .join("\n")}`,
+).join("\n\n")}
+
+### Apéndices
+
+${APENDICES.map((a) => `- ${a.num}. ${a.titulo}: ${a.resumen}`).join("\n")}
+
+${faqMd(FAQ_EBOOK)}
 
 ## ${PROGRAMA.nombre} (https://soycontador.ai/jueves)
 

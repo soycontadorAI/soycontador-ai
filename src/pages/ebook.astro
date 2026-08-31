@@ -1,0 +1,485 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import FaqBlock from "../components/FaqBlock.astro";
+import NewsletterForm from "../components/NewsletterForm.astro";
+import { APENDICES, COMPRA, EBOOK_META, EDICION, FAQ_EBOOK, PARTES } from "../lib/ebook";
+import { breadcrumbs, ebookBook, faqPage, graph } from "../lib/schema";
+import { EBOOK, SITE } from "../lib/site";
+
+const jsonLd = graph(
+  ebookBook(),
+  faqPage(FAQ_EBOOK, `${SITE.url}/ebook`),
+  breadcrumbs([
+    { name: "Inicio", path: "/" },
+    { name: "Ebook: IA para Contadores", path: "/ebook" },
+  ]),
+);
+
+const totalCapitulos = PARTES.reduce((n, parte) => n + parte.piezas.length, 0);
+---
+
+<BaseLayout
+  title="IA para Contadores: el ebook para entender la inteligencia artificial"
+  description="Ebook de Israel Castro para contadores mexicanos: 17 capítulos y 3 apéndices que explican cómo funciona la inteligencia artificial con analogías contables. Cero código, contexto SAT y CFDI. $297 MXN, con muestra gratuita."
+  jsonLd={jsonLd}
+>
+  <main>
+    <section class="hero">
+      <div class="container-default hero-grid">
+        <div>
+          <p class="folio">EBOOK · <b>{EDICION.nombre.toUpperCase()}</b> · {EDICION.paginas} PÁGINAS</p>
+          <h1 class="titulo-xl">{EBOOK.titulo}</h1>
+          <p class="hero-headline">{EBOOK_META.headline}</p>
+          <p class="hero-gancho">
+            {EBOOK_META.gancho} <span class="tenue">{EBOOK_META.subgancho}</span>
+          </p>
+          <p class="intro-page">
+            {EBOOK.pitch}
+          </p>
+          <div class="hero-precio">
+            <p class="precio"><b>{COMPRA.ebook.precioTexto}</b> <span>pago único · PDF</span></p>
+            <div class="hero-acciones">
+              <a class="btn btn-primary" href={COMPRA.ebook.url} rel="noopener">Comprar el libro</a>
+              <a class="btn btn-ghost" href="#muestra">Leer 3 capítulos gratis</a>
+            </div>
+          </div>
+        </div>
+        <figure class="portada">
+          <img
+            src="/assets/ebook-portada.webp"
+            alt={`Portada de ${EBOOK.titulo}, de Israel Castro`}
+            width="450"
+            height="583"
+            loading="eager"
+          />
+          <figcaption class="folio">{totalCapitulos} CAPÍTULOS · {APENDICES.length} APÉNDICES · 0 LÍNEAS DE CÓDIGO</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section>
+      <div class="container-narrow">
+        <div class="sec-head"><h2 class="folio">POR QUÉ <b>ESTE LIBRO</b></h2></div>
+        <div class="argumento" data-reveal>
+          <p>
+            Los tutoriales te enseñan botones. Te dicen dónde dar clic, qué
+            escribir en la cajita, cómo activar una función. Y sirven hasta que
+            la interfaz cambia, que es cada mes.
+          </p>
+          <p>
+            Lo que no cambia es cómo funciona esto por debajo. Si entiendes qué
+            hace un modelo cuando le hablas, por qué inventa cuando inventa y
+            qué le puedes confiar y qué no, ya sabes usar la herramienta que
+            salga mañana. Ese es el libro que yo hubiera querido leer cuando
+            empecé, y nadie lo estaba escribiendo para nosotros.
+          </p>
+          <p>
+            Está escrito desde un despacho mexicano: los ejemplos son CFDI, ISR,
+            requerimientos del SAT y papeles de trabajo. Cada concepto técnico
+            entra por una analogía contable, y no hay una sola línea de código.
+          </p>
+          <blockquote class="remate">
+            <span class="hl">{EBOOK_META.remate}</span>
+          </blockquote>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="container-default">
+        <div class="sec-head"><h2 class="folio">EL <b>TEMARIO</b> COMPLETO</h2></div>
+        <div class="temario">
+          {PARTES.map((parte) => (
+            <article class="parte" data-reveal>
+              <header class="parte-head">
+                <span class="parte-romano">{parte.romano}</span>
+                <div>
+                  <h3>{parte.nombre}</h3>
+                  <p class="folio">{parte.verbo.toUpperCase()} · {parte.piezas.length} CAPÍTULOS</p>
+                </div>
+              </header>
+              <ol class="piezas">
+                {parte.piezas.map((pieza) => (
+                  <li>
+                    <span class="pieza-num">{pieza.num}</span>
+                    <span>
+                      <b>{pieza.titulo}</b>
+                      <span class="pieza-resumen">{pieza.resumen}</span>
+                    </span>
+                  </li>
+                ))}
+              </ol>
+            </article>
+          ))}
+          <article class="parte" data-reveal>
+            <header class="parte-head">
+              <span class="parte-romano">+</span>
+              <div>
+                <h3>Apéndices</h3>
+                <p class="folio">CONSULTAR · {APENDICES.length} PIEZAS</p>
+              </div>
+            </header>
+            <ol class="piezas">
+              {APENDICES.map((ap) => (
+                <li>
+                  <span class="pieza-num">{ap.num}</span>
+                  <span>
+                    <b>{ap.titulo}</b>
+                    <span class="pieza-resumen">{ap.resumen}</span>
+                  </span>
+                </li>
+              ))}
+            </ol>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="muestra" class="muestra">
+      <div class="container-default">
+        <div class="muestra-caja" data-reveal>
+          <div>
+            <p class="folio muestra-folio">MUESTRA <b>GRATUITA</b></p>
+            <h2 class="titulo-lg">Léela completa antes de decidir</h2>
+            <p class="muestra-texto">
+              No es un adelanto recortado: te mando la {EBOOK_META.muestra.toLowerCase()},
+              con sus ejercicios y sus cierres, tal como están en el libro. Si al
+              terminar el capítulo 2 sientes que entendiste algo que llevabas
+              meses oyendo sin entender, el resto funciona igual.
+            </p>
+            <NewsletterForm
+              boton="Mándame la muestra"
+              lista="ebook"
+              exito="Listo. Confirma tu correo y te llega la muestra en PDF."
+              nota="Te llega en PDF. Sin spam, y te das de baja con un clic."
+            />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="container-default">
+        <div class="sec-head"><h2 class="folio">CÓMO <b>CONSEGUIRLO</b></h2></div>
+        <div class="compra" data-reveal>
+          <article class="opcion">
+            <p class="folio">OPCIÓN 01 · SOLO EL LIBRO</p>
+            <p class="precio"><b>{COMPRA.ebook.precioTexto}</b> <span>pago único</span></p>
+            <p class="opcion-detalle">{COMPRA.ebook.detalle}</p>
+            <ul class="incluye">
+              <li>{EDICION.paginas} páginas en PDF, listo para leer en cualquier dispositivo</li>
+              <li>Las actualizaciones de edición te llegan sin costo</li>
+              <li>Cero código y cero jerga sin explicar</li>
+            </ul>
+            <a class="btn btn-ghost" href={COMPRA.ebook.url} rel="noopener">Comprar el libro</a>
+          </article>
+          <article class="opcion opcion-destacada">
+            <p class="folio">OPCIÓN 02 · <b>LIBRO + PROMPTS</b></p>
+            <p class="precio"><b>{COMPRA.bundle.precioTexto}</b> <span>pago único</span></p>
+            <p class="opcion-detalle">{COMPRA.bundle.detalle}</p>
+            <ul class="incluye">
+              <li>Todo lo del libro completo</li>
+              <li>Pack de Prompts para Contadores, con el contexto fiscal mexicano ya incorporado</li>
+              <li>Del concepto a la instrucción que puedes pegar hoy mismo</li>
+            </ul>
+            <a class="btn btn-primary" href={COMPRA.bundle.url} rel="noopener">Llevarme los dos</a>
+          </article>
+        </div>
+        <p class="garantia folio">// {COMPRA.garantia.toUpperCase()}</p>
+      </div>
+    </section>
+
+    <section>
+      <div class="container-narrow">
+        <div class="sec-head"><h2 class="folio">QUIÉN <b>LO ESCRIBIÓ</b></h2></div>
+        <div class="autor" data-reveal>
+          <img src="/assets/israel-castro.jpg" alt="Israel Castro" width="120" height="120" loading="lazy" />
+          <div>
+            <p>
+              Soy Israel Castro, contador público con 15 años de ejercicio y
+              desarrollador de software. Estudié programación, trabajé como
+              desarrollador en una startup mexicana y hoy automatizo mi propio
+              despacho con IA.
+            </p>
+            <p>
+              Este libro no salió de leer papers: salió de aplicar esto en
+              clientes reales, con el SAT de por medio y la responsabilidad
+              profesional encima. Construí <a href="/herramientas">TodoConta</a> y
+              su conexión MCP, y cada jueves resuelvo un problema de despacho en
+              vivo en <a href="/jueves">Jueves de ContadorIA</a>.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="container-narrow">
+        <div class="sec-head"><h2 class="folio">PREGUNTAS <b>DIRECTAS</b></h2></div>
+        <FaqBlock items={FAQ_EBOOK} />
+      </div>
+    </section>
+  </main>
+</BaseLayout>
+
+<style>
+  section {
+    padding: 3.4rem 0;
+  }
+  .hero {
+    padding-top: 4.5rem;
+  }
+  .hero-grid {
+    display: grid;
+    grid-template-columns: 1.25fr 0.75fr;
+    gap: 3.2rem;
+    align-items: start;
+  }
+  @media (max-width: 880px) {
+    .hero-grid {
+      grid-template-columns: 1fr;
+      gap: 2.4rem;
+    }
+  }
+  .hero-headline {
+    margin: 0.7rem 0 1.4rem;
+    font-family: var(--font-serif-detail);
+    font-style: italic;
+    font-size: clamp(1.15rem, 2vw, 1.4rem);
+    color: var(--color-ink-soft);
+  }
+  .hero-gancho {
+    margin: 0;
+    font-size: 1.12rem;
+    font-weight: 500;
+    line-height: 1.45;
+    max-width: 48ch;
+  }
+  .tenue {
+    color: var(--color-ink-dim);
+  }
+  .portada img {
+    display: block;
+    width: 100%;
+    height: auto;
+    border: 1px solid var(--color-line-strong);
+    border-radius: var(--radius-sm);
+    box-shadow: 10px 10px 0 var(--color-line);
+  }
+  .portada figcaption {
+    display: block;
+    margin-top: 1.1rem;
+    text-align: center;
+  }
+  .hero-precio {
+    margin-top: 1.8rem;
+  }
+  .precio {
+    margin: 0 0 1rem;
+    font-family: var(--font-mono);
+  }
+  .precio b {
+    font-size: 1.9rem;
+    font-weight: 700;
+    color: var(--color-accent);
+    letter-spacing: -0.02em;
+  }
+  .precio span {
+    color: var(--color-ink-dim);
+    font-size: 0.85rem;
+  }
+  .hero-acciones {
+    display: flex;
+    gap: 0.9rem;
+    flex-wrap: wrap;
+  }
+
+  .argumento p {
+    color: var(--color-ink-soft);
+    margin: 0 0 1.1rem;
+  }
+  .remate {
+    margin: 2rem 0 0;
+    padding: 0;
+    border: none;
+    font-family: var(--font-serif-detail);
+    font-style: italic;
+    font-size: 1.4rem;
+    line-height: 1.35;
+    color: var(--color-ink);
+    text-align: center;
+  }
+  .remate .hl {
+    --hl-alto: 0.5em;
+  }
+
+  .temario {
+    display: grid;
+    gap: 1.4rem;
+  }
+  .parte {
+    border: 1px solid var(--color-line-strong);
+    border-radius: var(--radius-md);
+    background: var(--color-surface-raised);
+    padding: 1.6rem 1.8rem 1.4rem;
+  }
+  .parte-head {
+    display: flex;
+    align-items: baseline;
+    gap: 1.1rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--color-line);
+  }
+  .parte-romano {
+    font-family: var(--font-mono);
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--color-accent);
+    min-width: 1.8rem;
+  }
+  .parte-head h3 {
+    margin: 0 0 0.25rem;
+    font-size: 1.25rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+  }
+  .piezas {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .piezas li {
+    display: grid;
+    grid-template-columns: 2.4rem 1fr;
+    gap: 0.8rem;
+    padding: 0.9rem 0;
+    border-bottom: 1px solid var(--color-line);
+  }
+  .piezas li:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+  }
+  .pieza-num {
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--color-ink-dim);
+  }
+  .piezas b {
+    display: block;
+    font-size: 1rem;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+  }
+  .pieza-resumen {
+    display: block;
+    margin-top: 0.2rem;
+    font-size: 0.9rem;
+    color: var(--color-ink-soft);
+    max-width: 64ch;
+  }
+
+  .muestra-caja {
+    background: var(--color-terminal-bg);
+    border-radius: var(--radius-md);
+    padding: 2.6rem 2.4rem;
+  }
+  .muestra-folio {
+    color: var(--color-terminal-dim);
+  }
+  .muestra-folio :global(b) {
+    color: var(--color-terminal-ok);
+  }
+  .muestra-caja h2 {
+    color: #ffffff;
+    margin: 0.9rem 0 0.9rem;
+  }
+  .muestra-texto {
+    color: var(--color-terminal-ink);
+    max-width: 58ch;
+    margin: 0 0 1.6rem;
+  }
+
+  .compra {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.6rem;
+    align-items: stretch;
+  }
+  @media (max-width: 880px) {
+    .compra {
+      grid-template-columns: 1fr;
+    }
+  }
+  .opcion {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid var(--color-line-strong);
+    border-radius: var(--radius-md);
+    background: var(--color-surface-raised);
+    padding: 1.8rem;
+  }
+  /* El CTA se ancla abajo para que los dos botones queden a la misma altura. */
+  .opcion .btn {
+    margin-top: auto;
+    align-self: flex-start;
+  }
+  .opcion-destacada {
+    box-shadow: 8px 8px 0 var(--color-accent-soft);
+  }
+  .opcion .precio {
+    margin: 0.9rem 0 0.5rem;
+  }
+  .opcion-detalle {
+    margin: 0 0 1.2rem;
+    font-size: 0.94rem;
+    color: var(--color-ink-soft);
+  }
+  .incluye {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 1.8rem;
+  }
+  .incluye li {
+    padding: 0.55rem 0 0.55rem 1.6rem;
+    position: relative;
+    color: var(--color-ink-soft);
+    border-bottom: 1px solid var(--color-line);
+    font-size: 0.94rem;
+  }
+  .incluye li::before {
+    content: "✓";
+    position: absolute;
+    left: 0;
+    font-family: var(--font-mono);
+    font-weight: 700;
+    color: var(--color-accent);
+  }
+  .garantia {
+    margin-top: 1.4rem;
+    text-align: center;
+  }
+
+  .autor {
+    display: grid;
+    grid-template-columns: 120px 1fr;
+    gap: 1.8rem;
+    align-items: start;
+  }
+  @media (max-width: 700px) {
+    .autor {
+      grid-template-columns: 1fr;
+    }
+  }
+  .autor img {
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--color-line-strong);
+  }
+  .autor p {
+    margin: 0 0 0.9rem;
+    color: var(--color-ink-soft);
+  }
+  .autor p:last-child {
+    margin-bottom: 0;
+  }
+</style>

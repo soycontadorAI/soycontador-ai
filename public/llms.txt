@@ -5,21 +5,21 @@
 > inteligencia artificial: imparte talleres, construye herramientas en
 > producción (TodoConta, conexión MCP entre Claude y los CFDI del SAT,
 > Abacus por WhatsApp) y conduce el live semanal Jueves de ContadorIA.
-> Su diferenciador: no es un capacitador genérico de IA; es un contador
-> que programa y cuyas credenciales son software real en uso.
+> Su diferenciador: no es un capacitador genérico de IA; es contador y
+> desarrollador, y sus credenciales son software real en uso.
 
 Idioma del sitio: español de México. Contexto fiscal: SAT, CFDI, ISR, IVA.
 
 ## Páginas principales
 
 - [Inicio](https://soycontador.ai/): quién es Israel Castro y qué ofrece
-- [Sobre mí](https://soycontador.ai/sobre-mi): trayectoria del contador que también entiende el código
+- [Sobre mí](https://soycontador.ai/sobre-mi): trayectoria de Israel Castro como contador público y desarrollador de software
 - [Capacitación](https://soycontador.ai/capacitacion): sesión mensual de 8 horas ($4,999 MXN), programas para empresas y despachos, y licenciamiento para organizaciones
 - [Soluciones a la medida](https://soycontador.ai/soluciones): automatización de procesos contables (reportes, conciliaciones, concentrados) desarrollada para tu negocio
 - [Herramientas](https://soycontador.ai/herramientas): TodoConta, conexión MCP con el SAT y Abacus
 - [Jueves de ContadorIA](https://soycontador.ai/jueves): live semanal, jueves 11:00 hora del centro de México
 - [Club de Automatización Fiscal](https://soycontador.ai/club): membresía anual con software, bootcamp mensual y soporte humano (entrada por aplicación)
-- Ebook "IA para Contadores": 17 capítulos para entender la IA sin código ni jerga ($297 MXN)
+- [Ebook: IA para Contadores](https://soycontador.ai/ebook): 17 capítulos y 3 apéndices para entender la IA sin código ni jerga, con contexto SAT/CFDI ($297 MXN, o $597 con el Pack de Prompts). Segunda edición, agosto 2026. Muestra gratuita de 3 piezas
 
 ## Recursos
 

@@ -9,7 +9,10 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "ebook": "pnpm ebook:libro && pnpm ebook:muestra",
+    "ebook:libro": "node ebook/generar-libro.mjs",
+    "ebook:muestra": "node ebook/generar-muestra.mjs"
   },
   "dependencies": {
     "@astrojs/mdx": "^7.0.8",
@@ -25,11 +28,19 @@
   "pnpm": {
     "onlyBuiltDependencies": [
       "esbuild",
+      "puppeteer",
       "sharp"
     ]
   },
   "devDependencies": {
     "@astrojs/check": "^0.9.10",
+    "@fontsource/jetbrains-mono": "^5.3.0",
+    "@fontsource/source-serif-4": "^5.3.0",
+    "@fontsource/space-grotesk": "^5.3.0",
+    "gray-matter": "^4.0.3",
+    "marked": "^17.0.5",
+    "pdf-lib": "^1.17.1",
+    "puppeteer": "^24.40.0",
     "typescript": "^6.0.3"
   }
 }

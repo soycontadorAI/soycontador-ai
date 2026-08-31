@@ -6,9 +6,11 @@
  * otro lado.
  *
  * Reglas de honestidad del copy (2026-08-30):
- * - Israel NO "escribe código" hoy: lo lee, lo entiende y se lo pide a la IA
- *   en los términos correctos. Posicionamiento: "contador que entiende el
- *   código", nunca "yo sí programo".
+ * - Israel ES contador público Y desarrollador de software: eso se dice, es el
+ *   diferenciador. Lo que nunca se escribe es el comparativo ("yo sí programo",
+ *   que señala al colega que empieza) ni el presente falso ("escribo código
+ *   todos los días": hoy lo dirige con IA, lo lee y lo pide en los términos
+ *   correctos).
  * - TodoConta nació en 2012 como proyecto/blog; como SOFTWARE es de 2026.
  *   No afirmar "construyo software desde 2012".
  * - El MCP trabaja vía la cuenta de TodoConta (app online + servidor): NO
@@ -23,9 +25,9 @@ export const SITE = {
   lang: "es-MX",
 
   titleDefault:
-    "Israel Castro. Contador público que entiende el código. IA para contadores en México",
+    "Israel Castro. Contador público y desarrollador de software. IA para contadores en México",
   descriptionDefault:
-    "Soy Israel Castro, contador público que entiende el código. Ayudo a contadores y despachos de México a automatizar su operación fiscal con IA: talleres, soluciones a la medida, herramientas como TodoConta y su conexión MCP, y el live semanal Jueves de ContadorIA.",
+    "Soy Israel Castro, contador público y desarrollador de software. Ayudo a contadores y despachos de México a automatizar su operación fiscal con IA: talleres, soluciones a la medida, herramientas como TodoConta y su conexión MCP, y el live semanal Jueves de ContadorIA.",
 
   claim:
     "La IA no te va a reemplazar. Pero un contador que sabe usar IA para volverse infraestructura sí va a reemplazar al que no.",
@@ -37,7 +39,7 @@ export const PERSONA = {
   alternateName: "Isca",
   jobTitles: ["Contador Público", "Desarrollador de Software"],
   bioCorta:
-    "Contador público con 15 años de ejercicio que también entiende el código: estudió programación, trabajó como desarrollador en una startup mexicana y hoy automatiza su propio despacho con IA. Creador de TodoConta (proyecto nacido en 2012, hoy software fiscal con conexión MCP) y del live semanal Jueves de ContadorIA.",
+    "Contador público con 15 años de ejercicio y desarrollador de software: estudió programación, trabajó como desarrollador en una startup mexicana y hoy automatiza su propio despacho con IA. Creador de TodoConta (proyecto nacido en 2012, hoy software fiscal con conexión MCP) y del live semanal Jueves de ContadorIA.",
   pais: "MX",
 
   sameAs: [
@@ -115,9 +117,7 @@ export const EBOOK = {
   pitch:
     "17 capítulos, 3 apéndices, cero código y cero jerga sin explicar. No te va a convertir en programador: te va a convertir en un contador que entiende la herramienta más importante de la próxima década.",
   precio: "$297 MXN",
-  /** TODO(Israel): aún no existe página pública de venta (se venderá en nas.io).
-   *  Mientras sea null, el CTA manda al formulario de contacto. */
-  url: null as string | null,
+  url: "/ebook" as string | null,
 } as const;
 
 /** Nav del sitio: 3 anclas de la home + CTA (decisión de Israel 2026-08-30). */
@@ -133,6 +133,7 @@ export const NAV_PAGINAS = [
   { label: "Capacitación", href: "/capacitacion" },
   { label: "Soluciones a la medida", href: "/soluciones" },
   { label: "Herramientas", href: "/herramientas" },
+  { label: "Ebook: IA para Contadores", href: "/ebook" },
   { label: "Jueves de ContadorIA", href: "/jueves" },
   { label: "Club de Automatización Fiscal", href: "/club" },
   { label: "Contacto", href: "/contacto" },

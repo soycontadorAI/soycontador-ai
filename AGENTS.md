@@ -16,10 +16,20 @@ Stack: Astro 7 estático + adapter Vercel (solo `/api/newsletter` es serverless)
   ($4,999 MXN) y el ebook también ($297 MXN). NO publicar: el ancla de organizaciones
   ($3,500-4,000/hora, referencia interna de cotización), la capacitación empresarial
   (solo cotización por llamada tras formulario) ni el Club (cierre por aplicación).
-- Posicionamiento: "contador que ENTIENDE el código". NUNCA "yo sí programo" (hoy Israel
-  casi no escribe código: lo lee, lo entiende y se lo pide a la IA en los términos correctos;
-  además "yo sí programo" señala al que no). La habilidad que se vende: saber nombrar el
-  problema en términos técnicos para que la IA lo resuelva a la primera.
+- POSICIONAMIENTO, en tres niveles (corrección de Israel 2026-08-30):
+  - SÍ, es identidad y diferenciador: "contador público y desarrollador de software".
+    Israel ES developer (estudió programación y trabajó como desarrollador en una startup).
+    Además es lo que la gente busca ("contador programador") y lo que los LLM ya asocian
+    a su nombre, así que se dice sin rodeos.
+  - NUNCA el comparativo: "yo sí programo (para que tú no tengas que hacerlo)". Señala al
+    colega que apenas empieza; esa es la parte cruel y era la queja original.
+  - NUNCA el presente factualmente falso: "escribo código todos los días". Hoy Israel
+    dirige el código con IA: lo lee, lo revisa y lo pide en los términos correctos.
+  El matiz honesto ("hoy dirijo más de lo que tecleo") se cuenta como evolución del oficio,
+  jamás como confesión de carencia: un desarrollador que dirige con IA sigue siendo
+  desarrollador, y ese es justo el modelo que el sitio le propone al lector. La habilidad
+  que se vende: saber nombrar el problema en términos técnicos para que la IA lo resuelva
+  a la primera.
 - HONESTIDAD TÉCNICA (correcciones de Israel 2026-08-30):
   - TodoConta nació en 2012 como proyecto/blog; como SOFTWARE es de 2026. No afirmar
     "construyo software desde 2012". El arco real: 2012 blog WordPress, 2019 estudia
@@ -29,6 +39,14 @@ Stack: Astro 7 estático + adapter Vercel (solo `/api/newsletter` es serverless)
     El contraste honesto: canal controlado vs pegar datos de clientes en chats públicos.
 - Ángulo Avatar A: la experiencia es la VENTAJA ("con todo lo que sé + IA supero a cualquier
   recién egresado"); nunca tratar la edad como carencia.
+
+## El ebook
+
+El libro "IA para Contadores" vive en `ebook/` (contenido, diseño y generadores
+de PDF); se genera con `pnpm ebook`. Está **fuera de `src/` y de `public/` a
+propósito**: es el entregable de pago y en `public/` quedaría descargable.
+Ver `ebook/CLAUDE.md`. La página que lo vende es `/ebook`, y su copy sale de
+`src/lib/ebook.ts`.
 
 ## Regla anti-duplicación (SEO)
 

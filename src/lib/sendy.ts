@@ -5,15 +5,35 @@
  * (doble opt-in), y al confirmar aterriza en /dentro.
  */
 
-import { SENDY_API_KEY, SENDY_ACTION_URL, SENDY_LIST_ID } from "astro:env/server";
+import {
+  SENDY_API_KEY,
+  SENDY_ACTION_URL,
+  SENDY_EBOOK_LIST_ID,
+  SENDY_LIST_ID,
+} from "astro:env/server";
 
 export type EstadoSendy = "confirm" | "already" | "error";
+
+/**
+ * Listas de Sendy del sitio. "general" recibe newsletter y leads; "ebook" es la
+ * lista propia del lead magnet de /ebook. Si la del ebook no está configurada,
+ * el alta cae en la general en lugar de fallar: preferimos un suscriptor en la
+ * lista equivocada que un correo perdido.
+ */
+export type Lista = "general" | "ebook";
+
+function idDeLista(lista: Lista): string | undefined {
+  if (lista === "ebook") return SENDY_EBOOK_LIST_ID || SENDY_LIST_ID;
+  return SENDY_LIST_ID;
+}
 
 export interface SuscribirInput {
   email: string;
   nombre?: string;
   /** Sendy rechaza el alta si no es URL válida: solo se manda cuando parsea */
   referrer?: string;
+  /** A qué lista entra. Por omisión, la general. */
+  lista?: Lista;
   /**
    * Campos personalizados de la lista de Sendy (el nombre del campo tal cual
    * está en Sendy, ej. Whatsapp/Rol/Interes/Mensaje). Los usa el formulario
@@ -23,7 +43,8 @@ export interface SuscribirInput {
 }
 
 export async function suscribir(input: SuscribirInput): Promise<EstadoSendy> {
-  if (!SENDY_API_KEY || !SENDY_ACTION_URL || !SENDY_LIST_ID) {
+  const list = idDeLista(input.lista ?? "general");
+  if (!SENDY_API_KEY || !SENDY_ACTION_URL || !list) {
     console.error("[sendy] SENDY_API_KEY/ACTION_URL/LIST_ID sin configurar");
     return "error";
   }
@@ -32,7 +53,7 @@ export async function suscribir(input: SuscribirInput): Promise<EstadoSendy> {
     const body = new URLSearchParams({
       api_key: SENDY_API_KEY,
       email: input.email,
-      list: SENDY_LIST_ID,
+      list,
       boolean: "true",
     });
     if (input.nombre) body.set("name", input.nombre);

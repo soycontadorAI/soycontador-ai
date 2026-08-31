@@ -3,7 +3,8 @@
  * con estos bloques y lo emiten vía <JsonLd graph={[...]} />.
  */
 
-import { CLUB, PERSONA, PROGRAMA, SITE, TRAILER } from "./site";
+import { APENDICES, COMPRA, EDICION, PARTES } from "./ebook";
+import { CLUB, EBOOK, PERSONA, PROGRAMA, SITE, TRAILER } from "./site";
 import type { FaqItem } from "./faqs";
 
 type JsonLdObject = Record<string, unknown>;
@@ -98,6 +99,71 @@ export function clubService(): JsonLdObject {
     areaServed: { "@type": "Country", name: "México" },
     availableLanguage: "es",
     serviceType: "Membresía de automatización fiscal para despachos contables",
+  };
+}
+
+/**
+ * Ebook como Book + Offer. Aquí el precio SÍ se publica (decisión de Israel);
+ * `hasPart` expone el temario para que los buscadores y los LLM sepan qué trae
+ * el libro sin tener que leer el PDF.
+ */
+export function ebookBook(): JsonLdObject {
+  const capitulos = PARTES.flatMap((parte) =>
+    parte.piezas.map((pieza) => ({
+      "@type": "Chapter",
+      position: Number(pieza.num),
+      name: pieza.titulo,
+      abstract: pieza.resumen,
+      isPartOf: { "@type": "CreativeWorkSeries", name: `Parte ${parte.romano}. ${parte.nombre}` },
+    })),
+  );
+
+  return {
+    "@type": "Book",
+    "@id": `${SITE.url}/ebook#libro`,
+    name: EBOOK.titulo,
+    alternateName: `${EBOOK.titulo}: ${EBOOK.subtitulo}`,
+    description: EBOOK.pitch,
+    url: `${SITE.url}/ebook`,
+    image: `${SITE.url}/assets/ebook-portada.png`,
+    author: personRef(),
+    publisher: personRef(),
+    inLanguage: "es-MX",
+    bookFormat: "https://schema.org/EBook",
+    bookEdition: `${EDICION.nombre} (${EDICION.fecha})`,
+    numberOfPages: EDICION.paginas,
+    about: [
+      "inteligencia artificial para contadores",
+      "IA aplicada a la contabilidad",
+      "SAT",
+      "CFDI",
+      "prompt engineering",
+    ],
+    audience: { "@type": "Audience", audienceType: "Contadores públicos y despachos contables en México" },
+    hasPart: [
+      ...capitulos,
+      ...APENDICES.map((ap) => ({ "@type": "Chapter", name: `Apéndice ${ap.num}. ${ap.titulo}`, abstract: ap.resumen })),
+    ],
+    offers: [
+      {
+        "@type": "Offer",
+        name: COMPRA.ebook.nombre,
+        description: COMPRA.ebook.detalle,
+        price: COMPRA.ebook.precio,
+        priceCurrency: "MXN",
+        availability: "https://schema.org/InStock",
+        url: `${SITE.url}/ebook`,
+      },
+      {
+        "@type": "Offer",
+        name: COMPRA.bundle.nombre,
+        description: COMPRA.bundle.detalle,
+        price: COMPRA.bundle.precio,
+        priceCurrency: "MXN",
+        availability: "https://schema.org/InStock",
+        url: `${SITE.url}/ebook`,
+      },
+    ],
   };
 }
 

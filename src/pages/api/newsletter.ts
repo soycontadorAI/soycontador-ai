@@ -4,13 +4,17 @@
  * Alta de newsletter server-side hacia Sendy (doble opt-in). Único endpoint
  * serverless del sitio; todo lo demás es estático.
  *
- * Body JSON: { email, hp?, referrer? }
+ * Body JSON: { email, hp?, referrer?, lista? }
  * Respuesta:  { ok, status: 'confirm' | 'already' | 'error', error? }
+ *
+ * `lista` sirve para que el lead magnet de /ebook entre a su propia lista de
+ * Sendy sin duplicar el endpoint. Solo se aceptan los valores conocidos: el
+ * navegador nunca decide un ID de lista.
  */
 
 import type { APIRoute } from "astro";
 
-import { suscribir } from "../../lib/sendy";
+import { suscribir, type Lista } from "../../lib/sendy";
 
 export const prerender = false;
 
@@ -46,8 +50,9 @@ export const POST: APIRoute = async ({ request }) => {
     return json(400, { ok: false, error: "Correo inválido" });
   }
   const referrer = typeof raw.referrer === "string" ? raw.referrer.slice(0, 500) : undefined;
+  const lista: Lista = raw.lista === "ebook" ? "ebook" : "general";
 
-  const status = await suscribir({ email, referrer });
+  const status = await suscribir({ email, referrer, lista });
 
   if (status === "error") {
     return json(502, { ok: false, status, error: "No pudimos suscribirte. Inténtalo de nuevo." });

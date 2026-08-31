@@ -2,6 +2,8 @@
 dist/
 # generated types
 .astro/
+# PDFs del ebook: se rehacen con `pnpm ebook` y pesan ~10 MB por edición
+ebook/salida/
 
 # dependencies
 node_modules/
