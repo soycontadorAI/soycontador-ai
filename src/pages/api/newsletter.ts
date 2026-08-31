@@ -24,9 +24,8 @@ interface NewsletterResponse {
   error?: string;
 }
 
-/** Sendy no acepta el "+" de los alias, aunque la dirección sea válida. */
-const AVISO_INVALIDO =
-  "Sendy no acepta direcciones con “+”. Prueba con tu correo sin el alias.";
+/** Reintentar no arregla una dirección rechazada: hay que corregirla. */
+const AVISO_INVALIDO = "Esa dirección no pasó la validación. Revísala o prueba con otra.";
 
 const json = (status: number, body: NewsletterResponse): Response =>
   new Response(JSON.stringify(body), {

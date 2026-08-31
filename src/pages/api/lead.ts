@@ -69,11 +69,11 @@ export const POST: APIRoute = async ({ request }) => {
   });
 
   if (status === "invalido") {
-    // Sendy rechaza el "+" de los alias aunque la dirección sea válida.
+    // Reintentar no arregla una dirección rechazada: hay que corregirla.
     return json(400, {
       ok: false,
       status,
-      error: "Sendy no acepta direcciones con “+”. Prueba con tu correo sin el alias.",
+      error: "Esa dirección no pasó la validación. Revísala o prueba con otra.",
     });
   }
   if (status === "error") {

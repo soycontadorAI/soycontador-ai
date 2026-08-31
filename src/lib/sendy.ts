@@ -13,10 +13,10 @@ import {
 } from "astro:env/server";
 
 /**
- * `invalido` existe porque Sendy rechaza direcciones con "+" (devuelve
- * "Invalid email address") aunque sean perfectamente válidas según el RFC.
- * Sin este estado el formulario decía "inténtalo de nuevo", que es un consejo
- * inútil: reintentar la misma dirección va a fallar siempre.
+ * `invalido` separa "Sendy rechazó la dirección" de "algo se cayó". Importa
+ * porque son fallos distintos: el segundo se resuelve reintentando y el primero
+ * no, así que mandarlos por el mismo camino hacía que el formulario respondiera
+ * "inténtalo de nuevo" a un fallo determinista.
  */
 export type EstadoSendy = "confirm" | "already" | "invalido" | "error";
 
