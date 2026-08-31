@@ -8,7 +8,14 @@
  * Body JSON: { email, nombre?, whatsapp?, rol?, interes?, mensaje?, empresa?,
  *              equipo?, nivelIA?, cuando?, hp?, referrer? }
  * (los campos extendidos los usa el formulario de precalificación empresarial)
- * Respuesta:  { ok, status: 'confirm' | 'already' | 'error', error? }
+ * Respuesta:  { ok, status: 'confirm' | 'already' | 'invalido' | 'error', error? }
+ *
+ * CUIDADO al agregar un campo: el mapeo de abajo traduce el camelCase del
+ * formulario al nombre EXACTO del campo en Sendy (`nivelIA` -> `NivelIA`). No
+ * es un emparejamiento, es una asignación, y por eso hay que tocar dos lados:
+ * este objeto y la definición del campo en la lista de Sendy. Nunca pasar las
+ * llaves crudas del body: Sendy no se queja de un campo que no reconoce,
+ * simplemente no lo guarda, y el dato se pierde sin que nada falle.
  */
 
 import type { APIRoute } from "astro";
