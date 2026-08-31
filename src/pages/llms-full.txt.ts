@@ -40,6 +40,8 @@ ${PERSONA.bioCorta}
 
 ${CASO_AUDITOR.parrafos.join("\n\n")}
 
+${CASO_AUDITOR.trazabilidad}
+
 Expediente: ${CASO_AUDITOR.expediente.filas.map((f) => `${f.concepto}: ${f.cargo}`).join(" · ")} · ${CASO_AUDITOR.expediente.total.concepto}: ${CASO_AUDITOR.expediente.total.cargo}.
 
 ### ${SESION_MENSUAL.nombre} (${SESION_MENSUAL.precio} por persona)

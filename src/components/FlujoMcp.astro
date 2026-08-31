@@ -1,0 +1,363 @@
+---
+/**
+ * Los dos caminos por los que un CFDI puede llegar a una IA. Arriba el que se
+ * usa por default (copiar y pegar en un chat público) y abajo el que propone
+ * una herramienta hecha para trabajo fiscal.
+ *
+ * HONESTIDAD TÉCNICA (regla del proyecto): el carril bueno NO promete "nada
+ * sale de tu computadora", porque el MCP trabaja contra la cuenta de
+ * TodoConta. Promete un canal controlado frente a un chat público, y el pie
+ * aclara que lo local es la app de escritorio.
+ */
+---
+
+<figure class="mcp" data-reveal>
+  <figcaption class="mcp-titulo folio">DOS FORMAS DE PONER UN <b>CFDI</b> FRENTE A UNA IA</figcaption>
+
+  <div class="carril carril-malo">
+    <span class="carril-marca" aria-hidden="true">✗</span>
+    <div class="carril-pasos">
+      <span class="nodo">Tus CFDI</span>
+      <span class="via" aria-hidden="true">
+        <span class="via-linea"></span>
+        <span class="via-etiqueta">copiar y pegar</span>
+        <span class="dato dato-fuga"></span>
+      </span>
+      <span class="nodo nodo-riesgo">Un chat público</span>
+    </div>
+    <p class="carril-pie">
+      El dato de tu cliente sale de tu control y no sabes dónde queda.
+    </p>
+  </div>
+
+  <div class="carril carril-bueno">
+    <span class="carril-marca" aria-hidden="true">✓</span>
+    <div class="carril-pasos">
+      <span class="nodo">Tus CFDI</span>
+      <span class="via" aria-hidden="true">
+        <span class="via-linea via-linea-ok"></span>
+        <span class="via-etiqueta via-etiqueta-ok">conexión MCP</span>
+        <span class="dato dato-ida"></span>
+      </span>
+      <span class="nodo nodo-ok">Tu asistente</span>
+      <span class="via" aria-hidden="true">
+        <span class="via-linea via-linea-ok"></span>
+        <span class="via-etiqueta via-etiqueta-ok">respuesta</span>
+        <span class="dato dato-vuelta"></span>
+      </span>
+      <span class="nodo nodo-final">Un reporte</span>
+    </div>
+    <p class="carril-pie">
+      La consulta viaja por un canal hecho para trabajo fiscal. Tú pides en
+      lenguaje natural; nadie anda pegando RFC en un cuadro de texto.
+    </p>
+  </div>
+
+  <p class="mcp-nota">
+    <b>La letra chica, sin adornos:</b> con la app de escritorio tus XML se
+    quedan en tu equipo. La conexión MCP trabaja contra tu cuenta de TodoConta,
+    así que la promesa ahí no es "nada sale de tu computadora": es que el
+    trayecto está diseñado y acotado, en lugar de improvisado.
+  </p>
+</figure>
+
+<style>
+  .mcp {
+    margin: 0;
+    background: var(--color-surface-raised);
+    border: 1px solid var(--color-line-strong);
+    border-radius: var(--radius-md);
+    box-shadow: 6px 6px 0 var(--color-line);
+    padding: 1.8rem 2rem 1.9rem;
+  }
+  .mcp-titulo {
+    display: block;
+    margin-bottom: 1.7rem;
+  }
+
+  .carril {
+    display: grid;
+    grid-template-columns: 1.7rem 1fr;
+    gap: 0.6rem 0.9rem;
+    align-items: center;
+    padding: 1.1rem 0;
+  }
+  .carril-malo {
+    border-bottom: 1px solid var(--color-line);
+  }
+  .carril-marca {
+    font-family: var(--font-mono);
+    font-size: 1.05rem;
+    font-weight: 700;
+    text-align: center;
+  }
+  .carril-malo .carril-marca {
+    color: var(--color-ink-dim);
+  }
+  .carril-bueno .carril-marca {
+    color: var(--color-accent);
+  }
+  .carril-pasos {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    flex-wrap: wrap;
+  }
+  .carril-pie {
+    grid-column: 2;
+    margin: 0;
+    font-size: 0.88rem;
+    color: var(--color-ink-dim);
+    max-width: 62ch;
+  }
+  .carril-bueno .carril-pie {
+    color: var(--color-ink-soft);
+  }
+
+  .nodo {
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    font-weight: 500;
+    padding: 0.5rem 0.8rem;
+    border: 1px solid var(--color-line);
+    border-radius: var(--radius-sm);
+    background: var(--color-bg);
+    color: var(--color-ink-soft);
+    white-space: nowrap;
+  }
+  .nodo-riesgo {
+    border-style: dashed;
+    color: var(--color-ink-dim);
+  }
+  .nodo-ok {
+    border-color: var(--color-accent);
+    color: var(--color-ink);
+  }
+  .nodo-final {
+    background: var(--color-accent-soft);
+    border-color: var(--color-accent);
+    color: var(--color-accent);
+    font-weight: 700;
+  }
+
+  /* El tramo entre dos nodos */
+  .via {
+    position: relative;
+    flex: 1 1 90px;
+    min-width: 90px;
+    height: 2.4rem;
+    display: flex;
+    align-items: center;
+  }
+  .via-linea {
+    display: block;
+    width: 100%;
+    height: 1.5px;
+    background: var(--color-line);
+    transform: scaleX(0);
+    transform-origin: left center;
+  }
+  .via-linea-ok {
+    background: var(--color-accent-soft);
+  }
+  .via-etiqueta {
+    position: absolute;
+    top: -0.1rem;
+    left: 50%;
+    transform: translateX(-50%);
+    font-family: var(--font-mono);
+    font-size: 0.62rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--color-ink-dim);
+    white-space: nowrap;
+    opacity: 0;
+  }
+  .via-etiqueta-ok {
+    color: var(--color-accent);
+  }
+  .dato {
+    position: absolute;
+    left: 0;
+    width: 8px;
+    height: 8px;
+    border-radius: 2px;
+    background: var(--color-ink-dim);
+    opacity: 0;
+  }
+  .dato-ida,
+  .dato-vuelta {
+    background: var(--color-accent);
+  }
+
+  .mcp-nota {
+    margin: 1.4rem 0 0;
+    padding-top: 1.1rem;
+    border-top: 1px solid var(--color-line);
+    font-size: 0.86rem;
+    line-height: 1.55;
+    color: var(--color-ink-dim);
+  }
+  .mcp-nota b {
+    color: var(--color-ink-soft);
+  }
+
+  @media (max-width: 720px) {
+    .mcp {
+      padding: 1.4rem 1.2rem 1.5rem;
+    }
+    .carril-pasos {
+      gap: 0.4rem;
+    }
+    .via {
+      flex-basis: 100%;
+      min-width: 0;
+      height: 1.7rem;
+    }
+    .via-etiqueta {
+      top: -0.35rem;
+    }
+  }
+
+  /* ---------- Animación (una vez, al entrar en viewport) ---------- */
+  :global(html.js-reveal) .mcp .nodo,
+  :global(html.js-reveal) .mcp .carril-marca {
+    opacity: 0;
+  }
+
+  .mcp.is-visible .carril-malo .nodo,
+  .mcp.is-visible .carril-malo .carril-marca {
+    animation: aparece 0.4s ease-out both;
+  }
+  .mcp.is-visible .carril-malo .nodo:nth-of-type(1) {
+    animation-delay: 0.15s;
+  }
+  .mcp.is-visible .carril-malo .nodo-riesgo {
+    animation-delay: 0.75s;
+  }
+  .mcp.is-visible .carril-malo .carril-marca {
+    animation-delay: 1.15s;
+  }
+  .mcp.is-visible .carril-malo .via-linea {
+    animation: traza 0.5s ease-out both;
+    animation-delay: 0.3s;
+  }
+  .mcp.is-visible .carril-malo .via-etiqueta {
+    animation: aparece 0.3s ease-out both;
+    animation-delay: 0.45s;
+  }
+  /* El dato se escapa: sale del carril y no vuelve */
+  .mcp.is-visible .dato-fuga {
+    animation: fuga 1s cubic-bezier(0.4, 0, 0.9, 0.3) both;
+    animation-delay: 0.62s;
+  }
+
+  .mcp.is-visible .carril-bueno .nodo,
+  .mcp.is-visible .carril-bueno .carril-marca {
+    animation: aparece 0.4s ease-out both;
+  }
+  .mcp.is-visible .carril-bueno .nodo:nth-of-type(1) {
+    animation-delay: 1.5s;
+  }
+  .mcp.is-visible .carril-bueno .nodo-ok {
+    animation-delay: 2.1s;
+  }
+  .mcp.is-visible .carril-bueno .nodo-final {
+    animation-delay: 3.05s;
+  }
+  .mcp.is-visible .carril-bueno .carril-marca {
+    animation-delay: 3.3s;
+  }
+  .mcp.is-visible .carril-bueno .via-linea:nth-of-type(1) {
+    animation: traza 0.45s ease-out both;
+  }
+  .mcp.is-visible .carril-bueno .via:nth-of-type(2) .via-linea {
+    animation: traza 0.45s ease-out both;
+    animation-delay: 1.65s;
+  }
+  .mcp.is-visible .carril-bueno .via:nth-of-type(4) .via-linea {
+    animation: traza 0.45s ease-out both;
+    animation-delay: 2.55s;
+  }
+  .mcp.is-visible .carril-bueno .via:nth-of-type(2) .via-etiqueta {
+    animation: aparece 0.3s ease-out both;
+    animation-delay: 1.8s;
+  }
+  .mcp.is-visible .carril-bueno .via:nth-of-type(4) .via-etiqueta {
+    animation: aparece 0.3s ease-out both;
+    animation-delay: 2.7s;
+  }
+  .mcp.is-visible .dato-ida {
+    animation: viaja-ok 0.7s cubic-bezier(0.5, 0, 0.5, 1) both;
+    animation-delay: 1.85s;
+  }
+  .mcp.is-visible .dato-vuelta {
+    animation: viaja-ok 0.7s cubic-bezier(0.5, 0, 0.5, 1) both;
+    animation-delay: 2.75s;
+  }
+
+  @keyframes aparece {
+    from {
+      opacity: 0;
+      transform: translateY(6px);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+  @keyframes traza {
+    to {
+      transform: scaleX(1);
+    }
+  }
+  @keyframes viaja-ok {
+    0% {
+      opacity: 0;
+      transform: translateX(0);
+    }
+    15% {
+      opacity: 1;
+    }
+    85% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 0;
+      transform: translateX(calc(100% - 8px));
+    }
+  }
+  @keyframes fuga {
+    0% {
+      opacity: 0;
+      transform: translate(0, 0);
+    }
+    20% {
+      opacity: 1;
+    }
+    60% {
+      opacity: 1;
+      transform: translate(60%, 0);
+    }
+    100% {
+      opacity: 0;
+      transform: translate(150%, -26px);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    :global(html.js-reveal) .mcp .nodo,
+    :global(html.js-reveal) .mcp .carril-marca {
+      opacity: 1;
+    }
+    .mcp .via-linea {
+      transform: scaleX(1);
+    }
+    .mcp .via-etiqueta {
+      opacity: 1;
+    }
+    .mcp * {
+      animation: none !important;
+    }
+  }
+</style>

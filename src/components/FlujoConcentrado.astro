@@ -45,9 +45,9 @@
     <div class="paso paso-motor" style="--paso: 2">
       <div class="paso-arte">
         <div class="motor">
-          <span class="motor-punto" style="--i: 0"></span>
-          <span class="motor-punto" style="--i: 1"></span>
-          <span class="motor-punto" style="--i: 2"></span>
+          <span class="motor-punto rojo" style="--i: 0"></span>
+          <span class="motor-punto ambar" style="--i: 1"></span>
+          <span class="motor-punto verde" style="--i: 2"></span>
           <code>extractor.py</code>
         </div>
       </div>
@@ -175,13 +175,22 @@
     font-size: 0.74rem;
     color: var(--color-terminal-ok);
   }
+  /* Semáforo de ventana macOS, igual que en Terminal.astro */
   .motor-punto {
     width: 7px;
     height: 7px;
     border-radius: 50%;
-    background: var(--color-terminal-dim);
     display: inline-block;
     position: absolute;
+  }
+  .motor-punto.rojo {
+    background: var(--color-semaforo-rojo);
+  }
+  .motor-punto.ambar {
+    background: var(--color-semaforo-ambar);
+  }
+  .motor-punto.verde {
+    background: var(--color-semaforo-verde);
   }
   .motor {
     position: relative;
@@ -360,8 +369,8 @@
     animation-delay: 1.05s;
   }
   .flujo.is-visible .motor-punto {
-    animation: prende 0.3s ease-out both;
-    animation-delay: calc(1s + 0.12s * var(--i, 0));
+    animation: aparece-punto 0.28s ease-out both;
+    animation-delay: calc(0.95s + 0.09s * var(--i, 0));
   }
   /*
    * El contraste de ritmo ES el mensaje: la barra de "antes" se arrastra 1.2 s
@@ -430,9 +439,15 @@
       transform: translateX(calc(100% + 44px));
     }
   }
-  @keyframes prende {
+  /* Solo entra: el color del semáforo no se toca */
+  @keyframes aparece-punto {
+    from {
+      opacity: 0;
+      transform: scale(0.4);
+    }
     to {
-      background: var(--color-terminal-ok);
+      opacity: 1;
+      transform: none;
     }
   }
   @keyframes parpadeo-codigo {

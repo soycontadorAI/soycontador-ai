@@ -36,6 +36,10 @@
   --color-terminal-bright: #E8EDF5;
   --color-terminal-dim: #5A6B85;
   --color-terminal-ok: #3DD68C;
+  /* Semáforo de ventana macOS: lo usan Terminal.astro y FlujoConcentrado.astro */
+  --color-semaforo-rojo: #FF5F57;
+  --color-semaforo-ambar: #FEBC2E;
+  --color-semaforo-verde: #28C840;
   /* Marcador inline de citas: el mismo verde de "resultado" de la terminal */
   --color-marker: #3DD68C;
 

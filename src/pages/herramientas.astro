@@ -1,5 +1,6 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+import FlujoMcp from "../components/FlujoMcp.astro";
 import { breadcrumbs, graph } from "../lib/schema";
 import { HERRAMIENTAS } from "../lib/herramientas";
 
@@ -48,6 +49,13 @@ const jsonLd = graph(
           ))}
         </div>
         <p class="nota folio">// LAS HERRAMIENTAS SE DOCUMENTAN Y VENDEN EN SUS PROPIOS SITIOS; AQUÍ SOLO TE CUENTO QUÉ RESUELVEN</p>
+      </div>
+    </section>
+
+    <section>
+      <div class="container-default">
+        <div class="sec-head"><h2 class="folio">EL <b>SECRETO PROFESIONAL</b>, EN LA PRÁCTICA</h2></div>
+        <FlujoMcp />
       </div>
     </section>
 

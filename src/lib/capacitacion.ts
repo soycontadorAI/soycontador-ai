@@ -61,12 +61,18 @@ export const SESION_MENSUAL = {
  */
 export const CASO_AUDITOR = {
   titulo: "Esto es lo que cambia cuando el auditor trae IA",
+  /** Los que se renderizan en la página. La trazabilidad la muestra el flujo. */
   parrafos: [
     "Un despacho me trajo el caso de una empresa con décadas de operación: cinco ejercicios fiscales, 257 páginas de declaraciones y balanzas, 513 cuentas contables y un testimonio notarial de 84 páginas escaneadas. Trabajo de semanas para un equipo tradicional.",
     "El núcleo del análisis salió en una noche: la IA hizo la lectura pesada y yo puse el criterio. El diagnóstico respondió la pregunta original del cliente (el cambio de régimen que pedía le habría costado hasta un millón de pesos al año, a cambio de nada) y encontró más de 11 millones de pesos en saldos a favor sin recuperar, además de un error de casi 850 mil pesos en su control de pérdidas.",
-    "Cada cifra del informe salió con su fuente y su número de página: 90 partidas trazadas una por una, porque el trabajo de un contador no se firma con \"me lo dijo la máquina\".",
     "Eso hace un auditor con poderes: no cobra por las horas que tarda, cobra por lo que encuentra en ellas. Y esa forma de trabajar es exactamente la que enseño aquí.",
   ],
+  /**
+   * En la página esto lo comunica el componente FlujoExpediente; el texto
+   * existe para llms-full.txt, que no ve el diagrama.
+   */
+  trazabilidad:
+    "Cada cifra del informe salió con su fuente y su número de página: 90 partidas trazadas una por una, porque el trabajo de un contador no se firma con \"me lo dijo la máquina\".",
   expediente: {
     filas: [
       { concepto: "Ejercicios fiscales revisados", cargo: "5" },

@@ -2,7 +2,7 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import FaqBlock from "../components/FaqBlock.astro";
 import FormCapacitacion from "../components/FormCapacitacion.astro";
-import Poliza from "../components/Poliza.astro";
+import FlujoExpediente from "../components/FlujoExpediente.astro";
 import { CASO_AUDITOR, EMPRESARIAL, ORGANIZACIONES, SESION_MENSUAL } from "../lib/capacitacion";
 import { FAQ_CAPACITACION } from "../lib/faqs";
 import { breadcrumbs, capacitacionService, faqPage, graph } from "../lib/schema";
@@ -39,26 +39,19 @@ const jsonLd = graph(
     <section>
       <div class="container-default">
         <div class="sec-head"><h2 class="folio">CASO <b>REAL</b> · AUDITOR CON PODERES</h2></div>
-        <div class="caso" data-reveal>
-          <div>
+        <div class="caso">
+          <div class="caso-texto" data-reveal>
             <h2 class="titulo-lg">{CASO_AUDITOR.titulo}</h2>
             {CASO_AUDITOR.parrafos.map((parrafo, i) => (
-              <p class={`texto ${i === 2 ? "texto-fuerte" : ""}`}>{parrafo}</p>
+              <p class={`texto ${i === CASO_AUDITOR.parrafos.length - 1 ? "texto-fuerte" : ""}`}>
+                {parrafo}
+              </p>
             ))}
           </div>
-          <div>
-            <Poliza
-              folio="CASO AUD-01"
-              titulo="EL EXPEDIENTE"
-              columnaCargo="Volumen"
-              filas={[...CASO_AUDITOR.expediente.filas]}
-              total={CASO_AUDITOR.expediente.total}
-              nota={CASO_AUDITOR.expediente.nota}
-            />
-            <blockquote class="caso-cita">
-              Ya no eres un simple auditor. Eres un <span class="hl">auditor con poderes</span>.
-            </blockquote>
-          </div>
+          <FlujoExpediente />
+          <blockquote class="caso-cita" data-reveal>
+            Ya no eres un simple auditor. Eres un <span class="hl">auditor con poderes</span>.
+          </blockquote>
         </div>
       </div>
     </section>
@@ -142,14 +135,10 @@ const jsonLd = graph(
   }
   .caso {
     display: grid;
-    grid-template-columns: 1.15fr 1fr;
-    gap: 3rem;
-    align-items: center;
+    gap: 2.2rem;
   }
-  @media (max-width: 900px) {
-    .caso {
-      grid-template-columns: 1fr;
-    }
+  .caso-texto .texto {
+    max-width: 68ch;
   }
   .texto-fuerte {
     color: var(--color-ink);

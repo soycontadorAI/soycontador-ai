@@ -1,0 +1,349 @@
+---
+/**
+ * El expediente del caso real entrando, y saliendo como hallazgos con su
+ * fuente pegada. Aquí el mensaje NO es la velocidad, es la trazabilidad: cada
+ * cifra sale con de dónde salió, que es lo que desactiva el "¿y si la IA se
+ * inventa cosas?".
+ *
+ * Cifras anonimizadas y ya aprobadas para publicación. No agregar números de
+ * página ni referencias específicas: serían inventados.
+ */
+
+const entrada = [
+  { dato: "257", pie: "páginas de declaraciones y balanzas" },
+  { dato: "513", pie: "cuentas contables" },
+  { dato: "84", pie: "hojas de un testimonio escaneado" },
+];
+
+const hallazgos = [
+  { texto: "Más de $11 millones en saldos a favor sin recuperar" },
+  { texto: "Un error de casi $850 mil en el control de pérdidas" },
+  { texto: "Una deducción del 20% de las ventas sin soporte" },
+];
+---
+
+<figure class="exp" data-reveal>
+  <figcaption class="exp-titulo folio">LO QUE ENTRÓ Y LO QUE <b>SALIÓ</b></figcaption>
+
+  <div class="exp-grid">
+    <div class="exp-col">
+      <p class="exp-rol folio">EL EXPEDIENTE</p>
+      <ul class="entrada">
+        {entrada.map((e, i) => (
+          <li style={`--i: ${i}`}>
+            <span class="entrada-dato">{e.dato}</span>
+            <span class="entrada-pie">{e.pie}</span>
+          </li>
+        ))}
+      </ul>
+    </div>
+
+    <div class="exp-proceso" aria-hidden="true">
+      <span class="proceso-linea"></span>
+      <span class="proceso-barra"><span class="proceso-relleno"></span></span>
+      <span class="proceso-etiqueta">lectura asistida</span>
+    </div>
+
+    <div class="exp-col">
+      <p class="exp-rol folio">LOS HALLAZGOS</p>
+      <ul class="salida">
+        {hallazgos.map((h, i) => (
+          <li style={`--i: ${i}`}>
+            <span class="salida-texto">{h.texto}</span>
+            <span class="salida-fuente">
+              <span class="fuente-check" aria-hidden="true">✓</span> con su fuente
+            </span>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </div>
+
+  <div class="exp-total">
+    <span class="total-num">90</span>
+    <span class="total-pie">
+      cifras trazadas una por una a su página o a su celda. El trabajo de un
+      contador no se firma con <i>me lo dijo la máquina</i>.
+    </span>
+  </div>
+</figure>
+
+<style>
+  .exp {
+    margin: 0;
+    background: var(--color-surface-raised);
+    border: 1px solid var(--color-line-strong);
+    border-radius: var(--radius-md);
+    box-shadow: 6px 6px 0 var(--color-line);
+    padding: 1.8rem 2rem 1.9rem;
+  }
+  .exp-titulo {
+    display: block;
+    margin-bottom: 1.6rem;
+  }
+  .exp-grid {
+    display: grid;
+    grid-template-columns: 1fr auto 1.25fr;
+    gap: 1.6rem;
+    align-items: center;
+  }
+  .exp-rol {
+    display: block;
+    margin: 0 0 0.9rem;
+  }
+
+  /* ---------- Entrada ---------- */
+  .entrada,
+  .salida {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .entrada li {
+    display: flex;
+    align-items: baseline;
+    gap: 0.7rem;
+    padding: 0.6rem 0;
+    border-bottom: 1px solid var(--color-line);
+  }
+  .entrada li:last-child {
+    border-bottom: none;
+  }
+  .entrada-dato {
+    font-family: var(--font-mono);
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--color-ink);
+    min-width: 3ch;
+    text-align: right;
+  }
+  .entrada-pie {
+    font-size: 0.85rem;
+    color: var(--color-ink-dim);
+  }
+
+  /* ---------- Proceso ---------- */
+  .exp-proceso {
+    position: relative;
+    width: 116px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .proceso-linea {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    height: 1.5px;
+    background: var(--color-line);
+    transform: scaleX(0);
+    transform-origin: left center;
+  }
+  .proceso-barra {
+    position: relative;
+    width: 100%;
+    height: 10px;
+    border-radius: 2px;
+    background: var(--color-surface);
+    overflow: hidden;
+    z-index: 1;
+  }
+  .proceso-relleno {
+    display: block;
+    height: 100%;
+    width: 100%;
+    background: var(--color-accent);
+    transform: scaleX(0);
+    transform-origin: left center;
+  }
+  .proceso-etiqueta {
+    font-family: var(--font-mono);
+    font-size: 0.6rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--color-ink-dim);
+    opacity: 0;
+  }
+
+  /* ---------- Salida ---------- */
+  .salida li {
+    padding: 0.6rem 0 0.6rem 0.9rem;
+    border-left: 2px solid var(--color-accent);
+    margin-bottom: 0.6rem;
+    background: var(--color-accent-soft);
+    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  }
+  .salida li:last-child {
+    margin-bottom: 0;
+  }
+  .salida-texto {
+    display: block;
+    font-size: 0.92rem;
+    font-weight: 500;
+    color: var(--color-ink);
+    line-height: 1.4;
+  }
+  .salida-fuente {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    margin-top: 0.25rem;
+    font-family: var(--font-mono);
+    font-size: 0.63rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--color-accent);
+  }
+  .fuente-check {
+    font-weight: 700;
+  }
+
+  /* ---------- Total ---------- */
+  .exp-total {
+    display: flex;
+    align-items: baseline;
+    gap: 1rem;
+    margin-top: 1.7rem;
+    padding-top: 1.3rem;
+    border-top: 1.5px solid var(--color-line-strong);
+    box-shadow: 0 -3px 0 -1px var(--color-line-strong) inset;
+  }
+  .total-num {
+    font-family: var(--font-mono);
+    font-size: 2.1rem;
+    font-weight: 700;
+    color: var(--color-accent);
+    letter-spacing: -0.03em;
+    line-height: 1;
+  }
+  .total-pie {
+    font-size: 0.92rem;
+    color: var(--color-ink-soft);
+    max-width: 54ch;
+  }
+  .total-pie i {
+    font-family: var(--font-serif-detail);
+    font-style: italic;
+  }
+
+  @media (max-width: 860px) {
+    .exp {
+      padding: 1.4rem 1.2rem 1.5rem;
+    }
+    .exp-grid {
+      grid-template-columns: 1fr;
+      gap: 1.2rem;
+    }
+    .exp-proceso {
+      width: 100%;
+      flex-direction: row;
+      justify-content: center;
+      gap: 0.8rem;
+    }
+    .proceso-linea {
+      display: none;
+    }
+    .proceso-barra {
+      max-width: 160px;
+    }
+  }
+
+  /* ---------- Animación ---------- */
+  :global(html.js-reveal) .exp .entrada li,
+  :global(html.js-reveal) .exp .salida li,
+  :global(html.js-reveal) .exp .exp-rol,
+  :global(html.js-reveal) .exp .total-num,
+  :global(html.js-reveal) .exp .total-pie {
+    opacity: 0;
+  }
+
+  .exp.is-visible .exp-rol {
+    animation: aparece 0.4s ease-out both;
+  }
+  .exp.is-visible .exp-col:last-of-type .exp-rol {
+    animation-delay: 1.9s;
+  }
+  .exp.is-visible .entrada li {
+    animation: entra-izq 0.45s ease-out both;
+    animation-delay: calc(0.25s + 0.14s * var(--i));
+  }
+  .exp.is-visible .proceso-linea {
+    animation: traza 0.5s ease-out both;
+    animation-delay: 0.85s;
+  }
+  .exp.is-visible .proceso-etiqueta {
+    animation: aparece 0.3s ease-out both;
+    animation-delay: 1s;
+  }
+  .exp.is-visible .proceso-relleno {
+    animation: traza 0.9s cubic-bezier(0.4, 0, 0.2, 1) both;
+    animation-delay: 1.05s;
+  }
+  .exp.is-visible .salida li {
+    animation: entra-der 0.45s ease-out both;
+    animation-delay: calc(2.05s + 0.18s * var(--i));
+  }
+  .exp.is-visible .total-num,
+  .exp.is-visible .total-pie {
+    animation: aparece 0.5s ease-out both;
+    animation-delay: 2.85s;
+  }
+
+  @keyframes aparece {
+    from {
+      opacity: 0;
+      transform: translateY(6px);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+  @keyframes entra-izq {
+    from {
+      opacity: 0;
+      transform: translateX(-10px);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+  @keyframes entra-der {
+    from {
+      opacity: 0;
+      transform: translateX(12px);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+  @keyframes traza {
+    to {
+      transform: scaleX(1);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    :global(html.js-reveal) .exp .entrada li,
+    :global(html.js-reveal) .exp .salida li,
+    :global(html.js-reveal) .exp .exp-rol,
+    :global(html.js-reveal) .exp .total-num,
+    :global(html.js-reveal) .exp .total-pie {
+      opacity: 1;
+    }
+    .exp .proceso-linea,
+    .exp .proceso-relleno {
+      transform: scaleX(1);
+    }
+    .exp .proceso-etiqueta {
+      opacity: 1;
+    }
+    .exp * {
+      animation: none !important;
+    }
+  }
+</style>
