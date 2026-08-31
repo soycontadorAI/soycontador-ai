@@ -1,5 +1,11 @@
 /**
- * Oferta de capacitación en 3 modalidades (definidas por Israel 2026-08-30):
+ * Oferta de capacitación en 3 modalidades (definidas por Israel 2026-08-30).
+ *
+ * REGLA QUE CRUZA LAS TRES: máximo 2 horas por sesión y por día. No es una
+ * preferencia de calendario, es un tope que Israel impone por experiencia
+ * ("nadie las aguanta, ni yo como expositor ni el que paga"). Lo flexible es
+ * cómo se reparten los días: seguidos o espaciados. Ninguna modalidad debe
+ * ofrecer jornadas intensivas, ni siquiera cuando la organización las pida.
  *
  * 1. El taller: $4,999 MXN, precio PÚBLICO (decisión explícita). Son 8 horas
  *    en vivo REPARTIDAS EN SESIONES DE 2 HORAS, nunca una maratón de un día.
@@ -149,7 +155,8 @@ export const ORGANIZACIONES = {
   descripcion:
     "¿Capacitas contadores de forma masiva? Llevemos este programa a tu comunidad: colegios, capacitadoras y plataformas pueden licenciar el taller completo, con Israel al frente y su equipo en el soporte. Tú pones la audiencia; yo pongo el programa, la ejecución y las herramientas.",
   puntos: [
-    "Programa probado de 8 horas, adaptable a tu calendario (4 sesiones de 2 horas, o el reparto que le funcione a tu comunidad)",
+    "8 horas en 4 sesiones de 2 horas, nunca más de 2 horas por día: es el tope que una audiencia aguanta con provecho, y lo sé por experiencia",
+    "Los días los pones tú: seguidos, o repartidos en el calendario para que a tu gente no se le haga pesado",
     "Con demostraciones en vivo sobre el SAT, no diapositivas teóricas",
     "Modelo de reventa: tú comercializas a tu comunidad, yo imparto",
   ],
