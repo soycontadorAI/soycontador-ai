@@ -5,18 +5,30 @@
  * POST a /api/lead → Sendy con campos personalizados.
  */
 
+import { calendarioDe, type PropositoCita } from "../lib/site";
+
 interface Props {
   titulo?: string;
   intro?: string;
   /** Preselecciona la opción de "¿Qué estás buscando?" (value exacto) */
   interesDefault?: string;
+  /** Con qué agenda se ofrece la cita al enviar. Hoy todas caen en la misma. */
+  cita?: PropositoCita;
 }
 
 const {
   titulo = "Platiquemos de tu caso",
   intro = "Déjame tu correo (y tu WhatsApp si prefieres que te escriba por ahí), cuéntame qué buscas y te contacto. Sin compromiso y sin rodeos.",
   interesDefault,
+  cita = "diagnostico",
 } = Astro.props;
+
+/**
+ * El enlace para agendar solo aparece al enviar (decisión de Israel): es el
+ * momento de mayor intención y ya calificó. Sin agenda configurada no se
+ * renderiza y el flujo termina en el formulario.
+ */
+const calendario = calendarioDe(cita);
 
 const opcionesInteres = [
   { value: "Taller o capacitación", label: "Un taller o capacitación para mi equipo" },
@@ -70,6 +82,13 @@ const opcionesInteres = [
         <small data-lead-msg>Te llega un correo para confirmar; en cuanto confirmes, te escribo.</small>
       </div>
     </form>
+    {calendario && (
+      <p class="lead-calendario" data-agenda hidden>
+        <a class="btn btn-primary" href={calendario} target="_blank" rel="noopener">
+          Agendar la llamada ahora
+        </a>
+      </p>
+    )}
   </div>
 </div>
 
@@ -178,6 +197,8 @@ const opcionesInteres = [
     form.addEventListener("submit", async (e) => {
       e.preventDefault();
       const msg = form.querySelector<HTMLElement>("[data-lead-msg]");
+      // Vive fuera del <form>, así que se busca en la tarjeta completa.
+      const agenda = form.closest(".lead-card")?.querySelector<HTMLElement>("[data-agenda]");
       const boton = form.querySelector<HTMLButtonElement>("button[type=submit]");
       const data = new FormData(form);
       if (boton) boton.disabled = true;
@@ -198,14 +219,19 @@ const opcionesInteres = [
         const body = await resp.json();
         if (msg) {
           if (body.status === "confirm") {
-            msg.textContent =
-              "Recibido. Te llegó un correo para confirmar; en cuanto confirmes, te contacto.";
+            msg.textContent = agenda
+              ? "Recibido. Te llegó un correo para confirmar, y si quieres adelantar, aparta tu horario aquí:"
+              : "Recibido. Te llegó un correo para confirmar; en cuanto confirmes, te contacto.";
           } else if (body.status === "already") {
-            msg.textContent = "Ya te tenía registrado. Te contacto pronto.";
+            msg.textContent = agenda
+              ? "Ya te tenía registrado. Aparta tu horario aquí:"
+              : "Ya te tenía registrado. Te contacto pronto.";
           } else {
             msg.textContent = body.error ?? "No pudimos registrarte. Inténtalo de nuevo.";
           }
         }
+        // El enlace para agendar se descubre al enviar, no antes.
+        if (agenda && body.ok) agenda.hidden = false;
         if (body.ok) form.reset();
       } catch {
         if (msg) msg.textContent = "No pudimos registrarte. Inténtalo de nuevo.";

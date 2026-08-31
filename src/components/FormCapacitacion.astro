@@ -1,12 +1,19 @@
 ---
 /**
- * Precalificación de capacitación (sesión mensual, empresarial u
+ * Precalificación de capacitación (taller abierto, empresarial u
  * organizaciones). Formulario extendido a propósito: quien llega aquí ya
  * tiene interés, así que pedimos el contexto completo ANTES de la llamada.
  * POST a /api/lead con campos personalizados de Sendy.
  */
 
-import { CALENDARIO_URL } from "../lib/site";
+import { calendarioDe } from "../lib/site";
+
+/**
+ * El enlace para agendar solo aparece al enviar (decisión de Israel): es el
+ * momento de mayor intención y ya calificó. Si no hay agenda configurada, el
+ * bloque no se renderiza y el flujo termina en el formulario.
+ */
+const calendario = calendarioDe("capacitacion");
 ---
 
 <div class="cap-card" id="precalificacion">
@@ -40,7 +47,7 @@ import { CALENDARIO_URL } from "../lib/site";
       <div class="campo">
         <label for="cap-modalidad">¿Qué modalidad te interesa?</label>
         <select id="cap-modalidad" name="rol">
-          <option value="Capacitación: sesión mensual">La sesión mensual (mi lugar individual)</option>
+          <option value="Capacitación: taller abierto">El taller abierto (mi lugar individual)</option>
           <option value="Capacitación: empresarial">Capacitación para mi empresa o despacho</option>
           <option value="Capacitación: organización">Licenciar el taller para mi organización o comunidad</option>
         </select>
@@ -89,9 +96,11 @@ import { CALENDARIO_URL } from "../lib/site";
         </small>
       </div>
     </form>
-    {CALENDARIO_URL && (
-      <p class="cap-calendario">
-        ¿Ya lo enviaste? <a href={CALENDARIO_URL} rel="noopener">Agenda tu llamada directamente aquí</a>.
+    {calendario && (
+      <p class="cap-calendario" data-agenda hidden>
+        <a class="btn btn-primary" href={calendario} target="_blank" rel="noopener">
+          Agendar la llamada ahora
+        </a>
       </p>
     )}
   </div>
@@ -208,6 +217,8 @@ import { CALENDARIO_URL } from "../lib/site";
     form.addEventListener("submit", async (e) => {
       e.preventDefault();
       const msg = form.querySelector<HTMLElement>("[data-cap-msg]");
+      // Vive fuera del <form>, así que se busca en la tarjeta completa.
+      const agenda = form.closest(".cap-card")?.querySelector<HTMLElement>("[data-agenda]");
       const boton = form.querySelector<HTMLButtonElement>("button[type=submit]");
       const data = new FormData(form);
       if (boton) boton.disabled = true;
@@ -233,12 +244,15 @@ import { CALENDARIO_URL } from "../lib/site";
         const body = await resp.json();
         if (msg) {
           if (body.ok) {
-            msg.textContent =
-              "Recibido. Confirma el correo que te acaba de llegar y de ahí agendamos la llamada.";
+            msg.textContent = agenda
+              ? "Recibido. Confirma el correo que te acaba de llegar y aparta tu horario aquí:"
+              : "Recibido. Confirma el correo que te acaba de llegar y de ahí agendamos la llamada.";
           } else {
             msg.textContent = body.error ?? "No pudimos registrarte. Inténtalo de nuevo.";
           }
         }
+        // El enlace para agendar se descubre al enviar, no antes.
+        if (agenda && body.ok) agenda.hidden = false;
         if (body.ok) form.reset();
       } catch {
         if (msg) msg.textContent = "No pudimos registrarte. Inténtalo de nuevo.";

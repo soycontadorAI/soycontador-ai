@@ -139,10 +139,28 @@ export const NAV_PAGINAS = [
   { label: "Contacto", href: "/contacto" },
 ] as const;
 
-/** TODO(Israel): URL del calendario para agendar la llamada de capacitación
- *  empresarial (Calendly/Cal.com/Google). Mientras sea null, el flujo termina
- *  en el formulario y el seguimiento va por correo. */
-export const CALENDARIO_URL: string | null = null;
+/**
+ * Programación de citas de Google Workspace (Calendar → "Programación de citas").
+ * El enlace público se ve como https://calendar.app.google/XXXXXXXXXXXX
+ *
+ * Decisión de Israel 2026-08-31: **una sola agenda para todo** (diagnóstico,
+ * cotización y capacitación). El mapa existe para poder partirla después sin
+ * refactor: si algún día la capacitación empresarial necesita 45 minutos y otra
+ * disponibilidad, se agrega su entrada y `calendarioDe("capacitacion")` la toma
+ * sola. Es un cambio de datos, no de lógica.
+ *
+ * Mientras `default` sea null, el enlace no se pinta en ningún lado y el flujo
+ * termina en el formulario, como hasta ahora.
+ */
+export type PropositoCita = "diagnostico" | "cotizacion" | "capacitacion";
+
+const CALENDARIOS: Partial<Record<PropositoCita, string>> & { default: string | null } = {
+  default: null,
+};
+
+export function calendarioDe(proposito?: PropositoCita): string | null {
+  return (proposito && CALENDARIOS[proposito]) || CALENDARIOS.default;
+}
 
 export const FOOTER_LINKS = [
   { label: "YouTube", href: "https://www.youtube.com/@todoconta" },
