@@ -20,13 +20,13 @@
 
 import type { APIRoute } from "astro";
 
-import { suscribir } from "../../lib/sendy";
+import { suscribir, type EstadoSendy } from "../../lib/sendy";
 
 export const prerender = false;
 
 interface LeadResponse {
   ok: boolean;
-  status?: "confirm" | "already" | "error";
+  status?: EstadoSendy;
   error?: string;
 }
 

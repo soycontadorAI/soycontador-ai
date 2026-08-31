@@ -14,13 +14,13 @@
 
 import type { APIRoute } from "astro";
 
-import { suscribir, type Lista } from "../../lib/sendy";
+import { suscribir, type EstadoSendy, type Lista } from "../../lib/sendy";
 
 export const prerender = false;
 
 interface NewsletterResponse {
   ok: boolean;
-  status?: "confirm" | "already" | "invalido" | "error";
+  status?: EstadoSendy;
   error?: string;
 }
 
