@@ -202,20 +202,108 @@
     color: var(--color-ink-soft);
   }
 
+  /*
+   * En móvil el diagrama gira 90°: los nodos se apilan y la vía se vuelve una
+   * línea vertical con la etiqueta cortándola al centro. Los keyframes también
+   * cambian de eje (scaleY y translateY) para que el dato baje en lugar de
+   * cruzar de lado.
+   */
   @media (max-width: 720px) {
     .mcp {
       padding: 1.4rem 1.2rem 1.5rem;
     }
+    .carril {
+      grid-template-columns: 1.7rem 1fr;
+    }
     .carril-pasos {
-      gap: 0.4rem;
+      flex-direction: column;
+      align-items: center;
+      gap: 0;
+      width: 100%;
+    }
+    .nodo {
+      text-align: center;
     }
     .via {
-      flex-basis: 100%;
+      flex: none;
+      width: 100%;
       min-width: 0;
-      height: 1.7rem;
+      height: 3rem;
+      justify-content: center;
+    }
+    .via-linea {
+      width: 1.5px;
+      height: 100%;
+      transform: scaleY(0);
+      transform-origin: top center;
     }
     .via-etiqueta {
-      top: -0.35rem;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: var(--color-surface-raised);
+      padding: 0.15rem 0.5rem;
+      opacity: 0;
+    }
+    .dato {
+      left: 50%;
+      top: 0;
+      margin-left: -4px;
+    }
+    .carril-pie {
+      margin-top: 0.7rem;
+      text-align: center;
+    }
+
+    /* Mismos tiempos, otro eje */
+    .mcp.is-visible .via-linea {
+      animation-name: traza-vertical;
+    }
+    .mcp.is-visible .dato-ida,
+    .mcp.is-visible .dato-vuelta {
+      animation-name: viaja-ok-vertical;
+    }
+    .mcp.is-visible .dato-fuga {
+      animation-name: fuga-vertical;
+    }
+  }
+
+  @keyframes traza-vertical {
+    to {
+      transform: scaleY(1);
+    }
+  }
+  @keyframes viaja-ok-vertical {
+    0% {
+      opacity: 0;
+      transform: translateY(0);
+    }
+    15% {
+      opacity: 1;
+    }
+    85% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 0;
+      transform: translateY(calc(3rem - 8px));
+    }
+  }
+  @keyframes fuga-vertical {
+    0% {
+      opacity: 0;
+      transform: translate(0, 0);
+    }
+    20% {
+      opacity: 1;
+    }
+    60% {
+      opacity: 1;
+      transform: translate(0, 1.8rem);
+    }
+    100% {
+      opacity: 0;
+      transform: translate(34px, 3.4rem);
     }
   }
 
@@ -243,7 +331,7 @@
     animation-delay: 0.3s;
   }
   .mcp.is-visible .carril-malo .via-etiqueta {
-    animation: aparece 0.3s ease-out both;
+    animation: solo-opacidad 0.3s ease-out both;
     animation-delay: 0.45s;
   }
   /* El dato se escapa: sale del carril y no vuelve */
@@ -280,11 +368,11 @@
     animation-delay: 2.55s;
   }
   .mcp.is-visible .carril-bueno .via:nth-of-type(2) .via-etiqueta {
-    animation: aparece 0.3s ease-out both;
+    animation: solo-opacidad 0.3s ease-out both;
     animation-delay: 1.8s;
   }
   .mcp.is-visible .carril-bueno .via:nth-of-type(4) .via-etiqueta {
-    animation: aparece 0.3s ease-out both;
+    animation: solo-opacidad 0.3s ease-out both;
     animation-delay: 2.7s;
   }
   .mcp.is-visible .dato-ida {
@@ -304,6 +392,15 @@
     to {
       opacity: 1;
       transform: none;
+    }
+  }
+  /* Para elementos que ya usan transform para posicionarse (las etiquetas) */
+  @keyframes solo-opacidad {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
     }
   }
   @keyframes traza {
