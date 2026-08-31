@@ -1,9 +1,13 @@
 /**
  * Oferta de capacitación en 3 modalidades (definidas por Israel 2026-08-30):
  *
- * 1. Sesión mensual abierta: $4,999 MXN, precio PÚBLICO (decisión explícita).
- *    Incluye la sesión de 8 horas, grabación, material y 30 días de
- *    acompañamiento sobre los proyectos del asistente.
+ * 1. Taller abierto: $4,999 MXN, precio PÚBLICO (decisión explícita). Son 8
+ *    horas en vivo REPARTIDAS EN SESIONES DE 2 HORAS — nunca una maratón de
+ *    un día. Se abre una edición al mes, con calendario variable (2 h/día
+ *    durante 2 semanas, o 4 días seguidos). Incluye grabación, material y 30
+ *    días de acompañamiento sobre los proyectos del asistente.
+ *    OJO CON EL COPY: no llamarlo "sesión mensual" — se lee como suscripción
+ *    ("pago y nos reunimos cada mes") y lo que se compra es UNA edición.
  * 2. Organizaciones/capacitadoras (B2B2C): ellas revenden de forma masiva.
  *    El ancla de $3,500-4,000 MXN/hora es INTERNA: nunca se publica.
  * 3. Capacitación empresarial: equipos completos, sesiones grupales de 1-2 h
@@ -13,12 +17,12 @@
  * "Despacho IA-First"; Israel lo va a revisar/reescribir.
  */
 
-export const SESION_MENSUAL = {
-  nombre: "Sesión mensual de automatización",
+export const TALLER_ABIERTO = {
+  nombre: "Taller de automatización",
   precio: "$4,999 MXN",
-  duracion: "8 horas en vivo",
+  duracion: "8 horas en vivo, en sesiones de 2 horas",
   incluye: [
-    "La sesión completa en vivo (8 horas, cupo limitado)",
+    "Las 8 horas en vivo, repartidas en sesiones de 2 horas (cupo limitado)",
     "Grabación de la sesión para repasar cuando quieras",
     "Material de la clase: prompts, plantillas y guías",
     "30 días de acompañamiento para ver la evolución de tu proyecto",

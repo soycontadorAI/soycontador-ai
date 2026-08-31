@@ -3,7 +3,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import FaqBlock from "../components/FaqBlock.astro";
 import FormCapacitacion from "../components/FormCapacitacion.astro";
 import FlujoExpediente from "../components/FlujoExpediente.astro";
-import { CASO_AUDITOR, EMPRESARIAL, ORGANIZACIONES, SESION_MENSUAL } from "../lib/capacitacion";
+import { CASO_AUDITOR, EMPRESARIAL, ORGANIZACIONES, TALLER_ABIERTO } from "../lib/capacitacion";
 import { FAQ_CAPACITACION } from "../lib/faqs";
 import { breadcrumbs, capacitacionService, faqPage, graph } from "../lib/schema";
 import { SITE } from "../lib/site";
@@ -20,7 +20,7 @@ const jsonLd = graph(
 
 <BaseLayout
   title="Capacitación en IA para contadores y despachos contables"
-  description="Talleres de inteligencia artificial aplicada al trabajo fiscal en México: sesión mensual de 8 horas con acompañamiento de 30 días, capacitación para empresas y despachos, y licenciamiento para organizaciones y capacitadoras."
+  description="Talleres de inteligencia artificial aplicada al trabajo fiscal en México: taller abierto de 8 horas en sesiones de 2 horas, con 30 días de acompañamiento, más capacitación para empresas y despachos y licenciamiento para organizaciones y capacitadoras."
   jsonLd={jsonLd}
 >
   <main>
@@ -58,13 +58,13 @@ const jsonLd = graph(
 
     <section>
       <div class="container-default">
-        <div class="sec-head"><h2 class="folio">MODALIDAD <b>01</b> · SESIÓN MENSUAL</h2></div>
+        <div class="sec-head"><h2 class="folio">MODALIDAD <b>01</b> · TALLER ABIERTO</h2></div>
         <div class="mensual" data-reveal>
           <div class="mensual-info">
-            <h2 class="titulo-lg">{SESION_MENSUAL.nombre}</h2>
-            <p class="precio"><b>{SESION_MENSUAL.precio}</b> <span>por persona · {SESION_MENSUAL.duracion}</span></p>
+            <h2 class="titulo-lg">{TALLER_ABIERTO.nombre}</h2>
+            <p class="precio"><b>{TALLER_ABIERTO.precio}</b> <span>por persona · {TALLER_ABIERTO.duracion}</span></p>
             <ul class="incluye">
-              {SESION_MENSUAL.incluye.map((item) => (
+              {TALLER_ABIERTO.incluye.map((item) => (
                 <li>{item}</li>
               ))}
             </ul>
@@ -72,7 +72,7 @@ const jsonLd = graph(
           </div>
           <div class="temario">
             <p class="folio temario-titulo">TEMARIO · 8 HORAS</p>
-            {SESION_MENSUAL.temario.map((bloque) => (
+            {TALLER_ABIERTO.temario.map((bloque) => (
               <div class="temario-bloque">
                 <h3>{bloque.bloque}</h3>
                 <p>{bloque.temas}</p>

@@ -8,7 +8,7 @@
 
 import type { APIRoute } from "astro";
 
-import { CASO_AUDITOR, EMPRESARIAL, ORGANIZACIONES, SESION_MENSUAL } from "../lib/capacitacion";
+import { CASO_AUDITOR, EMPRESARIAL, ORGANIZACIONES, TALLER_ABIERTO } from "../lib/capacitacion";
 import { APENDICES, COMPRA, EDICION, FAQ_EBOOK, PARTES } from "../lib/ebook";
 import { FAQ_CAPACITACION, FAQ_CLUB, FAQ_HOME, FAQ_SOLUCIONES } from "../lib/faqs";
 import { HERRAMIENTAS } from "../lib/herramientas";
@@ -45,13 +45,13 @@ ${CASO_AUDITOR.trazabilidad}
 
 Expediente: ${CASO_AUDITOR.expediente.filas.map((f) => `${f.concepto}: ${f.cargo}`).join(" · ")} · ${CASO_AUDITOR.expediente.total.concepto}: ${CASO_AUDITOR.expediente.total.cargo}.
 
-### ${SESION_MENSUAL.nombre} (${SESION_MENSUAL.precio} por persona)
+### ${TALLER_ABIERTO.nombre} (${TALLER_ABIERTO.precio} por persona)
 
-${SESION_MENSUAL.duracion}. Incluye:
-${SESION_MENSUAL.incluye.map((i) => `- ${i}`).join("\n")}
+${TALLER_ABIERTO.duracion}. Incluye:
+${TALLER_ABIERTO.incluye.map((i) => `- ${i}`).join("\n")}
 
 Temario:
-${SESION_MENSUAL.temario.map((t) => `- ${t.bloque}: ${t.temas}`).join("\n")}
+${TALLER_ABIERTO.temario.map((t) => `- ${t.bloque}: ${t.temas}`).join("\n")}
 
 ### ${EMPRESARIAL.nombre}
 
