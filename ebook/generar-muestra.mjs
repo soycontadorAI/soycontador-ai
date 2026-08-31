@@ -45,6 +45,7 @@ const apendices = todos.filter((c) => c.chapter >= 18);
 const cortesia = [
   portadaHtml({
     chip: "Muestra gratuita · Introducción y capítulos 1 y 2",
+    pie: `${EDICION.sitio}/ebook`,
     ficha: [
       { num: "03", etq: "piezas abiertas" },
       { num: "18", etq: "en la edición completa" },

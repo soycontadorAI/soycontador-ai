@@ -862,8 +862,13 @@ function esc(s) {
 
 /**
  * Portada. `chip` pinta el distintivo de muestra en la edición preview.
+ *
+ * `pie` es la franja de terminal al pie. Por omisión lleva solo el dominio,
+ * que es firma de marca: en el libro comprado una liga de compra le estaría
+ * vendiendo a quien ya compró. La muestra sí pasa la ruta completa, porque ahí
+ * la invitación es justo el punto.
  */
-export function portadaHtml({ chip = null, ficha } = {}) {
+export function portadaHtml({ chip = null, ficha, pie = EDICION.sitio } = {}) {
   const fichaHtml = (ficha ?? [])
     .map(
       (d) =>
@@ -888,7 +893,7 @@ export function portadaHtml({ chip = null, ficha } = {}) {
     <p class="portada-autor">${esc(EDICION.autor)}</p>
     <p class="portada-rol">${esc(EDICION.autorRol)}</p>
   </div>
-  <div class="portada-pie"><span class="prompt">$</span>${esc(EDICION.sitio)}/ebook</div>
+  <div class="portada-pie"><span class="prompt">$</span>${esc(pie)}</div>
 </div>`;
 }
 
