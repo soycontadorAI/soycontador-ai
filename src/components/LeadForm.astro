@@ -76,10 +76,20 @@ const opcionesInteres = [
         <label for="lead-mensaje">Cuéntame en una línea qué necesitas (opcional)</label>
         <textarea id="lead-mensaje" name="mensaje" rows="2" maxlength="500" placeholder="Ej. cada mes pierdo dos días armando el mismo reporte…"></textarea>
       </div>
+      <div class="campo-full consentimiento">
+        <label>
+          <input type="checkbox" name="newsletter" value="si" />
+          <span>
+            Quiero además el boletín: una idea de IA fiscal a la semana, avisos
+            del live y de los talleres. <b>Es opcional</b>: sin marcarlo te
+            respondo igual y no te llega nada más.
+          </span>
+        </label>
+      </div>
       <input type="text" name="hp" tabindex="-1" autocomplete="off" aria-hidden="true" class="lead-hp" />
       <div class="campo-full lead-envio">
         <button type="submit" class="btn btn-primary">Quiero que me contactes</button>
-        <small data-lead-msg>Te llega un correo para confirmar; en cuanto confirmes, te escribo.</small>
+        <small data-lead-msg>Te llega el resumen a tu correo y te respondo personalmente.</small>
       </div>
     </form>
     {calendario && (
@@ -168,6 +178,29 @@ const opcionesInteres = [
   textarea {
     resize: vertical;
   }
+  .consentimiento label {
+    display: flex;
+    gap: 0.65rem;
+    align-items: flex-start;
+    cursor: pointer;
+    font-family: var(--font-body);
+    font-size: 0.85rem;
+    line-height: 1.5;
+    color: var(--color-ink-soft);
+    text-transform: none;
+    letter-spacing: 0;
+    margin: 0;
+  }
+  .consentimiento input {
+    width: auto;
+    margin: 0.15rem 0 0;
+    flex-shrink: 0;
+    accent-color: var(--color-accent);
+  }
+  .consentimiento b {
+    color: var(--color-ink);
+    font-weight: 700;
+  }
   .lead-hp {
     position: absolute;
     left: -9999px;
@@ -212,20 +245,23 @@ const opcionesInteres = [
             rol: data.get("rol"),
             interes: data.get("interes"),
             mensaje: data.get("mensaje"),
+            newsletter: data.get("newsletter") === "si",
             hp: data.get("hp"),
             referrer: location.href,
           }),
         });
         const body = await resp.json();
         if (msg) {
-          if (body.status === "confirm") {
+          if (body.ok) {
+            // El acuse va siempre; el correo de confirmación solo si pidió el
+            // boletín. Prometer una confirmación que no existe deja a la
+            // persona esperando un correo que nunca llega.
+            const boletin = body.newsletter
+              ? " Y para el boletín, confírmalo desde el correo que te acaba de llegar."
+              : "";
             msg.textContent = agenda
-              ? "Recibido. Te llegó un correo para confirmar, y si quieres adelantar, aparta tu horario aquí:"
-              : "Recibido. Te llegó un correo para confirmar; en cuanto confirmes, te contacto.";
-          } else if (body.status === "already") {
-            msg.textContent = agenda
-              ? "Ya te tenía registrado. Aparta tu horario aquí:"
-              : "Ya te tenía registrado. Te contacto pronto.";
+              ? `Recibido. Te mandé el resumen a tu correo y te respondo personalmente.${boletin} Si quieres adelantar, aparta tu horario aquí:`
+              : `Recibido. Te mandé el resumen a tu correo y te respondo personalmente.${boletin}`;
           } else {
             msg.textContent = body.error ?? "No pudimos registrarte. Inténtalo de nuevo.";
           }

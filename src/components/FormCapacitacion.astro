@@ -88,11 +88,21 @@ const calendario = calendarioDe("capacitacion");
           maxlength="500"
           placeholder="Ej. descargamos CFDI a mano para 40 clientes y las conciliaciones nos toman una semana cada cierre…"></textarea>
       </div>
+      <div class="campo-full consentimiento">
+        <label>
+          <input type="checkbox" name="newsletter" value="si" />
+          <span>
+            Quiero además el boletín: una idea de IA fiscal a la semana, avisos
+            del live y de los talleres. <b>Es opcional</b>: sin marcarlo te
+            respondo igual y no te llega nada más.
+          </span>
+        </label>
+      </div>
       <input type="text" name="hp" tabindex="-1" autocomplete="off" aria-hidden="true" class="cap-hp" />
       <div class="campo-full cap-envio">
         <button type="submit" class="btn btn-primary">Enviar y agendar llamada</button>
         <small data-cap-msg>
-          Al enviarlo te llega un correo para confirmar y de ahí agendamos la llamada.
+          Te llega el resumen a tu correo y de ahí agendamos la llamada.
         </small>
       </div>
     </form>
@@ -179,6 +189,29 @@ const calendario = calendarioDe("capacitacion");
   textarea {
     resize: vertical;
   }
+  .consentimiento label {
+    display: flex;
+    gap: 0.65rem;
+    align-items: flex-start;
+    cursor: pointer;
+    font-family: var(--font-body);
+    font-size: 0.85rem;
+    line-height: 1.5;
+    color: var(--color-ink-soft);
+    text-transform: none;
+    letter-spacing: 0;
+    margin: 0;
+  }
+  .consentimiento input {
+    width: auto;
+    margin: 0.15rem 0 0;
+    flex-shrink: 0;
+    accent-color: var(--color-accent);
+  }
+  .consentimiento b {
+    color: var(--color-ink);
+    font-weight: 700;
+  }
   .cap-hp {
     position: absolute;
     left: -9999px;
@@ -237,6 +270,7 @@ const calendario = calendarioDe("capacitacion");
             cuando: data.get("cuando"),
             mensaje: data.get("mensaje"),
             interes: "Capacitación",
+            newsletter: data.get("newsletter") === "si",
             hp: data.get("hp"),
             referrer: location.href,
           }),
@@ -244,9 +278,15 @@ const calendario = calendarioDe("capacitacion");
         const body = await resp.json();
         if (msg) {
           if (body.ok) {
+            // El acuse va siempre; el correo de confirmación solo si pidió el
+            // boletín. Prometer una confirmación que no existe deja a la
+            // persona esperando un correo que nunca llega.
+            const boletin = body.newsletter
+              ? " Y para el boletín, confírmalo desde el correo que te acaba de llegar."
+              : "";
             msg.textContent = agenda
-              ? "Recibido. Confirma el correo que te acaba de llegar y aparta tu horario aquí:"
-              : "Recibido. Confirma el correo que te acaba de llegar y de ahí agendamos la llamada.";
+              ? `Recibido. Te mandé el resumen a tu correo.${boletin} Aparta tu horario aquí:`
+              : `Recibido. Te mandé el resumen a tu correo y te contacto para agendar.${boletin}`;
           } else {
             msg.textContent = body.error ?? "No pudimos registrarte. Inténtalo de nuevo.";
           }

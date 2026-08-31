@@ -32,6 +32,14 @@ export default defineConfig({
       SENDY_LIST_ID: envField.string({ context: 'server', access: 'public', optional: true }),
       // Lista propia del ebook. Si falta, el alta cae en SENDY_LIST_ID.
       SENDY_EBOOK_LIST_ID: envField.string({ context: 'server', access: 'public', optional: true }),
+
+      // Correo de acuse del lead (SES). El dominio ya está verificado con
+      // SPF/DKIM, así que el remitente debe ser @soycontador.ai.
+      SES_REGION: envField.string({ context: 'server', access: 'public', optional: true }),
+      SES_ACCESS_KEY_ID: envField.string({ context: 'server', access: 'secret', optional: true }),
+      SES_SECRET_ACCESS_KEY: envField.string({ context: 'server', access: 'secret', optional: true }),
+      CORREO_REMITENTE: envField.string({ context: 'server', access: 'public', optional: true }),
+      CORREO_COPIA: envField.string({ context: 'server', access: 'public', optional: true }),
     },
   },
   vite: {
