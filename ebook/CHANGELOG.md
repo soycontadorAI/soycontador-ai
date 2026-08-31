@@ -91,13 +91,29 @@ Los datos que dependen del proveedor o del momento van marcados con
 **"Verificado en \<mes\> de \<año\>"** y se renderizan como un bloque aparte. La
 próxima actualización es un barrido de esos bloques, no arqueología.
 
+### Puntuación: fuera la raya larga
+
+Las 121 rayas «—» del libro se retiraron (decisión de Israel, 2026-08-31). La
+regla de marca las prohíbe en contenido publicable porque se leen como señal de
+IA, y la convención es el paréntesis. No fue un reemplazo mecánico:
+
+- **Incisos entre rayas** (la mayoría): pasan a paréntesis.
+- **Fichas del apéndice B**: la raya separaba nombre, liga y descripción; ahora
+  la liga va con "en" y la descripción tras dos puntos.
+- **Bandas de temperatura del capítulo 7** y remates del tipo "…profesional —
+  eso es usar la IA": dos puntos, que es lo que la raya estaba haciendo ahí.
+- **Contrastes** ("no es una limitación técnica — es la filosofía correcta"):
+  coma.
+
+Queda en cero en todo el contenido publicable, libro y sitio.
+
 ### Pendientes conocidos
 
 - El Pack de Prompts se cita como **25 prompts** en tres lugares y como 24 en
   otro. Falta confirmar el número y unificar.
-- La raya larga «—» aparece 121 veces en el libro. La regla de marca la prohíbe
-  en contenido publicable, pero cambiarla toca prosa ya revisada: queda a
-  decisión de Israel para una v2.1.
+- Las secciones "Si quieres ir más lejos" de 16 capítulos, más el apéndice B,
+  mandan al Pack de Prompts en nas.io. Si el Pack pasa a ser parte del Club,
+  esas ligas hay que reencaminarlas.
 
 ---
 

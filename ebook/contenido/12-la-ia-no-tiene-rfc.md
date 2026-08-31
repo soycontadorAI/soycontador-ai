@@ -94,9 +94,9 @@ Elena, que no ha verificado, le manda un resumen al cliente con los montos. El c
 
 Dos meses después, al preparar la declaración anual, Elena revisa los montos contra la ley vigente. Los límites que la IA le dio no corresponden al ejercicio actual. Eran de dos ejercicios atrás. La diferencia es significativa y el cliente ya gastó más de lo deducible.
 
-Si Elena hubiera aplicado el paso 2 de la lista de verificación —confirmar tasas y porcentajes contra tablas oficiales— habría detectado el error en treinta segundos. Antes de mandarle cualquier cosa al cliente. Antes de que el cliente tomara decisiones con datos incorrectos.
+Si Elena hubiera aplicado el paso 2 de la lista de verificación (confirmar tasas y porcentajes contra tablas oficiales) habría detectado el error en treinta segundos. Antes de mandarle cualquier cosa al cliente. Antes de que el cliente tomara decisiones con datos incorrectos.
 
-La IA le dio un excelente punto de partida. La estructura del análisis era correcta. Los artículos aplicables eran los correctos. Pero un dato específico —el monto— estaba mal. Y en temas de impuestos, un dato específico mal puede costar dinero real.
+La IA le dio un excelente punto de partida. La estructura del análisis era correcta. Los artículos aplicables eran los correctos. Pero un dato específico (el monto) estaba mal. Y en temas de impuestos, un dato específico mal puede costar dinero real.
 
 ## Cómo reducir el riesgo (sin dejar de usar la IA)
 
@@ -104,7 +104,7 @@ No estoy diciendo que no uses la IA. Estoy diciendo que la uses con los ojos abi
 
 Hay dos mecanismos que reducen significativamente las alucinaciones. No las eliminan. Las reducen.
 
-El primero lo vimos en el Capítulo 10: RAG. Cuando le das al modelo documentos específicos —la ley, el reglamento, la miscelánea— y le dices que responda solo con base en esos documentos, el modelo tiene menos espacio para inventar. En lugar de predecir qué diría la ley, lee lo que dice la ley. Es como la diferencia entre pedirle a alguien que te cuente de memoria lo que dice un artículo y pedirle que lo lea en voz alta con el documento enfrente.
+El primero lo vimos en el Capítulo 10: RAG. Cuando le das al modelo documentos específicos (la ley, el reglamento, la miscelánea) y le dices que responda solo con base en esos documentos, el modelo tiene menos espacio para inventar. En lugar de predecir qué diría la ley, lee lo que dice la ley. Es como la diferencia entre pedirle a alguien que te cuente de memoria lo que dice un artículo y pedirle que lo lea en voz alta con el documento enfrente.
 
 El segundo lo vimos en el Capítulo 6: la cadena de pensamiento. Cuando obligas al modelo a razonar paso a paso, cada paso funciona como un punto de verificación. Si en el paso 3 dice algo que contradice el paso 1, tiene la oportunidad de detectarlo y corregirse. No es infalible, pero reduce errores de forma significativa.
 

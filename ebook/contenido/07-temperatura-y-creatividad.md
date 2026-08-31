@@ -34,11 +34,11 @@ Ahora imagina que les preguntas a cinco colegas de firmas diferentes, con especi
 
 La escala cambia según el modelo (en ChatGPT y en Gemini llega hasta 2, aunque el rango útil vive en la primera mitad), así que los números importan menos que las tres zonas. Tomando la escala de 0 a 1 para explicarlas:
 
-**Temperatura 0 a 0.3** — piensa en un auditor rígido. De esos que siguen el manual de procedimientos al pie de la letra. No improvisa. No se sale del guion. Si le pides la misma revisión diez veces, te entrega el mismo papel de trabajo diez veces. Cero sorpresas. Cero creatividad. Todo bajo la misma línea. Para muchas tareas contables, eso es exactamente lo que quieres.
+**Temperatura 0 a 0.3**: piensa en un auditor rígido. De esos que siguen el manual de procedimientos al pie de la letra. No improvisa. No se sale del guion. Si le pides la misma revisión diez veces, te entrega el mismo papel de trabajo diez veces. Cero sorpresas. Cero creatividad. Todo bajo la misma línea. Para muchas tareas contables, eso es exactamente lo que quieres.
 
-**Temperatura 0.4 a 0.7** — un punto medio. Como un contador experimentado que conoce la norma pero tiene criterio para adaptarla al caso específico. Sigue siendo riguroso, pero tiene cierta flexibilidad. Si le pides la misma opinión dos veces, la esencia será la misma pero la forma puede variar ligeramente.
+**Temperatura 0.4 a 0.7**: un punto medio. Como un contador experimentado que conoce la norma pero tiene criterio para adaptarla al caso específico. Sigue siendo riguroso, pero tiene cierta flexibilidad. Si le pides la misma opinión dos veces, la esencia será la misma pero la forma puede variar ligeramente.
 
-**Temperatura 0.8 a 1.0** — el colega creativo. El que en una junta te dice "oye, ¿y si lo vemos desde otro ángulo?". A veces sus ideas son brillantes. A veces son impracticables. Pero te saca de la caja y te obliga a pensar diferente. También es el que más riesgo tiene de decir algo que no aplica.
+**Temperatura 0.8 a 1.0**: el colega creativo. El que en una junta te dice "oye, ¿y si lo vemos desde otro ángulo?". A veces sus ideas son brillantes. A veces son impracticables. Pero te saca de la caja y te obliga a pensar diferente. También es el que más riesgo tiene de decir algo que no aplica.
 
 ## Cómo funciona por dentro (sin fórmulas, lo prometo)
 

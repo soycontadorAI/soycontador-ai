@@ -46,7 +46,7 @@ Y lo es. Puedes subir un estado financiero de 50 páginas, una escritura constit
 
 Pero aquí viene el matiz importante: que quepa no significa que lo procese igual de bien.
 
-Los investigadores han descubierto un fenómeno que llaman "lost in the middle" —perdido en el medio—. Cuando le das al modelo un texto muy largo, presta más atención al principio y al final, y tiende a perderse detalles de la parte media. Es como cuando lees un documento larguísimo: recuerdas bien cómo empezaba y cómo terminaba, pero los párrafos del medio no quedan del todo claro y hasta puedes llegar a "imaginar" qué decían más o menos.
+Los investigadores han descubierto un fenómeno que llaman "lost in the middle" (perdido en el medio). Cuando le das al modelo un texto muy largo, presta más atención al principio y al final, y tiende a perderse detalles de la parte media. Es como cuando lees un documento larguísimo: recuerdas bien cómo empezaba y cómo terminaba, pero los párrafos del medio no quedan del todo claro y hasta puedes llegar a "imaginar" qué decían más o menos.
 
 Esto tiene implicaciones directas para tu trabajo. Si subes un dictamen fiscal de 80 páginas y le preguntas algo específico que está en la página 45, el modelo podría no captar ese detalle con la misma precisión que si estuviera en la primera o la última página. No es un error del modelo. Es una limitación real de cómo funcionan estas arquitecturas.
 
@@ -60,19 +60,19 @@ La distinción importa para tu trabajo. Que la herramienta arrastre contexto vie
 
 Dentro de una misma conversación sí hay continuidad. Si en el mensaje 1 le dices "soy contador en un despacho de Monterrey con 15 clientes personas morales del régimen general", en el mensaje 5 todavía lo sabe. Pero solo porque esa información sigue dentro de la ventana de contexto. El modelo no "recuerda" en el sentido humano de la palabra. Simplemente está releyendo toda la conversación cada vez que genera una respuesta.
 
-Por eso las conversaciones largas se vuelven problemáticas. No solo por el límite de la ventana, sino porque entre más larga la conversación, más tokens se gastan en releer lo anterior —como vimos en el Capítulo 4— y menos espacio queda para contenido nuevo.
+Por eso las conversaciones largas se vuelven problemáticas. No solo por el límite de la ventana, sino porque entre más larga la conversación, más tokens se gastan en releer lo anterior (como vimos en el Capítulo 4) y menos espacio queda para contenido nuevo.
 
 ## Lo que pasa cuando la ventana se compacta
 
-Algunos modelos —Claude es uno de ellos— han implementado una solución parcial al problema de la ventana llena: cuando la conversación se alarga demasiado, el modelo compacta automáticamente lo que ya se dijo. En lugar de simplemente cortar los mensajes más antiguos, genera un resumen interno de la conversación y lo usa como sustituto.
+Algunos modelos (Claude es uno de ellos) han implementado una solución parcial al problema de la ventana llena: cuando la conversación se alarga demasiado, el modelo compacta automáticamente lo que ya se dijo. En lugar de simplemente cortar los mensajes más antiguos, genera un resumen interno de la conversación y lo usa como sustituto.
 
 Suena bien en teoría. Y para muchos casos lo es: si llevas una hora hablando de ideas para redactar un correo, un resumen comprimido de esa discusión conserva lo esencial.
 
 Pero en materia fiscal, esto tiene un riesgo que no puedes ignorar.
 
-Cuando el modelo compacta una conversación sobre una disposición fiscal, no compacta cualquier texto: compacta lenguaje jurídico donde cada palabra importa. La diferencia entre "podrá" y "deberá" en un artículo del CFF no es estilística, es la diferencia entre una obligación y una facultad. La referencia a una fracción específica —el artículo 27, fracción III, inciso b— no es un detalle menor, es el fundamento legal de una deducción. Un resumen automático puede quedarse con la idea general y perder exactamente eso.
+Cuando el modelo compacta una conversación sobre una disposición fiscal, no compacta cualquier texto: compacta lenguaje jurídico donde cada palabra importa. La diferencia entre "podrá" y "deberá" en un artículo del CFF no es estilística, es la diferencia entre una obligación y una facultad. La referencia a una fracción específica (el artículo 27, fracción III, inciso b) no es un detalle menor, es el fundamento legal de una deducción. Un resumen automático puede quedarse con la idea general y perder exactamente eso.
 
-La regla práctica: si llevas una conversación larga sobre un tema fiscal con fundamentos legales específicos, no confíes en que el modelo todavía tiene acceso fiel a lo que dijiste al principio. Cuando notes que las respuestas empiezan a ser más vagas o menos precisas, es señal de que la compactación ya ocurrió. La solución más segura es abrir un chat nuevo y repetir el contexto relevante desde cero. Sí, es un paso extra. Pero en fiscal, un matiz omitido puede costarle caro a tu cliente —y a ti.
+La regla práctica: si llevas una conversación larga sobre un tema fiscal con fundamentos legales específicos, no confíes en que el modelo todavía tiene acceso fiel a lo que dijiste al principio. Cuando notes que las respuestas empiezan a ser más vagas o menos precisas, es señal de que la compactación ya ocurrió. La solución más segura es abrir un chat nuevo y repetir el contexto relevante desde cero. Sí, es un paso extra. Pero en fiscal, un matiz omitido puede costarle caro a tu cliente. Y a ti.
 
 ## En la práctica
 
@@ -105,7 +105,7 @@ Y cuando subes documentos largos, recuerda el efecto "lost in the middle". Si ne
 ### Lo que te llevas
 
 - La ventana de contexto es el límite físico de cuánta información puede ver la IA al mismo tiempo. Lo que queda fuera de esa ventana no existe para el modelo.
-- Dar contexto completo —quién eres, qué necesitas, situación específica, qué ya intentaste— transforma respuestas genéricas en respuestas personalizadas. La diferencia entre Google y un colega experto es el contexto.
+- Dar contexto completo (quién eres, qué necesitas, situación específica, qué ya intentaste) transforma respuestas genéricas en respuestas personalizadas. La diferencia entre Google y un colega experto es el contexto.
 - Cada conversación nueva empieza de cero. El modelo no recuerda chats anteriores. Y en conversaciones muy largas, empieza a perder los mensajes del principio.
 - Algunos modelos compactan automáticamente las conversaciones largas para liberar espacio en la ventana. En temas fiscales esto es un riesgo: el resumen puede perder matices jurídicos críticos. Si notas que las respuestas se vuelven más vagas, abre un chat nuevo y repite el contexto desde cero.
 

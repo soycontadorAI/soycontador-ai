@@ -40,7 +40,7 @@ Yo construí uno de estos agentes. Se llama [Abacus](https://todoconta.com/abacu
 
 No lo llamo chatbot porque no es un chatbot. Un chatbot te responde preguntas. Abacus toma acciones: verifica el estatus del RFC de un contribuyente directamente en el portal del SAT, consulta el tipo de cambio publicado por el Banco de México, y aplica lógica fiscal específica del marco legal mexicano antes de darte una respuesta. No te dice cómo verificar el RFC. Lo verifica. Hay una diferencia enorme ahí.
 
-Pero diseñé Abacus con una restricción deliberada: no toma decisiones que le corresponden al contador. Te da el dato, el estatus, la referencia legal. Tú decides qué hacer con eso. Eso no es una limitación técnica — es la filosofía correcta para una herramienta que va a vivir en el flujo de trabajo de un profesional que firma con su RFC.
+Pero diseñé Abacus con una restricción deliberada: no toma decisiones que le corresponden al contador. Te da el dato, el estatus, la referencia legal. Tú decides qué hacer con eso. Eso no es una limitación técnica, es la filosofía correcta para una herramienta que va a vivir en el flujo de trabajo de un profesional que firma con su RFC.
 
 Un agente que actúa sin ese límite no es una herramienta. Es un riesgo.
 
@@ -56,7 +56,7 @@ Sería injusto decir que toda automatización contable es mentira. No lo es. Hay
 
 **Descarga masiva de XMLs.** Herramientas que se conectan al portal del SAT, descargan los CFDIs de tus clientes y los organizan por período, tipo y estatus. Esto antes te tomaba horas. Hoy se hace en minutos.
 
-**Conciliación bancaria.** Sistemas que cruzan los movimientos bancarios con los CFDIs y te señalan las diferencias. No las resuelven solas —todavía necesitas tu criterio para clasificar las partidas— pero te ahorran el 80% del trabajo mecánico.
+**Conciliación bancaria.** Sistemas que cruzan los movimientos bancarios con los CFDIs y te señalan las diferencias. No las resuelven solas (todavía necesitas tu criterio para clasificar las partidas) pero te ahorran el 80% del trabajo mecánico.
 
 **Generación de DIOT.** Herramientas que toman los CFDIs recibidos y generan el archivo de la DIOT en segundos. Lo que antes era captura manual de cada proveedor ahora es un proceso semi-automático.
 
@@ -72,7 +72,7 @@ Y aquí llegamos al concepto más importante de este capítulo. Más importante 
 
 Se llama human-in-the-loop. Humano en el ciclo. Y es la diferencia entre usar la IA de forma responsable y usarla de forma temeraria.
 
-> **Human-in-the-loop (Humano en el ciclo):** Es un modelo de operación donde la IA hace el trabajo pesado —análisis, borradores, cálculos, clasificaciones— pero un humano revisa y aprueba antes de que cualquier resultado salga al mundo. No es desconfianza hacia la IA. Es responsabilidad profesional.
+> **Human-in-the-loop (Humano en el ciclo):** Es un modelo de operación donde la IA hace el trabajo pesado (análisis, borradores, cálculos, clasificaciones) pero un humano revisa y aprueba antes de que cualquier resultado salga al mundo. No es desconfianza hacia la IA. Es responsabilidad profesional.
 
 La idea es simple: la IA hace el primer borrador. Tú lo revisas. La IA sugiere la clasificación contable. Tú la apruebas o la corriges. La IA genera la declaración. Tú la verificas antes de presentarla.
 
@@ -114,7 +114,7 @@ Vamos a ser concretos. Estas son cosas que la IA ya te ahorra hoy, si la usas bi
 
 Ninguna de estas tareas desaparece. Tú sigues siendo quien verifica, quien firma, quien da la cara. Pero el tiempo mecánico se comprime. Y ese tiempo liberado lo puedes dedicar a lo que ningún agente de IA va a hacer por ti: sentarte con tu cliente, entender su situación, explicarle sus opciones con paciencia, y tomar decisiones que protejan su patrimonio.
 
-Esas horas de relación humana, de juicio profesional, de estrategia — esas son las que te hacen indispensable. Y la IA, bien usada, te da más tiempo para dedicarles.
+Esas horas de relación humana, de juicio profesional, de estrategia: esas son las que te hacen indispensable. Y la IA, bien usada, te da más tiempo para dedicarles.
 
 ## En la práctica
 

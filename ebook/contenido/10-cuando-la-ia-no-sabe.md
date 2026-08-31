@@ -36,7 +36,7 @@ Eso, en esencia, es lo que hace RAG.
 
 > **RAG (Retrieval Augmented Generation / Generación Aumentada por Recuperación):** Es una técnica que limita las respuestas de la IA a documentos específicos que tú le proporcionas, en lugar de depender únicamente de su conocimiento general de entrenamiento. Le das la fuente, y el modelo responde solo con base en ella.
 
-Es importante que entiendas la diferencia entre RAG y lo que vimos en capítulos anteriores. Los parámetros del modelo —su tamaño, su capacidad, lo que aprendió durante el entrenamiento— son como la formación académica de ese socio experto. Vienen de fábrica. Tú no los puedes cambiar. No puedes hacer que un modelo sepa más de lo que sabe.
+Es importante que entiendas la diferencia entre RAG y lo que vimos en capítulos anteriores. Los parámetros del modelo (su tamaño, su capacidad, lo que aprendió durante el entrenamiento) son como la formación académica de ese socio experto. Vienen de fábrica. Tú no los puedes cambiar. No puedes hacer que un modelo sepa más de lo que sabe.
 
 RAG es otra cosa. RAG es decirle: "Independientemente de todo lo que sabes, para esta conversación quiero que solo uses estos documentos." Es una restricción de fuentes, no de capacidad.
 
@@ -44,7 +44,7 @@ RAG es otra cosa. RAG es decirle: "Independientemente de todo lo que sabes, para
 
 Aquí viene la parte que a muchos les da miedo, pero que en realidad es más sencilla de lo que parece.
 
-Cuando subes un documento a una herramienta que usa RAG, el sistema no se lo "lee" de corrido como lo harías tú. Lo que hace es dividir el documento en fragmentos —párrafos, secciones, bloques de texto— y convierte cada fragmento en algo que se llama embedding.
+Cuando subes un documento a una herramienta que usa RAG, el sistema no se lo "lee" de corrido como lo harías tú. Lo que hace es dividir el documento en fragmentos (párrafos, secciones, bloques de texto) y convierte cada fragmento en algo que se llama embedding.
 
 > **Embedding:** Es una representación matemática de un fragmento de texto. Piensa en ello como coordenadas en un mapa: cada fragmento de texto tiene una ubicación, y los fragmentos que hablan de temas similares quedan cerca unos de otros en ese mapa.
 

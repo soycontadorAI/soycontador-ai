@@ -16,7 +16,7 @@ Concepto principal: Tokens como unidad de costo en modelos de IA
 Términos para glosario: token, tokens de entrada, tokens de salida, API, contexto, suscripcion, nivel gratuito
 -->
 
-Tengo un cliente —lo voy a llamar Don Ramón, por proteger al inocente— que cada vez que me llama, me cuenta la historia completa de su negocio desde que lo fundó en 1998. Quién le vendió el local. Por qué se peleó con su primer socio. Cómo le fue en la crisis del 2009. Y después de quince minutos de contexto innecesario, me suelta la pregunta real: "Oye, y esa factura que me llegó, ¿la puedo deducir?"
+Tengo un cliente (lo voy a llamar Don Ramón, por proteger al inocente) que cada vez que me llama, me cuenta la historia completa de su negocio desde que lo fundó en 1998. Quién le vendió el local. Por qué se peleó con su primer socio. Cómo le fue en la crisis del 2009. Y después de quince minutos de contexto innecesario, me suelta la pregunta real: "Oye, y esa factura que me llegó, ¿la puedo deducir?"
 
 Dos minutos de pregunta. Quince minutos de rollo.
 
@@ -58,9 +58,9 @@ Si utilizas el modelo más capaz de cualquier familia, el costo se acerca a los 
 
 "Entonces, si es tan barato, ¿por qué me importa?"
 
-Porque eso es UNA conversación. Si usas la IA 50 veces al día —que es perfectamente normal en un despacho activo—, el costo se multiplica. Y si tus prompts son ineficientes y necesitas tres intentos para obtener la respuesta que querías, estás triplicando el gasto.
+Porque eso es UNA conversación. Si usas la IA 50 veces al día (que es perfectamente normal en un despacho activo), el costo se multiplica. Y si tus prompts son ineficientes y necesitas tres intentos para obtener la respuesta que querías, estás triplicando el gasto.
 
-Ahora, si usas un modelo con razonamiento avanzado —como veremos en el Capítulo 6—, los tokens de "pensamiento" también cuentan. Una consulta compleja puede usar 10,000 o 20,000 tokens fácilmente. Y el costo ya no son fracciones de peso.
+Ahora, si usas un modelo con razonamiento avanzado (como veremos en el Capítulo 6), los tokens de "pensamiento" también cuentan. Una consulta compleja puede usar 10,000 o 20,000 tokens fácilmente. Y el costo ya no son fracciones de peso.
 
 A escala de una empresa o un despacho con varios usuarios, esos centavos se convierten en cientos o miles de pesos al mes. Es como las comisiones bancarias: una no la sientes, pero al final del año te preguntas a dónde se fue todo ese dinero.
 
@@ -88,7 +88,7 @@ Cuando Don Ramón le escribe a la IA, escribe algo así:
 
 "Hola, tengo una duda. Mira, es que yo tengo un negocio de papelería desde hace muchos años y siempre he facturado normal pero ahora un proveedor me mandó una factura y no sé si está bien porque dice cosas que no entiendo y me preocupa que el SAT me vaya a decir algo. Tú qué opinas?"
 
-Eso son muchos tokens de entrada que no aportan información útil. El modelo va a responder con algo genérico —"depende del tipo de factura, del régimen fiscal..."— que tampoco sirve. Don Ramón va a tener que aclarar. Otro mensaje. Más tokens. Y al tercer intento, tal vez llegue a una respuesta decente.
+Eso son muchos tokens de entrada que no aportan información útil. El modelo va a responder con algo genérico ("depende del tipo de factura, del régimen fiscal...") que tampoco sirve. Don Ramón va a tener que aclarar. Otro mensaje. Más tokens. Y al tercer intento, tal vez llegue a una respuesta decente.
 
 Tres rondas de conversación. Seis bloques de tokens (tres de entrada, tres de salida). Costo multiplicado por tres. Tiempo perdido.
 
@@ -116,7 +116,7 @@ Cada uno hace unas 30 consultas al día. Son 120 consultas diarias del despacho.
 
 Con precios típicos de API, eso puede representar entre $500 y $3,000 pesos mensuales, dependiendo del modelo que usen. No es una fortuna, pero tampoco es trivial.
 
-Ahora, si Ricardo entrena a su equipo para escribir mejores prompts —directos, con contexto, con formato específico— y reducen los intentos de dos a uno en promedio, acaban de cortar el consumo a la mitad. Mismo resultado, mitad de costo. Es exactamente la misma lógica que cuando optimizas los procesos del despacho para reducir horas de trabajo.
+Ahora, si Ricardo entrena a su equipo para escribir mejores prompts (directos, con contexto, con formato específico) y reducen los intentos de dos a uno en promedio, acaban de cortar el consumo a la mitad. Mismo resultado, mitad de costo. Es exactamente la misma lógica que cuando optimizas los procesos del despacho para reducir horas de trabajo.
 
 ## Mito vs. Realidad
 

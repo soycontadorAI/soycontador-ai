@@ -42,7 +42,7 @@ No es que el modelo esté mal. Es que sabe más de un contexto que de otro. Y cu
 
 Hay otro tipo de sesgo más sutil y que a veces es más peligroso. Los términos financieros y contables que suenan igual en México y en Estados Unidos pero significan cosas diferentes.
 
-"Revenue recognition" suena como si fuera lo mismo que reconocimiento de ingresos bajo NIF. Y en muchos aspectos lo es. Pero los criterios específicos, los momentos de reconocimiento, las excepciones — ahí hay diferencias que importan. Si el modelo te da una respuesta sobre reconocimiento de ingresos y mezcla criterios de IFRS, US GAAP y NIF sin avisarte, tienes un problema.
+"Revenue recognition" suena como si fuera lo mismo que reconocimiento de ingresos bajo NIF. Y en muchos aspectos lo es. Pero los criterios específicos, los momentos de reconocimiento, las excepciones: ahí hay diferencias que importan. Si el modelo te da una respuesta sobre reconocimiento de ingresos y mezcla criterios de IFRS, US GAAP y NIF sin avisarte, tienes un problema.
 
 Lo mismo pasa con conceptos como "related party transactions", "transfer pricing" o "tax consolidation". Cada jurisdicción tiene sus propias reglas, y el modelo no siempre distingue cuando está cruzando de una jurisdicción a otra.
 
@@ -58,9 +58,9 @@ La pregunta ética central es esta: cuando usas IA para tu trabajo profesional, 
 
 La línea está en tu juicio profesional.
 
-Cuando la IA te da un primer borrador de un análisis fiscal y tú lo lees, lo verificas, lo ajustas al caso específico del cliente, le agregas tu interpretación basada en tu experiencia, y le das forma con tu criterio profesional — eso es usar la IA como herramienta. Tu cliente está recibiendo tu trabajo, asistido por tecnología.
+Cuando la IA te da un primer borrador de un análisis fiscal y tú lo lees, lo verificas, lo ajustas al caso específico del cliente, le agregas tu interpretación basada en tu experiencia, y le das forma con tu criterio profesional: eso es usar la IA como herramienta. Tu cliente está recibiendo tu trabajo, asistido por tecnología.
 
-Cuando copias la respuesta del modelo, le cambias el formato para que se vea bonito y se la mandas al cliente sin verificar nada — eso no es trabajo profesional. Es un servicio de relay. Y tu cliente está pagando honorarios profesionales por algo que pudo haber obtenido gratis abriéndose su propia cuenta.
+Cuando copias la respuesta del modelo, le cambias el formato para que se vea bonito y se la mandas al cliente sin verificar nada: eso no es trabajo profesional. Es un servicio de relay. Y tu cliente está pagando honorarios profesionales por algo que pudo haber obtenido gratis abriéndose su propia cuenta.
 
 Las NIF siguen requiriendo juicio profesional. El Código de Ética del Contador Público sigue aplicando. Tu responsabilidad profesional no se delega a una herramienta, igual que no se delega a una hoja de cálculo. Si Excel te da un resultado incorrecto porque metiste una fórmula mal, la culpa no es de Microsoft. Es tuya. Con la IA es exactamente igual, solo que la IA es más convincente cuando se equivoca.
 
@@ -78,7 +78,7 @@ Dicho esto, hay dos situaciones donde sí creo que vale la pena ser transparente
 
 La segunda es cuando el uso de la IA es el servicio en sí. Si un cliente te contrata para que le implementes un sistema basado en IA, o para que le automatices un proceso, obviamente tiene que saber que hay IA de por medio. Eso no es transparencia opcional, es parte del servicio.
 
-Pero para tu trabajo cotidiano —análisis fiscal, redacción de correos, investigación de criterios, preparación de declaraciones— la IA es una herramienta más en tu caja. Igual que tu software contable, tu base de datos de legislación o tu calculadora financiera.
+Pero para tu trabajo cotidiano (análisis fiscal, redacción de correos, investigación de criterios, preparación de declaraciones) la IA es una herramienta más en tu caja. Igual que tu software contable, tu base de datos de legislación o tu calculadora financiera.
 
 ## La responsabilidad que no se mueve
 
@@ -104,7 +104,7 @@ Tres meses después, el SAT envía un requerimiento de información. La clasific
 
 ¿Quién responde el requerimiento? No es Claude. No es ChatGPT. Es el contador Alejandro, con su nombre, su cédula y su firma. Porque él firmó. Él presentó. Él era responsable de verificar que la información fuera correcta antes de enviarla.
 
-El error no fue usar IA. El error fue no verificar el resultado. Si Alejandro hubiera revisado la clasificación antes de presentar —cosa que le habría tomado diez minutos— habría detectado el error inmediatamente. La IA le ahorró dos horas de trabajo manual. Esos diez minutos de revisión eran parte del proceso, no un paso opcional.
+El error no fue usar IA. El error fue no verificar el resultado. Si Alejandro hubiera revisado la clasificación antes de presentar (cosa que le habría tomado diez minutos) habría detectado el error inmediatamente. La IA le ahorró dos horas de trabajo manual. Esos diez minutos de revisión eran parte del proceso, no un paso opcional.
 
 ## Mito vs. Realidad
 

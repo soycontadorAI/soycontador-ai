@@ -40,7 +40,7 @@ Piénsalo como una declaración anual. Si llenas solo los datos de identificaci�
 
 Después de meses usando IA en el despacho y de probar cientos de formas de preguntarle cosas, llegué a una estructura que funciona de forma consistente. En la literatura sobre prompt engineering la verás como **RCIF**: Rol, Contexto, Instrucción y Formato. Es una buena forma de recordarla.
 
-Pero a mí me gusta más llamarla **ISCA**: Identidad (Rol), Situación (Contexto), Consigna (Instrucción) y Acabado (Formato). No porque sea diferente en el fondo — los cuatro componentes son exactamente los mismos — sino porque los nombres me suenan más naturales cuando trabajo con ella en español. Y sí, ISCA son las letras de Israel Castro. Si ya me tomé el trabajo de destilarlo, que lleve firma.
+Pero a mí me gusta más llamarla **ISCA**: Identidad (Rol), Situación (Contexto), Consigna (Instrucción) y Acabado (Formato). No porque sea diferente en el fondo (los cuatro componentes son exactamente los mismos), sino porque los nombres me suenan más naturales cuando trabajo con ella en español. Y sí, ISCA son las letras de Israel Castro. Si ya me tomé el trabajo de destilarlo, que lleve firma.
 
 Vamos con cada pieza.
 
@@ -150,4 +150,4 @@ La diferencia no fue el modelo. Fue el prompt.
 
 ### Si quieres ir más lejos
 
-El framework ISCA es la base. Una vez que lo dominas, escribir prompts efectivos se vuelve algo natural. Pero si quieres ver cómo se aplica esta estructura a 24 tareas específicas del despacho contable —desde revisión de CFDIs hasta análisis de regímenes fiscales— eso es exactamente lo que hace el [Pack de Prompts para Contadores](https://nas.io/checkout-global?communityId=67ab5a14d444670df4027cad&communityCode=TODOCONTA_CLUB&requestor=whatsappSignup&linkClicked=https%3A%2F%2Fnas.io%2Fes-mx%2Fportal%2Fdigital-files%2Fmanage%3Fid%3D69a160e22f4e636bd0d1becd&sourceInfoType=folder&sourceInfoOrigin=69a160e22f4e636bd0d1becd): cada prompt ya trae la identidad, la situación, la consigna y el acabado diseñados para tareas reales de la práctica contable mexicana.
+El framework ISCA es la base. Una vez que lo dominas, escribir prompts efectivos se vuelve algo natural. Pero si quieres ver cómo se aplica esta estructura a 24 tareas específicas del despacho contable (desde revisión de CFDIs hasta análisis de regímenes fiscales) eso es exactamente lo que hace el [Pack de Prompts para Contadores](https://nas.io/checkout-global?communityId=67ab5a14d444670df4027cad&communityCode=TODOCONTA_CLUB&requestor=whatsappSignup&linkClicked=https%3A%2F%2Fnas.io%2Fes-mx%2Fportal%2Fdigital-files%2Fmanage%3Fid%3D69a160e22f4e636bd0d1becd&sourceInfoType=folder&sourceInfoOrigin=69a160e22f4e636bd0d1becd): cada prompt ya trae la identidad, la situación, la consigna y el acabado diseñados para tareas reales de la práctica contable mexicana.

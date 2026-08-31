@@ -57,7 +57,7 @@ La IA puede generar una propuesta personalizada si le das los datos del prospect
 **Nivel:** Principiante
 **Tiempo que te ahorra:** 15-20 minutos por explicación
 
-Tu cliente te llama: "Oye, ¿por qué me están reteniendo ISR si soy persona física con actividad empresarial?" Tú sabes la respuesta técnicamente. Pero explicársela a alguien que no es contador, en palabras que entienda, sin sonar condescendiente — eso es otra habilidad.
+Tu cliente te llama: "Oye, ¿por qué me están reteniendo ISR si soy persona física con actividad empresarial?" Tú sabes la respuesta técnicamente. Pero explicársela a alguien que no es contador, en palabras que entienda, sin sonar condescendiente: eso es otra habilidad.
 
 Le pides a la IA que explique el concepto para alguien sin formación contable. Revisas que sea correcto, ajustas y se lo mandas al cliente. El cliente entiende, tú no perdiste veinte minutos buscando cómo simplificar algo que para ti es obvio.
 
@@ -72,7 +72,7 @@ Le pides a la IA que explique el concepto para alguien sin formación contable. 
 
 Tienes los estados financieros de un cliente y necesitas un primer análisis: razones financieras, tendencias, áreas de atención, comparación contra el período anterior. El trabajo mecánico de calcular las razones, identificar variaciones significativas y estructurar las observaciones es algo que la IA hace muy bien.
 
-Le das los números clave —con datos anonimizados, como vimos en el Capítulo 13— y le pides un análisis preliminar. La IA te genera un primer borrador con las razones financieras calculadas, las variaciones identificadas y observaciones iniciales. Tú le agregas el contexto que la IA no tiene: por qué subieron los gastos financieros, qué explica la caída en ventas del tercer trimestre, qué plan tiene el cliente para el próximo ejercicio. El análisis final es tuyo, pero el trabajo mecánico lo hizo la máquina.
+Le das los números clave (con datos anonimizados, como vimos en el Capítulo 13) y le pides un análisis preliminar. La IA te genera un primer borrador con las razones financieras calculadas, las variaciones identificadas y observaciones iniciales. Tú le agregas el contexto que la IA no tiene: por qué subieron los gastos financieros, qué explica la caída en ventas del tercer trimestre, qué plan tiene el cliente para el próximo ejercicio. El análisis final es tuyo, pero el trabajo mecánico lo hizo la máquina.
 
 **5. Comparación de regímenes fiscales para un cliente específico**
 
@@ -81,7 +81,7 @@ Le das los números clave —con datos anonimizados, como vimos en el Capítulo 
 
 Un cliente te pregunta si le conviene cambiarse de régimen fiscal. O un prospecto quiere saber cuál es el mejor régimen para su tipo de actividad. Necesitas comparar requisitos, obligaciones, tasas, límites de ingresos, deducciones permitidas.
 
-Le describes a la IA el perfil del cliente —tipo de actividad, nivel de ingresos, número de empleados, operaciones principales— y le pides una comparación de los regímenes aplicables bajo la legislación mexicana vigente. La IA te da una tabla comparativa que tú verificas y ajustas. Te ahorra el trabajo de armar la comparación desde cero, y puedes concentrarte en la recomendación estratégica que es donde realmente aportas valor.
+Le describes a la IA el perfil del cliente (tipo de actividad, nivel de ingresos, número de empleados, operaciones principales) y le pides una comparación de los regímenes aplicables bajo la legislación mexicana vigente. La IA te da una tabla comparativa que tú verificas y ajustas. Te ahorra el trabajo de armar la comparación desde cero, y puedes concentrarte en la recomendación estratégica que es donde realmente aportas valor.
 
 **6. Revisión de consistencia en CFDIs**
 
@@ -90,7 +90,7 @@ Le describes a la IA el perfil del cliente —tipo de actividad, nivel de ingres
 
 Tienes cientos de CFDIs de un período y necesitas verificar consistencia: que los RFC sean correctos, que los regímenes fiscales coincidan, que los usos de CFDI sean los adecuados, que las claves de producto y servicio estén bien asignadas.
 
-Le das a la IA una muestra representativa de la información de los CFDIs —sin datos personales innecesarios— y le pides que identifique inconsistencias o patrones inusuales. La IA puede detectar cosas como un proveedor que aparece con dos RFC diferentes, una clave de uso de CFDI que no corresponde al tipo de operación, o un régimen fiscal que no coincide con el tipo de contribuyente. No reemplaza tu revisión, pero te dice dónde enfocar tu atención.
+Le das a la IA una muestra representativa de la información de los CFDIs (sin datos personales innecesarios) y le pides que identifique inconsistencias o patrones inusuales. La IA puede detectar cosas como un proveedor que aparece con dos RFC diferentes, una clave de uso de CFDI que no corresponde al tipo de operación, o un régimen fiscal que no coincide con el tipo de contribuyente. No reemplaza tu revisión, pero te dice dónde enfocar tu atención.
 
 ---
 
@@ -103,7 +103,7 @@ Le das a la IA una muestra representativa de la información de los CFDIs —sin
 
 Cada año sale la Resolución Miscelánea Fiscal nueva y son cientos de páginas. Cada modificación intermedia son más páginas. Leerlo todo es parte del trabajo, pero seamos honestos: no todo te aplica a ti ni a tus clientes.
 
-Le das a la IA el texto de los cambios relevantes —o le describes las áreas que te interesan— y le pides un resumen enfocado en lo que afecta a tu tipo de clientes. Por ejemplo: "Resume los cambios de la Resolución Miscelánea Fiscal que afecten a personas morales del régimen general con operaciones de comercio exterior." En lugar de leer doscientas páginas completas, lees un resumen de cinco páginas y profundizas solo en lo que realmente te importa.
+Le das a la IA el texto de los cambios relevantes (o le describes las áreas que te interesan) y le pides un resumen enfocado en lo que afecta a tu tipo de clientes. Por ejemplo: "Resume los cambios de la Resolución Miscelánea Fiscal que afecten a personas morales del régimen general con operaciones de comercio exterior." En lugar de leer doscientas páginas completas, lees un resumen de cinco páginas y profundizas solo en lo que realmente te importa.
 
 **8. Investigación de criterios del SAT sobre temas específicos**
 
@@ -112,7 +112,7 @@ Le das a la IA el texto de los cambios relevantes —o le describes las áreas q
 
 Necesitas saber cuál es el criterio del SAT sobre un tema específico. Normalmente eso implica buscar en criterios normativos, criterios no vinculativos, resoluciones a consultas, y a veces hasta en tesis de tribunales.
 
-Le planteas al modelo el caso o la pregunta específica y le pides que te oriente sobre los criterios aplicables bajo la legislación mexicana. La IA te da un punto de partida sólido: te menciona los artículos relevantes, los posibles criterios aplicables, y las áreas de controversia. Tú verificas cada referencia —como aprendiste en el Capítulo 12— pero ya no empiezas de cero. Empiezas con un mapa del terreno.
+Le planteas al modelo el caso o la pregunta específica y le pides que te oriente sobre los criterios aplicables bajo la legislación mexicana. La IA te da un punto de partida sólido: te menciona los artículos relevantes, los posibles criterios aplicables, y las áreas de controversia. Tú verificas cada referencia (como aprendiste en el Capítulo 12) pero ya no empiezas de cero. Empiezas con un mapa del terreno.
 
 ---
 
@@ -125,7 +125,7 @@ Le planteas al modelo el caso o la pregunta específica y le pides que te orient
 
 Cada fin de mes es lo mismo: declaraciones, conciliaciones, revisiones, envíos. Y aunque ya lo has hecho cien veces, siempre hay algo que se te puede pasar. Sobre todo cuando tienes clientes en diferentes regímenes con diferentes obligaciones.
 
-Le describes a la IA el perfil de un cliente o grupo de clientes —régimen fiscal, obligaciones, particularidades— y le pides un checklist de cierre mensual. La IA te genera una lista personalizada con las obligaciones del período, las fechas límite, los documentos necesarios y los pasos de verificación. Tú la ajustas y la usas. Es como tener un auxiliar que te prepara la lista antes de que empieces a trabajar.
+Le describes a la IA el perfil de un cliente o grupo de clientes (régimen fiscal, obligaciones, particularidades) y le pides un checklist de cierre mensual. La IA te genera una lista personalizada con las obligaciones del período, las fechas límite, los documentos necesarios y los pasos de verificación. Tú la ajustas y la usas. Es como tener un auxiliar que te prepara la lista antes de que empieces a trabajar.
 
 **10. Crear minutas de reunión estructuradas**
 
@@ -154,7 +154,7 @@ Hasta aquí, cada caso de uso parece pequeño. Veinte minutos aquí, media hora 
 
 Pero hagamos números. Porque somos contadores y los números son lo nuestro.
 
-Si cada uno de estos diez casos de uso te ahorra en promedio treinta minutos a la semana —y estoy siendo conservador, algunos te ahorran mucho más— estamos hablando de cinco horas semanales. Cinco horas que antes dedicabas a trabajo mecánico y que ahora son tuyas.
+Si cada uno de estos diez casos de uso te ahorra en promedio treinta minutos a la semana (y estoy siendo conservador, algunos te ahorran mucho más) estamos hablando de cinco horas semanales. Cinco horas que antes dedicabas a trabajo mecánico y que ahora son tuyas.
 
 Cinco horas a la semana son veinte horas al mes. Veinte horas al mes son doscientas cuarenta horas al año.
 
@@ -178,14 +178,14 @@ El primer mes fue de aprendizaje. Sofía tardaba casi lo mismo porque estaba apr
 
 El segundo mes, ya con el proceso afinado, empezó a notar la diferencia. Los correos le tomaban cinco minutos en lugar de treinta. Los checklists salían en dos minutos en lugar de construirlos de memoria. Las explicaciones para clientes quedaban más claras que las que ella escribía con prisa.
 
-Para el tercer mes, Sofía calculó que estaba ahorrando entre ocho y diez horas mensuales. Con ese tiempo, empezó a hacer algo que siempre había querido: reuniones mensuales de seguimiento con sus cinco clientes más grandes. No para entregarles las declaraciones —eso ya lo hacía— sino para sentarse con ellos, revisar sus números y sugerirles cosas proactivamente.
+Para el tercer mes, Sofía calculó que estaba ahorrando entre ocho y diez horas mensuales. Con ese tiempo, empezó a hacer algo que siempre había querido: reuniones mensuales de seguimiento con sus cinco clientes más grandes. No para entregarles las declaraciones (eso ya lo hacía) sino para sentarse con ellos, revisar sus números y sugerirles cosas proactivamente.
 
 Uno de esos clientes, después de la segunda reunión, le dijo: "Sofía, en diez años que llevas conmigo, nunca me habías propuesto algo así. ¿Qué cambió?" Lo que cambió fue que Sofía por fin tenía tiempo para pensar, no solo para ejecutar.
 
 ## Mito vs. Realidad
 
 - **Mito:** "Para usar IA en mi despacho necesito herramientas caras, integraciones complicadas y conocimientos técnicos avanzados."
-- **Realidad:** Los diez casos de uso de este capítulo los puedes hacer con cualquier modelo de IA conversacional, incluyendo opciones gratuitas o de bajo costo. No necesitas integraciones. No necesitas programar. Necesitas saber darle buen contexto a la IA —que es lo que aprendiste en los capítulos anteriores— y verificar los resultados con tu criterio profesional.
+- **Realidad:** Los diez casos de uso de este capítulo los puedes hacer con cualquier modelo de IA conversacional, incluyendo opciones gratuitas o de bajo costo. No necesitas integraciones. No necesitas programar. Necesitas saber darle buen contexto a la IA (que es lo que aprendiste en los capítulos anteriores) y verificar los resultados con tu criterio profesional.
 
 - **Mito:** "El ahorro de tiempo con IA es marginal. No vale la pena el esfuerzo de aprender."
 - **Realidad:** El efecto compuesto es real. Pequeños ahorros diarios se convierten en horas semanales y en semanas anuales de tiempo recuperado. Y a diferencia de otras herramientas, con la IA el ahorro crece conforme la usas más y mejor.

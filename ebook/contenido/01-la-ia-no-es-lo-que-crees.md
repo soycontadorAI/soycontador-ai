@@ -62,7 +62,7 @@ Y esto importa para ti como contador porque significa que la IA que conoces hoy 
 
 Hoy hay varios jugadores importantes en el mundo de los LLMs, y vale la pena que los conozcas al menos de nombre, no porque debas casarte con alguno, sino porque vas a escucharlos constantemente y necesitas contexto.
 
-**OpenAI** es la empresa detrás de ChatGPT y los modelos GPT. Fueron los primeros en llevar esta tecnología al público general y siguen siendo los más conocidos. Sus modelos más recientes —la familia GPT-5 y la serie "o"— compiten directamente por los primeros lugares con los de Google y Anthropic, dependiendo de la tarea.
+**OpenAI** es la empresa detrás de ChatGPT y los modelos GPT. Fueron los primeros en llevar esta tecnología al público general y siguen siendo los más conocidos. Sus modelos más recientes (la familia GPT-5 y la serie "o") compiten directamente por los primeros lugares con los de Google y Anthropic, dependiendo de la tarea.
 
 **Anthropic** creó Claude. Se ha posicionado como referencia en razonamiento, código y trabajo con textos largos. Si alguna vez sientes que un modelo "te entiende mejor" cuando le das instrucciones largas y detalladas, probablemente estás usando Claude.
 
@@ -72,7 +72,7 @@ Hoy hay varios jugadores importantes en el mundo de los LLMs, y vale la pena que
 
 **DeepSeek**, desde China, se ha ganado un lugar ofreciendo modelos con la mejor relación rendimiento-precio del mercado.
 
-Y hay más: Mistral desde Francia, y docenas de modelos especializados que aparecen cada semana. El punto no es que memorices esta lista —como veremos en el Capítulo 2, los modelos cambian constantemente—. El punto es que entiendas que no existe "la IA" como una sola cosa. Existen muchos modelos, de muchas empresas, con diferentes capacidades. Elegir cuál usar es una decisión que importa.
+Y hay más: Mistral desde Francia, y docenas de modelos especializados que aparecen cada semana. El punto no es que memorices esta lista (como veremos en el Capítulo 2, los modelos cambian constantemente). El punto es que entiendas que no existe "la IA" como una sola cosa. Existen muchos modelos, de muchas empresas, con diferentes capacidades. Elegir cuál usar es una decisión que importa.
 
 ## Por qué entender esto es más valioso que aprender cualquier herramienta
 

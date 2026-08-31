@@ -42,7 +42,7 @@ Es como la diferencia entre el contador que te muestra el auxiliar completo y el
 
 Aquí es donde la cosa se pone práctica. No todos los modelos razonan igual, y entender la diferencia te va a ahorrar tiempo y dinero.
 
-Existen lo que podemos llamar modelos rápidos y modelos de razonamiento. Los rápidos —como las versiones ligeras de cualquier familia de modelos— priorizan velocidad y bajo costo. Te dan una respuesta en un segundo, gastan pocos tokens, y para muchas tareas son más que suficientes. ¿Necesitas redactar un correo al cliente recordándole que envíe su constancia de situación fiscal? Un modelo rápido lo hace perfecto.
+Existen lo que podemos llamar modelos rápidos y modelos de razonamiento. Los rápidos (como las versiones ligeras de cualquier familia de modelos) priorizan velocidad y bajo costo. Te dan una respuesta en un segundo, gastan pocos tokens, y para muchas tareas son más que suficientes. ¿Necesitas redactar un correo al cliente recordándole que envíe su constancia de situación fiscal? Un modelo rápido lo hace perfecto.
 
 Los modelos de razonamiento son otra cosa. Estos se toman su tiempo. Generan internamente una cadena de pensamiento que puede ser extensa antes de darte la respuesta visible. Las tres familias grandes lo ofrecen (ChatGPT, Claude y Gemini) y algunas te dejan ver ese proceso; otras lo hacen por dentro y solo te muestran el resultado. Pero en todos los casos, el modelo está haciendo más trabajo bajo el capó.
 
@@ -64,7 +64,7 @@ Hay un concepto que conecta este capítulo con lo que aprendiste en el Capítulo
 
 Cuando un modelo de razonamiento "piensa", genera texto interno. A veces lo puedes ver (como una sección de "pensamiento" antes de la respuesta). A veces no lo ves, pero el modelo lo generó internamente de todos modos. Ese texto interno consume tokens. Y esos tokens cuestan dinero.
 
-Es por eso que los modelos de razonamiento son más caros. No es que te cobren un premium por ser mejores. Es que literalmente están generando más texto —más trabajo computacional— para llegar a la respuesta. Si un modelo rápido genera 200 tokens para responderte, un modelo de razonamiento puede generar 200 tokens de respuesta visible más 800 tokens de razonamiento interno. Estás pagando por 1,000 tokens en lugar de 200.
+Es por eso que los modelos de razonamiento son más caros. No es que te cobren un premium por ser mejores. Es que literalmente están generando más texto (más trabajo computacional) para llegar a la respuesta. Si un modelo rápido genera 200 tokens para responderte, un modelo de razonamiento puede generar 200 tokens de respuesta visible más 800 tokens de razonamiento interno. Estás pagando por 1,000 tokens en lugar de 200.
 
 Piénsalo así: es la diferencia entre el despacho que te cobra $3,000 por "darte el número" y el que te cobra $15,000 pero te entrega el número con todo el papel de trabajo detrás. Los dos te dan un resultado. Pero el segundo hizo más trabajo, y ese trabajo tiene valor porque puedes verificarlo.
 
@@ -72,7 +72,7 @@ Piénsalo así: es la diferencia entre el despacho que te cobra $3,000 por "dart
 
 Ahora viene la parte que más me gusta, porque es algo que puedes usar hoy mismo sin gastar un peso extra.
 
-Aunque estés usando un modelo rápido —de esos que no razonan por defecto— puedes forzar la cadena de pensamiento con una instrucción simple. Basta con agregar a tu prompt algo como:
+Aunque estés usando un modelo rápido (de esos que no razonan por defecto) puedes forzar la cadena de pensamiento con una instrucción simple. Basta con agregar a tu prompt algo como:
 
 "Piensa paso a paso antes de darme la respuesta final."
 

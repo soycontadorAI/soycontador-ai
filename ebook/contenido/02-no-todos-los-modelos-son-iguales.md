@@ -51,7 +51,7 @@ Un socio con quince años de experiencia en auditoría fiscal no necesariamente 
 
 Además, las empresas que desarrollan estos modelos han descubierto que con técnicas de entrenamiento más sofisticadas, modelos relativamente más pequeños pueden rendir igual o mejor que modelos gigantes en ciertas tareas. Es como el contador joven que se especializó a fondo en un tema y, en ese tema puntual, puede darle batalla al socio más experimentado.
 
-Dicho esto, para las tareas complejas que un contador enfrenta a diario —interpretar legislación fiscal, analizar criterios normativos, redactar fundamentos legales—, los modelos con más capacidad siguen teniendo una ventaja clara. La diferencia se nota especialmente cuando la tarea requiere seguir instrucciones largas, mantener coherencia a lo largo de un documento extenso, o manejar múltiples variables al mismo tiempo.
+Dicho esto, para las tareas complejas que un contador enfrenta a diario (interpretar legislación fiscal, analizar criterios normativos, redactar fundamentos legales), los modelos con más capacidad siguen teniendo una ventaja clara. La diferencia se nota especialmente cuando la tarea requiere seguir instrucciones largas, mantener coherencia a lo largo de un documento extenso, o manejar múltiples variables al mismo tiempo.
 
 ## Modelos frontier vs modelos pequeños
 
@@ -119,7 +119,7 @@ Para los correos, funciona perfecto. El modelo le da un borrador limpio en segun
 
 Carlos empieza a pensar que "la IA no sirve para temas fiscales complejos". Pero lo que realmente pasa es que está usando el practicante de tres meses para un caso que necesita al socio con quince años de experiencia.
 
-Cuando prueba el mismo prompt con un modelo de frontera, la diferencia es notable. El análisis tiene más estructura, cita los artículos correctos, distingue entre los métodos de precios de transferencia, y hasta señala puntos que Carlos debería verificar con las disposiciones vigentes. Sigue sin ser un producto final —Carlos tiene que validar todo, porque como veremos en el Capítulo 12, la responsabilidad profesional sigue siendo suya—, pero es un punto de partida sólido que le ahorra horas de redacción.
+Cuando prueba el mismo prompt con un modelo de frontera, la diferencia es notable. El análisis tiene más estructura, cita los artículos correctos, distingue entre los métodos de precios de transferencia, y hasta señala puntos que Carlos debería verificar con las disposiciones vigentes. Sigue sin ser un producto final (Carlos tiene que validar todo, porque como veremos en el Capítulo 12, la responsabilidad profesional sigue siendo suya), pero es un punto de partida sólido que le ahorra horas de redacción.
 
 La lección de Carlos no es que necesita pagar por el modelo más caro para todo. Es que necesita elegir el modelo adecuado para cada tarea. Correos rutinarios con el modelo gratuito. Análisis fiscal complejo con el modelo más capaz que tenga disponible.
 

@@ -16,7 +16,7 @@ Concepto principal: Fases de entrenamiento de un LLM (preentrenamiento, fine-tun
 Términos para glosario: preentrenamiento, fine-tuning, RLHF, training data cutoff, modelo de código abierto, modelo de código cerrado
 -->
 
-Acuérdate de tus primeros días en la universidad. No me refiero a los buenos —las fiestas, los cuates, las salidas del viernes. Me refiero a los otros días. Los de sentarte con una hoja tabular de doce columnas y registrar asientos contables a mano. Los de memorizar el catálogo de cuentas hasta que lo soñaras dormido. Los de resolver balanzas de comprobación que nunca cuadraban a la primera.
+Acuérdate de tus primeros días en la universidad. No me refiero a los buenos (las fiestas, los cuates, las salidas del viernes). Me refiero a los otros días. Los de sentarte con una hoja tabular de doce columnas y registrar asientos contables a mano. Los de memorizar el catálogo de cuentas hasta que lo soñaras dormido. Los de resolver balanzas de comprobación que nunca cuadraban a la primera.
 
 Horas y horas leyendo las NIF. Haciendo ejercicios que parecían interminables. Estudiando teoría que no sabías si algún día ibas a necesitar.
 
@@ -76,7 +76,7 @@ Sin embargo, aquí hay un matiz importante: hoy en día, algunos modelos tienen 
 
 Pero ojo: tener internet no es lo mismo que tener criterio. Si el modelo busca la Miscelánea Fiscal 2026 y el primer resultado que encuentra es un blog con un error o una interpretación apresurada, la IA te dará ese dato incorrecto con la misma seguridad que si fuera oficial. El modelo no siempre jerarquiza la fuente; para él, un post en redes sociales podría tener el mismo peso que un comunicado del SAT si no se le entrena para distinguir la autoridad de la fuente.
 
-Por eso, para temas fiscales que cambian cada año —tasas, reglas, facilidades, resoluciones del SAT—, nunca confíes ciegamente en la respuesta del modelo, aunque te diga que lo acaba de buscar en Google. Siempre verifica contra la fuente oficial.
+Por eso, para temas fiscales que cambian cada año (tasas, reglas, facilidades, resoluciones del SAT), nunca confíes ciegamente en la respuesta del modelo, aunque te diga que lo acaba de buscar en Google. Siempre verifica contra la fuente oficial.
 
 Y aquí viene el problema real: si no tiene acceso a internet, en lugar de decirte "no sé", muchos modelos van a intentar responder con lo que saben. Van a darte información desactualizada como si fuera vigente. O van a inventar algo que suene razonable pero que no corresponde con la norma actual.
 
@@ -97,7 +97,7 @@ Para ti como contador, la diferencia práctica es esta:
 - **Código cerrado:** Más fácil de usar, generalmente mejor rendimiento, pero tus datos pasan por los servidores de la empresa. Y dependes de sus políticas de privacidad.
 - **Código abierto:** Más control sobre tus datos (puedes correrlo localmente, sin internet, nada sale de tu computadora), pero requiere conocimientos técnicos para instalarlo y generalmente necesita una computadora potente.
 
-Si manejas información sensible de clientes —y como contador, siempre lo haces—, esta distinción no es trivial. Saber que existen alternativas donde los datos no salen de tu equipo es importante, aunque hoy no las uses. Como veremos en el Capítulo 13, la ética y la privacidad en el uso de IA son temas que todo profesional debe tener en el radar.
+Si manejas información sensible de clientes (y como contador, siempre lo haces), esta distinción no es trivial. Saber que existen alternativas donde los datos no salen de tu equipo es importante, aunque hoy no las uses. Como veremos en el Capítulo 13, la ética y la privacidad en el uso de IA son temas que todo profesional debe tener en el radar.
 
 ## Por qué los modelos mejoran con el tiempo
 

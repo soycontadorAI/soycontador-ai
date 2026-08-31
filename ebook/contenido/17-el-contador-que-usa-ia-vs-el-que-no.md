@@ -84,7 +84,7 @@ No te digo esto para asustarte. Te lo digo para motivarte. Porque el hecho de qu
 
 Escribí este libro porque estoy convencido de que la brecha entre los contadores que usan IA y los que no se va a seguir ampliando. No porque la IA nos esté reemplazando. Sino porque está multiplicando lo mejor de lo que ya hacemos.
 
-El conocimiento fiscal, el juicio profesional, la experiencia con clientes, la capacidad de interpretar la ley y aplicarla a casos concretos — eso es tuyo. Nadie te lo va a quitar. Ningún modelo de IA lo tiene. Es el resultado de años de estudio, de práctica, de errores y de aprendizaje.
+El conocimiento fiscal, el juicio profesional, la experiencia con clientes, la capacidad de interpretar la ley y aplicarla a casos concretos: eso es tuyo. Nadie te lo va a quitar. Ningún modelo de IA lo tiene. Es el resultado de años de estudio, de práctica, de errores y de aprendizaje.
 
 La IA lo único que hace es ayudarte a aplicar todo eso de forma más rápida y a más personas. Es un amplificador, no un sustituto.
 
