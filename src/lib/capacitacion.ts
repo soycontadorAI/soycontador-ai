@@ -1,13 +1,15 @@
 /**
  * Oferta de capacitación en 3 modalidades (definidas por Israel 2026-08-30):
  *
- * 1. Taller abierto: $4,999 MXN, precio PÚBLICO (decisión explícita). Son 8
- *    horas en vivo REPARTIDAS EN SESIONES DE 2 HORAS — nunca una maratón de
- *    un día. Se abre una edición al mes, con calendario variable (2 h/día
- *    durante 2 semanas, o 4 días seguidos). Incluye grabación, material y 30
- *    días de acompañamiento sobre los proyectos del asistente.
- *    OJO CON EL COPY: no llamarlo "sesión mensual" — se lee como suscripción
- *    ("pago y nos reunimos cada mes") y lo que se compra es UNA edición.
+ * 1. El taller: $4,999 MXN, precio PÚBLICO (decisión explícita). Son 8 horas
+ *    en vivo REPARTIDAS EN SESIONES DE 2 HORAS, nunca una maratón de un día.
+ *    Se abre una edición al mes, con calendario variable (2 h/día durante 2
+ *    semanas, o 4 días seguidos). Incluye grabación, material y 30 días de
+ *    acompañamiento sobre los proyectos del asistente.
+ *    OJO CON EL COPY: no llamarlo "sesión mensual" (se lee como suscripción
+ *    "pago y nos reunimos cada mes") y lo que se compra es UNA edición. Tampoco
+ *    "taller abierto": "abierto" es jerga de capacitador y al comprador no le
+ *    dice nada. Lo que comunica es la FECHA de la próxima edición.
  * 2. Organizaciones/capacitadoras (B2B2C): ellas revenden de forma masiva.
  *    El ancla de $3,500-4,000 MXN/hora es INTERNA: nunca se publica.
  * 3. Capacitación empresarial: equipos completos, sesiones grupales de 1-2 h
@@ -17,7 +19,60 @@
  * "Despacho IA-First"; Israel lo va a revisar/reescribir.
  */
 
-export const TALLER_ABIERTO = {
+/**
+ * Próxima edición del taller.
+ *
+ * Es el ÚNICO dato del sitio con fecha de caducidad, así que se cuida solo:
+ * si `inicio` ya pasó, la página no la anuncia (ni al construir ni en el
+ * navegador) y cae en el aviso de "te avisamos de la siguiente". Preferimos no
+ * dar fecha a dar una vencida.
+ *
+ * Al abrir una edición nueva se actualiza aquí y ya: la fecha aparece en
+ * /capacitacion, en la tarjeta de la home, en el JSON-LD y en llms.txt.
+ */
+export interface Edicion {
+  /** ISO (YYYY-MM-DD). El día que arranca la primera sesión. */
+  inicio: string;
+  /** ISO. Último día, si se quiere anunciar el rango completo. */
+  fin?: string;
+  /** Cómo se reparten las 8 horas: "martes y jueves, 2 horas por sesión". */
+  ritmo: string;
+  /** "11:00 a 13:00, hora del centro de México". */
+  horario: string;
+}
+
+/** TODO(Israel): fecha de la próxima edición. En null se muestra el aviso. */
+export const PROXIMA_EDICION: Edicion | null = null;
+
+const MESES = [
+  "enero", "febrero", "marzo", "abril", "mayo", "junio",
+  "julio", "agosto", "septiembre", "octubre", "noviembre", "diciembre",
+];
+
+/**
+ * La frase completa, no solo la fecha: con una sola fecha se dice "Empieza el
+ * 16 de septiembre" y con rango "Del 15 al 24 de septiembre", donde el "empieza"
+ * sobra porque el rango ya lo dice. Sin año, que siempre es este mes o el
+ * siguiente y ponerlo suena a trámite.
+ */
+export function fechaDeEdicion(edicion: Edicion): string {
+  const [, mesI, diaI] = edicion.inicio.split("-").map(Number);
+  if (!edicion.fin) return `Empieza el ${diaI} de ${MESES[mesI - 1]}`;
+
+  const [, mesF, diaF] = edicion.fin.split("-").map(Number);
+  return mesI === mesF
+    ? `Del ${diaI} al ${diaF} de ${MESES[mesF - 1]}`
+    : `Del ${diaI} de ${MESES[mesI - 1]} al ${diaF} de ${MESES[mesF - 1]}`;
+}
+
+/** La edición solo si todavía no arranca. Null si ya pasó o no hay fecha. */
+export function edicionVigente(hoy = new Date()): Edicion | null {
+  if (!PROXIMA_EDICION) return null;
+  const limite = new Date(`${PROXIMA_EDICION.inicio}T23:59:59-06:00`);
+  return limite >= hoy ? PROXIMA_EDICION : null;
+}
+
+export const TALLER = {
   nombre: "Taller de automatización",
   precio: "$4,999 MXN",
   duracion: "8 horas en vivo, en sesiones de 2 horas",
@@ -94,7 +149,7 @@ export const ORGANIZACIONES = {
   descripcion:
     "¿Capacitas contadores de forma masiva? Llevemos este programa a tu comunidad: colegios, capacitadoras y plataformas pueden licenciar el taller completo, con Israel al frente y su equipo en el soporte. Tú pones la audiencia; yo pongo el programa, la ejecución y las herramientas.",
   puntos: [
-    "Programa probado de 8 horas, adaptable a tu formato (1 día intensivo o 4 sesiones de 2 horas)",
+    "Programa probado de 8 horas, adaptable a tu calendario (4 sesiones de 2 horas, o el reparto que le funcione a tu comunidad)",
     "Con demostraciones en vivo sobre el SAT, no diapositivas teóricas",
     "Modelo de reventa: tú comercializas a tu comunidad, yo imparto",
   ],

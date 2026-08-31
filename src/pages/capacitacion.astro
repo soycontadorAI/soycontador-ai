@@ -3,10 +3,20 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import FaqBlock from "../components/FaqBlock.astro";
 import FormCapacitacion from "../components/FormCapacitacion.astro";
 import FlujoExpediente from "../components/FlujoExpediente.astro";
-import { CASO_AUDITOR, EMPRESARIAL, ORGANIZACIONES, TALLER_ABIERTO } from "../lib/capacitacion";
+import {
+  CASO_AUDITOR,
+  EMPRESARIAL,
+  ORGANIZACIONES,
+  TALLER,
+  edicionVigente,
+  fechaDeEdicion,
+} from "../lib/capacitacion";
 import { FAQ_CAPACITACION } from "../lib/faqs";
 import { breadcrumbs, capacitacionService, faqPage, graph } from "../lib/schema";
 import { SITE } from "../lib/site";
+
+/** Null si la fecha ya pasó: nunca se anuncia una edición vencida. */
+const edicion = edicionVigente();
 
 const jsonLd = graph(
   capacitacionService(),
@@ -20,7 +30,7 @@ const jsonLd = graph(
 
 <BaseLayout
   title="Capacitación en IA para contadores y despachos contables"
-  description="Talleres de inteligencia artificial aplicada al trabajo fiscal en México: taller abierto de 8 horas en sesiones de 2 horas, con 30 días de acompañamiento, más capacitación para empresas y despachos y licenciamiento para organizaciones y capacitadoras."
+  description="Talleres de inteligencia artificial aplicada al trabajo fiscal en México: el taller de 8 horas en sesiones de 2 horas, con 30 días de acompañamiento, más capacitación para empresas y despachos y licenciamiento para organizaciones y capacitadoras."
   jsonLd={jsonLd}
 >
   <main>
@@ -58,21 +68,35 @@ const jsonLd = graph(
 
     <section>
       <div class="container-default">
-        <div class="sec-head"><h2 class="folio">MODALIDAD <b>01</b> · TALLER ABIERTO</h2></div>
+        <div class="sec-head"><h2 class="folio">MODALIDAD <b>01</b> · EL TALLER</h2></div>
         <div class="mensual" data-reveal>
           <div class="mensual-info">
-            <h2 class="titulo-lg">{TALLER_ABIERTO.nombre}</h2>
-            <p class="precio"><b>{TALLER_ABIERTO.precio}</b> <span>por persona · {TALLER_ABIERTO.duracion}</span></p>
+            <h2 class="titulo-lg">{TALLER.nombre}</h2>
+            {edicion && (
+              <div class="edicion" data-edicion data-vence={edicion.inicio}>
+                <p class="folio">PRÓXIMA <b>EDICIÓN</b></p>
+                <p class="edicion-fecha">{fechaDeEdicion(edicion)}</p>
+                <p class="edicion-ritmo">{edicion.ritmo}, de {edicion.horario}</p>
+              </div>
+            )}
+            <p class="edicion-aviso" data-sin-edicion hidden={Boolean(edicion)}>
+              Se abre una edición al mes y la fecha se anuncia por correo.
+              Déjame tus datos aquí abajo y te aviso en cuanto se abra la
+              siguiente, antes de que se llene.
+            </p>
+            <p class="precio"><b>{TALLER.precio}</b> <span>por persona · {TALLER.duracion}</span></p>
             <ul class="incluye">
-              {TALLER_ABIERTO.incluye.map((item) => (
+              {TALLER.incluye.map((item) => (
                 <li>{item}</li>
               ))}
             </ul>
-            <a class="btn btn-primary" href="#precalificacion">Quiero mi lugar en la próxima sesión</a>
+            <a class="btn btn-primary" href="#precalificacion">
+              {edicion ? "Quiero mi lugar en esta edición" : "Avísame de la próxima edición"}
+            </a>
           </div>
           <div class="temario">
             <p class="folio temario-titulo">TEMARIO · 8 HORAS</p>
-            {TALLER_ABIERTO.temario.map((bloque) => (
+            {TALLER.temario.map((bloque) => (
               <div class="temario-bloque">
                 <h3>{bloque.bloque}</h3>
                 <p>{bloque.temas}</p>
@@ -163,6 +187,35 @@ const jsonLd = graph(
     .mensual {
       grid-template-columns: 1fr;
     }
+  }
+  /* La fecha es lo primero que busca quien ya decidió: va antes del precio. */
+  .edicion {
+    margin: 1.2rem 0 1.4rem;
+    padding: 1rem 1.2rem;
+    border-left: 3px solid var(--color-accent);
+    background: var(--color-accent-soft);
+    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  }
+  .edicion-fecha {
+    margin: 0.5rem 0 0.3rem;
+    font-family: var(--font-display);
+    font-size: 1.35rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: var(--color-ink);
+  }
+  .edicion-ritmo {
+    margin: 0;
+    font-size: 0.9rem;
+    color: var(--color-ink-soft);
+  }
+  .edicion-aviso {
+    margin: 1.2rem 0 1.4rem;
+    padding-left: 1.2rem;
+    border-left: 3px solid var(--color-line);
+    font-size: 0.94rem;
+    color: var(--color-ink-soft);
+    max-width: 46ch;
   }
   .precio {
     margin: 1rem 0 1.4rem;
@@ -260,3 +313,23 @@ const jsonLd = graph(
     color: var(--color-accent);
   }
 </style>
+
+<script>
+  /*
+   * Red de seguridad contra la fecha vencida. El sitio es estático: si la
+   * edición pasa y nadie vuelve a desplegar, el HTML seguiría anunciándola.
+   * Aquí se comprueba en el navegador y, si ya pasó, se cambia por el aviso.
+   * Sin JS queda lo que decidió el build, que era correcto al construir.
+   */
+  const edicion = document.querySelector<HTMLElement>("[data-edicion]");
+  const aviso = document.querySelector<HTMLElement>("[data-sin-edicion]");
+
+  if (edicion && aviso) {
+    const vence = edicion.dataset.vence;
+    // Fin del día de inicio, hora del centro de México.
+    if (vence && new Date(`${vence}T23:59:59-06:00`) < new Date()) {
+      edicion.hidden = true;
+      aviso.hidden = false;
+    }
+  }
+</script>

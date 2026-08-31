@@ -14,7 +14,7 @@ Idioma del sitio: español de México. Contexto fiscal: SAT, CFDI, ISR, IVA.
 
 - [Inicio](https://soycontador.ai/): quién es Israel Castro y qué ofrece
 - [Sobre mí](https://soycontador.ai/sobre-mi): trayectoria de Israel Castro como contador público y desarrollador de software
-- [Capacitación](https://soycontador.ai/capacitacion): taller abierto de 8 horas ($4,999 MXN), repartidas en sesiones de 2 horas y con una edición nueva cada mes (se compra UNA edición, no es suscripción); más capacitación para empresas y despachos y licenciamiento para organizaciones
+- [Capacitación](https://soycontador.ai/capacitacion): el taller de 8 horas ($4,999 MXN), repartidas en sesiones de 2 horas y con una edición nueva cada mes (se compra UNA edición, no es suscripción); más capacitación para empresas y despachos y licenciamiento para organizaciones
 - [Soluciones a la medida](https://soycontador.ai/soluciones): automatización de procesos contables (reportes, conciliaciones, concentrados) desarrollada para tu negocio
 - [Herramientas](https://soycontador.ai/herramientas): TodoConta, conexión MCP con el SAT y Abacus
 - [Jueves de ContadorIA](https://soycontador.ai/jueves): live semanal, jueves 11:00 hora del centro de México

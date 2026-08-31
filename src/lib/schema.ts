@@ -45,7 +45,7 @@ export function webSite(): JsonLdObject {
 }
 
 /**
- * Capacitación. El taller abierto SÍ publica precio ($4,999 MXN, decisión de
+ * Capacitación. El taller SÍ publica precio ($4,999 MXN, decisión de
  * Israel); empresarial y organizaciones se cotizan.
  */
 export function capacitacionService(): JsonLdObject {
@@ -54,7 +54,7 @@ export function capacitacionService(): JsonLdObject {
     "@id": `${SITE.url}/capacitacion#servicio`,
     name: "Capacitación en IA para contadores y despachos contables",
     description:
-      "Capacitación en inteligencia artificial aplicada al trabajo fiscal: taller abierto de 8 horas en sesiones de 2 horas, programas para empresas y despachos, y licenciamiento para organizaciones y capacitadoras en México.",
+      "Capacitación en inteligencia artificial aplicada al trabajo fiscal: taller de 8 horas en sesiones de 2 horas, programas para empresas y despachos, y licenciamiento para organizaciones y capacitadoras en México.",
     url: `${SITE.url}/capacitacion`,
     provider: personRef(),
     areaServed: { "@type": "Country", name: "México" },
