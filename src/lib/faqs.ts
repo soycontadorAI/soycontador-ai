@@ -11,29 +11,34 @@ export interface FaqItem {
 
 export const FAQ_HOME: FaqItem[] = [
   {
+    pregunta: "¿No estoy demasiado grande para subirme a la IA?",
+    respuesta:
+      "Al revés. Tus años son la parte cara de la ecuación y ya la pagaste. La IA se aprende en español, sin sintaxis y sin menús escondidos: la barrera de entrada es igual de baja para ti que para quien acaba de salir de la facultad. Lo que ahí no se aprende es el criterio, y ese sí toma veinte años. Con dos décadas de oficio y las herramientas correctas te llevas de calle a cualquier recién egresado. Lo único que te falta es método.",
+  },
+  {
     pregunta: "¿La IA va a reemplazar a los contadores?",
     respuesta:
-      "No. Va a reemplazar a los que la ignoren. El contador que usa IA para automatizar su operación se vuelve infraestructura de sus clientes, y a la infraestructura de un negocio no la despiden.",
+      "No. Va a reemplazar a los que la ignoren. Cuando la usas para automatizar tu operación dejas de ser un proveedor y te vuelves parte de cómo opera tu cliente. A un proveedor le regatean el precio. Al que ya no se puede sustituir, no.",
   },
   {
     pregunta: "¿Es seguro usar IA con datos fiscales de mis clientes?",
     respuesta:
-      "Sí, con método. El riesgo real es copiar y pegar RFCs, nóminas o facturas en un chat público, donde pierdes el control del dato. Con herramientas diseñadas para el trabajo fiscal la IA consulta tus CFDI por un canal controlado, y con la versión de escritorio de TodoConta tus XML se quedan en tu equipo.",
+      "Sí, con método. El riesgo de verdad es copiar y pegar RFCs, nóminas o facturas en un chat público, donde ya perdiste el control del dato. Con herramientas hechas para el trabajo fiscal, la IA consulta tus CFDI por un canal controlado. Y con la versión de escritorio de TodoConta, tu e.firma, tus .key, tus .cer y los XML de tus clientes nunca salen de tu computadora.",
   },
   {
     pregunta: "¿Necesito saber programar para automatizar mi despacho?",
     respuesta:
-      "No. Del código se encarga la IA; lo que necesitas es saber nombrar el problema en los términos correctos, y eso es justo lo que enseño. Soy desarrollador de software y ni yo tecleo código hoy: se lo describo a la IA y reviso lo que devuelve. Tu criterio contable es la parte que no se puede automatizar.",
+      "No, y yo tampoco tecleo mucho código. Del código se encarga la IA. Lo que necesitas es saber nombrar el problema en los términos correctos, y eso es justo lo que enseño. Yo lo leo, lo entiendo y se lo pido. Tu criterio contable es la parte que no se puede automatizar, y da la casualidad de que es la parte que ya tienes.",
   },
   {
-    pregunta: "¿No estoy demasiado grande para subirme a la IA?",
+    pregunta: "¿Y si ya intenté con ChatGPT y no me sirvió?",
     respuesta:
-      "No, al contrario: tus años de experiencia son tu ventaja. La IA multiplica lo que ya sabes hacer; un contador con 20 años de criterio y las herramientas correctas supera a cualquier recién egresado que nació con el chip. Lo único que te falta es método, no juventud.",
+      "Casi siempre es lo mismo: le pediste algo como si fuera un buscador. La IA responde al nivel del contexto que le das. Si le hablas como practicante, te contesta como practicante. Si le hablas como socio (con el caso, los datos y lo que quieres de salida), te contesta como socio. El método que enseño es exactamente eso.",
   },
   {
     pregunta: "¿Quién es Israel Castro?",
     respuesta:
-      "Soy contador público con 15 años de ejercicio y desarrollador de software: estudié programación, trabajé como desarrollador en una startup mexicana y hoy automatizo mi propio despacho con IA. Creé TodoConta y su conexión MCP con Claude, y conduzco el live semanal Jueves de ContadorIA.",
+      "Soy contador público con quince años de ejercicio y desarrollador de software: estudié programación, trabajé como desarrollador en una startup mexicana y hoy automatizo mi propio despacho con IA. Construí TodoConta y su conexión MCP con Claude, y conduzco el live semanal Jueves de ContadorIA.",
   },
 ];
 

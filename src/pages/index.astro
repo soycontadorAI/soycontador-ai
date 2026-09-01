@@ -16,30 +16,30 @@ const asientos = [
     num: "01",
     titulo: "Capacitación en IA",
     texto:
-      "Taller de 8 horas en vivo, repartidas en sesiones de 2 horas, y programas para empresas y organizaciones. Es la misma forma de trabajar con la que un solo diagnóstico encontró más de $11 millones en saldos a favor.",
+      "Ocho horas en vivo y en grupo chico, para que te dé tiempo de atorarte y preguntar. Sales con tu primer proceso automatizado funcionando, no con apuntes. Es la misma forma de trabajar con la que un solo diagnóstico destapó más de $11 millones en saldos a favor que llevaban años ahí.",
     href: "/capacitacion",
-    cta: "conoce →",
+    cta: "avísame cuándo es la próxima →",
   },
   {
     num: "02",
-    titulo: "Soluciones a la medida",
+    titulo: "¿Prefieres que yo lo haga?",
     texto:
-      "¿Prefieres que lo haga por ti? Automatizo tu proceso: como el concentrado mensual que tomaba 7 horas de captura y hoy corre en segundos.",
+      "Me traes el proceso que odias y te lo quito. El concentrado mensual de un cliente tomaba siete horas de captura. Hoy corre solo mientras desayunas.",
     href: "/soluciones",
     cta: "platícame →",
   },
   {
     num: "03",
-    titulo: "Herramientas",
+    titulo: "Herramientas que ya funcionan",
     texto:
-      "TodoConta: descarga masiva de CFDI, constancias y opinión 32-D en un clic. Más la conexión MCP para trabajar tus CFDI con Claude.",
+      "TodoConta: descarga masiva de CFDI, constancias y opinión 32-D en un clic. Más la conexión con Claude para trabajar tus XML por un canal controlado, sin pegarlos en un chat público.",
     href: "/herramientas",
     cta: "conoce →",
   },
   {
     num: "04",
     titulo: `Ebook: ${EBOOK.titulo}`,
-    texto: `${EBOOK.headline}. 17 capítulos y 3 apéndices, cero código y cero jerga sin explicar. ${EBOOK.precio}.`,
+    texto: `Diecisiete capítulos y tres apéndices para entender la IA antes de que la IA te rebase. Cero código. Cero palabras raras sin explicar. Si después de leerlo sigues sin entender de qué va esto, te devuelvo tus ${EBOOK.precio.replace("$", "$").replace(" MXN", "")}.`,
     href: EBOOK.url ?? "/contacto",
     cta: "consíguelo →",
   },
@@ -47,7 +47,7 @@ const asientos = [
     num: "05",
     titulo: "Jueves de ContadorIA",
     texto:
-      "En vivo cada jueves a las 11:00, hora del centro: un problema real de un despacho, resuelto con IA frente a ti.",
+      "Cada jueves a las 11:00 del centro. Un problema real de un despacho real, resuelto en pantalla, sin cortes y sin que me salga a la primera. Gratis.",
     href: "/jueves",
     cta: "suscríbete →",
   },
@@ -55,7 +55,7 @@ const asientos = [
     num: "06",
     titulo: "Club de Automatización Fiscal",
     texto:
-      "Membresía anual con lugares limitados: software, un bootcamp de implementación cada mes y soporte humano cuando te atoras.",
+      "Membresía anual con lugares contados. Software, un bootcamp de implementación cada mes, y alguien que te contesta cuando te atoras a las 11 de la noche de un día 16. No entra cualquiera y no es barato.",
     href: "/club",
     cta: "aplica →",
   },
@@ -66,7 +66,8 @@ const lineasTerminal = [
   { tipo: "dim" as const, texto: "→ mcp: todoconta · leyendo 3,412 XML…" },
   { tipo: "ok" as const, texto: "✓ 3,398 conciliados · 14 diferencias detectadas" },
   { tipo: "ok" as const, texto: "✓ reporte listo en 31 segundos" },
-  { tipo: "dim" as const, texto: "# las 14 diferencias quedan para tu criterio" },
+  { tipo: "dim" as const, texto: "# la máquina hizo las 3,398 fáciles. las 14 difíciles son tuyas." },
+  { tipo: "dim" as const, texto: "# por eso no te reemplaza." },
 ];
 ---
 
@@ -75,53 +76,166 @@ const lineasTerminal = [
     <section class="hero">
       <div class="container-default margen hero-grid">
         <div>
-          <p class="folio"><b>ISRAEL CASTRO</b> · CONTADOR PÚBLICO + DESARROLLADOR DE SOFTWARE</p>
-          <h1>La IA no te va a reemplazar. Al que la ignora, <span class="verde">sí</span>.</h1>
+          <p class="eyebrow">
+            <svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="M2.5 8.8 6 12.2 13.5 3.6" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            IA para contadores de carrera
+          </p>
+          <h1>Los recién egresados ya traen el chip.<br />Tú traes lo que <span class="verde">no viene</span> con el chip.</h1>
           <p class="hero-sub">
-            Un contador que usa IA para volverse infraestructura reemplaza al que no.
-            Llevo 15 años en la contabilidad y varios del otro lado del teclado:
-            hoy automatizo mi propio despacho y te enseño a hacer lo mismo con el tuyo.
+            La IA se aprende en una tarde. Saber cuándo un número miente, en veinte
+            años. Tú ya pagaste la parte cara. Ponle la herramienta encima y los
+            rebasas por la derecha.
           </p>
           <div class="hero-actions">
             <a class="btn btn-primary" href="#contacto">Platiquemos de tu caso</a>
             <a class="btn btn-ghost" href="/jueves">Ve el live de los jueves</a>
           </div>
+          <p class="hero-micro">
+            Sin costo, sin presentación de ventas. Me cuentas qué te está comiendo
+            el tiempo y yo te digo si tengo cómo resolverlo.
+          </p>
         </div>
         <div>
           <Poliza
-            folio="PÓLIZA Dr-001"
-            titulo="TU DESPACHO"
+            folio="PÓLIZA Dr-002"
+            titulo="RECLASIFICACIÓN DE TU TIEMPO"
+            columnaCargo="Cargo"
+            columnaAbono="Abono"
             filas={[
-              { concepto: "Descargas manuales del SAT", cargo: "8 h/mes" },
-              { concepto: "Validaciones y listas negras", cargo: "5 h/mes" },
-              { concepto: "Capturas y reportes en Excel", cargo: "7 h/mes" },
+              { concepto: "Criterio y asesoría", cargo: "20 h/mes" },
+              { concepto: "Descargas manuales del SAT", abono: "8 h/mes", detalle: true },
+              { concepto: "Validaciones y listas negras", abono: "5 h/mes", detalle: true },
+              { concepto: "Capturas y reportes en Excel", abono: "7 h/mes", detalle: true },
             ]}
-            total={{ concepto: "Honorarios no facturados al año", cargo: "$240,000" }}
-            nota="// la operación hormiga también se contabiliza"
+            total={{ concepto: "Sumas iguales", cargo: "20 h/mes", abono: "20 h/mes" }}
+            nota="// no se creó tiempo. se cambió de cuenta."
             foto="/assets/israel-castro.jpg"
             fotoAlt="Israel Castro"
           />
+          <div class="saldo">
+            <p class="folio">SALDO <b>A TU FAVOR</b></p>
+            <p>
+              240 horas al año en la única cuenta que sí se cobra. Más veinte años
+              de criterio que no aparecen en ninguna póliza, porque esos no se
+              compran.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="escena">
+      <div class="container-narrow">
+        <div class="sec-head"><h2 class="folio">NOTA AL PIE · <b>POR QUÉ ESCRIBÍ ESTO</b></h2></div>
+        <div class="escena-cuerpo" data-reveal>
+          <p>
+            Hace unos días una contadora cercana a mí se quedó sin trabajo. 46 años.
+            20 de experiencia. De las que llegan temprano y se quedan hasta que todo
+            les cuadra.
+          </p>
+          <p>
+            Hizo lo que haría cualquiera: buscar trabajo. Y una y otra vez, la misma
+            frase de siempre: "edad máxima 45". Eso le resuena en la cabeza todos los
+            días. El anuncio no dice nada de lo que sabe hacer. Dice 45.
+          </p>
+          <p>
+            Esto a ti no te está pasando, porque tú no estás en esa búsqueda. Pero tu
+            despacho tiene su propia versión del anuncio, y no te das cuenta porque
+            nadie te excluye por escrito. El filtro te lo pones tú: cuando no cotizas
+            el trabajo nuevo porque no te da la vida, cuando dejas ir al cliente que
+            pedía algo que todavía no sabes hacer, cuando alguien arma en una tarde
+            el reporte por el que tú cobras tres días.
+          </p>
+          <p>Yo colgué el teléfono y me quedé pensando en lo que le montaría.</p>
+          <p>
+            No necesita oficina, ni empleados, ni heredar la cartera de nadie.
+            Necesita tres cosas: que los papeles de trabajo y los reportes se armen
+            solos, una página donde se vea qué resuelve y para quién, y de dónde van
+            a salir sus primeros diez clientes. Con lo que ella ya sabe y las
+            herramientas que hay hoy, eso son meses de trabajo, no años.
+          </p>
+          <p>Y mientras lo pensaba caí en algo incómodo.</p>
+          <p>
+            Eso que le montaría a ella desde cero, tú ya lo tienes a medias. Los
+            clientes ya te buscan. Los procesos ya existen. Nada más los estás
+            haciendo a mano, y haces en horas lo que ya se hace en segundos.
+          </p>
+          <p class="escena-remate">
+            Ella arranca sin nada y con el plan claro. Tú arrancas con todo y sin
+            encender. La ventaja sigue siendo tuya. Lo que todavía no es tuyo es la
+            decisión.
+          </p>
+          <p>Y además, todo esto está mal contado.</p>
+        </div>
+
+        <blockquote class="escena-cita" data-reveal>
+          "Esto de la IA es para los más jóvenes, ya nacieron con el chip."
+        </blockquote>
+
+        <div class="escena-cuerpo" data-reveal>
+          <p class="escena-vuelta">De hecho, es al revés.</p>
+          <p>
+            La IA es la herramienta más fácil de usar que se ha inventado. Se le
+            habla en español. No hay sintaxis. No hay menús escondidos. No tienes
+            que cursar una carrera.
+          </p>
+          <p>
+            Terminar la universidad no te da ninguna ventaja ahí: la barrera de
+            entrada es pareja.
+          </p>
+          <p>
+            Nadie sale de la facultad sabiendo que ese cliente siempre factura tarde
+            en diciembre, ni que aquel otro te manda el paquete el día 16. Nadie te
+            enseña a leerle la cara al empresario que esconde esos otros ingresos.
+          </p>
+          <p class="escena-remate">
+            La IA reparte la parte fácil en partes iguales. A ti te la da encima de
+            la parte difícil, que ya llevas años pagando. Y esa es tu ventaja. Por
+            eso quien debería estar preocupado <span class="hl">no eres tú</span>.
+          </p>
+        </div>
+
+        <blockquote class="escena-cita" data-reveal>
+          "Lo que te falta es método. No juventud. No talento para la tecnología, ni
+          ponerte a estudiar programación a estas alturas."
+        </blockquote>
+
+        <div class="escena-cuerpo" data-reveal>
+          <p>
+            Te falta método para saber qué automatizar, cómo pedirlo en los términos
+            correctos, y dónde poner tu criterio para que la máquina haga el trabajo
+            sucio.
+          </p>
+          <p class="escena-remate">Y de eso me encargo yo.</p>
         </div>
       </div>
     </section>
 
     <section id="quien">
       <div class="container-default margen">
-        <div class="sec-head"><h2 class="folio">CUENTA <b>01</b> · QUIÉN SOY</h2></div>
+        <div class="sec-head"><h2 class="folio">CUENTA <b>01</b> · QUIÉN TE ESTÁ HABLANDO</h2></div>
         <div class="bio-grid">
           <div class="bio" data-reveal>
             <p class="lede">Soy contador público. Y desarrollador de software.</p>
             <p>
-              Empecé capturando pólizas y peleando con el portal del SAT, como todos.
-              La curiosidad me llevó a estudiar programación y a trabajar como
-              desarrollador en una startup; hoy estoy de vuelta en el despacho,
-              automatizando todo lo que se repite.
+              Empecé capturando pólizas y peleándome con el portal del SAT, igual que
+              tú. Quince años de fiscal. Cierres, revisiones, clientes que te mandan
+              el paquete de facturas el día 16.
             </p>
             <p>
-              <strong>Hoy dirijo el código más de lo que lo tecleo: se lo pido a la IA
-              en los términos correctos y reviso lo que devuelve.</strong> Esa es la habilidad que te quiero
-              transferir, porque tu experiencia contable más esa habilidad no la
-              alcanza ningún recién egresado.
+              En algún punto me dio curiosidad el otro lado y me puse a estudiar
+              programación. Terminé trabajando como desarrollador en una startup. Hoy
+              estoy de regreso en el despacho, automatizando todo lo que se repite.
+            </p>
+            <p>
+              Y aquí está la parte que importa para ti: <strong>hoy casi no tecleo
+              código. Lo leo, lo entiendo, y se lo pido a la IA en los términos
+              correctos.</strong>
+            </p>
+            <p>
+              Esa es la habilidad que te quiero pasar. No es programar. Es saber
+              nombrar el problema. Tu experiencia contable más esa habilidad no la
+              alcanza ningún recién egresado, por mucho chip que traiga.
             </p>
             <div class="chips">
               <span class="chip"><b>15</b> años de fiscal</span>
@@ -160,7 +274,8 @@ const lineasTerminal = [
       <div class="container-default" data-reveal>
         <span class="folio">ASIENTO DE CIERRE</span>
         <blockquote>
-          A la infraestructura de un negocio nunca la despiden, y tampoco le <span class="hl">regatean el precio</span>.
+          Nadie contrata veinte años de criterio en un recién egresado.<br />
+          Y lo que no tiene sustituto, <span class="hl">no se regatea</span>.
         </blockquote>
       </div>
     </section>
@@ -169,14 +284,26 @@ const lineasTerminal = [
       <div class="container-default guia-inner">
         <div>
           <p class="folio guia-folio">DESCARGA <b>GRATUITA</b></p>
-          <h2 class="guia-titulo">5 prompts para auditar XMLs con Claude</h2>
+          <h2 class="guia-titulo">5 prompts para auditar tus XMLs con Claude</h2>
           <p class="guia-texto">
-            La misma guía que uso en mis talleres. Te la mando al correo, junto con
-            una idea accionable de IA fiscal cada semana.
+            No salieron de un blog gringo. Salieron del sistema de auditoría
+            preventiva que corre en mi despacho: cuatro capas de revisión, más el
+            reporte que le entregas al cliente.
+          </p>
+          <ul class="guia-capas">
+            <li>Validación formal del lote (Anexo 20)</li>
+            <li>Materialidad de operaciones</li>
+            <li>Scoring de riesgo con semáforo, al estilo del SAT</li>
+            <li>Blindaje de proveedores (69-B y REPSE)</li>
+            <li>El reporte ejecutivo que sí puedes cobrar</li>
+          </ul>
+          <p class="guia-texto">
+            Los copias, los pegas y los usas hoy mismo. Te los mando al correo, junto
+            con una idea de IA fiscal cada semana.
           </p>
         </div>
         <div>
-          <NewsletterForm />
+          <NewsletterForm boton="Mándame los prompts" nota="Sin spam. Te das de baja con un clic y sin resentimientos." />
         </div>
       </div>
     </section>
@@ -185,6 +312,47 @@ const lineasTerminal = [
       <div class="container-narrow">
         <div class="sec-head"><h2 class="folio">CUENTA <b>03</b> · PREGUNTAS DIRECTAS</h2></div>
         <FaqBlock items={FAQ_HOME} />
+      </div>
+    </section>
+
+    <section class="bandos">
+      <div class="container-narrow">
+        <div class="sec-head"><h2 class="folio">LA <b>PARTIDA DOBLE</b></h2></div>
+        <div class="bandos-cuerpo" data-reveal>
+          <p class="bandos-entrada">Hay dos despachos con los mismos años encima.</p>
+          <div class="bandos-par">
+            <article class="bando">
+              <p class="folio">DESPACHO <b>A</b></p>
+              <p>
+                Se siguen bajando los XMLs de uno en uno. Ahí saben que hay
+                herramientas, pero no ha habido tiempo de ver cuáles. Cada año se
+                cobra parecido, cada año cuesta un poco más, y cada tanto se pierde
+                un cliente que se fue con alguien "más moderno". No es que sepan
+                menos. Es que están resolviendo con las manos lo que ya se resuelve
+                solo.
+              </p>
+            </article>
+            <article class="bando bando-b">
+              <p class="folio">DESPACHO <b>B</b></p>
+              <p>
+                Dedicaron unas semanas a aprender a pedirle cosas a la máquina. Ahora
+                entregan en la mañana lo que antes tomaba dos días, cobran por el
+                criterio y no por las horas, y sus clientes ya no saben cómo operar
+                sin ellos.
+              </p>
+            </article>
+          </div>
+          <p class="bandos-remate">
+            Los dos tienen los mismos años. Los dos saben lo mismo de fiscal. Lo
+            único que cambió fue una decisión, y no fue una decisión difícil.
+          </p>
+          <p class="bandos-filtro">
+            Si crees que la IA es una moda que va a pasar, no me hagas caso y
+            espérate. Si estás buscando el botón que haga tu trabajo mientras tú no
+            haces nada, tampoco es aquí. Esto multiplica lo que ya sabes hacer. Si no
+            sabes hacer nada, no hay qué multiplicar.
+          </p>
+        </div>
       </div>
     </section>
 
@@ -433,5 +601,152 @@ const lineasTerminal = [
 
   .cierre {
     padding-bottom: 5rem;
+  }
+
+  /* Eyebrow del hero: ancla de categoría, no cápsula de plantilla.
+     Capitular normal, gris medio, sin fondo ni tracking abierto, y con aire
+     generoso antes del H1: ese espacio es la mitad de por qué no se ve a
+     plantilla. El icono va gris, nunca en el verde de acción. */
+  .eyebrow {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin: 0;
+    font-size: 0.92rem;
+    font-weight: 400;
+    color: var(--color-ink-dim);
+  }
+  .eyebrow svg {
+    flex: none;
+    color: var(--color-ink-dim);
+  }
+  .hero h1 {
+    margin-top: 2.6rem;
+    max-width: 24ch;
+    /* Reparte las líneas en vez de dejar una huérfana: el titular es el golpe
+       de la página y un renglón de dos palabras lo desinfla. */
+    text-wrap: balance;
+  }
+  @media (max-width: 900px) {
+    .hero h1 {
+      margin-top: 1.6rem;
+    }
+  }
+  .hero-micro {
+    margin: 1.1rem 0 0;
+    max-width: 46ch;
+    font-size: 0.88rem;
+    color: var(--color-ink-dim);
+  }
+
+  /* Banda de saldo: el remate de la póliza, y la línea que amarra el bloque
+     con el titular. Sin ella la póliza es un truco de horas ahorradas. */
+  .saldo {
+    margin-top: 1.6rem;
+    padding: 1.2rem 1.4rem;
+    border-left: 3px solid var(--color-accent);
+    background: var(--color-accent-soft);
+    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  }
+  .saldo p:last-child {
+    margin: 0.5rem 0 0;
+    font-size: 0.95rem;
+    line-height: 1.55;
+    color: var(--color-ink);
+  }
+
+  /* La escena: es larga a propósito. No recortar para que "se vea limpia". */
+  .escena-cuerpo p {
+    margin: 0 0 1.1rem;
+    color: var(--color-ink-soft);
+    font-size: 1.06rem;
+    line-height: 1.7;
+  }
+  .escena-cuerpo p:last-child {
+    margin-bottom: 0;
+  }
+  .escena-remate,
+  .escena-vuelta {
+    color: var(--color-ink) !important;
+    font-weight: 500;
+  }
+  .escena-cita {
+    margin: 2.4rem 0;
+    padding: 0;
+    border: none;
+    font-family: var(--font-serif-detail);
+    font-style: italic;
+    font-size: clamp(1.3rem, 2.6vw, 1.7rem);
+    line-height: 1.35;
+    color: var(--color-ink);
+    text-align: center;
+  }
+
+  /* Dos bandos: la elección, narrada. */
+  .bandos-entrada {
+    margin: 0 0 1.6rem;
+    font-size: 1.15rem;
+    font-weight: 500;
+    color: var(--color-ink);
+  }
+  .bandos-par {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.4rem;
+  }
+  @media (max-width: 760px) {
+    .bandos-par {
+      grid-template-columns: 1fr;
+    }
+  }
+  .bando {
+    padding: 1.4rem 1.5rem;
+    border: 1px solid var(--color-line);
+    border-radius: var(--radius-md);
+    background: var(--color-surface-raised);
+  }
+  .bando-b {
+    border-color: var(--color-line-strong);
+    box-shadow: 6px 6px 0 var(--color-accent-soft);
+  }
+  .bando p:last-child {
+    margin: 0.7rem 0 0;
+    font-size: 0.96rem;
+    line-height: 1.65;
+    color: var(--color-ink-soft);
+  }
+  .bandos-remate {
+    margin: 1.8rem 0 0;
+    font-size: 1.06rem;
+    font-weight: 500;
+    color: var(--color-ink);
+  }
+  .bandos-filtro {
+    margin: 1.6rem 0 0;
+    padding-left: 1.2rem;
+    border-left: 2px solid var(--color-line);
+    font-size: 0.95rem;
+    color: var(--color-ink-dim);
+  }
+
+  /* Las capas del lead magnet van en lista: que se puedan contar es la mitad
+     del valor percibido de un imán gratuito. */
+  .guia-capas {
+    list-style: none;
+    margin: 1.1rem 0;
+    padding: 0;
+  }
+  .guia-capas li {
+    position: relative;
+    padding: 0.4rem 0 0.4rem 1.5rem;
+    font-size: 0.95rem;
+    color: #c9d6e8;
+  }
+  .guia-capas li::before {
+    content: "▸";
+    position: absolute;
+    left: 0;
+    color: var(--color-terminal-ok);
+    font-family: var(--font-mono);
   }
 </style>

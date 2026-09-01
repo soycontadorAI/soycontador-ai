@@ -2,17 +2,30 @@
 /**
  * La póliza: tarjeta con tabla contable y doble raya de suma bajo el total.
  * Elemento de firma de la identidad (ver design/DESIGN.md).
+ *
+ * Soporta dos formas:
+ *
+ * - Una columna (solo cargo). La original.
+ * - Partida doble (cargo y abono), que es la del hero: un contador detecta a la
+ *   primera que una póliza sin contrapartida no es una póliza, es una lista de
+ *   quejas. Con las dos columnas el bloque dice lo que quiere decir: el tiempo
+ *   no se crea ni se destruye, se reclasifica.
  */
 
 interface Fila {
   concepto: string;
-  cargo: string;
+  cargo?: string;
+  abono?: string;
+  /** Sangra el concepto: marca que la partida cuelga de la de arriba. */
+  detalle?: boolean;
 }
 
 interface Props {
   folio: string;
   titulo: string;
   columnaCargo?: string;
+  /** Si viene, la tabla se dibuja a dos columnas. */
+  columnaAbono?: string;
   filas: Fila[];
   total: Fila;
   nota?: string;
@@ -21,7 +34,19 @@ interface Props {
   fotoAlt?: string;
 }
 
-const { folio, titulo, columnaCargo = "Cargo", filas, total, nota, foto, fotoAlt } = Astro.props;
+const {
+  folio,
+  titulo,
+  columnaCargo = "Cargo",
+  columnaAbono,
+  filas,
+  total,
+  nota,
+  foto,
+  fotoAlt,
+} = Astro.props;
+
+const dosColumnas = Boolean(columnaAbono);
 ---
 
 <div class="poliza">
@@ -33,18 +58,24 @@ const { folio, titulo, columnaCargo = "Cargo", filas, total, nota, foto, fotoAlt
   </div>
   <table>
     <thead>
-      <tr><th>Concepto</th><th class="num">{columnaCargo}</th></tr>
+      <tr>
+        <th>Concepto</th>
+        <th class="num">{columnaCargo}</th>
+        {dosColumnas && <th class="num">{columnaAbono}</th>}
+      </tr>
     </thead>
     <tbody>
       {filas.map((fila) => (
         <tr>
-          <td>{fila.concepto}</td>
-          <td class="num">{fila.cargo}</td>
+          <td class={fila.detalle ? "detalle" : ""}>{fila.concepto}</td>
+          <td class="num">{fila.cargo ?? ""}</td>
+          {dosColumnas && <td class="num">{fila.abono ?? ""}</td>}
         </tr>
       ))}
       <tr class="total">
         <td>{total.concepto}</td>
-        <td class="num">{total.cargo}</td>
+        <td class="num">{total.cargo ?? ""}</td>
+        {dosColumnas && <td class="num">{total.abono ?? ""}</td>}
       </tr>
     </tbody>
   </table>
@@ -63,6 +94,7 @@ const { folio, titulo, columnaCargo = "Cargo", filas, total, nota, foto, fotoAlt
     display: flex;
     justify-content: space-between;
     align-items: center;
+    gap: 0.8rem;
     padding: 0.8rem 1.2rem;
     border-bottom: 1px solid var(--color-line-strong);
     background: var(--color-surface);
@@ -102,6 +134,10 @@ const { folio, titulo, columnaCargo = "Cargo", filas, total, nota, foto, fotoAlt
     border-bottom: 1px solid var(--color-line);
     color: var(--color-ink-soft);
   }
+  /* Las partidas que cuelgan de la de arriba se sangran, como en libros. */
+  td.detalle {
+    padding-left: 2rem;
+  }
   td.num,
   th.num {
     text-align: right;
@@ -129,5 +165,17 @@ const { folio, titulo, columnaCargo = "Cargo", filas, total, nota, foto, fotoAlt
     font-family: var(--font-mono);
     font-size: 0.68rem;
     color: var(--color-ink-dim);
+  }
+  @media (max-width: 420px) {
+    table {
+      font-size: 0.74rem;
+    }
+    td,
+    th {
+      padding-inline: 0.8rem;
+    }
+    td.detalle {
+      padding-left: 1.4rem;
+    }
   }
 </style>

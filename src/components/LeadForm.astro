@@ -18,7 +18,7 @@ interface Props {
 
 const {
   titulo = "Platiquemos de tu caso",
-  intro = "Déjame tu correo (y tu WhatsApp si prefieres que te escriba por ahí), cuéntame qué buscas y te contacto. Sin compromiso y sin rodeos.",
+  intro = "Déjame tu correo (y tu WhatsApp si prefieres que te escriba por ahí), cuéntame qué te está comiendo el tiempo y te contacto. No es una llamada de ventas disfrazada: si lo tuyo se resuelve con algo gratuito, te lo digo y ahí la dejamos.",
   interesDefault,
   cita = "diagnostico",
 } = Astro.props;
@@ -31,11 +31,11 @@ const {
 const calendario = calendarioDe(cita);
 
 const opcionesInteres = [
-  { value: "Taller o capacitación", label: "Un taller o capacitación para mi equipo" },
-  { value: "Solución a la medida", label: "Que automatices un proceso por mí" },
-  { value: "Herramientas", label: "Usar las herramientas (TodoConta, MCP)" },
+  { value: "Quitarme un proceso", label: "Quitarme un proceso que hago a mano" },
+  { value: "Capacitación para mí", label: "Capacitación para mí" },
+  { value: "Taller para mi equipo", label: "Un taller para mi equipo" },
   { value: "Club de Automatización Fiscal", label: "Entrar al Club de Automatización Fiscal" },
-  { value: "Solo contenido", label: "Por ahora, solo el contenido" },
+  { value: "Explorando", label: "Todavía no sé, quiero entender qué se puede" },
 ];
 ---
 
@@ -59,9 +59,9 @@ const opcionesInteres = [
         <label for="lead-rol">¿Cuál es tu caso?</label>
         <select id="lead-rol" name="rol">
           <option value="Contador independiente">Soy contador independiente</option>
-          <option value="Despacho">Tengo o trabajo en un despacho</option>
-          <option value="Empresa u organización">Represento una empresa u organización</option>
-          <option value="Otro">Otro</option>
+          <option value="Despacho con equipo">Tengo un despacho con equipo</option>
+          <option value="Contabilidad propia">Llevo la contabilidad de mi propia empresa</option>
+          <option value="Colegio o asociación">Soy de un colegio o una asociación</option>
         </select>
       </div>
       <div class="campo">
@@ -73,7 +73,7 @@ const opcionesInteres = [
         </select>
       </div>
       <div class="campo campo-full">
-        <label for="lead-mensaje">Cuéntame en una línea qué necesitas (opcional)</label>
+        <label for="lead-mensaje">Cuéntame en una línea qué te está comiendo el tiempo (opcional)</label>
         <textarea id="lead-mensaje" name="mensaje" rows="2" maxlength="500" placeholder="Ej. cada mes pierdo dos días armando el mismo reporte…"></textarea>
       </div>
       <div class="campo-full consentimiento">
