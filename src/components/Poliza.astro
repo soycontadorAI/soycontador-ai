@@ -56,7 +56,7 @@ const {
 const dosColumnas = Boolean(columnaAbono);
 ---
 
-<div class:list={["poliza", { animada }]}>
+<div class:list={["poliza", { animada, doble: dosColumnas }]} style={`--filas:${filas.length}`}>
   <div class="poliza-head">
     <span class="folio">{folio} · {titulo}</span>
     {foto && (
@@ -79,7 +79,7 @@ const dosColumnas = Boolean(columnaAbono);
           {dosColumnas && <td class="num">{fila.abono ?? ""}</td>}
         </tr>
       ))}
-      {animada && (
+      {animada && dosColumnas && (
         <tr class="pausa" aria-hidden="true">
           <td colspan={dosColumnas ? 3 : 2}><span class="pausa-nota">// falta la contrapartida</span></td>
         </tr>
@@ -209,7 +209,7 @@ const dosColumnas = Boolean(columnaAbono);
 
   /* Fase 1 y 2: las tres partidas de abono entran escalonadas y se asientan.
      Sin palomita: son sangrado, no logros. */
-  .animada tbody tr.detalle td {
+  .animada.doble tbody tr.detalle td {
     animation: partida-entra 0.75s cubic-bezier(0.22, 1, 0.36, 1) backwards;
     animation-delay: calc(0.35s + var(--i, 0) * 0.35s);
   }
@@ -218,7 +218,7 @@ const dosColumnas = Boolean(columnaAbono);
      los :not() de la regla de arriba pesan más que un :first-child y la dejaban
      sin efecto: el cargo aparecía desde el primer cuadro y se perdía el hueco,
      que es todo el chiste del bloque. */
-  .animada tbody tr:not(.detalle):not(.total):not(.pausa) td {
+  .animada.doble tbody tr:not(.detalle):not(.total):not(.pausa) td {
     animation: contrapartida-entra 0.7s cubic-bezier(0.22, 1, 0.36, 1) 3.2s backwards;
   }
 
@@ -245,9 +245,21 @@ const dosColumnas = Boolean(columnaAbono);
   }
 
   /* Fase 4: los totales se encienden juntos. 20 h = 20 h. */
-  .animada tr.total td {
+  .animada.doble tr.total td {
     animation: total-cuadra 0.5s ease-out backwards;
     animation-delay: 3.9s;
+  }
+
+  /* Variante de una columna (el expediente): sin hueco que sentir, porque no
+     hay contrapartida que falte. Las partidas entran escalonadas y el total
+     aterriza al final: 257 páginas y 513 cuentas colapsando en una noche. */
+  .animada:not(.doble) tbody tr:not(.total) td {
+    animation: partida-entra 0.6s cubic-bezier(0.22, 1, 0.36, 1) backwards;
+    animation-delay: calc(var(--i, 0) * 0.28s);
+  }
+  .animada:not(.doble) tr.total td {
+    animation: total-cuadra 0.6s cubic-bezier(0.22, 1, 0.36, 1) backwards;
+    animation-delay: calc(0.5s + var(--filas, 4) * 0.28s);
   }
 
   @keyframes partida-entra {
@@ -290,5 +302,18 @@ const dosColumnas = Boolean(columnaAbono);
     .animada tr.pausa {
       display: none;
     }
+  }
+
+  /* Los bloques bajo el pliegue esperan a entrar en pantalla: si no, la
+     coreografía termina sola mientras el visitante sigue arriba y solo ve el
+     resultado. Se apoya en el data-reveal que ya existe.
+
+     La condición incluye html.js-reveal a propósito: sin JavaScript esa clase
+     nunca se pone, así que nada queda pausado y la animación corre al cargar.
+     Pausar sin JS dejaría el contenido congelado en opacidad 0, que es
+     exactamente lo que la regla 3 prohíbe. */
+  :global(html.js-reveal [data-reveal]:not(.is-visible)) .animada tbody td,
+  :global(html.js-reveal [data-reveal]:not(.is-visible)) .animada .pausa-nota {
+    animation-play-state: paused;
   }
 </style>

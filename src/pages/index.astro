@@ -322,7 +322,7 @@ const lineasTerminal = [
         <div class="bandos-cuerpo" data-reveal>
           <p class="bandos-entrada">Hay dos despachos con los mismos años encima.</p>
           <div class="bandos-par">
-            <article class="bando">
+            <article class="bando bando-a">
               <p class="folio">DESPACHO <b>A</b></p>
               <p>
                 Se siguen bajando los XMLs de uno en uno. Ahí saben que hay
@@ -749,5 +749,91 @@ const lineasTerminal = [
     left: 0;
     color: var(--color-terminal-ok);
     font-family: var(--font-mono);
+  }
+
+  /* Dos bandos dibujado como cuenta T: es el isotipo de la marca hecho
+     sección. El cargo a la izquierda en tinta, el abono a la derecha en verde,
+     y la raya vertical que los separa. La lectura es la tesis: la IA no es un
+     total al pie, es la contrapartida que completa el asiento.
+
+     Se anima el orden, no el adorno: entra A, hay un beat, entra B y solo
+     entonces se enciende el verde. Lo único que cambió fue una decisión. */
+  .bandos-par {
+    position: relative;
+    border-top: 2px solid var(--color-line-strong);
+    padding-top: 1.4rem;
+    gap: 0;
+  }
+  .bandos-par::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 50%;
+    width: 2px;
+    background: var(--color-line-strong);
+    transform-origin: top;
+  }
+  .bando {
+    border: none;
+    border-radius: 0;
+    background: none;
+    padding: 0 1.6rem;
+  }
+  .bando-b {
+    box-shadow: none;
+  }
+  .bando-b .folio :global(b) {
+    color: var(--color-accent);
+  }
+  @media (max-width: 760px) {
+    .bandos-par {
+      gap: 1.6rem;
+    }
+    /* En vertical la raya del medio no separa nada: se convierte en el filete
+       lateral de cada bando. */
+    .bandos-par::before {
+      display: none;
+    }
+    .bando {
+      padding: 0 0 0 1.2rem;
+      border-left: 2px solid var(--color-line);
+    }
+    .bando-b {
+      border-left-color: var(--color-accent);
+    }
+  }
+
+  .is-visible .bandos-par::before {
+    animation: traza-eje 0.6s ease-out 0.2s backwards;
+  }
+  .is-visible .bando-a {
+    animation: entra-cargo 0.55s cubic-bezier(0.22, 1, 0.36, 1) 0.3s backwards;
+  }
+  .is-visible .bando-b {
+    animation: entra-abono 0.55s cubic-bezier(0.22, 1, 0.36, 1) 1.5s backwards;
+  }
+  .is-visible .bandos-remate {
+    animation: aparece-remate 0.5s ease-out 2.2s backwards;
+  }
+  @keyframes traza-eje {
+    from { transform: scaleY(0); }
+  }
+  @keyframes entra-cargo {
+    from { opacity: 0; transform: translate3d(-1.2rem, 0, 0); }
+  }
+  @keyframes entra-abono {
+    from { opacity: 0; transform: translate3d(1.2rem, 0, 0); }
+  }
+  @keyframes aparece-remate {
+    from { opacity: 0; transform: translate3d(0, 0.6rem, 0); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .is-visible .bandos-par::before,
+    .is-visible .bando-a,
+    .is-visible .bando-b,
+    .is-visible .bandos-remate {
+      animation: none;
+    }
   }
 </style>

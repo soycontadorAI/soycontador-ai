@@ -3,6 +3,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import FaqBlock from "../components/FaqBlock.astro";
 import FormCapacitacion from "../components/FormCapacitacion.astro";
 import FlujoExpediente from "../components/FlujoExpediente.astro";
+import Poliza from "../components/Poliza.astro";
 import {
   CASO_AUDITOR,
   EMPRESARIAL,
@@ -59,6 +60,18 @@ const jsonLd = graph(
             ))}
           </div>
           <FlujoExpediente />
+          <div class="expediente" data-reveal>
+            <Poliza
+              animada
+              folio="EXPEDIENTE"
+              titulo="LO QUE HABÍA QUE LEER"
+              columnaCargo="Volumen"
+              filas={CASO_AUDITOR.expediente.filas.map((f) => ({ ...f }))}
+              total={{ ...CASO_AUDITOR.expediente.total }}
+              nota={CASO_AUDITOR.expediente.nota}
+            />
+            <p class="expediente-pie">{CASO_AUDITOR.trazabilidad}</p>
+          </div>
           <blockquote class="caso-cita" data-reveal>
             Ya no eres un simple auditor. Eres un <span class="hl">auditor con poderes</span>.
           </blockquote>
@@ -311,6 +324,16 @@ const jsonLd = graph(
     left: 0;
     font-family: var(--font-mono);
     color: var(--color-accent);
+  }
+  .expediente {
+    max-width: 34rem;
+    margin: 0 auto;
+  }
+  .expediente-pie {
+    margin: 1.2rem 0 0;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: var(--color-ink-soft);
   }
 </style>
 
