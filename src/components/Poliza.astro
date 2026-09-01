@@ -56,7 +56,7 @@ const {
 const dosColumnas = Boolean(columnaAbono);
 ---
 
-<div class:list={["poliza", { animada, doble: dosColumnas }]} style={`--filas:${filas.length}`}>
+<div class:list={["poliza", { animada, doble: dosColumnas }]}>
   <div class="poliza-head">
     <span class="folio">{folio} · {titulo}</span>
     {foto && (
@@ -248,18 +248,6 @@ const dosColumnas = Boolean(columnaAbono);
   .animada.doble tr.total td {
     animation: total-cuadra 0.5s ease-out backwards;
     animation-delay: 3.9s;
-  }
-
-  /* Variante de una columna (el expediente): sin hueco que sentir, porque no
-     hay contrapartida que falte. Las partidas entran escalonadas y el total
-     aterriza al final: 257 páginas y 513 cuentas colapsando en una noche. */
-  .animada:not(.doble) tbody tr:not(.total) td {
-    animation: partida-entra 0.6s cubic-bezier(0.22, 1, 0.36, 1) backwards;
-    animation-delay: calc(var(--i, 0) * 0.28s);
-  }
-  .animada:not(.doble) tr.total td {
-    animation: total-cuadra 0.6s cubic-bezier(0.22, 1, 0.36, 1) backwards;
-    animation-delay: calc(0.5s + var(--filas, 4) * 0.28s);
   }
 
   @keyframes partida-entra {
