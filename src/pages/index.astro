@@ -116,6 +116,38 @@ const lineasTerminal = [
       </div>
     </section>
 
+    <!--
+      El puente entre el titular y las secciones. Antes esto era la nota al pie
+      completa, con la historia de la contadora de 46 años. La historia larga se
+      fue, pero sin ella el titular se queda como afirmación sin respaldo: aquí
+      queda la vuelta que la cerraba, que es la tesis del proyecto en tres
+      frases. Termina en "de eso me encargo yo" y en seguida entra "quién te
+      está hablando", que es exactamente la pregunta que deja abierta.
+    -->
+    <section class="vuelta">
+      <div class="container-narrow" data-reveal>
+
+        <blockquote>
+          "Esto de la IA es para los más jóvenes, ya nacieron con el chip."
+        </blockquote>
+
+        <p class="vuelta-giro">De hecho, es al revés.</p>
+        <p class="vuelta-texto">
+          La IA es la herramienta más fácil de usar que se ha inventado. Se le
+          habla en español y no hay que cursar una carrera, así que ahí la
+          barrera es pareja para todos. Lo que no es parejo es lo demás: nadie
+          sale de la facultad sabiendo que ese cliente siempre factura tarde en
+          diciembre, ni sabiendo leerle la cara al empresario que esconde esos
+          otros ingresos.
+        </p>
+        <p class="vuelta-texto vuelta-remate">
+          A ti la parte fácil te llega encima de la parte difícil, que ya llevas
+          años pagando. Por eso quien debería estar preocupado <span class="hl">no eres tú</span>.
+          Lo que te falta es método, no juventud. Y de eso me encargo yo.
+        </p>
+      </div>
+    </section>
+
     <section id="quien">
       <div class="container-default margen">
         <div class="sec-head"><h2 class="folio">CUENTA <b>01</b> · QUIÉN TE ESTÁ HABLANDO</h2></div>
@@ -499,6 +531,26 @@ const lineasTerminal = [
     max-width: 46ch;
     margin: 0;
   }
+  /* Las capas van en lista: que se puedan contar es la mitad del valor
+     percibido de un imán gratuito. */
+  .guia-capas {
+    list-style: none;
+    margin: 1.1rem 0;
+    padding: 0;
+  }
+  .guia-capas li {
+    position: relative;
+    padding: 0.4rem 0 0.4rem 1.5rem;
+    font-size: 0.95rem;
+    color: #c9d6e8;
+  }
+  .guia-capas li::before {
+    content: "▸";
+    position: absolute;
+    left: 0;
+    color: var(--color-terminal-ok);
+    font-family: var(--font-mono);
+  }
 
   .cierre {
     padding-bottom: 5rem;
@@ -563,7 +615,53 @@ const lineasTerminal = [
     }
   }
 
-  /* Dos bandos: la elección, narrada. */
+  /* La vuelta: el puente entre el titular y el resto. Antes era la nota al pie
+     completa, con la historia de la contadora de 46 años; queda el giro que la
+     cerraba, que es la tesis en tres frases. El "de eso me encargo yo" del
+     final entrega directo a la cuenta 01, que responde quién lo dice.
+
+     Va sin folio de sección, para que se lea como una respiración entre el
+     hero y la primera cuenta, y no como una cuenta más. El espaciado es el de
+     las demás secciones (section { padding: 4.2rem 0 }), sin override. */
+  /* La objeción va en la voz de quien la dice: serif en cursiva y en gris. El
+     giro le contesta justo debajo, en tinta plena y sin aire de por medio. Que
+     se lean como un par es lo que hace el gesto. */
+  .vuelta blockquote {
+    margin: 0 0 0.7rem;
+    padding: 0;
+    font-family: var(--font-serif-detail);
+    font-style: italic;
+    font-size: clamp(1.15rem, 2.2vw, 1.4rem);
+    line-height: 1.4;
+    color: var(--color-ink-dim);
+  }
+  .vuelta-giro {
+    margin: 0 0 1.2rem;
+    font-size: clamp(1.35rem, 2.8vw, 1.75rem);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: var(--color-ink);
+  }
+  .vuelta-texto {
+    margin: 0 0 1.1rem;
+    font-size: 1.06rem;
+    line-height: 1.7;
+    color: var(--color-ink-soft);
+  }
+  .vuelta-remate {
+    margin-bottom: 0;
+    color: var(--color-ink);
+    font-weight: 500;
+  }
+
+  /* Dos bandos dibujado como cuenta T: es el isotipo de la marca hecho
+     sección. El cargo a la izquierda en tinta, el abono a la derecha con la
+     letra en verde, y la raya vertical que los separa. La lectura es la
+     tesis: la IA no es un total al pie, es la contrapartida que completa el
+     asiento.
+
+     Se anima el orden, no el adorno: entra A, hay un beat, entra B, y solo
+     entonces aparece el remate. Lo único que cambió fue una decisión. */
   .bandos-entrada {
     margin: 0 0 1.6rem;
     font-size: 1.15rem;
@@ -571,30 +669,53 @@ const lineasTerminal = [
     color: var(--color-ink);
   }
   .bandos-par {
+    position: relative;
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 1.4rem;
+    gap: 0;
+    border-top: 2px solid var(--color-line-strong);
+    padding-top: 1.4rem;
   }
-  @media (max-width: 760px) {
-    .bandos-par {
-      grid-template-columns: 1fr;
-    }
+  /* El eje de la cuenta T. */
+  .bandos-par::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 50%;
+    width: 2px;
+    background: var(--color-line-strong);
+    transform-origin: top;
   }
   .bando {
-    padding: 1.4rem 1.5rem;
-    border: 1px solid var(--color-line);
-    border-radius: var(--radius-md);
-    background: var(--color-surface-raised);
-  }
-  .bando-b {
-    border-color: var(--color-line-strong);
-    box-shadow: 6px 6px 0 var(--color-accent-soft);
+    padding: 0 1.6rem;
   }
   .bando p:last-child {
     margin: 0.7rem 0 0;
     font-size: 0.96rem;
     line-height: 1.65;
     color: var(--color-ink-soft);
+  }
+  .bando-b .folio :global(b) {
+    color: var(--color-accent);
+  }
+  @media (max-width: 760px) {
+    /* En vertical la raya del medio no separa nada: se convierte en el filete
+       lateral de cada bando. */
+    .bandos-par {
+      grid-template-columns: 1fr;
+      gap: 1.6rem;
+    }
+    .bandos-par::before {
+      display: none;
+    }
+    .bando {
+      padding: 0 0 0 1.2rem;
+      border-left: 2px solid var(--color-line);
+    }
+    .bando-b {
+      border-left-color: var(--color-accent);
+    }
   }
   .bandos-remate {
     margin: 1.8rem 0 0;
@@ -608,80 +729,6 @@ const lineasTerminal = [
     border-left: 2px solid var(--color-line);
     font-size: 0.95rem;
     color: var(--color-ink-dim);
-  }
-
-  /* Las capas del lead magnet van en lista: que se puedan contar es la mitad
-     del valor percibido de un imán gratuito. */
-  .guia-capas {
-    list-style: none;
-    margin: 1.1rem 0;
-    padding: 0;
-  }
-  .guia-capas li {
-    position: relative;
-    padding: 0.4rem 0 0.4rem 1.5rem;
-    font-size: 0.95rem;
-    color: #c9d6e8;
-  }
-  .guia-capas li::before {
-    content: "▸";
-    position: absolute;
-    left: 0;
-    color: var(--color-terminal-ok);
-    font-family: var(--font-mono);
-  }
-
-  /* Dos bandos dibujado como cuenta T: es el isotipo de la marca hecho
-     sección. El cargo a la izquierda en tinta, el abono a la derecha en verde,
-     y la raya vertical que los separa. La lectura es la tesis: la IA no es un
-     total al pie, es la contrapartida que completa el asiento.
-
-     Se anima el orden, no el adorno: entra A, hay un beat, entra B y solo
-     entonces se enciende el verde. Lo único que cambió fue una decisión. */
-  .bandos-par {
-    position: relative;
-    border-top: 2px solid var(--color-line-strong);
-    padding-top: 1.4rem;
-    gap: 0;
-  }
-  .bandos-par::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 50%;
-    width: 2px;
-    background: var(--color-line-strong);
-    transform-origin: top;
-  }
-  .bando {
-    border: none;
-    border-radius: 0;
-    background: none;
-    padding: 0 1.6rem;
-  }
-  .bando-b {
-    box-shadow: none;
-  }
-  .bando-b .folio :global(b) {
-    color: var(--color-accent);
-  }
-  @media (max-width: 760px) {
-    .bandos-par {
-      gap: 1.6rem;
-    }
-    /* En vertical la raya del medio no separa nada: se convierte en el filete
-       lateral de cada bando. */
-    .bandos-par::before {
-      display: none;
-    }
-    .bando {
-      padding: 0 0 0 1.2rem;
-      border-left: 2px solid var(--color-line);
-    }
-    .bando-b {
-      border-left-color: var(--color-accent);
-    }
   }
 
   .is-visible .bandos-par::before {
