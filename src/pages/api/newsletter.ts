@@ -53,7 +53,9 @@ export const POST: APIRoute = async ({ request }) => {
     return json(400, { ok: false, error: "Correo inválido" });
   }
   const referrer = typeof raw.referrer === "string" ? raw.referrer.slice(0, 500) : undefined;
-  const lista: Lista = raw.lista === "ebook" ? "ebook" : "general";
+  // Lista blanca: el navegador elige entre nombres conocidos, nunca un ID.
+  const LISTAS: Lista[] = ["general", "live", "ebook"];
+  const lista: Lista = LISTAS.find((l) => l === raw.lista) ?? "general";
 
   const status = await suscribir({ email, referrer, lista });
 

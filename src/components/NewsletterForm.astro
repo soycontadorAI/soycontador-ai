@@ -4,10 +4,13 @@
  * (Sendy, doble opt-in). Honeypot en el campo "hp".
  */
 
+// Solo el tipo: se borra al compilar, así que no arrastra astro:env/server.
+import type { Lista } from "../lib/sendy";
+
 interface Props {
   boton?: string;
-  /** Lista de Sendy destino. "ebook" manda a la lista propia del lead magnet. */
-  lista?: "general" | "ebook";
+  /** Lista de Sendy destino. Una por promesa, ver src/lib/sendy.ts. */
+  lista?: Lista;
   /** Confirmación tras el alta; cámbiala según lo que se prometió. */
   exito?: string;
   nota?: string;

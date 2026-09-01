@@ -10,6 +10,7 @@ import {
   SENDY_ACTION_URL,
   SENDY_EBOOK_LIST_ID,
   SENDY_LIST_ID,
+  SENDY_LIVE_LIST_ID,
 } from "astro:env/server";
 
 /**
@@ -21,15 +22,24 @@ import {
 export type EstadoSendy = "confirm" | "already" | "invalido" | "error";
 
 /**
- * Listas de Sendy del sitio. "general" recibe newsletter y leads; "ebook" es la
- * lista propia del lead magnet de /ebook. Si la del ebook no está configurada,
- * el alta cae en la general en lugar de fallar: preferimos un suscriptor en la
- * lista equivocada que un correo perdido.
+ * Una lista por promesa. Es deliberado: los autoresponders de Sendy se cuelgan
+ * de la lista, no del origen, así que dos promesas en la misma lista obligan a
+ * un correo de bienvenida que le queda a medias a las dos.
+ *
+ *   general → la guía de 5 prompts (home) y los leads que marcan la casilla
+ *   live    → el aviso del Jueves de ContadorIA (/jueves)
+ *   ebook   → la muestra del libro (/ebook)
+ *
+ * Si una lista no está configurada, el alta cae en la general en lugar de
+ * fallar: preferimos un suscriptor en la lista equivocada que un correo
+ * perdido. Eso sí, ahí recibiría la bienvenida que no le toca, así que la
+ * variable de entorno no es opcional en la práctica.
  */
-export type Lista = "general" | "ebook";
+export type Lista = "general" | "live" | "ebook";
 
 function idDeLista(lista: Lista): string | undefined {
   if (lista === "ebook") return SENDY_EBOOK_LIST_ID || SENDY_LIST_ID;
+  if (lista === "live") return SENDY_LIVE_LIST_ID || SENDY_LIST_ID;
   return SENDY_LIST_ID;
 }
 
