@@ -22,6 +22,12 @@ interface Fila {
 
 interface Props {
   folio: string;
+  /**
+   * Coreografía de registro: las partidas entran, se asientan, hay una pausa
+   * con la columna de cargo vacía (esa incomodidad solo la siente un contador,
+   * y es el activo del bloque) y entra la contrapartida.
+   */
+  animada?: boolean;
   titulo: string;
   columnaCargo?: string;
   /** Si viene, la tabla se dibuja a dos columnas. */
@@ -37,6 +43,7 @@ interface Props {
 const {
   folio,
   titulo,
+  animada = false,
   columnaCargo = "Cargo",
   columnaAbono,
   filas,
@@ -49,7 +56,7 @@ const {
 const dosColumnas = Boolean(columnaAbono);
 ---
 
-<div class="poliza">
+<div class:list={["poliza", { animada }]}>
   <div class="poliza-head">
     <span class="folio">{folio} · {titulo}</span>
     {foto && (
@@ -65,13 +72,18 @@ const dosColumnas = Boolean(columnaAbono);
       </tr>
     </thead>
     <tbody>
-      {filas.map((fila) => (
-        <tr>
+      {filas.map((fila, i) => (
+        <tr class:list={{ detalle: fila.detalle }} style={`--i:${i}`}>
           <td class={fila.detalle ? "detalle" : ""}>{fila.concepto}</td>
           <td class="num">{fila.cargo ?? ""}</td>
           {dosColumnas && <td class="num">{fila.abono ?? ""}</td>}
         </tr>
       ))}
+      {animada && (
+        <tr class="pausa" aria-hidden="true">
+          <td colspan={dosColumnas ? 3 : 2}><span class="pausa-nota">// falta la contrapartida</span></td>
+        </tr>
+      )}
       <tr class="total">
         <td>{total.concepto}</td>
         <td class="num">{total.cargo ?? ""}</td>
@@ -176,6 +188,107 @@ const dosColumnas = Boolean(columnaAbono);
     }
     td.detalle {
       padding-left: 1.4rem;
+    }
+  }
+
+  /* ---------------------------------------------------------------------
+   * Coreografía de registro (solo con .animada)
+   *
+   * Sin JS a propósito: el hero está arriba del pliegue y esconderlo con
+   * data-reveal para esperar al observador cuesta LCP. Con animaciones CSS
+   * arranca sola, corre una vez y no vuelve.
+   *
+   * Solo se animan transform, opacity y clip-path. Nunca width, top ni height:
+   * eso obliga a recalcular el layout en cada cuadro y en un celular de gama
+   * media se ve a tirones.
+   *
+   * El estado FINAL es el que está escrito arriba. Las animaciones parten de un
+   * estado desplazado y regresan a ese; quien llegue sin animación (JS caído,
+   * reduced-motion, un lector de pantalla) ve la póliza completa y cuadrada.
+   * --------------------------------------------------------------------- */
+
+  /* Fase 1 y 2: las tres partidas de abono entran escalonadas y se asientan.
+     Sin palomita: son sangrado, no logros. */
+  .animada tbody tr.detalle td {
+    animation: partida-entra 0.75s cubic-bezier(0.22, 1, 0.36, 1) backwards;
+    animation-delay: calc(0.35s + var(--i, 0) * 0.35s);
+  }
+  /* El CARGO entra en la fase 4, después de la pausa: es la contrapartida y por
+     eso llega al final. Se distingue por clase y no por :first-child, porque
+     los :not() de la regla de arriba pesan más que un :first-child y la dejaban
+     sin efecto: el cargo aparecía desde el primer cuadro y se perdía el hueco,
+     que es todo el chiste del bloque. */
+  .animada tbody tr:not(.detalle):not(.total):not(.pausa) td {
+    animation: contrapartida-entra 0.7s cubic-bezier(0.22, 1, 0.36, 1) 3.2s backwards;
+  }
+
+  /* Fase 3: la pausa. La columna de cargo está visiblemente vacía y se teclea
+     el comentario. Es el beat que hace la pieza: solo un contador siente el
+     hueco. Se va cuando entra la contrapartida. */
+  /* Nace y muere invisible: la nota solo existe mientras dura el hueco. Sin
+     esto se quedaba pegada después de que entra la contrapartida, o sea
+     señalando un problema ya resuelto. */
+  .animada tr.pausa td {
+    border-bottom-color: transparent;
+    padding-block: 0.3rem;
+    opacity: 0;
+    animation: pausa-va-y-viene 3.9s linear;
+  }
+  .pausa-nota {
+    display: inline-block;
+    font-size: 0.7rem;
+    color: var(--color-ink-dim);
+    border-right: 1px solid var(--color-ink-dim);
+    animation:
+      tecleo 0.7s steps(24, end) 2.05s backwards,
+      cursor 0.8s step-end 2.05s 3;
+  }
+
+  /* Fase 4: los totales se encienden juntos. 20 h = 20 h. */
+  .animada tr.total td {
+    animation: total-cuadra 0.5s ease-out backwards;
+    animation-delay: 3.9s;
+  }
+
+  @keyframes partida-entra {
+    from {
+      opacity: 0;
+      transform: translate3d(2.2rem, -0.6rem, 0) rotate(1.6deg);
+    }
+  }
+  @keyframes contrapartida-entra {
+    from {
+      opacity: 0;
+      transform: translate3d(-2.2rem, 0, 0);
+    }
+  }
+  @keyframes total-cuadra {
+    from {
+      opacity: 0;
+    }
+  }
+  @keyframes pausa-va-y-viene {
+    0% { opacity: 0; }
+    /* Visible desde que se teclea (2.05s) hasta que entra el cargo (3.2s). */
+    50%, 82% { opacity: 1; }
+    100% { opacity: 0; }
+  }
+  @keyframes tecleo {
+    from { clip-path: inset(0 100% 0 0); }
+    to { clip-path: inset(0 0 0 0); }
+  }
+  @keyframes cursor {
+    50% { border-right-color: transparent; }
+  }
+
+  /* Quien pidió menos movimiento ve el estado final, sin excepción. */
+  @media (prefers-reduced-motion: reduce) {
+    .animada tbody td,
+    .animada .pausa-nota {
+      animation: none !important;
+    }
+    .animada tr.pausa {
+      display: none;
     }
   }
 </style>
