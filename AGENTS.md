@@ -48,6 +48,38 @@ propósito**: es el entregable de pago y en `public/` quedaría descargable.
 Ver `ebook/CLAUDE.md`. La página que lo vende es `/ebook`, y su copy sale de
 `src/lib/ebook.ts`.
 
+## Formularios, consentimiento y listas
+
+Dos flujos que NO se mezclan:
+
+- **Lead** (`/api/lead`, desde LeadForm y FormCapacitacion): manda SIEMPRE un
+  correo de acuse por SES al visitante, con copia oculta a Israel. Ese correo
+  ES el registro del lead; no hay base de datos y a este volumen no hace falta.
+  Solo entra a Sendy si marcó la casilla del boletín, que nunca va premarcada.
+- **Newsletter** (`/api/newsletter`, desde NewsletterForm): la suscripción es
+  la transacción (das tu correo, recibes la guía), así que no lleva casilla.
+  No manda acuse: el correo de doble opt-in de Sendy hace de acuse.
+
+**Una lista de Sendy por promesa**, porque los autoresponders se cuelgan de la
+lista y no del origen. Dos promesas en una lista obligan a una bienvenida que
+le queda a medias a las dos:
+
+| Lista | Promesa | Origen |
+|---|---|---|
+| `general` (39) | La guía de 5 prompts | home, y leads que marcan la casilla |
+| `live` (41) | El aviso del Jueves de ContadorIA | `/jueves` |
+| `ebook` (40) | La muestra del libro | `/ebook` |
+
+El endpoint valida contra una lista blanca de nombres: el navegador nunca manda
+un ID de Sendy.
+
+**Cómo se prueba el consentimiento** (hacerlo cada vez que se toque este flujo,
+porque es lo que separa "creo que respeta el consentimiento" de saberlo):
+mandar DOS leads, uno con la casilla y otro sin ella, y que alguien con acceso
+a Sendy confirme que **solo llegó uno**. Un solo lado no lo demuestra: de este
+lado sabes qué mandaste pero no qué recibió Sendy, y del otro sabes qué hay en
+Sendy pero no cuántos salieron. La prueba vive en el cruce.
+
 ## Regla anti-duplicación (SEO)
 
 Este sitio NUNCA re-publica contenido que exista en todoconta.com (lección documentada en
