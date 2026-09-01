@@ -152,12 +152,14 @@ html.js-reveal [data-reveal].is-visible {
 }
 
 /*
- * Resaltado de marcador inline (citas). Técnica del componente
- * inline-highlight de HyperFrames (live-06): banda ::after absoluta detrás
- * del texto, animada con scaleX. Aquí el disparo es scroll: se pinta cuando
- * [data-reveal].is-visible envuelve (o es) el elemento. Banda gruesa (0.62em)
- * para que lea como plumón y no como subrayado; la frase resaltada debe caber
- * en UN renglón (la banda es un rectángulo absoluto), por eso el nowrap.
+ * Resaltado de marcador inline (citas). Idea tomada del componente
+ * inline-highlight de HyperFrames (live-06). Bajo el pliegue el disparo es el
+ * scroll: la banda se pinta cuando el [data-reveal] que lo envuelve entra en
+ * pantalla. Sobre el pliegue no hay observador, y ahí el marcador ya viene
+ * pintado (ver la nota del estado base).
+ *
+ * `--hl-alto` engorda la banda en las citas grandes, para que lea como plumón
+ * y no como subrayado.
  */
 .hl {
   /*
@@ -172,18 +174,34 @@ html.js-reveal [data-reveal].is-visible {
     transparent var(--hl-alto, 0.42em)
   );
   background-repeat: no-repeat;
-  background-size: 0 100%;
+  /*
+   * El estado base es PINTADO, y solo se despinta lo que está esperando su
+   * turno dentro de un [data-reveal]. Al revés (base en cero, se pinta al
+   * entrar en viewport) cualquier .hl fuera de un data-reveal quedaba
+   * condenado: se pintaba en el primer render, y en cuanto el script ponía
+   * html.js-reveal la regla que lo sostenía dejaba de aplicar y la transición
+   * lo borraba solo. Le pasaba al .hl del titular del hero, que no puede
+   * colgar del observador porque está sobre el pliegue.
+   *
+   * Es el mismo patrón que usa Poliza.astro para pausar su coreografía: la
+   * condición incluye html.js-reveal, así que sin JavaScript nada se despinta.
+   */
+  background-size: 100% 100%;
   transition: background-size 0.9s cubic-bezier(0.22, 1, 0.36, 1) 0.4s;
   box-decoration-break: clone;
   -webkit-box-decoration-break: clone;
 }
-.is-visible .hl,
-.hl.is-visible,
-html:not(.js-reveal) .hl {
-  background-size: 100% 100%;
+html.js-reveal [data-reveal]:not(.is-visible) .hl,
+html.js-reveal .hl[data-reveal]:not(.is-visible) {
+  background-size: 0 100%;
 }
+/* Quien pidió menos movimiento ve todos los marcadores puestos desde el
+   principio. El selector repite el de arriba para ganarle en especificidad:
+   si no, los que están bajo el pliegue seguirían esperando el scroll. */
 @media (prefers-reduced-motion: reduce) {
-  .hl {
+  .hl,
+  html.js-reveal [data-reveal]:not(.is-visible) .hl,
+  html.js-reveal .hl[data-reveal]:not(.is-visible) {
     transition: none;
     background-size: 100% 100%;
   }
