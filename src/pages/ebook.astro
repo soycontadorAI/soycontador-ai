@@ -432,9 +432,11 @@ const totalCapitulos = PARTES.reduce((n, parte) => n + parte.piezas.length, 0);
       grid-template-columns: 1fr;
     }
   }
+  /* La foto trae su propio recorte circular sobre blanco. Con esquinas
+     cuadradas se veían dos bordes: el del círculo de la imagen y el del marco
+     CSS. Se recorta en círculo y se va el marco. */
   .autor img {
-    border-radius: var(--radius-sm);
-    border: 1px solid var(--color-line-strong);
+    border-radius: 50%;
   }
   .autor p {
     margin: 0 0 0.9rem;
