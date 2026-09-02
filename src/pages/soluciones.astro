@@ -6,7 +6,7 @@ import LeadForm from "../components/LeadForm.astro";
 import { FAQ_SOLUCIONES } from "../lib/faqs";
 import { breadcrumbs, faqPage, graph, solucionesService } from "../lib/schema";
 import { SITE } from "../lib/site";
-import { CASO_GASOLINERA, SOLUCIONES } from "../lib/soluciones";
+import { CASO_GASOLINERA, SOLUCIONES, VIGIA } from "../lib/soluciones";
 
 const jsonLd = graph(
   solucionesService(),
@@ -69,6 +69,47 @@ const jsonLd = graph(
               <p>{s.descripcion}</p>
             </article>
           ))}
+        </div>
+      </div>
+    </section>
+
+    <section id="vigia-fiscal">
+      <div class="container-default">
+        <div class="sec-head"><h2 class="folio">PRODUCTO · <b>VIGÍA FISCAL</b></h2></div>
+        <div class="vigia" data-reveal>
+          <div class="vigia-texto">
+            <h2 class="titulo-lg">{VIGIA.promesa}</h2>
+            <p class="texto">
+              Cuando llevas 30, 300 o 3,000 RFCs, la vigilancia deja de escalar a
+              mano. El vigía consulta cada uno por su cuenta y te avisa el mismo
+              día en que algo cambia, no cuando ya te habló el cliente.
+            </p>
+            <p class="texto">
+              Las listas 69 y 69-B son públicas. La opinión y la constancia corren
+              con los accesos que tu despacho ya administra de cada cliente, así
+              que el vigía no pide nada que no tengas hoy.
+            </p>
+            <p class="texto">
+              <strong>Para quién es:</strong> {VIGIA.paraQuien}
+            </p>
+            <p class="vigia-cta">
+              <a class="btn btn-primary" href="#contacto" data-vigia-cta>Cotizarlo para mi cartera</a>
+            </p>
+          </div>
+          <div class="vigia-panel">
+            <ul class="vigia-lista">
+              {VIGIA.vigila.map((v) => (
+                <li>
+                  <b>{v.que}</b>
+                  <span>{v.detalle}</span>
+                </li>
+              ))}
+            </ul>
+            <div class="vigia-limite">
+              <p class="vigia-limite-t">{VIGIA.noHace.titulo}</p>
+              <p>{VIGIA.noHace.detalle}</p>
+            </div>
+          </div>
         </div>
       </div>
     </section>
@@ -147,4 +188,80 @@ const jsonLd = graph(
     font-size: 0.93rem;
     color: var(--color-ink-soft);
   }
+
+  .vigia {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2.4rem;
+    align-items: start;
+  }
+  @media (max-width: 860px) {
+    .vigia {
+      grid-template-columns: 1fr;
+    }
+  }
+  .vigia-cta {
+    margin: 1.7rem 0 0;
+  }
+  .vigia-panel {
+    background: var(--color-surface-raised);
+    border: 1px solid var(--color-line-strong);
+    border-radius: var(--radius-md);
+    box-shadow: 6px 6px 0 var(--color-line);
+    overflow: hidden;
+  }
+  .vigia-lista {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .vigia-lista li {
+    display: grid;
+    gap: 0.25rem;
+    padding: 1.1rem 1.5rem;
+    border-bottom: 1px solid var(--color-line);
+  }
+  .vigia-lista li:last-child {
+    border-bottom: none;
+  }
+  .vigia-lista b {
+    font-size: 0.95rem;
+    font-weight: 700;
+  }
+  .vigia-lista span {
+    font-size: 0.9rem;
+    color: var(--color-ink-soft);
+  }
+  .vigia-limite {
+    padding: 1.2rem 1.5rem 1.4rem;
+    background: var(--color-surface);
+    border-top: 1px solid var(--color-line-strong);
+  }
+  .vigia-limite p {
+    margin: 0;
+    font-size: 0.88rem;
+    color: var(--color-ink-soft);
+  }
+  .vigia-limite .vigia-limite-t {
+    margin: 0 0 0.45rem;
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--color-ink);
+  }
 </style>
+
+<script>
+  /*
+   * El formulario de esta página es uno solo y cierra tres intenciones. Si
+   * alguien llega por el vigía, el select debe llegar ya en esa opción: si no,
+   * el lead entra etiquetado como "quitarme un proceso" y se pierde el dato
+   * más útil para cotizarlo (que trae cartera).
+   */
+  document.querySelector("[data-vigia-cta]")?.addEventListener("click", () => {
+    const interes = document.querySelector<HTMLSelectElement>("#lead-interes");
+    if (interes) interes.value = "Vigía fiscal";
+  });
+</script>

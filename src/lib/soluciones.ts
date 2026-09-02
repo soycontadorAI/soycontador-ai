@@ -42,3 +42,39 @@ export const CASO_GASOLINERA = {
   detalle:
     "Un Excel por sucursal con una hoja por cada día del mes (hasta 31 hojas). El script encuentra las tablas aunque cada sucursal las acomode diferente y entrega un consolidado mensual de 4 hojas: resumen diario, clientes, vales y gastos.",
 } as const;
+
+/**
+ * Vigía fiscal: producto nombrado dentro de Soluciones (no es un servicio
+ * genérico, es un desarrollo recurrente sobre una cartera de RFCs). Sin
+ * precio publicado: se cotiza por tamaño de cartera tras el diagnóstico.
+ *
+ * GUARDARRAÍL, no adorno de copy: el vigía NUNCA abre el buzón tributario.
+ * Abrir un documento del buzón equivale a darse por notificado y arranca los
+ * plazos, así que un monitor que lo abriera solo le crearía obligaciones al
+ * contribuyente. Avisar sí; abrir, jamás sin decisión humana.
+ */
+export const VIGIA = {
+  nombre: "Vigía fiscal",
+  promesa: "Un vigía que revisa tu cartera todos los días",
+  vigila: [
+    {
+      que: "Opinión de cumplimiento (32-D)",
+      detalle: "El día que pasa de positiva a negativa, te enteras tú primero.",
+    },
+    {
+      que: "Listas 69 y 69-B",
+      detalle: "Tus clientes y los proveedores que les están facturando.",
+    },
+    {
+      que: "Constancia de Situación Fiscal",
+      detalle: "Cambios de régimen, de domicilio y altas o bajas de obligaciones.",
+    },
+  ],
+  noHace: {
+    titulo: "Lo que no hace: abrir tu buzón tributario",
+    detalle:
+      "Abrir un documento del buzón equivale a darte por notificado y arranca los plazos. El vigía te avisa que hay algo esperándote; la decisión de abrirlo, y cuándo, sigue siendo tuya.",
+  },
+  paraQuien:
+    "Despachos con cartera grande, corporativos con varias entidades y plataformas que administran empresas de terceros.",
+} as const;

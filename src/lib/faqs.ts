@@ -71,6 +71,16 @@ export const FAQ_SOLUCIONES: FaqItem[] = [
     respuesta:
       "Casi cualquier tarea repetitiva que viva en archivos y sistemas: concentrados de ventas, conciliaciones, descargas del SAT, papeles de trabajo, reportes recurrentes. La prueba de fuego es simple: si cada mes haces los mismos pasos con datos nuevos, se puede automatizar.",
   },
+  {
+    pregunta: "¿Qué es el vigía fiscal?",
+    respuesta:
+      "Es un monitor que revisa a diario la cartera de RFCs que administras y te avisa el mismo día en que algo cambia: la opinión de cumplimiento (32-D) se vuelve negativa, un RFC aparece en las listas 69 o 69-B, o se mueve el régimen o el domicilio en la constancia. Se construye a la medida sobre tu cartera y se cotiza por tamaño, después del diagnóstico.",
+  },
+  {
+    pregunta: "¿El vigía fiscal abre el buzón tributario?",
+    respuesta:
+      "No, y es a propósito. Abrir un documento del buzón equivale a darte por notificado y arranca los plazos, así que un monitor que lo abriera solo te crearía obligaciones. El vigía te avisa que hay algo esperándote y la decisión de abrirlo, y cuándo, sigue siendo tuya.",
+  },
 ];
 
 export const FAQ_CLUB: FaqItem[] = [

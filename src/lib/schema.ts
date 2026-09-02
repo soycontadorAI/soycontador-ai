@@ -77,7 +77,7 @@ export function solucionesService(): JsonLdObject {
     "@id": `${SITE.url}/soluciones#servicio`,
     name: "Soluciones a la medida: automatización de procesos contables",
     description:
-      "Desarrollo de automatizaciones para procesos específicos de despachos y empresas en México: reportes recurrentes, conciliaciones, concentrados y auditoría de flujos operativos con código.",
+      "Desarrollo de automatizaciones para procesos específicos de despachos y empresas en México: reportes recurrentes, conciliaciones, concentrados, auditoría de flujos operativos con código y vigía fiscal (monitoreo diario de una cartera de RFCs: opinión de cumplimiento 32-D, listas 69 y 69-B y constancia de situación fiscal).",
     url: `${SITE.url}/soluciones`,
     provider: personRef(),
     areaServed: { "@type": "Country", name: "México" },
