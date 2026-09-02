@@ -1,0 +1,429 @@
+<!-- ══════════════ PORTADA ══════════════ -->
+<div class="page cover">
+  <div>
+    <div class="brand">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none" role="img" aria-label="TodoConta">
+        <path d="M14 14H32V50H22C17.5817 50 14 46.4183 14 42V14Z" fill="#0A1628"></path>
+        <path d="M32 14H42C46.4183 14 50 17.5817 50 22V50H32V14Z" stroke="#0A1628" stroke-width="5" stroke-linejoin="round" fill="none"></path>
+        <rect x="29" y="28" width="6" height="8" fill="#06B6D4"></rect>
+      </svg>
+      <span class="brand-word">TodoConta<span class="brand-dot">.</span></span>
+    </div>
+  </div>
+  <div>
+    <div class="kicker">Guía práctica para contadores</div>
+    <h1>5 Prompts Avanzados para <em>Auditar XMLs</em> sin errores con Claude</h1>
+    <p class="sub">La metodología de auditoría preventiva de CFDI en 4 capas (validación formal, materialidad, scoring de riesgo y blindaje de proveedores) convertida en prompts que puedes copiar, pegar y usar hoy mismo en tu despacho.</p>
+    <div class="capas">
+      <div><strong>Prompt 1.</strong> Validación formal del lote (Anexo 20)</div>
+      <div><strong>Prompt 2.</strong> Materialidad de operaciones (estándar Ponce)</div>
+      <div><strong>Prompt 3.</strong> Scoring de riesgo con semáforo, al estilo del SAT</div>
+      <div><strong>Prompt 4.</strong> Blindaje de proveedores: Lista 69-B y REPSE</div>
+      <div><strong>Prompt 5.</strong> El reporte ejecutivo que le entregas a tu cliente</div>
+    </div>
+  </div>
+  <div class="foot">
+    <div>Israel Castro · <strong>Jueves de Contador<span class="verde">IA</span></strong></div>
+    <div>Edición septiembre 2026 · Claude Opus 5, Sonnet 5 y Haiku 4.5</div>
+  </div>
+</div>
+
+<!-- ══════════════ INTRO ══════════════ -->
+<div class="page">
+  <div class="section-tag">Antes de empezar</div>
+  <h2>Esto no es otra lista de prompts de internet</h2>
+  <p class="lead">Los prompts de esta guía no salieron de un blog gringo. Salieron de un sistema real de auditoría de CFDIs que corre en mi despacho: 4 capas de validación construidas sobre la Matriz de Errores del SAT, el estándar de materialidad fiscal, los criterios de fiscalización algorítmica y el Art. 15-D del CFF.</p>
+
+  <p>El contexto lo conoces: la reforma 2026 al CFF trae visitas domiciliarias exprés (Art. 49 Bis) y penas de 2 a 9 años de prisión por dar efectos fiscales a CFDI falsos. Revisar <strong>antes</strong> de deducir ya no es una buena práctica: es la diferencia entre una aclaración de 20 minutos y un litigio de dos años. El problema es el volumen. Nadie puede revisar a mano 300 XMLs al mes por cliente con esta profundidad. Ahí entra la IA.</p>
+
+  <h3>La regla de oro: copiloto, no autopiloto</h3>
+  <p>En todos los prompts la IA <strong>señala, clasifica y prioriza</strong>. Nunca determina. La conclusión fiscal, la consulta oficial en los portales del SAT y la STPS, y la firma, son tuyas. Cada prompt trae instrucciones para que el modelo marque como "pendiente de confirmar" lo que no puede verificar, en lugar de inventarlo. Ante el SAT respondes tú, no el modelo. Esa es también la razón por la que un chatbot no va a sustituir tu trabajo: lo va a multiplicar.</p>
+
+  <h3>Cómo usar esta guía</h3>
+  <ol>
+    <li><strong>Los prompts funcionan en cadena.</strong> El 1 depura lo formal, el 2 y el 3 detectan el riesgo de fondo, el 4 blinda proveedores y el 5 convierte todo en un entregable que puedes cobrar. También funcionan por separado.</li>
+    <li><strong>Personaliza lo que va [ENTRE CORCHETES].</strong> Régimen, actividad, periodo. Dos minutos por cliente.</li>
+    <li><strong>Dale los datos de dos formas:</strong> adjunta los XML a la conversación (Claude los lee, son texto) o pega los metadatos que exportas del portal del SAT. Para lotes grandes, los metadatos rinden más.</li>
+  </ol>
+
+  <div class="box ai">
+    <div class="box-title">Lo nuevo</div>
+    <ul style="margin-bottom:2px">
+      <li><strong>Ya no necesitas "piensa paso a paso" ni escribir EN MAYÚSCULAS.</strong> Los modelos frontera razonan por su cuenta (razonamiento adaptativo) y siguen instrucciones al pie de la letra. Di exactamente lo que quieres, a volumen normal. Gritarle al modelo hoy produce respuestas rígidas, no mejores.</li>
+      <li><strong>Olvídate de la "temperatura" en Claude.</strong> Los modelos frontera de Anthropic eliminaron ese parámetro. Tu palanca de calidad es el contexto que le das (régimen, actividad, criterios de tu despacho), no un ajuste técnico. En ChatGPT y Gemini el parámetro sigue existiendo, pero solo por API.</li>
+      <li><strong>La ventana de contexto llega a un millón de tokens.</strong> En una sola conversación cabe el lote completo del mes, el contexto del cliente y tus criterios. Aprovéchalo: contexto primero, orden después.</li>
+    </ul>
+  </div>
+  <div class="footer-line"><span>5 prompts para auditar tus XMLs con Claude</span><span>soycontador.ai</span></div>
+</div>
+
+<!-- ══════════════ PREPARACIÓN ══════════════ -->
+<div class="page">
+  <div class="section-tag">Preparación</div>
+  <h2>Qué modelo usar y cómo cuidar los datos de tus clientes</h2>
+
+  <h3>Los modelos de Claude, en una tabla</h3>
+  <table>
+    <tr><th>Modelo</th><th>Para qué lo usas en esta guía</th><th>Piénsalo como</th></tr>
+    <tr><td><strong>Claude Opus 5</strong></td><td>Prompts 2, 4 y 5: materialidad, análisis de proveedores y reporte. Donde se necesita criterio.</td><td>Tu gerente fiscal senior</td></tr>
+    <tr><td><strong>Claude Sonnet 5</strong></td><td>Prompts 1 y 3: lotes grandes, reglas y scoring. El punto dulce entre velocidad, costo y capacidad.</td><td>Tu auxiliar estrella</td></tr>
+    <tr><td><strong>Claude Haiku 4.5</strong></td><td>Verificaciones rápidas y lotes chicos donde importa más la velocidad.</td><td>El practicante veloz</td></tr>
+  </table>
+  <p class="nota-chica">Cada prompt trae su recomendación. Si solo usas uno, todos funcionan con Sonnet 5. Al final hay una nota de equivalencias para ChatGPT y Gemini.</p>
+
+  <h3>Confidencialidad: la objeción correcta, con respuesta práctica</h3>
+  <p>"Me aterra subir información fiscal de mis clientes a internet" es la duda más común, y hace bien en existir. Tres reglas prácticas:</p>
+  <ul>
+    <li><strong>Nunca subas credenciales.</strong> Ni contraseñas del SAT, ni archivos de e.firma, ni CIEC. Los XML y metadatos son comprobantes, no llaves de acceso; aun así, trátalos con criterio.</li>
+    <li><strong>Seudonimiza cuando puedas.</strong> Para el análisis de riesgo el modelo no necesita saber quién es tu cliente: reemplaza nombre y RFC del receptor por "CLIENTE-01" y el análisis sale idéntico. Los RFC de emisores sí aportan (formato, patrones), y la consulta 69-B oficial la haces tú en el portal del SAT de todas formas.</li>
+    <li><strong>Revisa la configuración de privacidad de tu cuenta</strong> y, si trabajas con datos de clientes de forma recurrente, considera un plan de pago (los planes de equipo tienen controles de datos más estrictos que una cuenta gratuita). Documenta en tu papel de trabajo qué revisaste con IA y qué verificaste tú: esa bitácora es parte de tu defensa de diligencia.</li>
+  </ul>
+
+  <h3>Cómo exportar los datos del portal del SAT</h3>
+  <ol>
+    <li>Portal del SAT, Factura electrónica, consulta de <strong>CFDI recibidos</strong> del periodo.</li>
+    <li>Descarga los <strong>metadatos</strong> (UUID, RFC y nombre del emisor, fechas, total, estatus).</li>
+    <li>Complementa con tu sistema contable si puedes: uso de CFDI, método y forma de pago, concepto.</li>
+    <li>Pega esa tabla donde el prompt dice [LOTE]. Los XML completos solo hacen falta para revisar conceptos e impuestos línea por línea.</li>
+  </ol>
+
+  <div class="box warn">
+    <div class="box-title">Advertencia de alcance</div>
+    Esta guía es una herramienta de revisión preventiva. No sustituye la validación oficial del SAT, la consulta de listas en los portales, ni tu criterio profesional. La IA puede equivocarse; los prompts están diseñados para que sus errores sean visibles (todo hallazgo trae su porqué), pero la última palabra es tuya.
+  </div>
+  <div class="footer-line"><span>5 prompts para auditar tus XMLs con Claude</span><span>soycontador.ai</span></div>
+</div>
+
+<!-- ══════════════ PROMPT 1 ══════════════ -->
+<div class="page">
+  <div class="section-tag">Capa 1 · Validación formal</div>
+  <h2><span class="num">Prompt 1.</span> Auditoría formal del lote contra el Anexo 20</h2>
+  <p class="lead"><strong>El dolor:</strong> los errores "tontos" (un UsoCFDI que no corresponde, un PPD sin complemento de pago, un RFC genérico como emisor) son los que tiran deducciones completas en una revisión. Y son invisibles cuando revisas 300 facturas a ojo. Este prompt las depura todas en una corrida.</p>
+
+  <div class="prompt-label">Copia desde aquí</div>
+  <div class="prompt">Actúa como auditor de CFDI 4.0 de mi despacho. Vas a revisar un lote de
+comprobantes recibidos contra los requisitos del Anexo 20 de la RMF y su
+guía de llenado.
+
+CONTEXTO DEL RECEPTOR
+- RFC: [RFC DEL CLIENTE]
+- Régimen fiscal: [CLAVE Y NOMBRE, ej. 626 RESICO Persona Física]
+- Actividad económica: [ACTIVIDAD PRINCIPAL]
+- Periodo revisado: [MES Y AÑO]
+
+REGLAS DE TRABAJO
+- Trabaja únicamente con los datos que te entrego. Si un dato no viene,
+  repórtalo como NO VERIFICABLE; no lo asumas.
+- Tú revisas congruencia interna. La validación de vigencia ante el SAT
+  la hago yo en el portal; no declares ningún CFDI "válido ante el SAT".
+
+VALIDACIONES (aplícalas a cada CFDI del lote)
+1. RFC del emisor: formato correcto (12 caracteres persona moral, 13
+   persona física). Marca RFC genéricos usados como emisor
+   (XAXX010101000 público en general, XEXX010101000 extranjeros).
+2. UsoCFDI congruente con el régimen del receptor y con el concepto.
+3. Método vs forma de pago: PUE con la forma de pago real; PPD con
+   forma 99 (por definir) y su complemento de pago. Si el complemento
+   no aparece en el lote, márcalo como PENDIENTE.
+4. Impuestos: tasa de IVA (16%, 8% frontera, 0%, exento) congruente con
+   el bien o servicio. Retenciones de ISR e IVA cuando una persona
+   física factura servicios a una persona moral.
+5. Aritmética: subtotal, descuentos, impuestos y total cuadran al centavo.
+6. Moneda distinta de MXN debe traer TipoCambio.
+7. Fechas: emisión dentro del periodo y timbrado dentro del plazo de
+   72 horas posteriores a la emisión.
+
+FORMATO DE SALIDA
+1) Tabla: UUID (últimos 8) | Emisor | Total | Hallazgos | Severidad
+   (CRITICO / REVISAR / OK)
+2) Detalle de cada CRITICO: requisito incumplido y fundamento
+   (Anexo 20, Art. 29-A CFF).
+3) Conteo final: cuántos OK, REVISAR y CRITICO, y el monto total en
+   riesgo (suma de los CRITICO).
+
+LOTE
+[Adjunta aquí tus XML o pega los metadatos del portal del SAT]</div>
+
+  <div class="meta">
+    <div><div class="mt">Modelo recomendado</div>Claude Sonnet 5 (lotes grandes, reglas claras). Haiku 4.5 si el lote es chico y quieres respuesta inmediata.</div>
+    <div><div class="mt">Qué te quedas tú</div>La verificación de vigencia en el portal del SAT y la decisión final sobre cada CRITICO. El modelo depura; tú resuelves.</div>
+  </div>
+  <div class="footer-line"><span>Prompt 1 · Validación formal (Anexo 20)</span><span>soycontador.ai</span></div>
+</div>
+
+<!-- ══════════════ PROMPT 2 ══════════════ -->
+<div class="page">
+  <div class="section-tag">Capa 2 · Materialidad</div>
+  <h2><span class="num">Prompt 2.</span> Auditoría de materialidad: el estándar Ponce</h2>
+  <p class="lead"><strong>El dolor:</strong> un CFDI puede estar formalmente perfecto y aun así ser indefendible. El SAT ya no ataca la forma: ataca la sustancia (Art. 69-B CFF). El principio detrás del prompt viene del estándar de materialidad fiscal: <em>la verdad de una operación no está en lo que la factura dice, sino en lo que se consumió para poder realizarla</em>.</p>
+
+  <div class="prompt-label">Copia desde aquí</div>
+  <div class="prompt">Actúa como auditor de materialidad fiscal de mi despacho. Tu marco de
+referencia: el SAT puede presumir inexistente una operación aunque el
+CFDI sea formalmente correcto (Art. 69-B CFF). La materialidad se
+demuestra con la realidad económica de la operación, no con el papel.
+
+CONTEXTO DEL CLIENTE
+- Actividad económica real: [QUE HACE Y COMO LO HACE, con detalle]
+- Tamaño aproximado: [EMPLEADOS, SUCURSALES, VENTA MENSUAL APROX]
+- Periodo revisado: [MES Y AÑO]
+
+ANALIZA CADA OPERACION DEL LOTE CON ESTOS CRITERIOS
+1. Descripción genérica: conceptos tipo "servicios", "honorarios
+   varios", "gastos", "consultoría" sin más detalle, sobre todo en
+   montos relevantes. Una descripción que no permite saber qué se
+   recibió es la primera bandera de materialidad.
+2. Congruencia insumo-actividad: ¿este gasto tiene sentido para la
+   actividad del cliente? ¿En este volumen y con esta frecuencia?
+3. Congruencia del emisor: ¿el mismo proveedor factura conceptos de
+   naturalezas incompatibles entre sí (ej. abarrotes y consultoría de
+   sistemas)? Eso sugiere una facturera, no un negocio real.
+4. Servicios intensivos en personal (limpieza, seguridad, obra, RH,
+   TI en sitio): márcalos para verificar que el emisor tenga
+   estructura real (nómina timbrada, REPSE si aplica).
+5. Forma de pago: los pagos mayores a $2,000 deben estar bancarizados
+   para ser deducibles (Art. 27 fracción III LISR). Efectivo en montos
+   altos es bandera adicional aunque el CFDI exista.
+6. Para cada operación marcada, indica qué EVIDENCIA de materialidad
+   debería existir en el expediente según el tipo de operación:
+   contrato, entregables, correos, bitácoras, fotografías, entradas de
+   almacén, listas de asistencia.
+
+REGLAS DE TRABAJO
+- No concluyas que una operación "es simulada". Señala el riesgo y qué
+  evidencia falta para soportarla. La conclusión es del contador.
+- Trabaja solo con los datos entregados; lo que no puedas evaluar,
+  márcalo como SIN DATOS.
+
+FORMATO DE SALIDA
+1) Tabla: Emisor | Concepto | Monto | Bandera(s) | Riesgo
+   (ALTO / MEDIO / BAJO)
+2) Top 5 de operaciones que más evidencia necesitan, cada una con su
+   checklist de expediente de materialidad.
+3) Cierre: el patrón general del lote en dos o tres frases.
+
+LOTE
+[XML o metadatos. Si puedes, agrega una línea sobre quién es cada
+proveedor: mejora mucho el análisis de congruencia]</div>
+
+  <div class="meta">
+    <div><div class="mt">Modelo recomendado</div>Claude Opus 5. Este prompt es puro criterio y juicio de congruencia: dale el modelo con más capacidad de razonamiento.</div>
+    <div><div class="mt">Qué te quedas tú</div>La conclusión sobre cada operación marcada y la integración del expediente de evidencia. El modelo te dice dónde mirar; el juicio es tuyo.</div>
+  </div>
+  <div class="footer-line"><span>Prompt 2 · Materialidad (estándar Ponce)</span><span>soycontador.ai</span></div>
+</div>
+
+<!-- ══════════════ PROMPT 3 ══════════════ -->
+<div class="page">
+  <div class="section-tag">Capa 3 · Scoring algorítmico</div>
+  <h2><span class="num">Prompt 3.</span> Scoring de riesgo con semáforo, al estilo del SAT</h2>
+  <p class="lead"><strong>El dolor:</strong> el SAT te fiscaliza con algoritmos y tú revisas con intuición. Este prompt empareja la cancha: la tabla de puntos está inspirada en los criterios de fiscalización algorítmica del SAT y cada CFDI sale con score y color. Guárdala: sirve igual para explicarle el riesgo a un cliente que para priorizar tu revisión mensual.</p>
+
+  <div class="prompt-label">Copia desde aquí</div>
+  <div class="prompt">Actúa como el motor de scoring de riesgo de mi despacho. Vas a calificar
+cada CFDI del lote con la siguiente tabla de puntos, inspirada en los
+criterios de fiscalización algorítmica del SAT.
+
+TABLA DE PUNTOS (suma todos los factores que apliquen por CFDI)
++100  Emisor en Lista 69-B definitiva (EFOS confirmado)
++ 80  RFC del emisor con formato inválido
++ 50  Emisor en Lista 69 (no localizado por el SAT)
++ 40  Servicio intensivo en personal sin evidencia de nómina del emisor
++ 30  Conceptos de naturaleza incompatible en el mismo emisor
++ 25  Ciclo de facturación (el emisor también aparece como receptor)
++ 25  Monto inusual respecto al giro aparente del emisor
++ 20  RFC del emisor con antigüedad menor a 6 meses
++ 20  Descripción genérica en operación mayor a $100,000
++ 20  Pago en efectivo en operación mayor a $50,000
++ 15  PPD sin complemento de pago visible en el lote
++ 15  Timbrado en horario nocturno (22:00 a 05:00)
++ 15  Un solo emisor concentra más del 70% del importe del lote
++ 10  Timbrado en domingo o día festivo
++ 10  Varios CFDI del mismo emisor con importes redondos idénticos
+
+DATOS QUE CONFIRMO YO (nunca los inventes): estatus en listas 69-B y
+69, antigüedad del RFC y si el emisor tiene nómina timbrada. Si no te
+los doy, aplica el factor como CONDICIONAL: repórtalo aparte y no lo
+sumes al score confirmado.
+
+SEMAFORO
+0 a 20     VERDE     Bajo riesgo, flujo normal
+21 a 50    AMARILLO  Riesgo moderado, monitorear
+51 a 99    ROJO      Alto riesgo, revisar antes de deducir
+100 o más  NEGRO     Crítico, posible EFOS, no deducir sin verificar
+
+FORMATO DE SALIDA
+1) Tabla: UUID (últimos 8) | Emisor | Total | Factores | Score
+   confirmado | Score potencial (con condicionales) | Semáforo
+2) Detalle de todos los ROJO y NEGRO: factor por factor, con puntos.
+3) Lista de factores CONDICIONALES pendientes, con dónde verifico cada
+   uno (Lista 69-B y 69 en el portal del SAT).
+4) Muestra la suma aritmética de cada score para que pueda auditarla.
+
+LOTE
+[Metadatos o XML del periodo]
+
+CONTEXTO DE EMISORES (lo que ya verifiqué; formato libre)
+[RFC | 69-B: sí/no | 69: sí/no | antigüedad | nómina: sí/no/no sé]</div>
+
+  <div class="meta">
+    <div><div class="mt">Modelo recomendado</div>Claude Sonnet 5: reglas más aritmética sobre lote grande, su especialidad. Pide siempre la suma visible (punto 4) y verifica dos o tres scores a mano la primera vez.</div>
+    <div><div class="mt">Qué te quedas tú</div>Confirmar los factores CONDICIONALES en los portales oficiales y decidir qué se deduce. El score prioriza tu tiempo; no decide por ti.</div>
+  </div>
+  <div class="footer-line"><span>Prompt 3 · Scoring de riesgo</span><span>soycontador.ai</span></div>
+</div>
+
+<!-- ══════════════ PROMPT 4 ══════════════ -->
+<div class="page">
+  <div class="section-tag">Capa 4 · Proveedores</div>
+  <h2><span class="num">Prompt 4.</span> Blindaje de proveedores: Lista 69-B y REPSE</h2>
+  <p class="lead"><strong>El dolor:</strong> tu cliente no elige proveedores pensando en el SAT. Tú heredas el riesgo: un proveedor en la 69-B definitiva o un servicio especializado sin REPSE convierte gastos legítimos en no deducibles, con responsabilidad solidaria incluida. Este prompt arma el expediente completo en una corrida.</p>
+
+  <div class="prompt-label">Copia desde aquí</div>
+  <div class="prompt">Actúa como especialista en cumplimiento fiscal y prevención de riesgos
+ante el SAT. Vas a armar el expediente de blindaje de proveedores de
+mi cliente.
+
+CLIENTE
+- Razón social y RFC: [NOMBRE | RFC]
+- Régimen fiscal y actividad: [REGIMEN | ACTIVIDAD]
+
+PROVEEDORES A REVISAR (uno por línea)
+[Nombre | RFC | Tipo de servicio o producto | Monto del periodo]
+
+PARTE 1: PROTOCOLO LISTA 69-B (EFOS)
+1. Genera la tabla de control: Proveedor | RFC | Monto | Estatus 69-B
+   (déjalo en PENDIENTE DE CONFIRMAR: la consulta la hago yo en el
+   portal del SAT) | Riesgo preliminar | Acción sugerida.
+2. Explica en corto cada estatus posible: presunto, definitivo,
+   desvirtuado y sentencia favorable.
+3. Detalla el efecto para mi cliente si un proveedor sale definitivo
+   (Art. 69-B CFF): el plazo de 30 días para acreditar la materialidad
+   o autocorregirse, y qué documentos conviene tener listos desde antes.
+4. Recuérdame el contexto 2026: dar efectos fiscales a CFDI que amparan
+   operaciones inexistentes alcanza penas de 2 a 9 años de prisión.
+
+PARTE 2: FILTRO REPSE (Art. 15-D CFF y 15-A LSS)
+1. Identifica qué proveedores caen en servicios u obras especializadas
+   (limpieza, seguridad, construcción, RH, TI en sitio, mantenimiento).
+2. Para cada uno, la consecuencia de no tener registro REPSE vigente:
+   el pago NO es deducible para ISR ni el IVA acreditable, y existe
+   responsabilidad solidaria en materia de seguridad social.
+3. Genera el checklist del expediente REPSE por proveedor: constancia
+   de registro vigente en el padrón de la STPS, contrato con el objeto
+   específico del servicio, listado del personal asignado, y
+   comprobantes de cuotas IMSS e Infonavit del periodo.
+
+PARTE 3: MODELO DE CARTA
+Redacta una carta breve y profesional (media cuartilla) para pedir al
+proveedor su constancia REPSE vigente y/o la aclaración de su
+situación fiscal, en tono firme pero de colaboración.
+
+REGLA FINAL
+Cierra recordándome qué consultas oficiales me tocan a mí y dónde:
+Lista 69-B y 69 en el portal del SAT, padrón REPSE en el de la STPS.
+Nada queda "verificado" hasta que yo lo confirme ahí.</div>
+
+  <div class="meta">
+    <div><div class="mt">Modelo recomendado</div>Claude Opus 5. Combina análisis legal, criterio y redacción de la carta. Vale la pena el modelo grande.</div>
+    <div><div class="mt">Qué te quedas tú</div>Las consultas en los portales del SAT y la STPS, y la conversación con el proveedor. Documenta la fecha de cada consulta: esa bitácora es tu evidencia de diligencia.</div>
+  </div>
+  <div class="footer-line"><span>Prompt 4 · Proveedores: 69-B y REPSE</span><span>soycontador.ai</span></div>
+</div>
+
+<!-- ══════════════ PROMPT 5 ══════════════ -->
+<div class="page">
+  <div class="section-tag">Integrador</div>
+  <h2><span class="num">Prompt 5.</span> El reporte ejecutivo que le entregas a tu cliente</h2>
+  <p class="lead"><strong>El dolor:</strong> haces la auditoría, encuentras oro, y todo se queda en un Excel que el cliente nunca ve. Trabajo invisible es trabajo que no se cobra. Este prompt convierte los hallazgos de los 4 anteriores en un entregable con tu nombre, que justifica tu iguala (o la sube).</p>
+
+  <div class="prompt-label">Copia desde aquí</div>
+  <div class="prompt">Actúa como el gerente de mi despacho contable. Vas a convertir los
+hallazgos de una auditoría preventiva de CFDIs en un reporte ejecutivo
+para el cliente.
+
+INSUMOS (pego los resultados de mis revisiones anteriores)
+1) Validación formal: [pega la salida del Prompt 1]
+2) Materialidad: [pega la salida del Prompt 2]
+3) Scoring de riesgo: [pega la salida del Prompt 3]
+4) Proveedores 69-B / REPSE: [pega la salida del Prompt 4]
+
+CONTEXTO
+- Cliente: [NOMBRE], [REGIMEN], [ACTIVIDAD]
+- Periodo: [MES Y AÑO]
+- Perfil del lector: [empresario sin formación contable / director
+  administrativo]
+- Tono: [cercano / formal]
+
+GENERA EL "REPORTE DE AUDITORIA PREVENTIVA DE CFDI" CON ESTA ESTRUCTURA
+1. Resumen ejecutivo: máximo 5 puntos, en lenguaje que un empresario
+   entienda sin ser contador. Empieza por lo que está bien.
+2. Semáforo general del periodo y tabla de los 10 CFDI de mayor riesgo
+   (emisor, monto, riesgo, por qué).
+3. Acciones priorizadas: qué resolver esta semana, qué resolver este
+   mes, y qué dejar en monitoreo.
+4. Gestión de proveedores: a quién se le pedirá qué documento, con
+   referencia a las cartas ya preparadas.
+5. Párrafo de alcance: revisión preventiva realizada por el despacho
+   con apoyo de herramientas de análisis; las consultas oficiales se
+   hicieron en los portales del SAT y la STPS, y el reporte no
+   sustituye la opinión de un asesor sobre casos específicos.
+
+REGLAS
+- No inventes hallazgos que no estén en los insumos. Si un insumo
+  falta, omite su sección y dímelo.
+- Cifras siempre en pesos mexicanos con separador de miles.
+- El reporte es de mi despacho, no tuyo: redáctalo en primera persona
+  del plural ("detectamos", "recomendamos") y ciérralo con
+  [NOMBRE DEL DESPACHO / CONTADOR].
+- Extensión: máximo 2 cuartillas. El detalle técnico vive en mis
+  papeles de trabajo; esto es el entregable de valor.</div>
+
+  <div class="meta">
+    <div><div class="mt">Modelo recomendado</div>Claude Opus 5 para el mejor texto final; Sonnet 5 cumple perfectamente si el volumen aprieta.</div>
+    <div><div class="mt">Qué te quedas tú</div>Leerlo completo antes de enviarlo. Es tu firma la que va al final, y un reporte que no leíste no es tuyo.</div>
+  </div>
+
+  <div class="box" style="margin-top:10px">
+    <div class="box-title">El movimiento de negocio</div>
+    Los primeros cuatro prompts te ahorran tiempo; este lo convierte en un servicio visible: "auditoría preventiva de CFDI" como entregable mensual o trimestral. Los despachos que cobran más no trabajan más horas: entregan cosas que el cliente puede ver.
+  </div>
+  <div class="footer-line"><span>Prompt 5 · Reporte ejecutivo</span><span>soycontador.ai</span></div>
+</div>
+
+<!-- ══════════════ CIERRE ══════════════ -->
+<div class="page">
+  <div class="section-tag">Notas finales</div>
+  <h2>¿Y si uso ChatGPT o Gemini?</h2>
+  <p>Los 5 prompts funcionan en cualquier modelo de frontera: la estructura (rol, contexto, reglas de trabajo, formato de salida, datos) es la misma. Ajustes prácticos:</p>
+  <table>
+    <tr><th>En esta guía</th><th>En ChatGPT</th><th>En Gemini</th></tr>
+    <tr><td>Claude Opus 5 (criterio profundo)</td><td>El GPT más reciente en su modo de razonamiento</td><td>La versión Pro más reciente</td></tr>
+    <tr><td>Claude Sonnet 5 (lotes y reglas)</td><td>El modelo estándar más reciente</td><td>La versión Pro o Flash más reciente</td></tr>
+    <tr><td>Claude Haiku 4.5 (velocidad)</td><td>El modelo mini o rápido</td><td>La versión Flash</td></tr>
+  </table>
+  <ul>
+    <li><strong>Ventana de contexto:</strong> verifica cuánto acepta tu plan antes de pegar un lote gigante. Si el modelo "olvida" el inicio del lote, pártelo en dos corridas.</li>
+    <li><strong>Temperatura:</strong> en ChatGPT y Gemini el parámetro sigue existiendo por API, pero en la app no lo tocas y no lo necesitas. En los modelos frontera de Claude ya ni existe: la palanca es el contexto, en todas las plataformas.</li>
+    <li><strong>Las reglas anti-invento viajan contigo:</strong> las líneas "no lo asumas", "márcalo como PENDIENTE" y "muestra la suma aritmética" son las que hacen confiable el resultado en cualquier modelo. No las recortes.</li>
+  </ul>
+
+  <h3>Los fundamentos, en un solo lugar</h3>
+  <table>
+    <tr><th>Tema</th><th>Fundamento</th></tr>
+    <tr><td>Requisitos de los CFDI</td><td>Arts. 29 y 29-A CFF · Anexo 20 RMF y su guía de llenado</td></tr>
+    <tr><td>Requisitos de las deducciones</td><td>Art. 27 LISR (fr. I estricta indispensabilidad; fr. III pago bancarizado arriba de $2,000)</td></tr>
+    <tr><td>Operaciones inexistentes (EFOS/EDOS)</td><td>Art. 69-B CFF · Regla 2.9.17 RMF (procedimiento para desvirtuar)</td></tr>
+    <tr><td>Servicios especializados</td><td>Art. 15-D CFF · Art. 15-A LSS · Registro REPSE ante la STPS</td></tr>
+    <tr><td>Reforma 2026</td><td>DOF 07/11/2025: Art. 49 Bis CFF (visita exprés) y penas de 2 a 9 años por CFDI falsos</td></tr>
+    <tr><td>Marco doctrinal de materialidad</td><td>Alejandro Ponce Rivera, Estándar de Materialidad Fiscal</td></tr>
+  </table>
+
+  <div class="cta">
+    <h3>Esto es una probada de lo que hacemos cada jueves</h3>
+    <p>Cada semana, en <strong>Jueves de Contador<span class="verde">IA</span></strong> (en vivo, jueves 11:00 am, hora del centro de México), construimos herramientas como esta con contadores reales: calculadoras sin código, flujos de revisión, automatizaciones del despacho. Sin humo y con el SAT de frente.</p>
+    <p>Gracias por responder la encuesta: tus respuestas deciden literalmente qué construimos en las próximas emisiones.</p>
+    <p style="margin-bottom:0">Búscame como <span class="link">@todoconta</span> en YouTube · <span class="link">soycontador.ai</span> · Israel Castro, Contador Público y desarrollador.</p>
+  </div>
+  <div class="footer-line"><span>5 prompts para auditar tus XMLs con Claude · v2.0 · septiembre 2026</span><span>soycontador.ai</span></div>
+</div>

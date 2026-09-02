@@ -12,7 +12,8 @@
     "astro": "astro",
     "ebook": "pnpm ebook:libro && pnpm ebook:muestra",
     "ebook:libro": "node ebook/generar-libro.mjs",
-    "ebook:muestra": "node ebook/generar-muestra.mjs"
+    "ebook:muestra": "node ebook/generar-muestra.mjs",
+    "guia:prompts": "node guias/prompts-xml/generar.mjs"
   },
   "dependencies": {
     "@astrojs/mdx": "^7.0.8",

@@ -4,6 +4,9 @@ dist/
 .astro/
 # PDFs del ebook: se rehacen con `pnpm ebook` y pesan ~10 MB por edición
 ebook/salida/
+# El PDF de la guía es artefacto de build: se regenera con `pnpm guia:prompts`
+# y su copia publicada vive en el bucket de R2, no en el repo.
+guias/**/*.pdf
 
 # dependencies
 node_modules/
