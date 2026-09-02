@@ -383,8 +383,21 @@ const lineasTerminal = [
   }
 
   /* Hero */
+  /* Llena la primera pantalla completa. Antes medía 580px de una ventana de
+     900 y dejaba asomar 248px de la banda de la vuelta por debajo, que se leía
+     como una franja suelta en vez de como el arranque de la siguiente sección.
+     Con el fondo de la vuelta puesto eso se volvió visible; sin fondo no se
+     notaba.
+
+     Se resta el alto del header (73px, medido) porque es sticky y ocupa
+     espacio en el flujo: sin restarlo la primera pantalla mediría 100svh + 73
+     y volvería a empujar la banda fuera de cuadro. svh y no vh, para que la
+     barra del navegador en móvil no la desborde. */
   .hero {
-    padding: 5rem 0 4rem;
+    min-height: calc(100svh - 4.6rem);
+    display: grid;
+    align-items: center;
+    padding: 3rem 0;
   }
   .hero-grid {
     display: grid;
