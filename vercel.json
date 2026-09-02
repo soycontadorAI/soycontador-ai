@@ -1,9 +1,15 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
+  "installCommand": "pnpm install --ignore-scripts",
   "redirects": [
     {
       "source": "/(.*)",
-      "has": [{ "type": "host", "value": "www.soycontador.ai" }],
+      "has": [
+        {
+          "type": "host",
+          "value": "www.soycontador.ai"
+        }
+      ],
       "destination": "https://soycontador.ai/$1",
       "permanent": true
     }

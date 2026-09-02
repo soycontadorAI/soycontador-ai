@@ -113,3 +113,33 @@ astro dev --background
 ```
 
 Manage con `astro dev stop`, `astro dev status`, `astro dev logs`.
+
+## Despliegue: por qué el install lleva `--ignore-scripts`
+
+`vercel.json` fija `installCommand: "pnpm install --ignore-scripts"`. No es
+capricho: el 2026-09-02 Vercel subió a **pnpm 11**, que dejó de leer la llave
+`pnpm` de `package.json` ("The 'pnpm' field in package.json is no longer read
+by pnpm") y empezó a tratar los scripts de instalación saltados como error
+duro (`ERR_PNPM_IGNORED_BUILDS`). Eso tumbó dos deploys seguidos con el
+install, sin llegar siquiera al build.
+
+Se intentó mudar la configuración a `pnpm-workspace.yaml`, que es a donde
+pnpm 10 la movió, y **no funcionó en pnpm 11**: el error siguió igual. Además
+ese archivo obliga a declarar `packages`, porque el pnpm local (9.x) aborta
+sin él.
+
+`--ignore-scripts` es determinista y no depende de dónde viva la
+configuración esta semana. Es seguro aquí porque:
+
+- **esbuild** ya no necesita su postinstall: sus binarios llegan como paquetes
+  por plataforma (`@esbuild/linux-x64` está en el lockfile).
+- **puppeteer** no debe correr el suyo en Vercel: descarga Chromium (~150 MB)
+  y solo lo usan los generadores de PDF del ebook, que corren en local.
+
+Verificado en local: `pnpm install --frozen-lockfile --ignore-scripts` seguido
+de `pnpm build` pasa limpio.
+
+Si algún día se agrega una dependencia que SÍ necesite su script de
+instalación (sharp, por ejemplo, en algunas plataformas), esto se rompe de
+forma visible en el build. Ahí toca revisar la configuración de pnpm de ese
+momento, no quitar la bandera a ciegas.
