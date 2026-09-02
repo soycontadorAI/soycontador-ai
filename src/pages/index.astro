@@ -3,7 +3,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import FaqBlock from "../components/FaqBlock.astro";
 import LeadForm from "../components/LeadForm.astro";
 import NewsletterForm from "../components/NewsletterForm.astro";
-import Poliza from "../components/Poliza.astro";
+import Pila from "../components/Pila.astro";
 import Terminal from "../components/Terminal.astro";
 import { FAQ_HOME } from "../lib/faqs";
 import { faqPage, graph, person, webSite } from "../lib/schema";
@@ -79,11 +79,11 @@ const lineasTerminal = [
             <svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="M2.5 8.8 6 12.2 13.5 3.6" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
             IA para contadores de carrera
           </p>
-          <h1>Los recién egresados ya traen el chip.<br />Tú cuentas con algo mejor, <span class="hl">experiencia</span></h1>
+          <h1>La IA cierra las fáciles.<br />Las difíciles <span class="junto">las cobras <span class="hl">tú</span>.</span></h1>
           <p class="hero-sub">
-            La IA se aprende en una tarde. Saber cuándo un número miente, en veinte
-            años. Tú ya pagaste la parte cara. Ponle la herramienta encima y los
-            rebasas por la derecha.
+            Descargar, validar y capturar ya se resuelve solo. Lo que no se
+            resuelve solo es saber cuándo un número miente, y eso te tomó veinte
+            años. Esa es la parte que se cobra.
           </p>
           <div class="hero-actions">
             <a class="btn btn-primary" href="#contacto">Platiquemos de tu caso</a>
@@ -99,22 +99,22 @@ const lineasTerminal = [
           </p>
         </div>
         <div>
-          <Poliza
-            animada
-            folio="PÓLIZA Dr-002"
-            titulo="RECLASIFICACIÓN DE TU TIEMPO"
-            columnaCargo="Cargo"
-            columnaAbono="Abono"
-            filas={[
-              { concepto: "Criterio y asesoría", cargo: "20 h/mes" },
-              { concepto: "Descargas manuales del SAT", abono: "8 h/mes", detalle: true },
-              { concepto: "Validaciones y listas negras", abono: "5 h/mes", detalle: true },
-              { concepto: "Capturas y reportes en Excel", abono: "7 h/mes", detalle: true },
+          <Pila
+            tareas={[
+              { hora: "08:14", titulo: "3,412 XML descargados", pie: "del portal del SAT, sin abrirlo", quien: "ia", dato: "31 s" },
+              { hora: "08:15", titulo: "Validados contra 69 y 69-B", pie: "los 3,412, uno por uno", quien: "ia", dato: "0 riesgos" },
+              { hora: "08:16", titulo: "Concentrado armado", pie: "el mismo de siempre, ya cuadrado", quien: "ia", dato: "4 hojas" },
+              { hora: "08:31", titulo: "14 diferencias resueltas", pie: "esas no las decide la máquina", quien: "tu", dato: "tu criterio" },
             ]}
-            total={{ concepto: "Sumas iguales", cargo: "20 h/mes", abono: "20 h/mes" }}
-            nota="// no se creó tiempo. se cambió de cuenta."
-            foto="/assets/israel-castro.jpg"
-            fotoAlt="Israel Castro"
+            remate="Cerraron el día antes de comer."
+            personas={[
+              { foto: "/assets/contadora-1.webp" },
+              { foto: "/assets/contador-2.webp" },
+              { foto: "/assets/contadora-3.webp" },
+              {},
+              {},
+            ]}
+            cuantos="+50"
           />
         </div>
       </div>
@@ -580,12 +580,27 @@ const lineasTerminal = [
     flex: none;
     color: var(--color-ink-dim);
   }
+  /* Un <br /> y dos renglones: una frase cada uno. Para que la segunda quepa
+     entera hizo falta bajar el tope del clamp de 3.15rem a 2.9rem; a 50px se
+     partía y dejaba "tú" solo en un tercer renglón, con el marcador reducido a
+     una manchita verde. Se midió: 46px es el tamaño más grande donde la frase
+     completa entra en la columna.
+
+     En anchos intermedios (1024, 390) el segundo renglón se parte de todos
+     modos, y ahí `text-wrap: pretty` no basta: se midió y seguía dejando el
+     marcador solo. Por eso "las cobras tú." viaja como una sola pieza con
+     nowrap. Va sobre el grupo de tres palabras y NO sobre el .hl: aplicarlo a
+     "tú" no sirve de nada, porque una palabra de dos letras nunca se parte;
+     lo que hay que impedir es que se separe de lo que la antecede.
+
+     Sin tope de ancho: el corte lo manda el <br />, no la caja. */
   .hero h1 {
     margin-top: 2.6rem;
-    max-width: 24ch;
-    /* Reparte las líneas en vez de dejar una huérfana: el titular es el golpe
-       de la página y un renglón de dos palabras lo desinfla. */
-    text-wrap: balance;
+    font-size: clamp(2rem, 4.4vw, 2.9rem);
+    text-wrap: pretty;
+  }
+  .hero h1 .junto {
+    white-space: nowrap;
   }
   @media (max-width: 900px) {
     .hero h1 {
@@ -622,20 +637,22 @@ const lineasTerminal = [
     }
   }
 
-  /* Los dos blockquotes de la sección hacen trabajos opuestos y por eso no se
-     ven igual.
-
-     Arriba, la objeción, en la voz de quien la dice: serif en cursiva pero
-     chica y en gris, pegada al giro que le contesta debajo en tinta plena. Que
-     se lean como un par es lo que hace el gesto. */
+  /* La objeción, en la voz de quien la dice: serif en cursiva y en gris. Cae
+     sola, con aire suficiente para que se lea como algo que alguien acaba de
+     soltar, y el giro le contesta debajo. Sin animación de entrada. */
   .vuelta blockquote {
-    margin: 0 0 0.7rem;
+    /* El aire, no el tamaño, es lo que la hace caer sola. El tope de 1.45rem
+       (23px) la deja en un solo renglón en escritorio: medido contra la caja
+       de container-narrow, a 24px ocupa 653px de 688 y a 26px se va a 707 y
+       se parte. Una objeción partida en dos pierde el golpe de frase suelta. */
+    margin: 0 0 2.6rem;
     padding: 0;
     font-family: var(--font-serif-detail);
     font-style: italic;
-    font-size: clamp(1.15rem, 2.2vw, 1.4rem);
+    font-size: clamp(1.15rem, 2.4vw, 1.45rem);
     line-height: 1.4;
     color: var(--color-ink-dim);
+    text-wrap: pretty;
   }
   /* El giro va al MISMO tamaño que la objeción de arriba, y ahí está el gesto:
      dos frases del mismo peso, una en serif gris (la voz ajena) y otra en sans

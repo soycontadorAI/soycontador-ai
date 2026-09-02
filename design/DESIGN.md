@@ -89,9 +89,19 @@ para que el asiento ocupe la caja sin aire muerto).
 
 ## Elementos de firma
 
-- **La póliza**: tarjeta con tabla contable (concepto/cargo), encabezado gris,
-  sombra dura `6px 6px 0 var(--color-line)` y **doble raya de suma** bajo el
-  total (utilidad `doble-raya`). Es el hero y el patrón para datos duros.
+- **La pila** (`Pila.astro`): las tarjetas de una mañana cayendo una sobre
+  otra, con rotación mínima (menos de 1°) para que lean como pila y no como
+  lista. Ocupa la mitad derecha del hero desde el 2026-09-01. La marca de
+  cerrado es **verde cuando lo cerró la máquina y tinta cuando lo cerraste
+  tú**: ese contraste es el argumento del bloque y no se toca. Remata en la
+  fila de colegas.
+  La coreografía viene de zig.ai, pero **solo el ritmo**: allá la sombra es
+  difusa y el radio grande, y aquí manda la sombra dura desplazada. Copiar el
+  acabado nos dejaría igual que cualquier SaaS.
+- **La póliza** (`Poliza.astro`): tarjeta con tabla contable (concepto/cargo),
+  encabezado gris, sombra dura `6px 6px 0 var(--color-line)` y **doble raya de
+  suma** bajo el total. Fue el hero hasta el 2026-09-01 y sigue siendo el
+  patrón para datos duros, aunque ahora mismo ninguna página la monte.
 - **Folios**: toda sección abre con etiqueta mono en versalitas
   (`CUENTA 01 · QUIÉN SOY`); la parte resaltada va en accent.
 - **Fondo liso**. Hubo un rayado horizontal cada 32px en el body y se retiró
