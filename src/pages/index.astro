@@ -189,8 +189,20 @@ const lineasTerminal = [
             </div>
             <p class="mas"><a href="/sobre-mi">Toda la historia →</a></p>
           </div>
-          <div data-reveal style="--reveal-delay: .12s">
-            <Terminal lineas={lineasTerminal} />
+          {/*
+            Tres niveles a propósito. El de afuera es la celda de la retícula y
+            se estira a lo alto de la fila: sin eso el pegajoso no tiene por
+            dónde correr. El de en medio es el que se pega. Y el data-reveal
+            va ADENTRO del pegajoso, nunca encima: la entrada usa `translate`,
+            y un translate en el elemento pegado (o en un ancestro suyo) le
+            cambia el bloque contenedor y rompe el sticky.
+          */}
+          <div class="bio-terminal">
+            <div class="pegajoso">
+              <div data-reveal style="--reveal-delay: .12s">
+                <Terminal lineas={lineasTerminal} />
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -385,15 +397,31 @@ const lineasTerminal = [
   }
 
   /* Quién soy */
+  /* Sin `align-items: center`: las celdas tienen que estirarse a lo alto de la
+     fila para que la terminal tenga por dónde correr al quedarse pegada. */
   .bio-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 3rem;
-    align-items: center;
+    align-items: stretch;
+  }
+  /* La terminal se pega arriba y acompaña la lectura de la columna izquierda.
+     6.5rem libra el header, que también es sticky y mide 73px. Se queda
+     pegada mientras hay biografía que leer (unos 400px de recorrido) y se
+     suelta al terminar la sección, porque el sticky no sale de su celda. */
+  .pegajoso {
+    position: sticky;
+    top: 6.5rem;
   }
   @media (max-width: 900px) {
     .bio-grid {
       grid-template-columns: 1fr;
+    }
+    /* En una columna la terminal va debajo del texto y su celda mide lo mismo
+       que ella: no hay recorrido, así que pegarla no haría nada salvo dejarla
+       colgada al final. */
+    .pegajoso {
+      position: static;
     }
   }
   .bio p {
@@ -429,8 +457,16 @@ const lineasTerminal = [
     color: var(--color-accent);
     font-weight: 700;
   }
-  .mas {
-    margin-top: 1.3rem;
+  /* El selector lleva .bio a propósito. Escrito solo como `.mas` (0,1,0) lo
+     pisaba `.bio p` (0,1,1), que trae margin-top: 0, y el enlace quedaba
+     pegado a los chips con CERO de separación: la regla estaba escrita pero
+     muerta. Medido antes de tocar nada.
+
+     2rem, no el ritmo de párrafo (18px): el enlace no es otro renglón del
+     texto, es la salida del bloque. Necesita leerse como algo aparte de la
+     hilera de chips, no como su continuación. */
+  .bio .mas {
+    margin: 2rem 0 0;
   }
   .mas a {
     font-weight: 700;
