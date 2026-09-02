@@ -224,6 +224,12 @@ const lineasTerminal = [
       </div>
     </section>
 
+    <!--
+      El campo de correo va arriba, al lado de la promesa, y el detalle de las
+      cinco capas baja a una tira. Antes el correo quedaba al final de una lista
+      de cinco viñetas: quien ya había decidido tenía que leerlas todas para
+      encontrar dónde dejarlo.
+    -->
     <section class="guia">
       <div class="container-default guia-inner">
         <div>
@@ -231,24 +237,28 @@ const lineasTerminal = [
           <h2 class="guia-titulo">5 prompts para auditar tus XMLs con Claude</h2>
           <p class="guia-texto">
             No salieron de un blog gringo. Salieron del sistema de auditoría
-            preventiva que corre en mi despacho: cuatro capas de revisión, más el
-            reporte que le entregas al cliente.
-          </p>
-          <ul class="guia-capas">
-            <li>Validación formal del lote (Anexo 20)</li>
-            <li>Materialidad de operaciones</li>
-            <li>Scoring de riesgo con semáforo, al estilo del SAT</li>
-            <li>Blindaje de proveedores (69-B y REPSE)</li>
-            <li>El reporte ejecutivo que sí puedes cobrar</li>
-          </ul>
-          <p class="guia-texto">
-            Los copias, los pegas y los usas hoy mismo. Te los mando al correo, junto
-            con una idea de IA fiscal cada semana.
+            preventiva que corre en mi despacho. Los copias, los pegas y los
+            usas hoy mismo.
           </p>
         </div>
-        <div>
-          <NewsletterForm boton="Mándame los prompts" nota="Sin spam. Te das de baja con un clic y sin resentimientos." />
+        <div class="guia-form">
+          {/* Lo del boletín se dice AQUÍ y no en un párrafo aparte: el aviso de
+              a qué te estás dando de alta tiene que estar donde se da el
+              correo, no tres párrafos antes. */}
+          <NewsletterForm
+            boton="Mándame los prompts"
+            nota="Te los mando al correo, junto con una idea de IA fiscal cada semana. Te das de baja con un clic."
+          />
         </div>
+      </div>
+      <div class="container-default">
+        <ul class="capas-tira" data-reveal>
+          <li><b>01</b> Validación formal del lote (Anexo 20)</li>
+          <li><b>02</b> Materialidad de operaciones</li>
+          <li><b>03</b> Scoring de riesgo con semáforo, al estilo del SAT</li>
+          <li><b>04</b> Blindaje de proveedores (69-B y REPSE)</li>
+          <li><b>05</b> El reporte ejecutivo que sí puedes cobrar</li>
+        </ul>
       </div>
     </section>
 
@@ -538,25 +548,90 @@ const lineasTerminal = [
     max-width: 46ch;
     margin: 0;
   }
-  /* Las capas van en lista: que se puedan contar es la mitad del valor
-     percibido de un imán gratuito. */
-  .guia-capas {
+  .guia-form {
+    align-self: center;
+  }
+
+  /* La tira de capas: el detalle, debajo del correo y no encima. Que se puedan
+     contar es la mitad del valor percibido de un imán gratuito, y numeradas en
+     mono se cuentan de un vistazo. */
+  .capas-tira {
     list-style: none;
-    margin: 1.1rem 0;
-    padding: 0;
-  }
-  .guia-capas li {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 0;
+    margin: 2.6rem 0 0;
+    padding: 1.6rem 0 0;
     position: relative;
-    padding: 0.4rem 0 0.4rem 1.5rem;
-    font-size: 0.95rem;
-    color: #c9d6e8;
   }
-  .guia-capas li::before {
-    content: "▸";
+  /* La raya de arriba es un pseudo-elemento y no un border para poder
+     dibujarla con scaleX. Un border no se anima sin tocar el layout. */
+  .capas-tira::before {
+    content: "";
     position: absolute;
+    top: 0;
     left: 0;
-    color: var(--color-terminal-ok);
+    right: 0;
+    height: 1px;
+    background: #2a3648;
+    transform-origin: left;
+  }
+  .capas-tira li {
+    padding: 0 1.2rem 0 0;
+    font-size: 0.82rem;
+    line-height: 1.45;
+    color: #9fb0c9;
+  }
+  .capas-tira b {
+    display: block;
+    margin-bottom: 0.35rem;
     font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--color-terminal-ok);
+  }
+  /* En celular cinco columnas no caben, y apiladas hacen una torre de cinco
+     renglones sueltos. Dos columnas: se siguen contando y ocupan la mitad. */
+  @media (max-width: 760px) {
+    .capas-tira {
+      grid-template-columns: 1fr 1fr;
+      gap: 1.2rem 1.4rem;
+      margin-top: 2.2rem;
+    }
+    .capas-tira li {
+      padding-right: 0;
+    }
+    /* La quinta queda sola en su renglón: que ocupe el ancho completo en vez
+       de dejar un hueco a la derecha. */
+    .capas-tira li:last-child {
+      grid-column: 1 / -1;
+    }
+  }
+
+  /* La raya se traza y las capas caen sobre ella, en orden. Es entrada de
+     scroll, no un flujo animado: por eso es corta (todo dentro en 0.9s) y
+     cuelga del data-reveal que ya existe. */
+  .is-visible.capas-tira::before {
+    animation: traza-tira 0.55s ease-out backwards;
+  }
+  .is-visible.capas-tira li {
+    animation: cae-capa 0.45s cubic-bezier(0.22, 1, 0.36, 1) backwards;
+  }
+  .is-visible.capas-tira li:nth-child(1) { animation-delay: 0.18s; }
+  .is-visible.capas-tira li:nth-child(2) { animation-delay: 0.3s; }
+  .is-visible.capas-tira li:nth-child(3) { animation-delay: 0.42s; }
+  .is-visible.capas-tira li:nth-child(4) { animation-delay: 0.54s; }
+  .is-visible.capas-tira li:nth-child(5) { animation-delay: 0.66s; }
+  @keyframes traza-tira {
+    from { transform: scaleX(0); }
+  }
+  @keyframes cae-capa {
+    from { opacity: 0; transform: translate3d(0, 0.6rem, 0); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .is-visible.capas-tira::before,
+    .is-visible.capas-tira li {
+      animation: none;
+    }
   }
 
   .cierre {
