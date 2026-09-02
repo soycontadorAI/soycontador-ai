@@ -80,6 +80,32 @@ a Sendy confirme que **solo llegó uno**. Un solo lado no lo demuestra: de este
 lado sabes qué mandaste pero no qué recibió Sendy, y del otro sabes qué hay en
 Sendy pero no cuántos salieron. La prueba vive en el cruce.
 
+## Trampa de Astro: el espacio antes de un `<span>` inline
+
+Astro recorta el salto de línea + sangría que preceden a una etiqueta inline,
+así que esto renderiza pegado:
+
+```astro
+<!-- MAL: sale "cambiofue una decisión" -->
+<p>
+  Lo que cambió fue
+  <span class="hl">una decisión</span>.
+</p>
+```
+
+La etiqueta inline va en el MISMO renglón que la palabra anterior:
+
+```astro
+<!-- BIEN -->
+<p>
+  Lo que cambió fue <span class="hl">una decisión</span>.
+</p>
+```
+
+Ha mordido dos veces con marcadores `.hl` (2026-09-01 y 2026-09-02). Al tocar
+cualquier `.hl`, `<b>` o `<strong>` inline, revisar el render, no el código:
+en el editor se ve bien.
+
 ## Regla anti-duplicación (SEO)
 
 Este sitio NUNCA re-publica contenido que exista en todoconta.com (lección documentada en
