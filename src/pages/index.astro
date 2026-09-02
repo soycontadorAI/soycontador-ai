@@ -67,7 +67,6 @@ const lineasTerminal = [
   { tipo: "ok" as const, texto: "✓ 3,398 conciliados · 14 diferencias detectadas" },
   { tipo: "ok" as const, texto: "✓ reporte listo en 31 segundos" },
   { tipo: "dim" as const, texto: "# la máquina hizo las 3,398 fáciles. las 14 difíciles son tuyas." },
-  { tipo: "dim" as const, texto: "# por eso no te reemplaza." },
 ];
 ---
 
@@ -88,7 +87,12 @@ const lineasTerminal = [
           </p>
           <div class="hero-actions">
             <a class="btn btn-primary" href="#contacto">Platiquemos de tu caso</a>
-            <a class="btn btn-ghost" href="/jueves">Ve el live de los jueves</a>
+            {/* El secundario es la salida sin compromiso, y por eso baja al
+                menú en vez de mandar al live: quien todavía no quiere hablar
+                necesita ver el rango completo, no una sola puerta. La cifra
+                sale del arreglo para que el copy no pueda quedar mintiendo si
+                mañana entra o sale un asiento. */}
+            <a class="btn btn-ghost" href="#ofertas">Ve las {asientos.length} formas de empezar</a>
           </div>
           <p class="hero-micro">
             Sin costo. Me cuentas en qué se te va la vida y yo te digo si tengo cómo resolverlo.
@@ -135,16 +139,19 @@ const lineasTerminal = [
         <p class="vuelta-texto">
           La IA es la herramienta más fácil de usar que se ha inventado. Se le
           habla en español y no hay que cursar una carrera, así que ahí la
-          barrera es pareja para todos. Lo que no es parejo es lo demás: nadie
-          sale de la facultad sabiendo que ese cliente siempre factura tarde en
-          diciembre, ni sabiendo leerle la cara al empresario que esconde esos
-          otros ingresos.
+          barrera es pareja para todos.
         </p>
-        <p class="vuelta-texto vuelta-remate">
+        <p class="vuelta-texto">
+          Lo que no es parejo es lo demás: nadie
+          sale de la facultad sabiendo lidiar con la presión de que el cliente
+          te mande todo a última hora, ni sabiendo leerle la cara al empresario
+          que esconde esos otros ingresos.
+        </p>
+        <p class="vuelta-texto">
           A ti la parte fácil te llega encima de la parte difícil, que ya llevas
-          años pagando. Por eso quien debería estar preocupado <span class="hl">no eres tú</span>.
-          Lo que te falta es método, no juventud. Y de eso me encargo yo.
+          años pagando. Quien debería estar preocupado no eres tú. Lo que te falta es método, no juventud.
         </p>
+        <p class="vuelta-remate">Y de eso <span class="hl">me encargo yo</span>.</p>
       </div>
     </section>
 
@@ -615,16 +622,11 @@ const lineasTerminal = [
     }
   }
 
-  /* La vuelta: el puente entre el titular y el resto. Antes era la nota al pie
-     completa, con la historia de la contadora de 46 años; queda el giro que la
-     cerraba, que es la tesis en tres frases. El "de eso me encargo yo" del
-     final entrega directo a la cuenta 01, que responde quién lo dice.
+  /* Los dos blockquotes de la sección hacen trabajos opuestos y por eso no se
+     ven igual.
 
-     Va sin folio de sección, para que se lea como una respiración entre el
-     hero y la primera cuenta, y no como una cuenta más. El espaciado es el de
-     las demás secciones (section { padding: 4.2rem 0 }), sin override. */
-  /* La objeción va en la voz de quien la dice: serif en cursiva y en gris. El
-     giro le contesta justo debajo, en tinta plena y sin aire de por medio. Que
+     Arriba, la objeción, en la voz de quien la dice: serif en cursiva pero
+     chica y en gris, pegada al giro que le contesta debajo en tinta plena. Que
      se lean como un par es lo que hace el gesto. */
   .vuelta blockquote {
     margin: 0 0 0.7rem;
@@ -635,11 +637,17 @@ const lineasTerminal = [
     line-height: 1.4;
     color: var(--color-ink-dim);
   }
+  /* El giro va al MISMO tamaño que la objeción de arriba, y ahí está el gesto:
+     dos frases del mismo peso, una en serif gris (la voz ajena) y otra en sans
+     y tinta plena (la respuesta). Se leen como un par que se contesta.
+
+     Deliberadamente por debajo del remate: antes iban los dos en 700 y a un
+     tamaño casi igual, así que la sección tenía dos picos y ninguno ganaba. El
+     único que cierra es el de abajo. */
   .vuelta-giro {
     margin: 0 0 1.2rem;
-    font-size: clamp(1.35rem, 2.8vw, 1.75rem);
-    font-weight: 700;
-    letter-spacing: -0.02em;
+    font-size: clamp(1.15rem, 2.2vw, 1.4rem);
+    font-weight: 600;
     color: var(--color-ink);
   }
   .vuelta-texto {
@@ -648,10 +656,24 @@ const lineasTerminal = [
     line-height: 1.7;
     color: var(--color-ink-soft);
   }
+  /* El remate cierra la vuelta y entrega a la cuenta 01, que responde quién lo
+     está diciendo. Cae solo y al mismo peso que el giro que abrió la sección:
+     abre en negritas, explica en medio, cierra en negritas. El aire de arriba
+     es la pausa antes de la frase, y hace tanto por el golpe como el tamaño. */
   .vuelta-remate {
-    margin-bottom: 0;
+    margin: 2.4rem 0 0;
+    font-size: clamp(1.4rem, 2.9vw, 1.9rem);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1.25;
     color: var(--color-ink);
-    font-weight: 500;
+  }
+  /* El marcador va sobre el compromiso, no sobre la frase entera: el verde
+     marca acción, y la acción es "me encargo yo". Sube a 0.62em, el mismo alto
+     que en .cita, porque el default está calibrado para texto corrido y a este
+     tamaño se quedaría bajo las letras. */
+  .vuelta-remate .hl {
+    --hl-alto: 0.62em;
   }
 
   /* Dos bandos dibujado como cuenta T: es el isotipo de la marca hecho
