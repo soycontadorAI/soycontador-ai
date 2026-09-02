@@ -205,7 +205,7 @@ const lineasTerminal = [
           <div class="bio-visual" data-reveal style="--reveal-delay: .12s">
             <img
               class="retrato"
-              src="/assets/israel-apoyado.webp"
+              src="/assets/israel-apoyado-hoodie.webp"
               alt="Israel Castro, contador público y desarrollador de software"
               width="680"
               height="905"
@@ -423,20 +423,19 @@ const lineasTerminal = [
     }
   }
 
-  /* El retrato se apoya sobre la terminal, y lo que lo hace leer como apoyo
-     es que la VENTANA VA ADELANTE: su borde superior corta las manos, igual
-     que el canto de una mesa tapa donde se posan. Con el retrato encima las
-     manos flotaban sobre una caja más ancha y se leía como dos bloques
-     apilados, no como alguien recargado.
+  /* El retrato se apoya sobre la terminal, con las MANOS A LA VISTA encima de
+     ella: por eso el retrato va al frente y la ventana atrás. Se probó al
+     revés (ventana adelante, cortando los dedos como el canto de una mesa) y
+     aunque el gesto también leía, esconde las manos, que es lo que hace la
+     foto.
 
-     Y por eso la terminal siendo más ancha que él deja de ser un problema:
-     una mesa es más ancha que quien se recarga en ella.
+     Que la terminal sea más ancha que él no estorba: una mesa es más ancha
+     que quien se recarga en ella.
 
-     42px de traslape, medidos contra el render y no estimados. Es el punto
-     donde la banda vacía entre la camisa y la ventana desaparece y las
-     muñecas siguen aterrizando. A 26px quedaba un hueco que delataba que él
-     estaba atrás y la ventana abajo; a 58px los brazos terminan en seco y se
-     lee amputado, no apoyado. */
+     56px de traslape, medidos contra el render y no estimados. Es donde las
+     manos descansan sobre la barra de la ventana sin tapar los semáforos ni
+     el texto. A 42px queda un hueco que delata que él está atrás y la ventana
+     abajo; a 70px la mano izquierda se come el "tú → claude". */
   .bio-visual {
     position: relative;
   }
@@ -444,13 +443,13 @@ const lineasTerminal = [
     display: block;
     width: min(100%, 27rem);
     height: auto;
-    margin: 0 auto -42px;
+    margin: 0 auto -56px;
     position: relative;
-    z-index: 0;
+    z-index: 1;
   }
   .bio-consola {
     position: relative;
-    z-index: 1;
+    z-index: 0;
   }
   .bio p {
     margin: 0 0 1.1rem;
