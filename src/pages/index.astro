@@ -804,7 +804,21 @@ const lineasTerminal = [
   .vuelta {
     min-height: 100svh;
     display: grid;
-    align-items: center;
+    /* stretch y no center: la retícula tiene que ocupar todo el alto de la
+       sección para que la figura pueda bajar hasta el canto. Centrada, solo
+       llegaba al fondo de la columna de texto y quedaban 102px de aire
+       debajo. El centrado vertical del texto se resuelve dentro. */
+    align-items: stretch;
+    /* La banda vuelve, y no por decoración: es lo que le da piso al retrato.
+       Sin un borde abajo, el recorte del cuerpo no aterriza en nada y la
+       figura flota. Con la banda, el canto inferior ES el suelo. */
+    background: var(--color-surface);
+    border-top: 1px solid var(--color-line);
+    /* El canto de abajo es el piso donde descansa el recorte del cuerpo, así
+       que no puede ser un filete cualquiera: la banda (#F1F4F9) y el fondo de
+       página (#FAFBFD) se diferencian en nueve puntos y eso no se lee. Va el
+       filete fuerte, el mismo de la cuenta T y de la tira de capas. */
+    border-bottom: 2px solid var(--color-line-strong);
   }
   /* El retrato deja de ser marca de agua y pasa a ser columna. Como fondo
      tenía dos problemas que no se arreglan con opacidad: en el hueco que
@@ -816,6 +830,7 @@ const lineasTerminal = [
     grid-template-columns: 1.15fr 1fr;
     gap: 3.5rem;
     align-items: center;
+    height: 100%;
   }
   .vuelta-retrato {
     display: block;
@@ -824,6 +839,11 @@ const lineasTerminal = [
     height: auto;
     /* Pegado al texto y no al borde de la ventana: así no se ve arrinconado. */
     margin-right: auto;
+    /* Al fondo de la celda, y el margen negativo cancela el padding de la
+       sección para que el cuerpo toque el canto de la banda. El texto sigue
+       centrado a lo alto: solo la figura baja. */
+    align-self: end;
+    margin-bottom: -4.2rem;
   }
   @media (max-width: 900px) {
     .vuelta {
