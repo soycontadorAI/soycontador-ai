@@ -44,6 +44,7 @@ export const PERSONA = {
 
   sameAs: [
     "https://www.linkedin.com/in/soyisracastro/",
+    "https://www.instagram.com/soycontador.ai/",
     "https://www.youtube.com/@todoconta",
     "https://github.com/soyisracastro",
     "https://todoconta.com",
@@ -165,6 +166,7 @@ export function calendarioDe(proposito?: PropositoCita): string | null {
 
 export const FOOTER_LINKS = [
   { label: "YouTube", href: "https://www.youtube.com/@todoconta" },
+  { label: "Instagram", href: "https://www.instagram.com/soycontador.ai/" },
   { label: "LinkedIn", href: "https://www.linkedin.com/in/soyisracastro/" },
   { label: "GitHub", href: "https://github.com/soyisracastro" },
   { label: "TodoConta", href: "https://todoconta.com" },
