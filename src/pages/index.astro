@@ -432,9 +432,11 @@ const lineasTerminal = [
      Y por eso la terminal siendo más ancha que él deja de ser un problema:
      una mesa es más ancha que quien se recarga en ella.
 
-     26px de traslape, medidos: suficiente para que el canto corte las manos,
-     poco para que todavía se vean aterrizar. Más las esconde por completo y
-     se pierde el gesto. */
+     42px de traslape, medidos contra el render y no estimados. Es el punto
+     donde la banda vacía entre la camisa y la ventana desaparece y las
+     muñecas siguen aterrizando. A 26px quedaba un hueco que delataba que él
+     estaba atrás y la ventana abajo; a 58px los brazos terminan en seco y se
+     lee amputado, no apoyado. */
   .bio-visual {
     position: relative;
   }
@@ -442,7 +444,7 @@ const lineasTerminal = [
     display: block;
     width: min(100%, 27rem);
     height: auto;
-    margin: 0 auto -26px;
+    margin: 0 auto -42px;
     position: relative;
     z-index: 0;
   }
