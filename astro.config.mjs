@@ -4,6 +4,7 @@ import { defineConfig, envField } from 'astro/config';
 import mdx from '@astrojs/mdx';
 import sitemap from '@astrojs/sitemap';
 import vercel from '@astrojs/vercel';
+import icon from 'astro-icon';
 import tailwindcss from '@tailwindcss/vite';
 
 // https://astro.build/config
@@ -13,6 +14,13 @@ export default defineConfig({
   adapter: vercel(),
   integrations: [
     mdx(),
+    // Phosphor, la misma familia que usa todoconta-apps. Se elige por trazo
+    // fino y geométrico, que es el lenguaje de "libro mayor × terminal".
+    // astro-icon inserta el SVG en tiempo de build: cero JavaScript en el
+    // navegador y cero peticiones extra, solo los iconos que se usen.
+    // Sin `include`: resuelve solo los iconos que se referencian. Listar la
+    // familia entera con '*' empaquetaría los ~9,000 de Phosphor.
+    icon(),
     sitemap({
       filter: (page) => !page.includes('/gracias') && !page.includes('/dentro'),
     }),

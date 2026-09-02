@@ -5,6 +5,7 @@ import LeadForm from "../components/LeadForm.astro";
 import NewsletterForm from "../components/NewsletterForm.astro";
 import Pila from "../components/Pila.astro";
 import Terminal from "../components/Terminal.astro";
+import { Icon } from "astro-icon/components";
 import { FAQ_HOME } from "../lib/faqs";
 import { faqPage, graph, person, webSite } from "../lib/schema";
 import { EBOOK, SITE } from "../lib/site";
@@ -14,6 +15,7 @@ const jsonLd = graph(person(), webSite(), faqPage(FAQ_HOME, `${SITE.url}/`));
 const asientos = [
   {
     num: "01",
+    icono: "ph:chalkboard-teacher-light",
     titulo: "Capacitación en IA",
     texto:
       "Ocho horas en vivo y en grupo chico, para que te dé tiempo de atorarte y preguntar. Sales con tu primer proceso automatizado funcionando, no con apuntes. Es la misma forma de trabajar con la que un solo diagnóstico destapó más de $11 millones en saldos a favor que llevaban años ahí.",
@@ -22,6 +24,7 @@ const asientos = [
   },
   {
     num: "02",
+    icono: "ph:magic-wand-light",
     titulo: "¿Prefieres que yo lo haga?",
     texto:
       "Me traes el proceso que odias y te lo quito. El concentrado mensual de un cliente tomaba siete horas de captura. Hoy corre solo mientras desayunas.",
@@ -30,6 +33,7 @@ const asientos = [
   },
   {
     num: "03",
+    icono: "ph:plugs-connected-light",
     titulo: "Herramientas que ya funcionan",
     texto:
       "TodoConta: descarga masiva de CFDI, constancias y opinión 32-D en un clic. Más la conexión con Claude para trabajar tus XML por un canal controlado, sin pegarlos en un chat público.",
@@ -38,6 +42,7 @@ const asientos = [
   },
   {
     num: "04",
+    icono: "ph:book-open-light",
     titulo: `Ebook: ${EBOOK.titulo}`,
     texto: `Diecisiete capítulos y tres apéndices para entender la IA antes de que la IA te rebase. Cero código. Cero palabras raras sin explicar. Si después de leerlo sigues sin entender de qué va esto, te devuelvo tus ${EBOOK.precio.replace("$", "$").replace(" MXN", "")}.`,
     href: EBOOK.url ?? "/contacto",
@@ -45,6 +50,7 @@ const asientos = [
   },
   {
     num: "05",
+    icono: "ph:broadcast-light",
     titulo: "Jueves de ContadorIA",
     texto:
       "Cada jueves a las 11:00 del centro. Un problema real de un despacho real, resuelto en pantalla, sin cortes y sin que me salga a la primera. Gratis.",
@@ -53,6 +59,7 @@ const asientos = [
   },
   {
     num: "06",
+    icono: "ph:users-three-light",
     titulo: "Club de Automatización Fiscal",
     texto:
       "Membresía anual con lugares contados. Software, un bootcamp de implementación cada mes, y alguien que te contesta cuando te atoras a las 11 de la noche de un día 16. No entra cualquiera y no es barato.",
@@ -220,6 +227,10 @@ const lineasTerminal = [
                 <p>{a.texto}</p>
               </span>
               <span class="go">{a.cta}</span>
+              {/* Marca de agua: aria-hidden porque no aporta información que
+                  el título no dé ya, y pointer-events none para que nunca se
+                  interponga al clic del renglón. */}
+              <span class="ilustra" aria-hidden="true"><Icon name={a.icono} /></span>
             </a>
           ))}
         </div>
@@ -492,6 +503,10 @@ const lineasTerminal = [
     text-decoration: none;
     color: inherit;
     transition: background 0.15s ease;
+    /* Ancla y recorte de la marca de agua. La retícula no cambia: la
+       ilustración va absoluta encima, así que el CTA no se corre un pixel. */
+    position: relative;
+    overflow: hidden;
   }
   .asiento:last-child {
     border-bottom: none;
@@ -525,6 +540,53 @@ const lineasTerminal = [
     color: var(--color-accent);
     font-size: 0.9rem;
     white-space: nowrap;
+    /* Por encima de la marca de agua. */
+    position: relative;
+    z-index: 1;
+  }
+
+  /* La marca de agua de cada asiento. Se revela al pasar el cursor: entra
+     desde la derecha y sube de opacidad. Iconos de Phosphor insertados en
+     build por astro-icon, así que no cuestan JavaScript ni peticiones.
+
+     Va en TINTA al 9%, no en verde: el verde marca acción y aquí sería
+     decoración. Y va recortada por el renglón (overflow del .asiento) para
+     que se lea como fondo y no como un elemento suelto. */
+  .asiento .ilustra {
+    position: absolute;
+    top: 50%;
+    right: 7.5rem;
+    width: 8.5rem;
+    height: 8.5rem;
+    pointer-events: none;
+    opacity: 0;
+    color: var(--color-ink);
+    transform: translate(1.5rem, -50%) rotate(-6deg);
+    transition:
+      opacity 0.35s ease,
+      transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .asiento .ilustra :global(svg) {
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
+  .asiento:hover .ilustra {
+    opacity: 0.09;
+    transform: translate(0, -50%) rotate(-6deg);
+  }
+  /* Sin puntero fino no hay hover: la ilustración no aparecería nunca y solo
+     quedaría el riesgo de que el :hover se quede pegado tras un toque. */
+  @media (hover: none) {
+    .asiento .ilustra {
+      display: none;
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .asiento .ilustra {
+      transition: opacity 0.2s ease;
+      transform: translate(0, -50%) rotate(-6deg);
+    }
   }
   @media (max-width: 760px) {
     .asiento {
