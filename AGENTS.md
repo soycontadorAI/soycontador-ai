@@ -114,32 +114,31 @@ astro dev --background
 
 Manage con `astro dev stop`, `astro dev status`, `astro dev logs`.
 
-## Despliegue: por qué el install lleva `--ignore-scripts`
+## Despliegue: la configuración de pnpm vive en `pnpm-workspace.yaml`
 
-`vercel.json` fija `installCommand: "pnpm install --ignore-scripts"`. No es
-capricho: el 2026-09-02 Vercel subió a **pnpm 11**, que dejó de leer la llave
-`pnpm` de `package.json` ("The 'pnpm' field in package.json is no longer read
-by pnpm") y empezó a tratar los scripts de instalación saltados como error
-duro (`ERR_PNPM_IGNORED_BUILDS`). Eso tumbó dos deploys seguidos con el
-install, sin llegar siquiera al build.
+El 2026-09-02 Vercel subió a **pnpm 11** y tumbó dos deploys seguidos con
+`ERR_PNPM_IGNORED_BUILDS`, sin llegar siquiera al build. La causa, textual en
+el log: *"The 'pnpm' field in package.json is no longer read by pnpm"*.
 
-Se intentó mudar la configuración a `pnpm-workspace.yaml`, que es a donde
-pnpm 10 la movió, y **no funcionó en pnpm 11**: el error siguió igual. Además
-ese archivo obliga a declarar `packages`, porque el pnpm local (9.x) aborta
-sin él.
+En pnpm 11 la llave es **`allowBuilds`**, un mapa de paquete a booleano, y
+vive en `pnpm-workspace.yaml`. Reemplaza a `onlyBuiltDependencies`,
+`onlyBuiltDependenciesFile`, `neverBuiltDependencies` e
+`ignoredBuiltDependencies`, que en esa versión ya no se leen. Ese fue el error
+de los dos primeros intentos de arreglo: mudar el archivo estuvo bien, pero
+con nombres de llave que pnpm 11 ya no reconoce. La respuesta salió de la
+documentación de pnpm vía Context7, no de adivinar.
 
-`--ignore-scripts` es determinista y no depende de dónde viva la
-configuración esta semana. Es seguro aquí porque:
+Estado actual:
 
-- **esbuild** ya no necesita su postinstall: sus binarios llegan como paquetes
-  por plataforma (`@esbuild/linux-x64` está en el lockfile).
-- **puppeteer** no debe correr el suyo en Vercel: descarga Chromium (~150 MB)
-  y solo lo usan los generadores de PDF del ebook, que corren en local.
+- `pnpm-workspace.yaml` declara `allowBuilds: { esbuild: true, puppeteer: false }`.
+  esbuild sí construye (Vite lo usa en el build); puppeteer no, porque su
+  postinstall descarga Chromium (~150 MB) y solo lo usan los generadores de
+  PDF del ebook, que corren en local.
+- Lleva `packages: ["."]` porque el pnpm **local** todavía es 9.x y aborta con
+  "packages field missing" sin esa llave. No vuelve monorepo al proyecto.
+- La llave `pnpm` de `package.json` se queda: pnpm 9 la lee y no lee este
+  archivo. Cuando local suba a 10+, se puede borrar.
 
-Verificado en local: `pnpm install --frozen-lockfile --ignore-scripts` seguido
-de `pnpm build` pasa limpio.
-
-Si algún día se agrega una dependencia que SÍ necesite su script de
-instalación (sharp, por ejemplo, en algunas plataformas), esto se rompe de
-forma visible en el build. Ahí toca revisar la configuración de pnpm de ese
-momento, no quitar la bandera a ciegas.
+**Antes de tocar esto**, correr `pnpm install --frozen-lockfile` y `pnpm build`
+en local, y después verificar el deploy de verdad (`vercel ls`), no solo el
+push. Los dos primeros intentos se veían bien en local y fallaban en Vercel.

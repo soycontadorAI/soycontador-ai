@@ -1,0 +1,27 @@
+# Ajustes de pnpm. No es un monorepo: este archivo es donde pnpm 10+ mudó la
+# configuración que antes vivía en la llave "pnpm" de package.json.
+#
+# Vercel corre pnpm@11. Sin esto, el install cae con ERR_PNPM_IGNORED_BUILDS
+# y el deploy entero se cae antes de llegar al build (pasó el 2026-09-02).
+
+# El pnpm local todavía es 9.x y aborta con "packages field missing" si esta
+# llave no está. Un solo paquete, la raíz: no vuelve monorepo al proyecto,
+# solo satisface al validador de la versión vieja.
+packages:
+  - "."
+
+# En pnpm 11 la llave es `allowBuilds`, un MAPA de paquete a booleano.
+# Reemplaza a onlyBuiltDependencies, onlyBuiltDependenciesFile,
+# neverBuiltDependencies e ignoredBuiltDependencies, que ya no existen ahí
+# (confirmado en la documentación de pnpm, no adivinado). Ese fue el error de
+# los dos primeros intentos de arreglo: la configuración estaba bien escrita
+# pero con nombres que pnpm 11 ya no lee.
+allowBuilds:
+  # Vite lo usa en el build. Sus binarios llegan igual como paquetes por
+  # plataforma (@esbuild/linux-x64 está en el lockfile), así que esto es
+  # cinturón además de tirantes.
+  esbuild: true
+  # Su postinstall descarga Chromium (unos 150 MB) y en Vercel no hace falta:
+  # solo lo usan los generadores de PDF del ebook, que corren en local.
+  # Declararlo en false es lo que lo vuelve decisión en vez de error.
+  puppeteer: false
