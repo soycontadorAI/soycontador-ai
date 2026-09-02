@@ -1,0 +1,26 @@
+# Configuración de pnpm 10+/11. No es un workspace de verdad (no hay `packages`):
+# es el lugar al que pnpm 11 mudó los ajustes que antes vivían en la llave
+# "pnpm" de package.json. Vercel corre pnpm@11 y ahí ignora esa llave, así que
+# sin este archivo el install falla con ERR_PNPM_IGNORED_BUILDS y el deploy
+# entero se cae. Pasó el 2026-09-02.
+#
+# La llave de package.json se queda además de esta, porque el entorno local
+# todavía corre pnpm 9, que lee aquella y no lee este archivo. Cuando local
+# suba a 10+, la de package.json se puede borrar.
+
+# pnpm 9 (el local) exige esta llave o aborta con "packages field missing".
+# Un solo paquete, la raíz: no convierte esto en un monorepo, solo satisface
+# al validador de la versión vieja.
+packages:
+  - "."
+
+# esbuild sí necesita su script de instalación: lo usa Vite en el build.
+onlyBuiltDependencies:
+  - esbuild
+
+# puppeteer se salta a propósito. Su postinstall descarga Chromium (unos
+# 150 MB) y en Vercel no hace falta: solo lo usan los generadores de PDF del
+# ebook, que corren en la máquina de Israel. Declararlo aquí es lo que evita
+# que pnpm lo trate como error en vez de como decisión.
+ignoredBuiltDependencies:
+  - puppeteer
