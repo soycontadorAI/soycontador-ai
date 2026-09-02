@@ -423,19 +423,24 @@ const lineasTerminal = [
     }
   }
 
-  /* El retrato se apoya sobre la terminal, con las MANOS A LA VISTA encima de
-     ella: por eso el retrato va al frente y la ventana atrás. Se probó al
-     revés (ventana adelante, cortando los dedos como el canto de una mesa) y
-     aunque el gesto también leía, esconde las manos, que es lo que hace la
-     foto.
+  /* El retrato se apoya sobre la terminal. La VENTANA VA ADELANTE, y eso no es
+     preferencia: es lo único que resuelve la oclusión.
+
+     El recorte termina en un corte horizontal duro (donde acaban los jeans).
+     Con el retrato al frente ese corte queda expuesto sobre la ventana y se
+     ve un pantalón cercenado flotando encima de una caja, mientras las manos
+     también quedan encima. Cuerpo detrás y manos delante a la vez: el ojo no
+     puede resolver el plano y todo se siente falso.
+
+     Con la ventana adelante, un solo borde corta todo (jeans, muñecas, la
+     parte baja de las manos) y la oclusión queda coherente.
 
      Que la terminal sea más ancha que él no estorba: una mesa es más ancha
      que quien se recarga en ella.
 
-     56px de traslape, medidos contra el render y no estimados. Es donde las
-     manos descansan sobre la barra de la ventana sin tapar los semáforos ni
-     el texto. A 42px queda un hueco que delata que él está atrás y la ventana
-     abajo; a 70px la mano izquierda se come el "tú → claude". */
+     22px de traslape, medidos contra el render. Es lo mínimo que esconde el
+     corte del recorte dejando las manos a la vista aterrizando. A 30px ya
+     solo quedan las muñecas; a 42px desaparecen. */
   .bio-visual {
     position: relative;
   }
@@ -443,13 +448,13 @@ const lineasTerminal = [
     display: block;
     width: min(100%, 27rem);
     height: auto;
-    margin: 0 auto -56px;
+    margin: 0 auto -22px;
     position: relative;
-    z-index: 1;
+    z-index: 0;
   }
   .bio-consola {
     position: relative;
-    z-index: 0;
+    z-index: 1;
   }
   .bio p {
     margin: 0 0 1.1rem;
