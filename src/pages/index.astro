@@ -136,43 +136,43 @@ const lineasTerminal = [
       está hablando", que es exactamente la pregunta que deja abierta.
     -->
     <section class="vuelta">
-      {/* Ambiente, no contenido: aria-hidden y alt vacío porque no aporta
-          nada que el texto no diga, y pointer-events none para que nunca se
-          interponga. Va fuera del container-narrow a propósito: se ancla a la
-          SECCIÓN, que es la que tiene el ancho completo. */}
-      <img
-        class="vuelta-retrato"
-        src="/assets/israel-cruzado.webp"
-        alt=""
-        aria-hidden="true"
-        width="720"
-        height="961"
-        loading="lazy"
-        decoding="async"
-      />
-      <div class="container-narrow" data-reveal>
+      <div class="container-default vuelta-grid">
+        <div data-reveal>
+          <blockquote>
+            "Esto de la IA es para los más jóvenes, ya nacieron con el chip."
+          </blockquote>
 
-        <blockquote>
-          "Esto de la IA es para los más jóvenes, ya nacieron con el chip."
-        </blockquote>
-
-        <p class="vuelta-giro">De hecho, es al revés.</p>
-        <p class="vuelta-texto">
-          La IA es la herramienta más fácil de usar que se ha inventado. Se le
-          habla en español y no hay que cursar una carrera, así que ahí la
-          barrera es pareja para todos.
-        </p>
-        <p class="vuelta-texto">
-          Lo que no es parejo es lo demás: nadie
-          sale de la facultad sabiendo lidiar con la presión de que el cliente
-          te mande todo a última hora, ni sabiendo leerle la cara al empresario
-          que esconde esos otros ingresos.
-        </p>
-        <p class="vuelta-texto">
-          A ti la parte fácil te llega encima de la parte difícil, que ya llevas
-          años pagando. Quien debería estar preocupado no eres tú. Lo que te falta es método, no juventud.
-        </p>
-        <p class="vuelta-remate">Y de eso <span class="hl">me encargo yo</span>.</p>
+          <p class="vuelta-giro">De hecho, es al revés.</p>
+          <p class="vuelta-texto">
+            La IA es la herramienta más fácil de usar que se ha inventado. Se le
+            habla en español y no hay que cursar una carrera, así que ahí la
+            barrera es pareja para todos.
+          </p>
+          <p class="vuelta-texto">
+            Lo que no es parejo es lo demás: nadie sale de la facultad sabiendo
+            lidiar con la presión de que el cliente te mande todo a última hora,
+            ni sabiendo leerle la cara al empresario que esconde esos otros
+            ingresos.
+          </p>
+          <p class="vuelta-texto">
+            A ti la parte fácil te llega encima de la parte difícil, que ya
+            llevas años pagando. Quien debería estar preocupado no eres tú. Lo
+            que te falta es método, no juventud.
+          </p>
+          <p class="vuelta-remate">Y de eso <span class="hl">me encargo yo</span>.</p>
+        </div>
+        {/* Decorativo: aria-hidden y alt vacío porque no dice nada que el texto
+            no diga ya. Es la cara de quien está hablando, no información. */}
+        <img
+          class="vuelta-retrato"
+          src="/assets/israel-cruzado.webp"
+          alt=""
+          aria-hidden="true"
+          width="720"
+          height="961"
+          loading="lazy"
+          decoding="async"
+        />
       </div>
     </section>
 
@@ -797,35 +797,43 @@ const lineasTerminal = [
     }
   }
 
-  /* El retrato de ambiente. La sección es el ancla y el recorte: el sujeto
-     se sale por el borde derecho y ella lo corta.
-
-     Va MUY bajo de opacidad porque el hoodie es casi negro sobre un fondo
-     claro: a opacidad plena competiría con el texto, que es lo único que esta
-     sección tiene que hacer bien. */
+  /* La vuelta ocupa una pantalla completa y su contenido va centrado a lo
+     alto. Es la única sección de la home con esa altura, y se la gana: es
+     donde se voltea la objeción y donde aparece la cara de quien lo dice.
+     svh y no vh, para que en móvil la barra del navegador no la desborde. */
   .vuelta {
-    position: relative;
-    overflow: hidden;
+    min-height: 100svh;
+    display: grid;
+    align-items: center;
+  }
+  /* El retrato deja de ser marca de agua y pasa a ser columna. Como fondo
+     tenía dos problemas que no se arreglan con opacidad: en el hueco que
+     dejaba el texto centrado (272px en 1280) no cabe una figura entera, así
+     que había que recortarla contra el borde. Con su propia columna cabe
+     completo y a opacidad plena. */
+  .vuelta-grid {
+    display: grid;
+    grid-template-columns: 1.15fr 1fr;
+    gap: 3.5rem;
+    align-items: center;
   }
   .vuelta-retrato {
-    position: absolute;
-    /* Se sale 9rem por la derecha a propósito. El hueco entre la columna de
-       texto (46rem centradas) y el borde de la ventana es de solo 272px en
-       1280, así que para que quepa un sujeto grande sin invadir la lectura
-       tiene que ir cortado por el borde. Con estos números su izquierda cae
-       exactamente donde termina el texto. */
-    right: -9rem;
-    bottom: 0;
-    width: 26rem;
+    display: block;
+    width: 100%;
+    max-width: 24rem;
     height: auto;
-    opacity: 0.28;
-    pointer-events: none;
-    user-select: none;
+    /* Pegado al texto y no al borde de la ventana: así no se ve arrinconado. */
+    margin-right: auto;
   }
-  /* Abajo de 1280 el texto se come el hueco y el retrato le pasaría por
-     encima. Ahí desaparece: es ambiente, no contenido, y la lectura manda.
-     Se midió: a 1200 ya se encimaba 40px. */
-  @media (max-width: 1279px) {
+  @media (max-width: 900px) {
+    .vuelta {
+      min-height: 0;
+    }
+    .vuelta-grid {
+      grid-template-columns: 1fr;
+    }
+    /* En una columna el retrato quedaría colgando al final del argumento sin
+       hacer nada por él. La lectura manda. */
     .vuelta-retrato {
       display: none;
     }
