@@ -13,12 +13,7 @@ export const FAQ_HOME: FaqItem[] = [
   {
     pregunta: "¿No estoy demasiado grande para subirme a la IA?",
     respuesta:
-      "Al revés. Tus años son la parte cara de la ecuación y ya la pagaste. La IA se aprende en español, sin sintaxis y sin menús escondidos: la barrera de entrada es igual de baja para ti que para quien acaba de salir de la facultad. Lo que ahí no se aprende es el criterio, y ese sí toma veinte años. Con dos décadas de oficio y las herramientas correctas te llevas de calle a cualquier recién egresado. Lo único que te falta es método.",
-  },
-  {
-    pregunta: "¿La IA va a reemplazar a los contadores?",
-    respuesta:
-      "No. Va a reemplazar a los que la ignoren. Cuando la usas para automatizar tu operación dejas de ser un proveedor y te vuelves parte de cómo opera tu cliente. A un proveedor le regatean el precio. Al que ya no se puede sustituir, no.",
+      "Al revés. La parte cara de la ecuación son tus años, y esa ya la pagaste. Lo que falta se aprende en una tarde, y a esta altura es lo barato. Lo único que necesitas es método.",
   },
   {
     pregunta: "¿Es seguro usar IA con datos fiscales de mis clientes?",
@@ -28,7 +23,7 @@ export const FAQ_HOME: FaqItem[] = [
   {
     pregunta: "¿Necesito saber programar para automatizar mi despacho?",
     respuesta:
-      "No, y yo tampoco tecleo mucho código. Del código se encarga la IA. Lo que necesitas es saber nombrar el problema en los términos correctos, y eso es justo lo que enseño. Yo lo leo, lo entiendo y se lo pido. Tu criterio contable es la parte que no se puede automatizar, y da la casualidad de que es la parte que ya tienes.",
+      "No, y yo tampoco lo escribo. Del código se encarga la IA. Lo que necesitas es saber nombrar el problema en los términos correctos, y eso es justo lo que enseño. Yo la dirijo, y sé leer lo que escribe para saber si está bien. Tu criterio contable es la parte que no se puede automatizar, y da la casualidad de que es la parte que ya tienes.",
   },
   {
     pregunta: "¿Y si ya intenté con ChatGPT y no me sirvió?",
@@ -38,7 +33,7 @@ export const FAQ_HOME: FaqItem[] = [
   {
     pregunta: "¿Quién es Israel Castro?",
     respuesta:
-      "Soy contador público con quince años de ejercicio y desarrollador de software: estudié programación, trabajé como desarrollador en una startup mexicana y hoy automatizo mi propio despacho con IA. Construí TodoConta y su conexión MCP con Claude, y conduzco el live semanal Jueves de ContadorIA.",
+      "Soy contador público con catorce años de ejercicio y desarrollador de software: estudié programación, trabajé como desarrollador en una startup mexicana y hoy automatizo mi propio despacho con IA. Construí TodoConta y su conexión MCP con Claude, y conduzco el live semanal Jueves de ContadorIA.",
   },
 ];
 

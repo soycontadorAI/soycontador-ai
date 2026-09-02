@@ -89,7 +89,7 @@ const lineasTerminal = [
           <h1>La IA cierra las fáciles.<br />Las difíciles <span class="junto">las cobras <span class="hl">tú</span>.</span></h1>
           <p class="hero-sub">
             Descargar, validar y capturar ya se resuelve solo. Lo que no se
-            resuelve solo es saber cuándo un número miente, y eso te tomó veinte
+            resuelve solo es saber cuándo un número miente, y eso se paga con
             años. Esa es la parte que se cobra.
           </p>
           <div class="hero-actions">
@@ -113,7 +113,7 @@ const lineasTerminal = [
               { hora: "08:16", titulo: "Concentrado armado", pie: "el mismo de siempre, ya cuadrado", quien: "ia", dato: "4 hojas" },
               { hora: "08:31", titulo: "14 diferencias resueltas", pie: "esas no las decide la máquina", quien: "tu", dato: "tu criterio" },
             ]}
-            remate="Cerraron el día antes de comer."
+            remate="Contadores que ya capacité."
             personas={[
               { foto: "/assets/contadora-1.webp" },
               { foto: "/assets/contador-2.webp" },
@@ -121,7 +121,7 @@ const lineasTerminal = [
               {},
               {},
             ]}
-            cuantos="+50"
+            cuantos="+45"
           />
         </div>
       </div>
@@ -170,7 +170,7 @@ const lineasTerminal = [
             <p class="lede">Soy contador público. Y desarrollador de software.</p>
             <p>
               Empecé capturando pólizas y peleándome con el portal del SAT, igual que
-              tú. +10 años de fiscal. Cierres, revisiones, clientes que te mandan
+              tú. Catorce años de fiscal. Cierres, revisiones, clientes que te mandan
               todo un día antes del vencimiento.
             </p>
             <p>
@@ -180,8 +180,8 @@ const lineasTerminal = [
             </p>
             <p>
               Y aquí está la parte que importa para ti: <strong>hoy no escribo
-              código. Lo leo, lo entiendo, y se lo pido a la IA en los términos
-              correctos.</strong>
+              código. Dirijo a la IA para que lo escriba, y sé leerlo para saber
+              si está bien.</strong>
             </p>
             <p>
               Esa es la habilidad que te quiero pasar. No la de programar. La de saber
@@ -189,27 +189,30 @@ const lineasTerminal = [
               alcanza ningún recién egresado, por mucho chip que traiga.
             </p>
             <div class="chips">
-              <span class="chip"><b>15</b> años de fiscal</span>
-              <span class="chip">TodoConta · desde <b>2012</b></span>
+              <span class="chip"><b>14</b> años de fiscal</span>
+              <span class="chip">TodoConta · SaaS <b>2026</b></span>
               <span class="chip">MCP <b>SAT</b></span>
               <span class="chip">Live semanal · <b>jueves 11:00</b></span>
             </div>
             <p class="mas"><a href="/sobre-mi">Toda la historia →</a></p>
           </div>
           {/*
-            Tres niveles a propósito. El de afuera es la celda de la retícula y
-            se estira a lo alto de la fila: sin eso el pegajoso no tiene por
-            dónde correr. El de en medio es el que se pega. Y el data-reveal
-            va ADENTRO del pegajoso, nunca encima: la entrada usa `translate`,
-            y un translate en el elemento pegado (o en un ancestro suyo) le
-            cambia el bloque contenedor y rompe el sticky.
+            La sección se llama "quién te está hablando" y hasta hoy no tenía
+            una cara. El retrato se apoya sobre la terminal, así que la persona
+            y lo que la persona hace quedan en una sola imagen en vez de en dos
+            bloques sueltos.
           */}
-          <div class="bio-terminal">
-            <div class="pegajoso">
-              <div data-reveal style="--reveal-delay: .12s">
-                <Terminal lineas={lineasTerminal} />
-              </div>
-            </div>
+          <div class="bio-visual" data-reveal style="--reveal-delay: .12s">
+            <img
+              class="retrato"
+              src="/assets/israel-apoyado.webp"
+              alt="Israel Castro, contador público y desarrollador de software"
+              width="680"
+              height="905"
+              loading="lazy"
+              decoding="async"
+            />
+            <Terminal lineas={lineasTerminal} />
           </div>
         </div>
       </div>
@@ -408,32 +411,32 @@ const lineasTerminal = [
   }
 
   /* Quién soy */
-  /* Sin `align-items: center`: las celdas tienen que estirarse a lo alto de la
-     fila para que la terminal tenga por dónde correr al quedarse pegada. */
   .bio-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 3rem;
-    align-items: stretch;
-  }
-  /* La terminal se pega arriba y acompaña la lectura de la columna izquierda.
-     6.5rem libra el header, que también es sticky y mide 73px. Se queda
-     pegada mientras hay biografía que leer (unos 400px de recorrido) y se
-     suelta al terminar la sección, porque el sticky no sale de su celda. */
-  .pegajoso {
-    position: sticky;
-    top: 6.5rem;
+    align-items: center;
   }
   @media (max-width: 900px) {
     .bio-grid {
       grid-template-columns: 1fr;
     }
-    /* En una columna la terminal va debajo del texto y su celda mide lo mismo
-       que ella: no hay recorrido, así que pegarla no haría nada salvo dejarla
-       colgada al final. */
-    .pegajoso {
-      position: static;
-    }
+  }
+
+  /* El retrato se apoya sobre la terminal: el margen negativo es lo que hace
+     que las manos aterricen en su borde en vez de flotar encima de un hueco.
+     Poco, 10px, para que se lea como apoyo y no como que la tapa. El z-index
+     lo mantiene por encima del chrome de la ventana. */
+  .bio-visual {
+    position: relative;
+  }
+  .retrato {
+    display: block;
+    width: min(100%, 21rem);
+    height: auto;
+    margin: 0 auto -10px;
+    position: relative;
+    z-index: 1;
   }
   .bio p {
     margin: 0 0 1.1rem;

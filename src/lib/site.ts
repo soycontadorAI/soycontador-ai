@@ -39,7 +39,7 @@ export const PERSONA = {
   alternateName: "Isca",
   jobTitles: ["Contador Público", "Desarrollador de Software"],
   bioCorta:
-    "Contador público con 15 años de ejercicio y desarrollador de software: estudió programación, trabajó como desarrollador en una startup mexicana y hoy automatiza su propio despacho con IA. Creador de TodoConta (proyecto nacido en 2012, hoy software fiscal con conexión MCP) y del live semanal Jueves de ContadorIA.",
+    "Contador público con 14 años de ejercicio y desarrollador de software: estudió programación, trabajó como desarrollador en una startup mexicana y hoy automatiza su propio despacho con IA. Creador de TodoConta (proyecto nacido en 2012, hoy software fiscal con conexión MCP) y del live semanal Jueves de ContadorIA.",
   pais: "MX",
 
   sameAs: [
