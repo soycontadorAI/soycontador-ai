@@ -136,6 +136,20 @@ const lineasTerminal = [
       está hablando", que es exactamente la pregunta que deja abierta.
     -->
     <section class="vuelta">
+      {/* Ambiente, no contenido: aria-hidden y alt vacío porque no aporta
+          nada que el texto no diga, y pointer-events none para que nunca se
+          interponga. Va fuera del container-narrow a propósito: se ancla a la
+          SECCIÓN, que es la que tiene el ancho completo. */}
+      <img
+        class="vuelta-retrato"
+        src="/assets/israel-cruzado.webp"
+        alt=""
+        aria-hidden="true"
+        width="720"
+        height="961"
+        loading="lazy"
+        decoding="async"
+      />
       <div class="container-narrow" data-reveal>
 
         <blockquote>
@@ -780,6 +794,40 @@ const lineasTerminal = [
   @media (prefers-reduced-motion: reduce) {
     .hero h1 .hl {
       animation: none;
+    }
+  }
+
+  /* El retrato de ambiente. La sección es el ancla y el recorte: el sujeto
+     se sale por el borde derecho y ella lo corta.
+
+     Va MUY bajo de opacidad porque el hoodie es casi negro sobre un fondo
+     claro: a opacidad plena competiría con el texto, que es lo único que esta
+     sección tiene que hacer bien. */
+  .vuelta {
+    position: relative;
+    overflow: hidden;
+  }
+  .vuelta-retrato {
+    position: absolute;
+    /* Se sale 9rem por la derecha a propósito. El hueco entre la columna de
+       texto (46rem centradas) y el borde de la ventana es de solo 272px en
+       1280, así que para que quepa un sujeto grande sin invadir la lectura
+       tiene que ir cortado por el borde. Con estos números su izquierda cae
+       exactamente donde termina el texto. */
+    right: -9rem;
+    bottom: 0;
+    width: 26rem;
+    height: auto;
+    opacity: 0.28;
+    pointer-events: none;
+    user-select: none;
+  }
+  /* Abajo de 1280 el texto se come el hueco y el retrato le pasaría por
+     encima. Ahí desaparece: es ambiente, no contenido, y la lectura manda.
+     Se midió: a 1200 ya se encimaba 40px. */
+  @media (max-width: 1279px) {
+    .vuelta-retrato {
+      display: none;
     }
   }
 
