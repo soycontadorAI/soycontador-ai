@@ -1,0 +1,422 @@
+---
+/**
+ * /audita · Landing de captación de la guía "5 prompts para auditar tus XMLs
+ * con Claude" (el PDF vive en guias/prompts-xml).
+ *
+ * Es la URL que se dicta en el live, en un reel o detrás de un QR: una palabra,
+ * sin deletrear. Va DESNUDA (sin nav ni redes en el pie) porque aquí llega
+ * gente que viene por una sola cosa, y cada enlace de más es una salida.
+ *
+ * La promesa es la MISMA de la home, así que entra a la lista `general` (39) y
+ * no lleva lista nueva: el autoresponder que ya entrega esta guía se cuelga de
+ * esa lista. Ver la tabla de listas en CLAUDE.md.
+ */
+import BaseLayout from "../layouts/BaseLayout.astro";
+import NewsletterForm from "../components/NewsletterForm.astro";
+import { breadcrumbs, graph, personRef } from "../lib/schema";
+import { SITE } from "../lib/site";
+
+/** La guía en sí: gratuita, en PDF y de Israel. El resto de la entidad se
+    referencia por @id, que es como lo hacen las páginas interiores. */
+const guia = {
+  "@type": "CreativeWork",
+  "@id": `${SITE.url}/audita#guia`,
+  name: "5 prompts para auditar tus XMLs con Claude",
+  description:
+    "Guía en PDF con 5 prompts listos para copiar: validación formal del lote contra el Anexo 20, materialidad de operaciones, scoring de riesgo, blindaje de proveedores (69-B y REPSE) y el reporte ejecutivo para el cliente.",
+  inLanguage: SITE.lang,
+  encodingFormat: "application/pdf",
+  isAccessibleForFree: true,
+  author: personRef(),
+  publisher: personRef(),
+};
+
+const jsonLd = graph(
+  guia,
+  breadcrumbs([
+    { name: "Inicio", path: "/" },
+    { name: "5 prompts para auditar tus XMLs", path: "/audita" },
+  ]),
+);
+
+/** El mismo desglose de la home, para que el imán se cuente de un vistazo. */
+const CAPAS = [
+  { num: "01", texto: "Validación formal del lote (Anexo 20)" },
+  { num: "02", texto: "Materialidad de operaciones" },
+  { num: "03", texto: "Scoring de riesgo con semáforo, al estilo del SAT" },
+  { num: "04", texto: "Blindaje de proveedores (69-B y REPSE)" },
+  { num: "05", texto: "El reporte ejecutivo que sí puedes cobrar" },
+];
+
+/** El dolor de cada prompt, condensado del PDF (guias/prompts-xml). */
+const PROMPTS = [
+  {
+    num: "01",
+    titulo: "Validación formal del lote contra el Anexo 20",
+    texto:
+      "Los errores tontos (un UsoCFDI que no corresponde, un PPD sin complemento de pago, un RFC genérico como emisor) son los que tiran deducciones completas en una revisión. Y son invisibles cuando revisas 300 facturas a ojo. Este los depura todos en una corrida.",
+  },
+  {
+    num: "02",
+    titulo: "Materialidad: lo que el papel no demuestra",
+    texto:
+      "Un CFDI puede estar formalmente perfecto y ser indefendible. El SAT ya no ataca la forma, ataca la sustancia (Art. 69-B CFF). El prompt marca qué operaciones necesitan evidencia y cuál le falta al expediente.",
+  },
+  {
+    num: "03",
+    titulo: "Scoring de riesgo con semáforo",
+    texto:
+      "El SAT te fiscaliza con algoritmos y tú revisas con intuición. Aquí cada CFDI sale con puntaje y color, así sabes por dónde empezar la revisión del mes y cómo explicarle el riesgo a tu cliente.",
+  },
+  {
+    num: "04",
+    titulo: "Blindaje de proveedores: 69-B y REPSE",
+    texto:
+      "Tu cliente no elige proveedores pensando en el SAT, pero tú heredas el riesgo. Un emisor en la 69-B definitiva o un servicio especializado sin REPSE convierte gastos legítimos en no deducibles, con responsabilidad solidaria incluida.",
+  },
+  {
+    num: "05",
+    titulo: "El reporte ejecutivo que sí se cobra",
+    texto:
+      "Haces la auditoría, encuentras oro y todo se queda en un Excel que el cliente nunca ve. Trabajo invisible es trabajo que no se paga. Este prompt convierte los hallazgos de los cuatro anteriores en un entregable con tu nombre.",
+  },
+];
+
+/** Las tres objeciones que la guía ya trae resueltas. */
+const EXTRAS = [
+  {
+    titulo: "Qué modelo usar en cada prompt",
+    texto:
+      "Opus 5 donde se necesita criterio, Sonnet 5 para lotes y reglas, Haiku 4.5 cuando importa la velocidad. Si solo usas uno, todos corren con Sonnet 5.",
+  },
+  {
+    titulo: "Cómo cuidar los datos de tus clientes",
+    texto:
+      "Qué nunca se sube (credenciales, e.firma, CIEC), cómo seudonimizar sin perder análisis y qué dejar asentado en tu papel de trabajo.",
+  },
+  {
+    titulo: "Equivalencias para ChatGPT y Gemini",
+    texto:
+      "La estructura funciona en cualquier modelo de frontera. La guía trae la tabla de equivalencias y las líneas anti invento que no debes recortar.",
+  },
+];
+---
+
+<BaseLayout
+  title="5 prompts para auditar tus XMLs con Claude (guía gratis)"
+  description="Guía gratuita para contadores en México: 5 prompts listos para copiar y auditar tus CFDI con IA. Validación contra el Anexo 20, materialidad, scoring de riesgo, 69-B y REPSE, y el reporte ejecutivo que le entregas a tu cliente."
+  jsonLd={jsonLd}
+  desnudo
+>
+  <main>
+    <section class="hero">
+      <div class="container-narrow">
+        <p class="folio hero-folio">DESCARGA <b>GRATUITA</b> · PDF DE 9 PÁGINAS</p>
+        <h1 class="hero-titulo">5 prompts para auditar tus XMLs con Claude</h1>
+        <p class="hero-texto">
+          Los copias, los pegas y revisas el lote del mes hoy mismo. No salieron
+          de un blog gringo: salieron del sistema de auditoría preventiva que
+          corre en mi despacho.
+        </p>
+        <div class="hero-form">
+          <NewsletterForm
+            boton="Mándame los 5 prompts"
+            exito="Listo. Confirma tu correo y te mando los 5 prompts en PDF."
+            nota="Te los mando al correo, junto con una idea de IA fiscal cada semana. Te das de baja con un clic."
+          />
+        </div>
+        <ul class="capas-tira">
+          {CAPAS.map((c) => (
+            <li><b>{c.num}</b> {c.texto}</li>
+          ))}
+        </ul>
+      </div>
+    </section>
+
+    <section class="porque">
+      <div class="container-narrow">
+        <p class="lede" data-reveal>
+          Revisar antes de deducir ya no es buena práctica: con la reforma 2026
+          al CFF es <span class="hl">la diferencia entre una aclaración y un litigio</span>.
+          El problema nunca fue el criterio. Es que nadie revisa 300 XMLs al mes
+          por cliente con esta profundidad.
+        </p>
+      </div>
+    </section>
+
+    <section>
+      <div class="container-narrow">
+        <div class="sec-head"><h2 class="folio">LOS CINCO, <b>UNO POR UNO</b></h2></div>
+        <ol class="lista-prompts">
+          {PROMPTS.map((p, i) => (
+            <li data-reveal style={`--reveal-delay:${i * 0.06}s`}>
+              <span class="lp-num">{p.num}</span>
+              <div>
+                <h3>{p.titulo}</h3>
+                <p>{p.texto}</p>
+              </div>
+            </li>
+          ))}
+        </ol>
+      </div>
+    </section>
+
+    <section>
+      <div class="container-narrow">
+        <div class="sec-head"><h2 class="folio">LA REGLA <b>DE ORO</b></h2></div>
+        <div class="regla" data-reveal>
+          <p class="regla-titulo">Copiloto, no autopiloto.</p>
+          <p>
+            En los cinco prompts la IA señala, clasifica y prioriza. Nunca
+            determina. La conclusión fiscal, la consulta en los portales del SAT
+            y de la STPS, y la firma, son tuyas. Cada prompt trae instrucciones
+            para que el modelo marque como pendiente de confirmar lo que no puede
+            verificar, en vez de inventarlo. Ante el SAT respondes tú, no el
+            modelo.
+          </p>
+        </div>
+        <div class="extras">
+          {EXTRAS.map((e, i) => (
+            <article data-reveal style={`--reveal-delay:${i * 0.08}s`}>
+              <h3>{e.titulo}</h3>
+              <p>{e.texto}</p>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="container-narrow">
+        <div class="sec-head"><h2 class="folio">QUIÉN <b>TE LA MANDA</b></h2></div>
+        <p class="firma" data-reveal>
+          Soy Israel Castro, contador público y desarrollador de software. Llevo
+          14 años de ejercicio y hoy automatizo mi propio despacho con IA. Estos
+          prompts son las cuatro capas de validación que uso para revisar
+          comprobantes antes de deducirlos, escritas para que las corras tú.
+        </p>
+      </div>
+    </section>
+
+    <section class="cierre">
+      <div class="container-narrow">
+        <p class="folio hero-folio">SIN <b>COSTO</b> · AL CORREO</p>
+        <h2 class="cierre-titulo">Déjame tu correo y te los mando</h2>
+        <p class="cierre-texto">
+          Llegan en un PDF que puedes tener abierto mientras trabajas. Nada de
+          curso, nada de llamada: los prompts y ya.
+        </p>
+        <div class="hero-form">
+          <NewsletterForm
+            boton="Mándame los 5 prompts"
+            exito="Listo. Confirma tu correo y te mando los 5 prompts en PDF."
+            nota="Te los mando al correo, junto con una idea de IA fiscal cada semana. Te das de baja con un clic."
+          />
+        </div>
+      </div>
+    </section>
+  </main>
+</BaseLayout>
+
+<style>
+  section {
+    padding: 3.6rem 0;
+  }
+
+  /*
+   * El hero llena la primera pantalla y va oscuro: el campo de correo de
+   * NewsletterForm está pintado para fondo de terminal, así que el formulario
+   * manda el color de la banda, no al revés.
+   */
+  .hero {
+    background: var(--color-line-strong);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-height: calc(100svh - 4.4rem);
+    padding: 3.2rem 0;
+  }
+  .hero-folio {
+    color: #8da2c0;
+  }
+  .hero-folio b {
+    color: var(--color-terminal-ok);
+  }
+  .hero-titulo {
+    color: #ffffff;
+    font-weight: 700;
+    font-size: clamp(2.1rem, 5.4vw, 3.3rem);
+    line-height: 1.06;
+    letter-spacing: -0.035em;
+    margin: 1.1rem 0 0;
+  }
+  .hero-texto {
+    margin: 1.3rem 0 0;
+    max-width: 48ch;
+    color: #aebbd1;
+    font-size: 1.08rem;
+  }
+  .hero-form {
+    margin-top: 2.2rem;
+    max-width: 34rem;
+  }
+
+  /* La tira de capas: numeradas en mono se cuentan de un vistazo, y contarlas
+     es la mitad del valor percibido de un imán gratuito. */
+  .capas-tira {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 0;
+    margin: 3.2rem 0 0;
+    padding: 1.6rem 0 0;
+    border-top: 1px solid #2a3648;
+  }
+  .capas-tira li {
+    padding: 0 1.2rem 0 0;
+    font-size: 0.82rem;
+    line-height: 1.45;
+    color: #9fb0c9;
+  }
+  .capas-tira b {
+    display: block;
+    margin-bottom: 0.35rem;
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--color-terminal-ok);
+  }
+  /* En celular cinco columnas no caben, y apiladas hacen una torre de cinco
+     renglones sueltos. Dos columnas: se siguen contando y ocupan la mitad. */
+  @media (max-width: 760px) {
+    .capas-tira {
+      grid-template-columns: 1fr 1fr;
+      gap: 1.2rem 1.4rem;
+      margin-top: 2.4rem;
+    }
+    .capas-tira li {
+      padding-right: 0;
+    }
+    .capas-tira li:last-child {
+      grid-column: 1 / -1;
+    }
+  }
+
+  .porque {
+    padding-top: 4rem;
+  }
+  .lede {
+    margin: 0;
+    font-size: clamp(1.25rem, 2.5vw, 1.6rem);
+    font-weight: 500;
+    line-height: 1.35;
+    letter-spacing: -0.015em;
+  }
+
+  .lista-prompts {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    border-top: 1px solid var(--color-line);
+  }
+  .lista-prompts li {
+    display: grid;
+    grid-template-columns: 3.4rem 1fr;
+    gap: 1rem;
+    padding: 1.4rem 0;
+    border-bottom: 1px solid var(--color-line);
+  }
+  .lp-num {
+    font-family: var(--font-mono);
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--color-ink-dim);
+  }
+  .lista-prompts h3 {
+    margin: 0 0 0.4rem;
+    font-size: 1.1rem;
+    font-weight: 700;
+    letter-spacing: -0.015em;
+  }
+  .lista-prompts p {
+    margin: 0;
+    color: var(--color-ink-soft);
+    font-size: 0.95rem;
+  }
+  @media (max-width: 560px) {
+    .lista-prompts li {
+      grid-template-columns: 1fr;
+      gap: 0.3rem;
+    }
+  }
+
+  .regla {
+    background: var(--color-accent-soft);
+    border-left: 3px solid var(--color-accent);
+    border-radius: 0 var(--radius-md) var(--radius-md) 0;
+    padding: 1.6rem 1.8rem;
+  }
+  .regla-titulo {
+    margin: 0 0 0.6rem;
+    font-weight: 700;
+    font-size: 1.12rem;
+    letter-spacing: -0.015em;
+  }
+  .regla p:last-child {
+    margin: 0;
+    color: var(--color-ink-soft);
+    font-size: 0.95rem;
+  }
+
+  .extras {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.2rem;
+    margin-top: 2.4rem;
+  }
+  @media (max-width: 860px) {
+    .extras {
+      grid-template-columns: 1fr;
+    }
+  }
+  .extras article {
+    background: var(--color-surface-raised);
+    border: 1px solid var(--color-line);
+    border-radius: var(--radius-md);
+    padding: 1.3rem;
+  }
+  .extras h3 {
+    margin: 0 0 0.45rem;
+    font-size: 0.98rem;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+  }
+  .extras p {
+    margin: 0;
+    color: var(--color-ink-soft);
+    font-size: 0.88rem;
+  }
+
+  .firma {
+    margin: 0;
+    color: var(--color-ink-soft);
+    font-size: 1.02rem;
+  }
+
+  .cierre {
+    background: var(--color-line-strong);
+    padding: 4rem 0;
+  }
+  .cierre-titulo {
+    color: #ffffff;
+    font-weight: 700;
+    font-size: clamp(1.5rem, 3vw, 2.1rem);
+    line-height: 1.12;
+    letter-spacing: -0.025em;
+    margin: 0.9rem 0 0;
+  }
+  .cierre-texto {
+    margin: 1rem 0 0;
+    max-width: 46ch;
+    color: #aebbd1;
+  }
+</style>

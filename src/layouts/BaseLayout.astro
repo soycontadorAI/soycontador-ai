@@ -13,10 +13,19 @@ interface Props {
   noindex?: boolean;
   /** Grafo JSON-LD ya armado con graph(...) de lib/schema.ts */
   jsonLd?: Record<string, unknown>;
+  /**
+   * Página de captación: se queda el logotipo y lo legal, y se van la
+   * navegación, el CTA de la cabecera, el índice de páginas del pie y las
+   * redes. A una landing llega tráfico que viene por UNA cosa (un QR, el
+   * live, un reel), y cada enlace de más es una salida.
+   */
+  desnudo?: boolean;
 }
 
-const { title, description, image, type, noindex, jsonLd } = Astro.props;
+const { title, description, image, type, noindex, jsonLd, desnudo } = Astro.props;
 const year = new Date().getFullYear();
+/** Desnuda, el pie conserva solo los enlaces internos (el aviso de privacidad). */
+const pieLinks = desnudo ? FOOTER_LINKS.filter((l) => !l.href.startsWith("http")) : FOOTER_LINKS;
 ---
 
 <!doctype html>
@@ -51,12 +60,14 @@ const year = new Date().getFullYear();
             <span class="site-wordmark-tld">.ai</span>
           </span>
         </a>
-        <ul class="site-links">
-          {NAV.map((item) => (
-            <li><a href={item.href}>{item.label}</a></li>
-          ))}
-        </ul>
-        <a class="site-cta" href="/contacto">Agenda un diagnóstico</a>
+        {!desnudo && (
+          <ul class="site-links">
+            {NAV.map((item) => (
+              <li><a href={item.href}>{item.label}</a></li>
+            ))}
+          </ul>
+        )}
+        {!desnudo && <a class="site-cta" href="/contacto">Agenda un diagnóstico</a>}
       </nav>
     </header>
 
@@ -80,19 +91,21 @@ const year = new Date().getFullYear();
       document.querySelectorAll("[data-reveal]").forEach((el) => io.observe(el));
     </script>
 
-    <footer class="site-footer">
+    <footer class:list={["site-footer", { "site-footer-desnudo": desnudo }]}>
       <div class="container-default">
-        <nav class="site-foot-paginas" aria-label="Páginas del sitio">
-          <ul class="site-links">
-            {NAV_PAGINAS.map((item) => (
-              <li><a href={item.href}>{item.label}</a></li>
-            ))}
-          </ul>
-        </nav>
+        {!desnudo && (
+          <nav class="site-foot-paginas" aria-label="Páginas del sitio">
+            <ul class="site-links">
+              {NAV_PAGINAS.map((item) => (
+                <li><a href={item.href}>{item.label}</a></li>
+              ))}
+            </ul>
+          </nav>
+        )}
         <div class="site-foot">
           <small>soycontador.ai · Israel Castro · Hecho en México · {year}</small>
           <ul class="site-links">
-            {FOOTER_LINKS.map((item) => (
+            {pieLinks.map((item) => (
               <li>
                 <a
                   href={item.href}
@@ -193,6 +206,11 @@ const year = new Date().getFullYear();
     background: var(--color-surface-raised);
     border-top: 1.5px solid var(--color-line-strong);
     margin-top: 4rem;
+  }
+  /* En una landing la última sección es la banda del correo: el respiro de
+     4rem metía una franja clara entre esa banda y el pie. */
+  .site-footer-desnudo {
+    margin-top: 0;
   }
   .site-foot-paginas {
     border-bottom: 1px solid var(--color-line);
