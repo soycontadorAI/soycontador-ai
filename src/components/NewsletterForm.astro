@@ -87,6 +87,30 @@ const {
     color: #8da2c0;
     font-size: 0.78rem;
   }
+
+  /*
+   * Antes el éxito solo cambiaba el texto de esta línea: mismo tamaño, mismo
+   * gris, mismo lugar. Para el visitante no pasaba nada y la lectura natural
+   * era que el formulario no servía. Ahora el campo desaparece (ya cumplió) y
+   * el mensaje se vuelve el elemento principal.
+   */
+  .nl-form[data-estado="ok"] .nl-campos {
+    display: none;
+  }
+  .nl-form[data-estado="ok"] small {
+    margin-top: 0;
+    color: var(--color-terminal-ok);
+    font-size: 1rem;
+    font-weight: 600;
+    line-height: 1.4;
+  }
+  .nl-form[data-estado="ok"] small::before {
+    content: "✓ ";
+  }
+  .nl-form[data-estado="err"] small {
+    color: var(--color-terminal-err);
+    font-weight: 600;
+  }
 </style>
 
 <script>
@@ -96,6 +120,7 @@ const {
       const msg = form.querySelector<HTMLElement>("[data-nl-msg]");
       const boton = form.querySelector<HTMLButtonElement>("button");
       const data = new FormData(form);
+      delete form.dataset.estado;
       if (boton) boton.disabled = true;
       try {
         const resp = await fetch("/api/newsletter", {
@@ -119,9 +144,13 @@ const {
             msg.textContent = body.error ?? "No pudimos suscribirte. Inténtalo de nuevo.";
           }
         }
+        // `already` también cierra el formulario: el visitante ya no tiene nada
+        // que hacer aquí, y volver a ofrecerle el campo invita a reintentar.
+        form.dataset.estado = body.ok ? "ok" : "err";
         if (body.ok) form.reset();
       } catch {
         if (msg) msg.textContent = "No pudimos suscribirte. Inténtalo de nuevo.";
+        form.dataset.estado = "err";
       } finally {
         if (boton) boton.disabled = false;
       }
