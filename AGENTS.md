@@ -69,6 +69,7 @@ le queda a medias a las dos:
 | `general` (39) | La guía de 5 prompts | home, y leads que marcan la casilla |
 | `live` (41) | El aviso del Jueves de ContadorIA | `/jueves` |
 | `ebook` (40) | La muestra del libro | `/ebook` |
+| `flujos` (42) | La guía de los 3 flujos híbridos | `/flujos` |
 
 El endpoint valida contra una lista blanca de nombres: el navegador nunca manda
 un ID de Sendy.
