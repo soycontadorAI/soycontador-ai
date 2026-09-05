@@ -36,6 +36,10 @@
   --color-terminal-bright: #E8EDF5;
   --color-terminal-dim: #5A6B85;
   --color-terminal-ok: #3DD68C;
+  /* Hermano de terminal-ok, para el estado de error de un formulario
+     sobre banda oscura. No se reusa semaforo-rojo: ese es el botón de
+     ventana de macOS y significa otra cosa. */
+  --color-terminal-err: #FF8A8A;
   /* Semáforo de ventana macOS: lo usan Terminal.astro y FlujoConcentrado.astro */
   --color-semaforo-rojo: #FF5F57;
   --color-semaforo-ambar: #FEBC2E;

@@ -74,6 +74,14 @@ le queda a medias a las dos:
 El endpoint valida contra una lista blanca de nombres: el navegador nunca manda
 un ID de Sendy.
 
+**El redirect de la confirmación es `confirm_url`, no `subscribed_url`.** Son
+dos campos distintos de la lista y se parecen lo suficiente para confundirse:
+`confirm.php` redirige con el primero, y el segundo aplica al alta directa. Las
+cuatro listas de la marca tenían `confirm_url` vacío, así que quien confirmaba
+su correo aterrizaba en la página por defecto de Sendy, con el dominio de la
+marca vieja a la vista. Se detectó hasta que se probó el flujo completo, no
+leyendo la configuración: en el panel las dos casillas se ven igual de llenas.
+
 **Cómo se prueba el consentimiento** (hacerlo cada vez que se toque este flujo,
 porque es lo que separa "creo que respeta el consentimiento" de saberlo):
 mandar DOS leads, uno con la casilla y otro sin ella, y que alguien con acceso
