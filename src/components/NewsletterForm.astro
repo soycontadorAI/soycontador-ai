@@ -148,6 +148,18 @@ const {
         // que hacer aquí, y volver a ofrecerle el campo invita a reintentar.
         form.dataset.estado = body.ok ? "ok" : "err";
         if (body.ok) form.reset();
+
+        /*
+         * Alta nueva: a /gracias, que explica el paso que falta con espacio
+         * para hacerlo. El estado en verde de arriba se queda como respaldo,
+         * porque se pinta antes de navegar y es lo que se ve si la navegación
+         * no ocurre.
+         *
+         * `already` NO va: esa página dice "te acabo de mandar un mensaje" y a
+         * quien ya estaba suscrito Sendy no le manda nada. Mandarlo ahí sería
+         * ponerlo a esperar un correo que no existe.
+         */
+        if (body.status === "confirm") location.assign("/gracias");
       } catch {
         if (msg) msg.textContent = "No pudimos suscribirte. Inténtalo de nuevo.";
         form.dataset.estado = "err";
