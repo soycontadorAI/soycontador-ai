@@ -48,6 +48,7 @@ export default defineConfig({
       // Si alguna falta, el alta cae en SENDY_LIST_ID.
       SENDY_EBOOK_LIST_ID: envField.string({ context: 'server', access: 'public', optional: true }),
       SENDY_LIVE_LIST_ID: envField.string({ context: 'server', access: 'public', optional: true }),
+      SENDY_FLUJOS_LIST_ID: envField.string({ context: 'server', access: 'public', optional: true }),
 
       // Correo de acuse del lead (SES). El dominio ya está verificado con
       // SPF/DKIM, así que el remitente debe ser @soycontador.ai.

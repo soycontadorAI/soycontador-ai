@@ -1,0 +1,405 @@
+---
+/**
+ * /flujos · Landing de captación de la guía "3 Flujos Híbridos que te
+ * Ahorrarán Horas".
+ *
+ * Venía de todoconta.com/flujos, que es la URL que quedó dicha en videos y
+ * detrás de un QR. Se mudó aquí porque el imán es de la marca personal, no del
+ * software: quien lo pide viene por los flujos de Israel, y el correo que
+ * recibe debe salir de soycontador.ai y no de TodoConta. La ruta se conserva
+ * palabra por palabra para que el redirect del dominio viejo sea invisible.
+ *
+ * Va DESNUDA, como /audita: aquí llega gente por una sola cosa y cada enlace de
+ * más es una salida.
+ *
+ * Promesa propia, así que lista propia: `flujos`. El autoresponder que entrega
+ * el PDF se cuelga de esa lista. Ver la tabla en CLAUDE.md.
+ */
+import BaseLayout from "../layouts/BaseLayout.astro";
+import NewsletterForm from "../components/NewsletterForm.astro";
+import { breadcrumbs, graph, personRef } from "../lib/schema";
+import { SITE } from "../lib/site";
+
+const guia = {
+  "@type": "CreativeWork",
+  "@id": `${SITE.url}/flujos#guia`,
+  name: "3 Flujos Híbridos que te Ahorrarán Horas",
+  description:
+    "Guía en PDF con 3 flujos que combinan IA y criterio del contador: clasificar CFDIs sin capturar a mano, conciliar banco contra CFDI con las diferencias ya marcadas, y redactar la respuesta técnica al SAT.",
+  inLanguage: SITE.lang,
+  encodingFormat: "application/pdf",
+  isAccessibleForFree: true,
+  author: personRef(),
+  publisher: personRef(),
+};
+
+const jsonLd = graph(
+  guia,
+  breadcrumbs([
+    { name: "Inicio", path: "/" },
+    { name: "3 flujos híbridos", path: "/flujos" },
+  ]),
+);
+
+/** El desglose de la tira del hero: se cuentan de un vistazo. */
+const FLUJOS = [
+  { num: "01", texto: "Clasificar CFDIs sin capturar a mano" },
+  { num: "02", texto: "Conciliar banco contra CFDI, con las diferencias marcadas" },
+  { num: "03", texto: "Responderle al SAT en minutos" },
+];
+
+/** El dolor de cada flujo, que es lo que hace que se descargue. */
+const DETALLE = [
+  {
+    num: "01",
+    titulo: "Clasificar tus CFDIs, deducible o no",
+    texto:
+      "Es el trabajo que no se ve y se lleva la tarde: abrir factura por factura para decidir si entra. El flujo te trae el lote ya clasificado con su porqué, y tú resuelves nada más lo dudoso. Ahí es donde de verdad hace falta un contador.",
+  },
+  {
+    num: "02",
+    titulo: "Conciliar banco contra CFDI y contabilidad",
+    texto:
+      "La conciliación no es difícil, es larga: cruzar tres fuentes a ojo hasta que cuadren. El flujo hace el cruce y te entrega solo las diferencias, con el movimiento y el comprobante lado a lado. Dejas de buscar y empiezas a decidir.",
+  },
+  {
+    num: "03",
+    titulo: "Responderle al SAT, y luego a tu cliente",
+    texto:
+      "Un requerimiento se lleva dos redacciones: la técnica, con fundamento, y la que tu cliente entiende sin asustarse. El flujo te da las dos del mismo expediente. Tú revisas el fundamento, que es lo que lleva tu firma.",
+  },
+];
+
+/** Lo que la guía resuelve antes de que lo preguntes. */
+const EXTRAS = [
+  {
+    titulo: "El prompt completo de cada flujo",
+    texto:
+      "No un ejemplo recortado: el prompt entero, listo para copiar, con la estructura de rol, contexto, instrucción, formato y restricciones.",
+  },
+  {
+    titulo: "Qué nunca subes",
+    texto:
+      "Credenciales, e.firma y CIEC no van a un chat. Cómo seudonimizar sin perder el análisis y qué dejar asentado en tu papel de trabajo.",
+  },
+  {
+    titulo: "Sirve en Claude, ChatGPT o Gemini",
+    texto:
+      "La estructura funciona en cualquier modelo de frontera. Cambia dónde le picas, no cómo se pide.",
+  },
+];
+---
+
+<BaseLayout
+  title="3 flujos con IA que le quitan horas a tu semana (guía gratis)"
+  description="Guía gratuita para contadores en México: 3 flujos híbridos que combinan IA con tu criterio para clasificar CFDIs, conciliar banco contra CFDI y responderle al SAT. Con el prompt completo de cada uno."
+  jsonLd={jsonLd}
+  desnudo
+>
+  <main>
+    <section class="hero">
+      <div class="container-narrow">
+        <p class="folio hero-folio">DESCARGA <b>GRATUITA</b> · GUÍA EN PDF</p>
+        <h1 class="hero-titulo">3 flujos con IA que le quitan horas a tu semana</h1>
+        <p class="hero-texto">
+          La IA de 2026 ya no solo redacta correos: ejecuta flujos completos.
+          Pero ante el SAT quien firma eres tú. Aquí van tres formas concretas de
+          que la máquina cargue el volumen y tú te quedes con el criterio.
+        </p>
+        <div class="hero-form">
+          <NewsletterForm
+            lista="flujos"
+            boton="Mándame los 3 flujos"
+            exito="Listo. Confirma tu correo y te mando los 3 flujos en PDF."
+            nota="Te los mando al correo, junto con una idea de IA fiscal cada semana. Te das de baja con un clic."
+          />
+        </div>
+        <ul class="capas-tira">
+          {FLUJOS.map((f) => (
+            <li><b>{f.num}</b> {f.texto}</li>
+          ))}
+        </ul>
+      </div>
+    </section>
+
+    <section class="porque">
+      <div class="container-narrow">
+        <p class="lede" data-reveal>
+          El problema de tu semana no es que no sepas hacerlo. Es que <span class="hl">el
+          volumen no cabe en las horas</span>. Estos tres flujos atacan justo las
+          tareas donde lo que aportas es paciencia, no criterio.
+        </p>
+      </div>
+    </section>
+
+    <section>
+      <div class="container-narrow">
+        <div class="sec-head"><h2 class="folio">LOS TRES, <b>UNO POR UNO</b></h2></div>
+        <ol class="lista-prompts">
+          {DETALLE.map((d, i) => (
+            <li data-reveal style={`--reveal-delay:${i * 0.06}s`}>
+              <span class="lp-num">{d.num}</span>
+              <div>
+                <h3>{d.titulo}</h3>
+                <p>{d.texto}</p>
+              </div>
+            </li>
+          ))}
+        </ol>
+      </div>
+    </section>
+
+    <section>
+      <div class="container-narrow">
+        <div class="sec-head"><h2 class="folio">POR QUÉ <b>HÍBRIDOS</b></h2></div>
+        <div class="regla" data-reveal>
+          <p class="regla-titulo">Copiloto, no autopiloto.</p>
+          <p>
+            En los tres flujos la IA carga el volumen: lee, cruza y ordena. Nunca
+            determina. La conclusión fiscal, la consulta en los portales y la
+            firma son tuyas. Por eso se llaman híbridos y no automáticos: la
+            máquina te trae el trabajo hecho hasta donde puede llegar sola, y el
+            último tramo, que es el que se paga, lo caminas tú.
+          </p>
+        </div>
+        <div class="extras">
+          {EXTRAS.map((e, i) => (
+            <article data-reveal style={`--reveal-delay:${i * 0.08}s`}>
+              <h3>{e.titulo}</h3>
+              <p>{e.texto}</p>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="container-narrow">
+        <div class="sec-head"><h2 class="folio">QUIÉN <b>TE LA MANDA</b></h2></div>
+        <p class="firma" data-reveal>
+          Soy Israel Castro, contador público y desarrollador de software. Llevo
+          14 años de ejercicio y hoy automatizo mi propio despacho con IA. Estos
+          tres flujos son de los primeros que monté para mí, y siguen corriendo
+          cada mes.
+        </p>
+      </div>
+    </section>
+
+    <section class="cierre">
+      <div class="container-narrow">
+        <p class="folio hero-folio">SIN <b>COSTO</b> · AL CORREO</p>
+        <h2 class="cierre-titulo">Déjame tu correo y te los mando</h2>
+        <p class="cierre-texto">
+          Llegan en un PDF que puedes tener abierto mientras trabajas. Nada de
+          curso, nada de llamada: los flujos y ya.
+        </p>
+        <div class="hero-form">
+          <NewsletterForm
+            lista="flujos"
+            boton="Mándame los 3 flujos"
+            exito="Listo. Confirma tu correo y te mando los 3 flujos en PDF."
+            nota="Te los mando al correo, junto con una idea de IA fiscal cada semana. Te das de baja con un clic."
+          />
+        </div>
+      </div>
+    </section>
+  </main>
+</BaseLayout>
+
+<style>
+  section {
+    padding: 3.6rem 0;
+  }
+
+  /*
+   * Mismo hero oscuro que /audita: el campo de correo de NewsletterForm está
+   * pintado para fondo de terminal, así que el formulario manda el color de la
+   * banda y no al revés.
+   */
+  .hero {
+    background: var(--color-line-strong);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-height: calc(100svh - 4.4rem);
+    padding: 3.2rem 0;
+  }
+  .hero-folio {
+    color: #8da2c0;
+  }
+  .hero-folio b {
+    color: var(--color-terminal-ok);
+  }
+  .hero-titulo {
+    color: #ffffff;
+    font-weight: 700;
+    font-size: clamp(2.1rem, 5.4vw, 3.3rem);
+    line-height: 1.06;
+    letter-spacing: -0.035em;
+    margin: 1.1rem 0 0;
+  }
+  .hero-texto {
+    margin: 1.3rem 0 0;
+    max-width: 48ch;
+    color: #aebbd1;
+    font-size: 1.08rem;
+  }
+  .hero-form {
+    margin-top: 2.2rem;
+    max-width: 34rem;
+  }
+
+  /* Tres columnas y no cinco como en /audita: son tres flujos y cada texto es
+     más largo, así que a cinco tramos quedarían dos huecos y renglones rotos. */
+  .capas-tira {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0 1.4rem;
+    margin: 3.2rem 0 0;
+    padding: 1.6rem 0 0;
+    border-top: 1px solid #2a3648;
+  }
+  .capas-tira li {
+    padding: 0 1.2rem 0 0;
+    font-size: 0.82rem;
+    line-height: 1.45;
+    color: #9fb0c9;
+  }
+  .capas-tira b {
+    display: block;
+    margin-bottom: 0.35rem;
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--color-terminal-ok);
+  }
+  @media (max-width: 760px) {
+    .capas-tira {
+      grid-template-columns: 1fr;
+      gap: 1.2rem;
+      margin-top: 2.4rem;
+    }
+    .capas-tira li {
+      padding-right: 0;
+    }
+  }
+
+  .porque {
+    padding-top: 4rem;
+  }
+  .lede {
+    margin: 0;
+    font-size: clamp(1.25rem, 2.5vw, 1.6rem);
+    font-weight: 500;
+    line-height: 1.35;
+    letter-spacing: -0.015em;
+  }
+
+  .lista-prompts {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    border-top: 1px solid var(--color-line);
+  }
+  .lista-prompts li {
+    display: grid;
+    grid-template-columns: 3.4rem 1fr;
+    gap: 1rem;
+    padding: 1.4rem 0;
+    border-bottom: 1px solid var(--color-line);
+  }
+  .lp-num {
+    font-family: var(--font-mono);
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--color-ink-dim);
+  }
+  .lista-prompts h3 {
+    margin: 0 0 0.4rem;
+    font-size: 1.1rem;
+    font-weight: 700;
+    letter-spacing: -0.015em;
+  }
+  .lista-prompts p {
+    margin: 0;
+    color: var(--color-ink-soft);
+    font-size: 0.95rem;
+  }
+  @media (max-width: 560px) {
+    .lista-prompts li {
+      grid-template-columns: 1fr;
+      gap: 0.3rem;
+    }
+  }
+
+  .regla {
+    background: var(--color-accent-soft);
+    border-left: 3px solid var(--color-accent);
+    border-radius: 0 var(--radius-md) var(--radius-md) 0;
+    padding: 1.6rem 1.8rem;
+  }
+  .regla-titulo {
+    margin: 0 0 0.6rem;
+    font-weight: 700;
+    font-size: 1.12rem;
+    letter-spacing: -0.015em;
+  }
+  .regla p:last-child {
+    margin: 0;
+    color: var(--color-ink-soft);
+    font-size: 0.95rem;
+  }
+
+  .extras {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.2rem;
+    margin-top: 2.4rem;
+  }
+  @media (max-width: 860px) {
+    .extras {
+      grid-template-columns: 1fr;
+    }
+  }
+  .extras article {
+    background: var(--color-surface-raised);
+    border: 1px solid var(--color-line);
+    border-radius: var(--radius-md);
+    padding: 1.3rem;
+  }
+  .extras h3 {
+    margin: 0 0 0.45rem;
+    font-size: 0.98rem;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+  }
+  .extras p {
+    margin: 0;
+    color: var(--color-ink-soft);
+    font-size: 0.88rem;
+  }
+
+  .firma {
+    margin: 0;
+    color: var(--color-ink-soft);
+    font-size: 1.02rem;
+  }
+
+  .cierre {
+    background: var(--color-line-strong);
+    padding: 4rem 0;
+  }
+  .cierre-titulo {
+    color: #ffffff;
+    font-weight: 700;
+    font-size: clamp(1.5rem, 3vw, 2.1rem);
+    line-height: 1.12;
+    letter-spacing: -0.025em;
+    margin: 0.9rem 0 0;
+  }
+  .cierre-texto {
+    margin: 1rem 0 0;
+    max-width: 46ch;
+    color: #aebbd1;
+  }
+</style>

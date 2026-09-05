@@ -6,14 +6,15 @@
     "node": ">=22.12.0"
   },
   "scripts": {
-    "dev": "astro dev",
-    "build": "astro build",
-    "preview": "astro preview",
     "astro": "astro",
+    "build": "astro build",
+    "dev": "astro dev",
     "ebook": "pnpm ebook:libro && pnpm ebook:muestra",
     "ebook:libro": "node ebook/generar-libro.mjs",
     "ebook:muestra": "node ebook/generar-muestra.mjs",
-    "guia:prompts": "node guias/prompts-xml/generar.mjs"
+    "guia:flujos": "node guias/flujos-hibridos/generar.mjs",
+    "guia:prompts": "node guias/prompts-xml/generar.mjs",
+    "preview": "astro preview"
   },
   "dependencies": {
     "@astrojs/mdx": "^7.0.8",

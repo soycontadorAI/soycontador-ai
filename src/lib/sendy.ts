@@ -9,6 +9,7 @@ import {
   SENDY_API_KEY,
   SENDY_ACTION_URL,
   SENDY_EBOOK_LIST_ID,
+  SENDY_FLUJOS_LIST_ID,
   SENDY_LIST_ID,
   SENDY_LIVE_LIST_ID,
 } from "astro:env/server";
@@ -29,17 +30,19 @@ export type EstadoSendy = "confirm" | "already" | "invalido" | "error";
  *   general → la guía de 5 prompts (home) y los leads que marcan la casilla
  *   live    → el aviso del Jueves de ContadorIA (/jueves)
  *   ebook   → la muestra del libro (/ebook)
+ *   flujos  → la guía de los 3 flujos híbridos (/flujos)
  *
  * Si una lista no está configurada, el alta cae en la general en lugar de
  * fallar: preferimos un suscriptor en la lista equivocada que un correo
  * perdido. Eso sí, ahí recibiría la bienvenida que no le toca, así que la
  * variable de entorno no es opcional en la práctica.
  */
-export type Lista = "general" | "live" | "ebook";
+export type Lista = "general" | "live" | "ebook" | "flujos";
 
 function idDeLista(lista: Lista): string | undefined {
   if (lista === "ebook") return SENDY_EBOOK_LIST_ID || SENDY_LIST_ID;
   if (lista === "live") return SENDY_LIVE_LIST_ID || SENDY_LIST_ID;
+  if (lista === "flujos") return SENDY_FLUJOS_LIST_ID || SENDY_LIST_ID;
   return SENDY_LIST_ID;
 }
 
