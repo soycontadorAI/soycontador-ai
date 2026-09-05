@@ -32,6 +32,12 @@ export default defineConfig({
   redirects: {
     '/jueves-de-contadoria': '/jueves',
     '/talleres': '/capacitacion',
+    // Los dos de abajo son alias que se dictan en cámara, no renombres: por eso
+    // van en 302 y no en el 301 implícito de los de arriba. Si la guía cambia de
+    // slug o el repo de nombre, un permanente ya estaría cacheado en el
+    // navegador de todo el que lo abrió y no habría cómo repuntarlo.
+    '/prompts': { status: 302, destination: '/audita' },
+    '/repo': { status: 302, destination: 'https://github.com/soyisracastro/jueves-de-contadoria' },
   },
   env: {
     schema: {
