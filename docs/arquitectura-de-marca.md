@@ -118,8 +118,11 @@ persona que lea los dos documentos no crea que se olvidó.
 
 ## Guardarraíles
 
-- **Cero menciones públicas de Fiscalistas.AI ni de Pepe Lara**, en cualquier
-  superficie. La alianza no se anuncia.
+- **La alianza con Fiscalistas.AI ya es pública** (derogado el 2026-09-08 lo de
+  "cero menciones"). Se nombra cuando aporta claridad al lector, como en el
+  curso que Israel imparte con ellos, y no como respaldo de marca. Lo que no
+  cambia: soycontador.ai vende a Israel, y un curso alojado en otra plataforma
+  se anuncia diciendo de quién es y dónde se paga.
 - **Nada de republicar** contenido de todoconta.com en soycontador.ai. Se
   describe y se enlaza, con copy propio.
 - **El ancla por hora no se publica** en ninguna superficie, ni siquiera "desde".

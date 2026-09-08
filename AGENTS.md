@@ -11,9 +11,17 @@ Stack: Astro 7 estático + adapter Vercel (solo `/api/newsletter` es serverless)
 - SIN raya «—» en ningún texto publicable (se lee como señal de IA). Usar punto o paréntesis.
 - Nombre: "Israel Castro" (formal) o "Isca" (informal). NUNCA "Isca Castro".
 - Contexto siempre MX: SAT, CFDI, ISR, pesos MXN. Nunca IRS/AEAT/euros.
-- CERO menciones públicas de Fiscalistas.AI o Pepe Lara (la alianza no se anuncia).
+- ALIANZA CON FISCALISTAS.AI: **la regla de "cero menciones públicas" quedó
+  DEROGADA el 2026-09-08, por decisión de Israel.** Se puede nombrar a José de
+  Jesús Pérez Lara y a Fiscalistas.AI donde haga falta. El motivo: Israel
+  imparte módulos en un curso alojado ahí, y una página que manda a pagar a
+  otro sitio sin decir de quién es se lee como poco transparente. Lo que SÍ
+  sigue en pie es el criterio: se nombra cuando aporta claridad al lector, no
+  como respaldo de marca.
 - PRECIOS (decisión Israel 2026-08-30): la sesión mensual abierta SÍ publica precio
-  ($4,999 MXN) y el ebook también ($297 MXN). NO publicar: el ancla de organizaciones
+  ($4,999 MXN) y el ebook también ($297 MXN). El curso de Fiscalistas.AI publica
+  el suyo ($3,500 MXN) porque es precio público de ELLOS, no de Israel: por eso
+  vive en `COLABORACION` y no en `TALLER`, y no se emite JSON-LD de oferta. NO publicar: el ancla de organizaciones
   ($3,500-4,000/hora, referencia interna de cotización), la capacitación empresarial
   (solo cotización por llamada tras formulario) ni el Club (cierre por aplicación).
 - POSICIONAMIENTO, en tres niveles (corrección de Israel 2026-08-30):

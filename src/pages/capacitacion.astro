@@ -8,6 +8,7 @@ import {
   EMPRESARIAL,
   ORGANIZACIONES,
   TALLER,
+  colaboracionVigente,
   edicionVigente,
   fechaDeEdicion,
 } from "../lib/capacitacion";
@@ -17,6 +18,8 @@ import { SITE } from "../lib/site";
 
 /** Null si la fecha ya pasó: nunca se anuncia una edición vencida. */
 const edicion = edicionVigente();
+/** Mismo criterio para el curso en el que Israel participa como invitado. */
+const colaboracion = colaboracionVigente();
 
 const jsonLd = graph(
   capacitacionService(),
@@ -107,6 +110,54 @@ const jsonLd = graph(
       </div>
     </section>
 
+    {colaboracion && (
+      <section class="colab-sec">
+        <div class="container-default">
+          <div class="sec-head"><h2 class="folio">PRÓXIMA FECHA · <b>COMO INVITADO</b></h2></div>
+          {/*
+            No es el taller de Israel y la página no puede sugerir que lo sea:
+            lo encabeza otra persona, lo vende otra plataforma y él da una
+            parte. Por eso el bloque dice quién, dónde y qué parte da, y el
+            precio que aparece es el de ESE curso, no el suyo. Sin JSON-LD de
+            oferta a propósito: no se emite un precio de algo que no vende.
+          */}
+          <div class="colab" data-reveal>
+            <div>
+              <h2 class="titulo-lg">{colaboracion.nombre}</h2>
+              <p class="colab-quien">
+                Lo imparte <b>{colaboracion.imparte}</b> en {colaboracion.plataforma},
+                y yo doy {colaboracion.miParte}.
+              </p>
+              <p class="colab-texto">
+                Ocho horas para pasar de usar la IA a construir con ella sobre
+                trabajo fiscal real. Si ya viste el live y quieres el paso
+                siguiente con acompañamiento, esta es la fecha más cercana.
+              </p>
+              <a class="btn btn-primary" href={colaboracion.url}>Ver el temario y apartar lugar</a>
+            </div>
+            <dl class="colab-datos">
+              <div>
+                <dt class="folio">FECHAS</dt>
+                <dd>{fechaDeEdicion(colaboracion)}</dd>
+              </div>
+              <div>
+                <dt class="folio">RITMO</dt>
+                <dd>{colaboracion.ritmo}, {colaboracion.horario}</dd>
+              </div>
+              <div>
+                <dt class="folio">FORMATO</dt>
+                <dd>{colaboracion.duracion}. {colaboracion.sede}</dd>
+              </div>
+              <div>
+                <dt class="folio">INVERSIÓN</dt>
+                <dd class="colab-precio">{colaboracion.precio}</dd>
+              </div>
+            </dl>
+          </div>
+        </div>
+      </section>
+    )}
+
     <section>
       <div class="container-default">
         <div class="sec-head"><h2 class="folio">MODALIDAD <b>02</b> · EMPRESAS Y DESPACHOS</h2></div>
@@ -160,6 +211,63 @@ const jsonLd = graph(
 </BaseLayout>
 
 <style>
+  /* La colaboración: retícula de dos columnas, el argumento a la izquierda y
+     los datos duros a la derecha, en la caja de papel elevado. Se distingue
+     del taller por la banda, no por el color: es una oferta de igual rango,
+     no una nota al pie. */
+  .colab-sec {
+    background: var(--color-surface);
+    border-block: 1px solid var(--color-line);
+  }
+  .colab {
+    display: grid;
+    grid-template-columns: 1.15fr 0.85fr;
+    gap: 3rem;
+    align-items: start;
+  }
+  @media (max-width: 900px) {
+    .colab {
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+  }
+  .colab-quien {
+    margin: 1rem 0 0;
+    font-size: 1.05rem;
+    color: var(--color-ink);
+  }
+  .colab-quien b {
+    font-weight: 700;
+  }
+  .colab-texto {
+    margin: 0.9rem 0 1.8rem;
+    color: var(--color-ink-soft);
+    max-width: 52ch;
+  }
+  .colab-datos {
+    margin: 0;
+    background: var(--color-surface-raised);
+    border: 1px solid var(--color-line);
+    border-radius: var(--radius-lg);
+    padding: 1.6rem 1.5rem;
+    display: grid;
+    gap: 1.2rem;
+  }
+  .colab-datos dt {
+    margin-bottom: 0.3rem;
+  }
+  .colab-datos dd {
+    margin: 0;
+    font-size: 0.95rem;
+    color: var(--color-ink-soft);
+  }
+  .colab-precio {
+    font-family: var(--font-mono);
+    font-weight: 700;
+    font-size: 1.3rem;
+    color: var(--color-ink) !important;
+  }
+
   section {
     padding: 3.4rem 0;
   }
