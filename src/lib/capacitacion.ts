@@ -7,8 +7,13 @@
  * cómo se reparten los días: seguidos o espaciados. Ninguna modalidad debe
  * ofrecer jornadas intensivas, ni siquiera cuando la organización las pida.
  *
- * 1. El taller: $4,999 MXN, precio PÚBLICO (decisión explícita). Son 8 horas
- *    en vivo REPARTIDAS EN SESIONES DE 2 HORAS, nunca una maratón de un día.
+ * 1. El taller: 8 horas en vivo REPARTIDAS EN SESIONES DE 2 HORAS, nunca una
+ *    maratón de un día. **YA NO PUBLICA PRECIO** (decisión de Israel
+ *    2026-09-08, revierte la del 2026-08-30). El motivo: en la misma página
+ *    vive ahora la colaboración con Fiscalistas.AI a $3,500, y dos números
+ *    juntos convierten la decisión en una comparación de precio en vez de una
+ *    de formato. El taller pasa a "escríbeme": cotización o aviso de la
+ *    siguiente edición. El número sigue vivo internamente, aquí no.
  *    Se abre una edición al mes, con calendario variable (2 h/día durante 2
  *    semanas, o 4 días seguidos). Incluye grabación, material y 30 días de
  *    acompañamiento sobre los proyectos del asistente.
@@ -135,7 +140,9 @@ export function edicionVigente(hoy = new Date()): Edicion | null {
 
 export const TALLER = {
   nombre: "Taller de automatización",
-  precio: "$4,999 MXN",
+  /* Sin campo `precio` a propósito: ver la nota 1 del encabezado. Si alguien
+     lo vuelve a agregar, se publica solo en la página, en el JSON-LD y en los
+     dos llms.txt, que es por donde se escapó la última vez. */
   duracion: "8 horas en vivo, en sesiones de 2 horas",
   incluye: [
     "Las 8 horas en vivo, repartidas en sesiones de 2 horas (cupo limitado)",

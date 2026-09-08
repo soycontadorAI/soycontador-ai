@@ -47,7 +47,7 @@ const PAGINAS: Array<{ ruta: string; titulo: string; que: string }> = [
   {
     ruta: "/capacitacion",
     titulo: "Capacitación",
-    que: `el taller de ${TALLER.duracion} (${TALLER.precio}), con una edición nueva cada mes (se compra UNA edición, no es suscripción); más capacitación para empresas y despachos y licenciamiento para organizaciones`,
+    que: `el taller de ${TALLER.duracion}, con una edición nueva cada mes (se compra UNA edición, no es suscripción); se cotiza por correo, igual que la capacitación para empresas y despachos y el licenciamiento para organizaciones`,
   },
   {
     ruta: "/despachos",

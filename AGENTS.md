@@ -18,8 +18,13 @@ Stack: Astro 7 estático + adapter Vercel (solo `/api/newsletter` es serverless)
   otro sitio sin decir de quién es se lee como poco transparente. Lo que SÍ
   sigue en pie es el criterio: se nombra cuando aporta claridad al lector, no
   como respaldo de marca.
-- PRECIOS (decisión Israel 2026-08-30): la sesión mensual abierta SÍ publica precio
-  ($4,999 MXN) y el ebook también ($297 MXN). El curso de Fiscalistas.AI publica
+- PRECIOS: el ebook publica precio ($297 MXN). **El taller ya NO** (decisión
+  Israel 2026-09-08, revierte la del 2026-08-30): en la misma página vive la
+  colaboración con Fiscalistas.AI a $3,500, y dos números juntos convierten la
+  decisión en una comparación de precio en vez de una de formato. El taller
+  pasa a cotización por correo. Al retirarlo hay que sacarlo de CUATRO lugares,
+  no solo de la tarjeta: la página, el nodo Offer del JSON-LD, `llms.txt` y
+  `llms-full.txt`. Ahí se escapa. El curso de Fiscalistas.AI publica
   el suyo ($3,500 MXN) porque es precio público de ELLOS, no de Israel: por eso
   vive en `COLABORACION` y no en `TALLER`, y no se emite JSON-LD de oferta. NO publicar: el ancla de organizaciones
   ($3,500-4,000/hora, referencia interna de cotización), la capacitación empresarial

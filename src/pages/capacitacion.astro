@@ -87,7 +87,13 @@ const jsonLd = graph(
               Déjame tus datos aquí abajo y te aviso en cuanto se abra la
               siguiente, antes de que se llene.
             </p>
-            <p class="precio"><b>{TALLER.precio}</b> <span>por persona · {TALLER.duracion}</span></p>
+            {/* Aquí iba el precio. Se retiró el 2026-09-08: con la colaboración
+                a $3,500 en la misma página, dos números juntos convierten la
+                decisión en una comparación de precio en vez de una de formato.
+                Lo que queda es la invitación, que además sirve para los dos
+                casos que llegan a este bloque: el que quiere fecha y el que
+                quiere cotización. */}
+            <p class="precio"><b>Escríbeme</b> <span>y lo vemos · {TALLER.duracion}</span></p>
             <ul class="incluye">
               {TALLER.incluye.map((item) => (
                 <li>{item}</li>
