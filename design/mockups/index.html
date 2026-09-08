@@ -3,45 +3,85 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>soycontador.ai — comparador de direcciones de diseño</title>
+<title>soycontador.ai · comparador de direcciones de diseño</title>
 <style>
 * { margin: 0; padding: 0; box-sizing: border-box; }
 body { font-family: -apple-system, "Segoe UI", sans-serif; background: #16181D; color: #E8EAEF; padding: 2rem; }
 h1 { font-size: 1.3rem; margin-bottom: 0.4rem; }
-p.sub { color: #9BA1AE; font-size: 0.9rem; margin-bottom: 2rem; }
+p.sub { color: #9BA1AE; font-size: 0.9rem; margin-bottom: 2rem; max-width: 70ch; line-height: 1.55; }
+h2.ronda { font-size: 0.78rem; letter-spacing: .14em; text-transform: uppercase; color: #3DD68C; margin: 2.6rem 0 .3rem; }
+p.ronda-sub { color: #9BA1AE; font-size: 0.85rem; margin-bottom: 1.4rem; max-width: 78ch; line-height: 1.55; }
 .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.2rem; }
 @media (max-width: 1100px) { .grid { grid-template-columns: 1fr; } }
-.col h2 { font-size: 1rem; margin-bottom: 0.3rem; }
-.col p { font-size: 0.82rem; color: #9BA1AE; margin-bottom: 0.7rem; min-height: 3.6em; }
+.col h3 { font-size: 1rem; margin-bottom: 0.3rem; }
+.col p { font-size: 0.82rem; color: #9BA1AE; margin-bottom: 0.7rem; min-height: 4.8em; line-height: 1.5; }
 .swatches { display: flex; gap: 0.35rem; margin-bottom: 0.7rem; }
 .swatches i { width: 26px; height: 26px; border-radius: 6px; border: 1px solid #333845; }
 iframe { width: 100%; height: 70vh; border: 1px solid #333845; border-radius: 10px; background: #FFF; }
 a.open { display: inline-block; margin: 0.6rem 0 0; color: #7FB4FF; font-size: 0.85rem; }
+.viejas { opacity: .62; }
+.tag { display: inline-block; font-size: .66rem; letter-spacing: .1em; text-transform: uppercase; border: 1px solid #333845; border-radius: 99px; padding: .15rem .5rem; color: #9BA1AE; margin-left: .4rem; vertical-align: middle; }
+.tag.viva { border-color: #3DD68C; color: #3DD68C; }
 </style>
 </head>
 <body>
-<h1>soycontador.ai · 3 direcciones de diseño</h1>
-<p class="sub">Mismo contenido real, tres identidades. Abre cada una en pestaña completa para verla con calma (y en el celular).</p>
+<h1>soycontador.ai · direcciones de diseño</h1>
+<p class="sub">
+  Mismo contenido real, distintas identidades. Abre cada una en pestaña
+  completa para verla con calma (y en el celular). La ronda 2 explora
+  MOVIMIENTO: los tres conservan los dos verdes de la marca (#0A7B45 para
+  acción, #3DD68C para marcador) y cambian el ritmo, no la promesa.
+</p>
+
+<h2 class="ronda">Ronda 2 · movimiento (2026-09-07)</h2>
+<p class="ronda-sub">
+  Qué mirar: cómo se siente el sitio al pasar el mouse y al bajar, no cuántas
+  cosas se mueven. Las tres respetan prefers-reduced-motion (si tienes el
+  sistema en "reducir movimiento", verás el estado final sin animación).
+</p>
 <div class="grid">
   <div class="col">
-    <h2>A · Manifiesto editorial</h2>
+    <h3>D · Asiento vivo <span class="tag viva">menor riesgo</span></h3>
+    <p>La identidad actual, con coreografía contable: los renglones se asientan, los sellos se estampan, las cifras se suman y el marcador verde se pinta al entrar. Nada cambia de paleta ni de tipografía.</p>
+    <div class="swatches"><i style="background:#FAFBFD"></i><i style="background:#101828"></i><i style="background:#0A7B45"></i><i style="background:#3DD68C"></i></div>
+    <iframe src="d-asiento-vivo.html" title="Dirección D" loading="lazy"></iframe>
+    <a class="open" href="d-asiento-vivo.html" target="_blank">Abrir D en pestaña completa →</a>
+  </div>
+  <div class="col">
+    <h3>E · Consola nocturna <span class="tag">más movimiento</span></h3>
+    <p>El bloque de terminal se come toda la página. Fondo oscuro, retícula con foco que sigue al cursor, tarjetas con borde encendido, marquesina y consola que se teclea sola. El verde fósforo pasa a protagonista.</p>
+    <div class="swatches"><i style="background:#0B111B"></i><i style="background:#131C2B"></i><i style="background:#3DD68C"></i><i style="background:#0A7B45"></i></div>
+    <iframe src="e-consola-nocturna.html" title="Dirección E" loading="lazy"></iframe>
+    <a class="open" href="e-consola-nocturna.html" target="_blank">Abrir E en pestaña completa →</a>
+  </div>
+  <div class="col">
+    <h3>F · Editorial cinético <span class="tag">más "bonito"</span></h3>
+    <p>El sitio como reportaje de revista: serif grande, mucho aire y movimiento amarrado al scroll. La mañana se cuenta en una sección fija que avanza al bajar, y las seis puertas se recorren de lado.</p>
+    <div class="swatches"><i style="background:#FBFAF7"></i><i style="background:#14161A"></i><i style="background:#0A7B45"></i><i style="background:#3DD68C"></i></div>
+    <iframe src="f-editorial-cinetico.html" title="Dirección F" loading="lazy"></iframe>
+    <a class="open" href="f-editorial-cinetico.html" target="_blank">Abrir F en pestaña completa →</a>
+  </div>
+</div>
+
+<h2 class="ronda">Ronda 1 · identidad (2026-08-29) · ya decidida</h2>
+<p class="ronda-sub">Israel eligió la B. Quedan aquí como registro de por qué.</p>
+<div class="grid viejas">
+  <div class="col">
+    <h3>A · Manifiesto editorial</h3>
     <p>Ensayo con autoridad tranquila. Serif Newsreader + Public Sans, papel cálido, azul tinta. Firma: la home como manifiesto con notas al pie.</p>
     <div class="swatches"><i style="background:#FBF9F3"></i><i style="background:#1A1712"></i><i style="background:#24418E"></i><i style="background:#F4F0E4"></i></div>
-    <iframe src="a-manifiesto-editorial.html" title="Dirección A"></iframe>
     <a class="open" href="a-manifiesto-editorial.html" target="_blank">Abrir A en pestaña completa →</a>
   </div>
   <div class="col">
-    <h2>B · Libro mayor × terminal</h2>
+    <h3>B · Libro mayor × terminal <span class="tag viva">en producción</span></h3>
     <p>El contador con traje de ingeniero, literal: retícula de libro mayor + terminal. Space Grotesk + JetBrains Mono, verde registro. Firma: la póliza del hero.</p>
     <div class="swatches"><i style="background:#FAFBFD"></i><i style="background:#101828"></i><i style="background:#0A7B45"></i><i style="background:#0D1420"></i></div>
-    <iframe src="b-libro-mayor-terminal.html" title="Dirección B"></iframe>
     <a class="open" href="b-libro-mayor-terminal.html" target="_blank">Abrir B en pestaña completa →</a>
   </div>
   <div class="col">
-    <h2>C · Founder cálido</h2>
+    <h3>C · Founder cálido</h3>
     <p>La más humana y creator-first: la foto manda. Onest + Lora itálica, ámbar sobre neutro cálido. Firma: la tarjeta de foto con pill de EN VIVO.</p>
     <div class="swatches"><i style="background:#FAF6F0"></i><i style="background:#1C2B44"></i><i style="background:#E27B1F"></i><i style="background:#FBEEDD"></i></div>
-    <iframe src="c-founder-calido.html" title="Dirección C"></iframe>
     <a class="open" href="c-founder-calido.html" target="_blank">Abrir C en pestaña completa →</a>
   </div>
 </div>
