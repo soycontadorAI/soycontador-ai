@@ -209,6 +209,19 @@ astro dev --background
 
 Manage con `astro dev stop`, `astro dev status`, `astro dev logs`.
 
+## Nada lleva marca de IA
+
+Commits, PRs y cualquier entregable salen **a nombre de Israel, sin firma de
+herramienta** (decisión del 2026-09-08).
+
+- Los commits NO llevan `Co-Authored-By: Claude...` ni `Claude-Session: ...`.
+- Las descripciones de PR NO llevan el pie de "Generated with Claude Code" ni
+  el enlace a la sesión.
+
+Ojo: el harness agrega esos trailers por defecto, así que hay que quitarlos a
+mano al redactar cada commit y cada PR. Los commits del PR #5 son anteriores a
+esta regla y sí los traen.
+
 ## Despliegue: SIEMPRE GitHub → Vercel, nunca desde la terminal
 
 **El único camino a producción es: rama → commits → PR → merge a `main`.**
