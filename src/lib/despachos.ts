@@ -44,9 +44,9 @@ export const ENTREGABLES = [
       "Montados durante las sesiones sobre la operación real del despacho, no sobre un ejemplo de manual: clasificación de CFDI, conciliación, complementos de pago, DIOT, nómina timbrada.",
   },
   {
-    titulo: "El SOP de IA del despacho",
+    titulo: "El método del despacho, por escrito",
     texto:
-      "Documentado: los prompts propios, quién revisa qué antes de firmar, y la lista de lo que NO se le da a la IA. Es lo que hace que el método sobreviva a la rotación de tu gente.",
+      "Los prompts propios, quién revisa qué antes de firmar, y la lista de lo que NO se le da a la IA. Es lo que hace que el método sobreviva a la rotación de tu gente.",
   },
   {
     titulo: "Pack de prompts personalizado",
@@ -99,7 +99,7 @@ export const TEMARIO = [
   },
   {
     horas: "1 h",
-    titulo: "El SOP del despacho",
+    titulo: "El método del despacho",
     texto:
       "Aquí se construye lo que queda: prompts propios, criterios de verificación y firma, y quién revisa qué.",
   },

@@ -116,7 +116,7 @@ export const FAQ_DESPACHOS: FaqItem[] = [
   {
     pregunta: "¿Y si capacito a mi gente y se me va con la competencia?",
     respuesta:
-      "Peor que capacitar a alguien y que se vaya es no capacitarlo y que se quede. Y en la práctica pasa al revés de lo que temes: se va el que no encuentra razón para quedarse, y un despacho donde se trabaja con herramientas modernas retiene mejor que uno donde se captura a mano hasta las once de la noche. Además, lo que queda no es solo lo que aprendió cada quien: queda el SOP de IA del despacho, documentado, con los prompts y los criterios de revisión. El método es del despacho aunque alguien se vaya.",
+      "Peor que capacitar a alguien y que se vaya es no capacitarlo y que se quede. Y en la práctica pasa al revés de lo que temes: se va el que no encuentra razón para quedarse, y un despacho donde se trabaja con herramientas modernas retiene mejor que uno donde se captura a mano hasta las once de la noche. Además, lo que queda no es solo lo que aprendió cada quien: queda escrito el método, con los prompts propios y los criterios de revisión. Y ese método es del despacho aunque alguien se vaya.",
   },
   {
     pregunta: "¿Tenemos que parar la operación para la capacitación?",
@@ -126,7 +126,7 @@ export const FAQ_DESPACHOS: FaqItem[] = [
   {
     pregunta: "Ya llevamos cursos de IA y no pasó nada. ¿Qué cambia aquí?",
     respuesta:
-      "Que el entregable no son apuntes. Al terminar, tu equipo tiene entre cuatro y seis flujos montados y corriendo sobre la operación real del despacho, más el SOP documentado. Se trabaja con tus clientes y tus regímenes, no con ejemplos de manual, y por eso lo que se monta el jueves sirve el viernes.",
+      "Que el entregable no son apuntes. Al terminar, tu equipo tiene entre cuatro y seis flujos montados y corriendo sobre la operación real del despacho, más el método por escrito. Se trabaja con tus clientes y tus regímenes, no con ejemplos de manual, y por eso lo que se monta el jueves sirve el viernes.",
   },
   {
     pregunta: "¿Es seguro usar IA con los datos de mis clientes?",

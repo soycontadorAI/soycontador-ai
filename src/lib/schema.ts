@@ -98,7 +98,7 @@ export function despachosService(): JsonLdObject {
     "@id": `${SITE.url}/despachos#servicio`,
     name: "Capacitación en IA para despachos contables (in company)",
     description:
-      "Programa de implementación de inteligencia artificial para el equipo de un despacho contable en México: 8 horas en sesiones de 2, sobre la operación real del despacho. El equipo termina con entre 4 y 6 flujos corriendo (clasificación de CFDI, conciliación, complementos de pago, DIOT, nómina timbrada) y con el SOP de IA del despacho documentado. Se cotiza por proyecto tras un diagnóstico.",
+      "Programa de implementación de inteligencia artificial para el equipo de un despacho contable en México: 8 horas en sesiones de 2, sobre la operación real del despacho. El equipo termina con entre 4 y 6 flujos corriendo (clasificación de CFDI, conciliación, complementos de pago, DIOT, nómina timbrada) y con el método del despacho por escrito. Se cotiza por proyecto tras un diagnóstico.",
     url: `${SITE.url}/despachos`,
     provider: personRef(),
     areaServed: { "@type": "Country", name: "México" },
