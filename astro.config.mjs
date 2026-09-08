@@ -38,6 +38,10 @@ export default defineConfig({
     // navegador de todo el que lo abrió y no habría cómo repuntarlo.
     '/prompts': { status: 302, destination: '/audita' },
     '/repo': { status: 302, destination: 'https://github.com/soyisracastro/jueves-de-contadoria' },
+    // El curso lo imparte Pepe en su plataforma; yo doy los módulos 5 y 6. El
+    // alias es mío a propósito: si el curso cambia de sede, de edición o deja
+    // de existir, repunto esto y los videos ya publicados siguen sirviendo.
+    '/claude': { status: 302, destination: 'https://www.fiscalistas.ai/cursos/claude-para-contadores/' },
   },
   env: {
     schema: {
