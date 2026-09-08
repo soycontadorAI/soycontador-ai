@@ -186,11 +186,18 @@ const jsonLd = graph(
    */
   .guion-lede {
     margin: 0;
-    font-size: clamp(1.3rem, 2.6vw, 1.7rem);
-    font-weight: 500;
-    line-height: 1.35;
-    letter-spacing: -0.015em;
+    font-family: var(--font-display);
+    font-size: clamp(1.6rem, 3.2vw, 2.3rem);
+    font-weight: 400;
+    line-height: 1.14;
+    letter-spacing: -0.01em;
     color: var(--color-ink);
+  }
+  /* El plumón, calibrado para la display. Con el alto de texto corrido la
+     banda se quedaba debajo de las letras y leía como subrayado. */
+  .guion-lede .hl {
+    --hl-abajo: 0.22em;
+    --hl-alto: 0.5em;
   }
   .guion-pruebas {
     list-style: none;

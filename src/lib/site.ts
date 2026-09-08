@@ -132,6 +132,7 @@ export const NAV = [
 export const NAV_PAGINAS = [
   { label: "Sobre mí", href: "/sobre-mi" },
   { label: "Capacitación", href: "/capacitacion" },
+  { label: "Capacitación para despachos", href: "/despachos" },
   { label: "Soluciones a la medida", href: "/soluciones" },
   { label: "Herramientas", href: "/herramientas" },
   { label: "Ebook: IA para Contadores", href: "/ebook" },

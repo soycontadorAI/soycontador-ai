@@ -8,6 +8,20 @@
 
 import { calendarioDe } from "../lib/site";
 
+interface Props {
+  /**
+   * "todas" es /capacitacion: el visitante elige modalidad porque puede venir
+   * por cualquiera de las tres. "despacho" es /despachos, donde la modalidad
+   * ya la decidió la página: preguntarla otra vez es pedirle al socio que
+   * repita algo que ya dijo al entrar, y de paso le abre la puerta a elegir
+   * mal. Ahí el rol va fijo y las opciones de tamaño arrancan en 2.
+   */
+  variante?: "todas" | "despacho";
+}
+
+const { variante = "todas" } = Astro.props;
+const esDespacho = variante === "despacho";
+
 /**
  * El enlace para agendar solo aparece al enviar (decisión de Israel): es el
  * momento de mayor intención y ya calificó. Si no hay agenda configurada, el
@@ -18,14 +32,16 @@ const calendario = calendarioDe("capacitacion");
 
 <div class="cap-card" id="precalificacion">
   <div class="cap-head">
-    <span class="folio">FOLIO <b>CAP-01</b> · PRECALIFICACIÓN</span>
+    <span class="folio">
+      FOLIO <b>{esDespacho ? "DESP-02" : "CAP-01"}</b> · {esDespacho ? "DIAGNÓSTICO" : "PRECALIFICACIÓN"}
+    </span>
   </div>
   <div class="cap-body">
-    <h3>Cuéntame de tu equipo antes de agendar</h3>
+    <h3>{esDespacho ? "Cuéntame de tu despacho" : "Cuéntame de tu equipo antes de agendar"}</h3>
     <p class="cap-intro">
-      Con esto llego a la llamada conociendo tu operación y la reunión se va
-      directo a lo importante: qué automatizar primero y cómo se ve el programa
-      para tu caso.
+      {esDespacho
+        ? "Cinco minutos. Con esto llego a la llamada conociendo tu operación, y los treinta minutos se van en sacar tus números, no en presentarme. Si por lo que leo esto no es para tu despacho, te lo digo por correo y no gastamos la llamada."
+        : "Con esto llego a la llamada conociendo tu operación y la reunión se va directo a lo importante: qué automatizar primero y cómo se ve el programa para tu caso."}
     </p>
     <form method="post" action="/api/lead" data-cap>
       <div class="campo">
@@ -44,18 +60,22 @@ const calendario = calendarioDe("capacitacion");
         <label for="cap-empresa">Empresa, despacho u organización *</label>
         <input id="cap-empresa" type="text" name="empresa" required autocomplete="organization" />
       </div>
-      <div class="campo">
-        <label for="cap-modalidad">¿Qué modalidad te interesa?</label>
-        <select id="cap-modalidad" name="rol">
-          <option value="Capacitación: taller">El taller (mi lugar individual)</option>
-          <option value="Capacitación: empresarial">Capacitación para mi empresa o despacho</option>
-          <option value="Capacitación: organización">Licenciar el taller para mi organización o comunidad</option>
-        </select>
-      </div>
+      {esDespacho ? (
+        <input type="hidden" name="rol" value="Capacitación: empresarial" />
+      ) : (
+        <div class="campo">
+          <label for="cap-modalidad">¿Qué modalidad te interesa?</label>
+          <select id="cap-modalidad" name="rol">
+            <option value="Capacitación: taller">El taller (mi lugar individual)</option>
+            <option value="Capacitación: empresarial">Capacitación para mi empresa o despacho</option>
+            <option value="Capacitación: organización">Licenciar el taller para mi organización o comunidad</option>
+          </select>
+        </div>
+      )}
       <div class="campo">
         <label for="cap-equipo">¿Cuántas personas son?</label>
         <select id="cap-equipo" name="equipo">
-          <option value="Solo yo">Solo yo</option>
+          {!esDespacho && <option value="Solo yo">Solo yo</option>}
           <option value="2-5">2 a 5</option>
           <option value="6-20">6 a 20</option>
           <option value="21-50">21 a 50</option>
@@ -79,7 +99,9 @@ const calendario = calendarioDe("capacitacion");
         </select>
       </div>
       <div class="campo campo-full">
-        <label for="cap-mensaje">¿Qué procesos te gustaría automatizar? *</label>
+        <label for="cap-mensaje">
+          {esDespacho ? "¿Dónde se le va el tiempo a tu equipo hoy? *" : "¿Qué procesos te gustaría automatizar? *"}
+        </label>
         <textarea
           id="cap-mensaje"
           name="mensaje"
@@ -99,9 +121,13 @@ const calendario = calendarioDe("capacitacion");
       </div>
       <input type="text" name="hp" tabindex="-1" autocomplete="off" aria-hidden="true" class="cap-hp" />
       <div class="campo-full cap-envio">
-        <button type="submit" class="btn btn-primary">Enviar y agendar llamada</button>
+        <button type="submit" class="btn btn-primary">
+          {esDespacho ? "Enviar y agendar el diagnóstico" : "Enviar y agendar llamada"}
+        </button>
         <small data-cap-msg>
-          Te llega el resumen a tu correo y de ahí agendamos la llamada.
+          {esDespacho
+            ? "Te llega el resumen a tu correo. Te contesto en menos de 48 horas hábiles."
+            : "Te llega el resumen a tu correo y de ahí agendamos la llamada."}
         </small>
       </div>
     </form>
@@ -116,26 +142,35 @@ const calendario = calendarioDe("capacitacion");
 </div>
 
 <style>
+  /*
+   * Sin medida propia: la tarjeta llena el contenedor que la monta, igual que
+   * LeadForm. Es el acuerdo con Israel (2026-09-07) y lo que hace que las dos
+   * tarjetas de formulario del sitio se lean como la misma pieza. Antes
+   * /despachos la capaba a 44rem sin centrarla y quedaba arrinconada.
+   */
   .cap-card {
     background: var(--color-surface-raised);
-    border: 1px solid var(--color-line-strong);
-    border-radius: var(--radius-md);
-    box-shadow: 6px 6px 0 var(--color-line);
+    border: 1px solid var(--color-line);
+    border-radius: var(--radius-lg);
+    /* Sombra suave y no el offset duro, que era el acabado de la dirección B. */
+    box-shadow: 0 30px 60px -50px rgb(20 22 26 / 0.6);
     overflow: hidden;
   }
   .cap-head {
-    padding: 0.8rem 1.6rem;
-    border-bottom: 1px solid var(--color-line-strong);
+    padding: 0.8rem 1.8rem;
+    border-bottom: 1px solid var(--color-line);
     background: var(--color-surface);
   }
   .cap-body {
-    padding: 1.8rem 1.6rem 2rem;
+    padding: 2rem 1.8rem 2.2rem;
   }
   .cap-body h3 {
-    margin: 0 0 0.4rem;
-    font-size: 1.35rem;
-    font-weight: 700;
-    letter-spacing: -0.02em;
+    margin: 0 0 0.5rem;
+    font-family: var(--font-display);
+    font-size: clamp(1.6rem, 3vw, 2.1rem);
+    font-weight: 400;
+    line-height: 1.12;
+    letter-spacing: -0.01em;
   }
   .cap-intro {
     margin: 0 0 1.4rem;

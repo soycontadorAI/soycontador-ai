@@ -74,50 +74,116 @@ body {
   border-top: 1px solid var(--color-line);
 }
 
-/* Escala tipográfica de páginas interiores */
+/*
+ * Escala tipográfica. La voz de los titulares es la serif de display, y va
+ * SIEMPRE en peso 400: Instrument Serif no tiene bold y pedir 700 hace que el
+ * navegador lo finja, deformando la letra. El contraste con el cuerpo no lo
+ * da el peso, lo da el tamaño y el cambio de familia.
+ */
 .titulo-xl {
-  font-weight: 700;
-  font-size: clamp(1.9rem, 4vw, 2.9rem);
-  line-height: 1.1;
-  letter-spacing: -0.03em;
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(2.4rem, 5.5vw, 4rem);
+  line-height: 1.06;
+  letter-spacing: -0.015em;
   margin: 1.1rem 0 0;
+  /* Medida, no ancho de contenedor: con el contenedor en 74rem un titular en
+     un solo renglón pasa de 90 caracteres, que es el doble de lo que se lee
+     de un golpe de vista. */
+  max-width: 22ch;
+  text-wrap: balance;
 }
 .titulo-lg {
-  font-weight: 700;
-  font-size: clamp(1.4rem, 2.8vw, 1.9rem);
-  line-height: 1.15;
-  letter-spacing: -0.02em;
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(1.6rem, 3vw, 2.2rem);
+  line-height: 1.12;
+  letter-spacing: -0.01em;
   margin: 0;
 }
 .intro-page {
-  margin-top: 1.3rem;
-  max-width: 56ch;
+  margin-top: 1.4rem;
+  max-width: 52ch;
   color: var(--color-ink-soft);
-  font-size: 1.08rem;
+  font-size: 1.1rem;
+}
+
+/*
+ * Revelado por renglones: cada línea sube detrás de su propia máscara, como
+ * un renglón que se escribe. Sirve en dos situaciones y por eso hay dos
+ * disparadores: `.cargado`, que lo pone la página al montar (para el titular
+ * sobre el pliegue, que NO puede colgar del observador sin costar LCP), y
+ * `.is-visible`, que lo pone el observador de [data-reveal].
+ */
+.reng {
+  display: block;
+  overflow: hidden;
+}
+html.js-reveal .reng > span {
+  display: block;
+  transform: translateY(105%);
+  transition: transform 0.8s var(--ease-f) var(--reng-delay, 0s);
+}
+html.js-reveal .cargado .reng > span,
+html.js-reveal .is-visible .reng > span {
+  transform: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  html.js-reveal .reng > span {
+    transform: none;
+    transition: none;
+  }
 }
 
 /* Botones */
 @utility btn {
   display: inline-block;
+  text-align: center;
   text-decoration: none;
   font-weight: 700;
   font-size: 0.92rem;
+  /*
+   * Explícito y no heredado: un <a> toma el line-height del body y un
+   * <button> toma el `normal` del navegador, así que la MISMA clase salía
+   * 2px más baja en los formularios que en el hero. El borde ya lo resetea
+   * el preflight de Tailwind; esto es lo que faltaba para que un botón se
+   * vea igual sin importar con qué etiqueta se escribió.
+   */
+  line-height: 1.6;
   padding: 0.75rem 1.4rem;
-  border-radius: var(--radius-sm);
+  border-radius: var(--radius-pill);
   font-family: var(--font-body);
+  cursor: pointer;
+  transition:
+    transform 0.25s var(--ease-f),
+    background 0.25s,
+    box-shadow 0.25s;
 }
 @utility btn-primary {
   background: var(--color-accent);
   color: var(--color-accent-contrast);
   &:hover {
     background: var(--color-accent-hover);
+    transform: translateY(-2px);
+    box-shadow: 0 14px 30px -14px color-mix(in oklab, var(--color-accent) 80%, transparent);
   }
 }
 @utility btn-ghost {
-  border: 1.5px solid var(--color-line-strong);
+  /*
+   * El contorno va como anillo interior y NO como borde: un borde suma alto,
+   * y con eso el ghost quedaba más alto que el sólido. Donde conviven en una
+   * fila flex (el hero) el contenedor estiraba al sólido para igualarlo, y el
+   * mismo .btn-primary medía 49.5px ahí y 47.5px dentro de un formulario.
+   * Descontarlo del padding no sirve: el navegador dibuja 1.5px como 1px y la
+   * cuenta se pasa. Fuera del layout el problema no existe y las dos
+   * variantes miden igual por construcción.
+   */
+  box-shadow: inset 0 0 0 1.5px var(--color-line-strong);
   color: var(--color-ink);
   &:hover {
-    background: var(--color-surface);
+    background: var(--color-line-strong);
+    color: var(--color-bg);
+    transform: translateY(-2px);
   }
 }
 
@@ -167,11 +233,19 @@ html.js-reveal [data-reveal].is-visible {
    * pelear con el apilamiento) que se pinta de izquierda a derecha al entrar
    * en viewport. `--hl-alto` sube la banda en citas grandes.
    */
+  /*
+   * `--hl-alto` es el grosor de la banda y `--hl-abajo` cuánto se despega del
+   * fondo de la caja. El segundo nació con la serif de display: Instrument
+   * Serif deja cerca de 0.3em de hueco bajo la línea base, así que una banda
+   * anclada al fondo salía flotando DEBAJO de la palabra en vez de encima.
+   * Por defecto vale 0 y nada cambia donde el marcador ya estaba calibrado.
+   */
   background-image: linear-gradient(
     to top,
-    var(--color-marker) 0,
-    var(--color-marker) var(--hl-alto, 0.42em),
-    transparent var(--hl-alto, 0.42em)
+    transparent var(--hl-abajo, 0px),
+    var(--color-marker) var(--hl-abajo, 0px),
+    var(--color-marker) calc(var(--hl-abajo, 0px) + var(--hl-alto, 0.42em)),
+    transparent calc(var(--hl-abajo, 0px) + var(--hl-alto, 0.42em))
   );
   background-repeat: no-repeat;
   /*
@@ -190,6 +264,14 @@ html.js-reveal [data-reveal].is-visible {
   transition: background-size 0.9s cubic-bezier(0.22, 1, 0.36, 1) 0.4s;
   box-decoration-break: clone;
   -webkit-box-decoration-break: clone;
+}
+/* Calibración para la display serif. Los titulares y las citas usan
+   Instrument Serif; el texto corrido sigue con el default. */
+.titulo-xl .hl,
+.titulo-lg .hl,
+blockquote .hl {
+  --hl-abajo: 0.22em;
+  --hl-alto: 0.5em;
 }
 html.js-reveal [data-reveal]:not(.is-visible) .hl,
 html.js-reveal .hl[data-reveal]:not(.is-visible) {

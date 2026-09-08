@@ -8,6 +8,14 @@
 import { calendarioDe, type PropositoCita } from "../lib/site";
 
 interface Props {
+  /**
+   * Nivel del encabezado de la tarjeta. Por defecto h3, que es lo correcto
+   * donde la tarjeta cierra una página que ya trae h2 de sección (la home).
+   * En /contacto el formulario ES el contenido y va justo debajo del h1, así
+   * que ahí sube a h2: si no, el documento salta de h1 a h3 y eso rompe la
+   * navegación por encabezados de un lector de pantalla (lo marcó Lighthouse).
+   */
+  nivel?: 2 | 3;
   titulo?: string;
   intro?: string;
   /** Preselecciona la opción de "¿Qué estás buscando?" (value exacto) */
@@ -17,11 +25,14 @@ interface Props {
 }
 
 const {
+  nivel = 3,
   titulo = "Platiquemos de tu caso",
   intro = "Déjame tu correo (y tu WhatsApp si prefieres que te escriba por ahí), cuéntame qué te está comiendo el tiempo y te contacto. No es una llamada de ventas disfrazada: si lo tuyo se resuelve con algo gratuito, te lo digo y ahí la dejamos.",
   interesDefault,
   cita = "diagnostico",
 } = Astro.props;
+
+const Titulo = `h${nivel}` as "h2" | "h3";
 
 /**
  * El enlace para agendar solo aparece al enviar (decisión de Israel): es el
@@ -45,7 +56,7 @@ const opcionesInteres = [
     <span class="folio">FOLIO <b>DIAG-01</b> · DIAGNÓSTICO</span>
   </div>
   <div class="lead-body">
-    <h3>{titulo}</h3>
+    <Titulo>{titulo}</Titulo>
     <p class="lead-intro">{intro}</p>
     <form method="post" action="/api/lead" data-lead>
       <div class="campo">
@@ -103,29 +114,35 @@ const opcionesInteres = [
 </div>
 
 <style>
+  /* Gemela de .cap-card: mismo acabado, y sin medida propia para que llene el
+     contenedor que la monta. El offset duro y el filete fuerte eran de la
+     dirección B; con F la sombra es suave y el radio sube. */
   .lead-card {
     background: var(--color-surface-raised);
-    border: 1px solid var(--color-line-strong);
-    border-radius: var(--radius-md);
-    box-shadow: 6px 6px 0 var(--color-line);
+    border: 1px solid var(--color-line);
+    border-radius: var(--radius-lg);
+    box-shadow: 0 30px 60px -50px rgb(20 22 26 / 0.6);
     overflow: hidden;
   }
   .lead-head {
-    padding: 0.8rem 1.6rem;
-    border-bottom: 1px solid var(--color-line-strong);
+    padding: 0.8rem 1.8rem;
+    border-bottom: 1px solid var(--color-line);
     background: var(--color-surface);
   }
   .lead-head .folio b {
     color: var(--color-accent);
   }
   .lead-body {
-    padding: 1.8rem 1.6rem 2rem;
+    padding: 2rem 1.8rem 2.2rem;
   }
+  .lead-body h2,
   .lead-body h3 {
-    margin: 0 0 0.4rem;
-    font-size: 1.35rem;
-    font-weight: 700;
-    letter-spacing: -0.02em;
+    margin: 0 0 0.5rem;
+    font-family: var(--font-display);
+    font-size: clamp(1.6rem, 3vw, 2.1rem);
+    font-weight: 400;
+    line-height: 1.12;
+    letter-spacing: -0.01em;
   }
   .lead-intro {
     margin: 0 0 1.4rem;

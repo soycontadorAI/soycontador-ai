@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="es-MX">
+<head>
+<meta charset="utf-8">
+<title>og-default</title>
+<style>
+/* ============================================================
+   Plantilla de la imagen de Open Graph (1200x630).
+   Se renderiza con puppeteer y se escribe en public/og-default.png.
+   Vive en design/ y NO en public/: es la fuente, no el entregable.
+   Las fuentes se cargan del node_modules del proyecto, así que la
+   imagen usa EXACTAMENTE las mismas que el sitio.
+   ============================================================ */
+@font-face {
+  font-family: "Instrument Serif";
+  font-style: normal; font-weight: 400; font-display: block;
+  src: url("../../node_modules/@fontsource/instrument-serif/files/instrument-serif-latin-400-normal.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Instrument Serif";
+  font-style: italic; font-weight: 400; font-display: block;
+  src: url("../../node_modules/@fontsource/instrument-serif/files/instrument-serif-latin-400-italic.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Space Grotesk"; font-weight: 100 900; font-display: block;
+  src: url("../../node_modules/@fontsource-variable/space-grotesk/files/space-grotesk-latin-wght-normal.woff2") format("woff2");
+}
+@font-face {
+  font-family: "JetBrains Mono"; font-weight: 100 800; font-display: block;
+  src: url("../../node_modules/@fontsource-variable/jetbrains-mono/files/jetbrains-mono-latin-wght-normal.woff2") format("woff2");
+}
+:root {
+  --bg: #FBFAF7;
+  --ink: #14161A;
+  --ink-soft: #454A54;
+  --ink-dim: #666B75;
+  --accent: #0A7B45;
+  --marker: #3DD68C;
+  --line: #E3E0D8;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  position: relative;
+  width: 1200px; height: 630px; overflow: hidden;
+  background: var(--bg); color: var(--ink);
+  font-family: "Space Grotesk", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  display: grid; grid-template-rows: auto 1fr auto;
+  padding: 58px 64px 56px;
+}
+
+/* Cabecera: el logotipo tal cual va en el sitio, a dos renglones */
+.cab { display: flex; align-items: flex-start; }
+.logo { display: flex; align-items: center; gap: 14px; }
+.logo svg { width: 46px; height: 32px; color: var(--ink); }
+.wordmark { line-height: 1; }
+.wordmark .nombre { display: block; font-weight: 700; font-size: 27px; letter-spacing: -0.035em; }
+.wordmark .tld { display: block; font-family: "JetBrains Mono", monospace; font-weight: 700; font-size: 17px; color: var(--accent); margin-top: 2px; }
+.kicker { font-family: "JetBrains Mono", monospace; font-size: 14px; letter-spacing: 0.18em; color: var(--ink-dim); padding-top: 8px; }
+.kicker b { color: var(--accent); font-weight: 500; }
+
+/* Cuerpo: el titular real del sitio, en la display */
+.cuerpo { display: grid; align-content: center; }
+.objecion, .giro { position: relative; z-index: 1; white-space: nowrap; }
+/* La voz ajena: cursiva y en gris, como en la sección de la vuelta. */
+.objecion {
+  font-family: "Instrument Serif", serif; font-weight: 400; font-style: italic;
+  font-size: 42px; line-height: 1.14; letter-spacing: -0.01em;
+  color: var(--ink-dim);
+}
+/* La respuesta: redonda, en tinta plena y con el plumón encima. El salto de
+   gris a tinta es el mismo gesto que hace la sección en el sitio. */
+.giro {
+  font-family: "Instrument Serif", serif; font-weight: 400;
+  font-size: 58px; line-height: 1.1; letter-spacing: -0.015em;
+  margin-top: 26px;
+}
+/* El plumón, con la misma calibración que en el sitio: la banda se despega
+   0.22em del fondo de la caja porque Instrument Serif deja hueco bajo la
+   línea base y si no, sale flotando debajo de la palabra. */
+.giro b {
+  font-weight: 400;
+  background-image: linear-gradient(
+    to top,
+    transparent 0.22em,
+    var(--marker) 0.22em,
+    var(--marker) 0.72em,
+    transparent 0.72em
+  );
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+}
+/*
+   El retrato es un recorte con transparencia, así que NO va en un círculo
+   sobre el papel: va como figura que aterriza en el canto inferior de la
+   tarjeta, igual que en la sección de la vuelta del sitio. El borde de la
+   imagen ES el suelo; sin ese apoyo la figura flota.
+*/
+.retrato {
+  position: absolute;
+  right: 40px;
+  bottom: 0;
+  width: 434px;
+  height: auto;
+  display: block;
+}
+
+/* Pie: quién lo firma */
+.pie {
+  position: relative; z-index: 1;
+  font-size: 20px; font-weight: 500; line-height: 1.4;
+  color: var(--ink-soft); max-width: 620px;
+}
+</style>
+</head>
+<body>
+  <div class="cab">
+    <div class="logo">
+      <svg viewBox="5 18 86 60" fill="none" aria-hidden="true">
+        <rect x="12" y="25" width="72" height="5" fill="currentColor"></rect>
+        <rect x="45.5" y="25" width="5" height="46" fill="currentColor"></rect>
+        <rect x="16" y="39" width="24" height="7" fill="currentColor"></rect>
+        <rect x="16" y="52" width="17" height="7" fill="currentColor"></rect>
+        <rect x="56" y="39" width="24" height="7" fill="#0A7B45"></rect>
+        <rect x="56" y="52" width="17" height="7" fill="#0A7B45"></rect>
+      </svg>
+      <span class="wordmark">
+        <span class="nombre">soycontador</span>
+        <span class="tld">.ai</span>
+      </span>
+    </div>
+  </div>
+
+  <div class="cuerpo">
+      <!--
+      La objeción y su vuelta, que es el momento del sitio que le habla de
+      frente al Avatar A. Los cortes van FIJOS y no al azar del ancho: es una
+      imagen de tamaño único, así que no hay nada que dejarle al flujo.
+    -->
+    <blockquote class="objecion">
+      "Esto de la IA es para los más<br>
+      jóvenes, ya nacieron con el chip."
+    </blockquote>
+    <p class="giro"><b>De hecho, es al revés.</b></p>
+  </div>
+
+  <img class="retrato" src="../../public/assets/israel-cruzado.webp" alt="">
+
+  <!--
+    Aquí iba la firma. La cambia la tesis del sitio, por decisión de Israel: el
+    nombre ya lo lleva el logotipo de arriba y en una tarjeta que se comparte
+    pesa más una frase que una credencial.
+  -->
+  <p class="pie">La IA cierra las fáciles. Las difíciles las cobras tú.</p>
+</body>
+</html>

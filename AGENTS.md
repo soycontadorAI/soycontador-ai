@@ -11,9 +11,17 @@ Stack: Astro 7 estático + adapter Vercel (solo `/api/newsletter` es serverless)
 - SIN raya «—» en ningún texto publicable (se lee como señal de IA). Usar punto o paréntesis.
 - Nombre: "Israel Castro" (formal) o "Isca" (informal). NUNCA "Isca Castro".
 - Contexto siempre MX: SAT, CFDI, ISR, pesos MXN. Nunca IRS/AEAT/euros.
-- CERO menciones públicas de Fiscalistas.AI o Pepe Lara (la alianza no se anuncia).
+- ALIANZA CON FISCALISTAS.AI: **la regla de "cero menciones públicas" quedó
+  DEROGADA el 2026-09-08, por decisión de Israel.** Se puede nombrar a José de
+  Jesús Pérez Lara y a Fiscalistas.AI donde haga falta. El motivo: Israel
+  imparte módulos en un curso alojado ahí, y una página que manda a pagar a
+  otro sitio sin decir de quién es se lee como poco transparente. Lo que SÍ
+  sigue en pie es el criterio: se nombra cuando aporta claridad al lector, no
+  como respaldo de marca.
 - PRECIOS (decisión Israel 2026-08-30): la sesión mensual abierta SÍ publica precio
-  ($4,999 MXN) y el ebook también ($297 MXN). NO publicar: el ancla de organizaciones
+  ($4,999 MXN) y el ebook también ($297 MXN). El curso de Fiscalistas.AI publica
+  el suyo ($3,500 MXN) porque es precio público de ELLOS, no de Israel: por eso
+  vive en `COLABORACION` y no en `TALLER`, y no se emite JSON-LD de oferta. NO publicar: el ancla de organizaciones
   ($3,500-4,000/hora, referencia interna de cotización), la capacitación empresarial
   (solo cotización por llamada tras formulario) ni el Club (cierre por aplicación).
 - POSICIONAMIENTO, en tres niveles (corrección de Israel 2026-08-30):
@@ -47,6 +55,39 @@ de PDF); se genera con `pnpm ebook`. Está **fuera de `src/` y de `public/` a
 propósito**: es el entregable de pago y en `public/` quedaría descargable.
 Ver `ebook/CLAUDE.md`. La página que lo vende es `/ebook`, y su copy sale de
 `src/lib/ebook.ts`.
+
+## Estrategia: a quién le habla el sitio
+
+`docs/` guarda la estrategia de esta propiedad y **no se publica** (Astro solo
+sirve `src/pages/` y `public/`). Contiene precios internos, así que no se copia
+nada de ahí a una página sin revisar la tabla de precios de este archivo.
+
+- `docs/avatar.md`: los dos avatares, completos y sin mandar a leer otro repo.
+  **A** (contador individual) vive en la home y compra por **miedo** a quedar
+  obsoleto; **B** (dueño de despacho de 5 a 50) vive en `/despachos` y compra
+  por **margen**: capacidad sin contratar. Un avatar por página; si una página
+  le habla a los dos, está mal.
+- `docs/arquitectura-de-marca.md`: **TodoConta vende software, soycontador.ai
+  vende a Israel.** Instagram sirve a A y no se mide con leads de despacho; a B
+  se le cierra en LinkedIn y en el sitio.
+
+La metodología es la de Eloisa Wolf. La oferta de despachos ya está
+productizada en `todoconta-apps/docs/taller-ia-despachos.md`: no se redefine
+aquí.
+
+## Accesibilidad
+
+Las 11 páginas están en **100 de accesibilidad, buenas prácticas y SEO** en
+Lighthouse (medido el 2026-09-07). Al tocar la UI, volver a medir. Dos trampas
+que ya costaron:
+
+- **No usar `opacity` para "apagar" texto.** Lighthouse compone la opacidad y
+  el contraste se hunde: los renglones en espera de la escena daban 1.44:1, y
+  para pasar AA la opacidad tendría que subir a 0.92, con lo que ya no se
+  distinguirían del estado encendido. El apagado va por **color y fondo**.
+- **El nombre accesible tiene que contener el texto visible** (WCAG 2.5.3). Un
+  `aria-label` que no incluye la cinta del botón deja sin efecto el comando de
+  voz. Ver `VideoFacade.astro`.
 
 ## Formularios, consentimiento y listas
 
@@ -138,8 +179,16 @@ copy propio; jamás copiar párrafos del blog o landing de TodoConta.
 - `src/styles/tokens.css` es el ÚNICO punto de inyección de la identidad visual (vocabulario
   semántico: `--color-bg/surface/ink/accent...`, `--font-display/body/mono`). Los componentes
   jamás usan valores crudos ni nombres de color literales.
-- La identidad elegida está documentada en `design/DESIGN.md`; los 3 mockups originales viven
-  en `design/mockups/`.
+- La identidad vigente es **"Editorial cinético"** (dirección F, elegida el 2026-09-07),
+  documentada en `design/DESIGN.md`. Sustituye a "Libro mayor × terminal". Los 6 mockups
+  (3 de identidad, 3 de movimiento) viven en `design/mockups/`, y el porqué de la ronda 2
+  en `design/MOVIMIENTO.md`.
+- **La display es serif (Instrument Serif) y va SIEMPRE en peso 400**: esa fuente no tiene
+  bold y pedir 700 lo hace fingir. La regla vieja de "serif solo en citas" quedó DEROGADA
+  el 2026-09-07.
+- Al tocar un `.hl` (el plumón verde), revisar el render: se calibra con `--hl-alto` y
+  `--hl-abajo`, y sobre la serif necesita `--hl-abajo: 0.22em` o se lee como tachado.
+  La tabla de valores está en `design/DESIGN.md`.
 - Es una marca hermana de TodoConta pero NO comparte su identidad (nada de Inter + azul
   #0B5FFF + cian #06B6D4), ni la de sicastro-v2 (Geist + Fraunces).
 
@@ -159,6 +208,38 @@ astro dev --background
 ```
 
 Manage con `astro dev stop`, `astro dev status`, `astro dev logs`.
+
+## Nada lleva marca de IA
+
+Commits, PRs y cualquier entregable salen **a nombre de Israel, sin firma de
+herramienta** (decisión del 2026-09-08).
+
+- Los commits NO llevan `Co-Authored-By: Claude...` ni `Claude-Session: ...`.
+- Las descripciones de PR NO llevan el pie de "Generated with Claude Code" ni
+  el enlace a la sesión.
+
+Ojo: el harness agrega esos trailers por defecto, así que hay que quitarlos a
+mano al redactar cada commit y cada PR. Los commits del PR #5 son anteriores a
+esta regla y sí los traen.
+
+## Despliegue: SIEMPRE GitHub → Vercel, nunca desde la terminal
+
+**El único camino a producción es: rama → commits → PR → merge a `main`.**
+Vercel está vinculado al repositorio y despliega desde ahí. `vercel deploy
+--prod` desde el directorio de trabajo está PROHIBIDO, aunque el CLI esté
+autenticado y funcione.
+
+La razón no es de estilo. El 2026-09-07 se desplegó a producción desde el
+directorio de trabajo con 32 archivos sin commitear, y eso deja dos bombas:
+
+1. Producción sirve código que no existe en git. No hay a qué volver.
+2. El siguiente push a `main` dispara un deploy con el estado **commiteado**,
+   que es el anterior, y **revierte lo publicado sin que nadie lo note**.
+
+Si hace falta ver algo en línea antes de mergear, se usa el **deploy de
+preview que Vercel crea solo para cada PR**, no un `vercel deploy` a mano. Ojo:
+esos previews están detrás de la protección de despliegue de Vercel y piden
+autenticación, así que hay que abrirlos con la sesión iniciada.
 
 ## Despliegue: la configuración de pnpm vive en `pnpm-workspace.yaml`
 

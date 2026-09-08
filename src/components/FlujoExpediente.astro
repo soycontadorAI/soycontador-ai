@@ -201,12 +201,20 @@ const hallazgos = [
   }
 
   /* ---------- Total ---------- */
+  /*
+   * `center` y no `baseline`. Con baseline el 90 se alineaba con el PRIMER
+   * renglón del pie, así que en cuanto el texto se partía en dos la cifra
+   * quedaba colgada arriba en vez de acompañarlo. Y faltaba padding abajo: la
+   * doble raya de suma se dibuja con un inset en el borde inferior, así que
+   * sin aire el segundo renglón la tocaba.
+   */
   .exp-total {
     display: flex;
-    align-items: baseline;
-    gap: 1rem;
+    align-items: center;
+    gap: 1.2rem;
     margin-top: 1.7rem;
     padding-top: 1.3rem;
+    padding-bottom: 1.1rem;
     border-top: 1.5px solid var(--color-line-strong);
     box-shadow: 0 -3px 0 -1px var(--color-line-strong) inset;
   }
@@ -220,6 +228,7 @@ const hallazgos = [
   }
   .total-pie {
     font-size: 0.92rem;
+    line-height: 1.55;
     color: var(--color-ink-soft);
     max-width: 54ch;
   }

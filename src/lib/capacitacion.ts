@@ -50,6 +50,61 @@ export interface Edicion {
 /** TODO(Israel): fecha de la próxima edición. En null se muestra el aviso. */
 export const PROXIMA_EDICION: Edicion | null = null;
 
+/**
+ * Colaboración: un curso que NO es de Israel. Lo vende otra plataforma, lo
+ * encabeza otro instructor y él da los módulos técnicos.
+ *
+ * Va como export APARTE y no como props de TALLER, aunque se parezcan (los dos
+ * son 8 horas en sesiones de 2). Modelarlo como una variante del taller haría
+ * que /capacitacion anunciara un precio que Israel no cobra, borraría su
+ * propio taller de la página y dejaría al JSON-LD emitiendo una oferta de algo
+ * que él no vende. Son dos productos, no dos configuraciones del mismo.
+ *
+ * El enlace apunta al alias propio (/claude) y no al destino: si el curso
+ * cambia de sede, de edición o deja de existir, se repunta el redirect y todo
+ * lo ya publicado sigue sirviendo.
+ */
+export interface Colaboracion {
+  nombre: string;
+  /** Quién encabeza. Va con nombre: mandar a pagar a otro sitio sin decir de
+      quién es se lee como poco transparente. */
+  imparte: string;
+  plataforma: string;
+  /** Qué parte da Israel. Ni de más ni de menos. */
+  miParte: string;
+  precio: string;
+  duracion: string;
+  ritmo: string;
+  horario: string;
+  sede: string;
+  url: string;
+  /** ISO. Mismo criterio que la edición del taller: vencida no se anuncia. */
+  inicio: string;
+  fin?: string;
+}
+
+export const COLABORACION: Colaboracion | null = {
+  nombre: "Claude para Contadores",
+  imparte: "José de Jesús Pérez Lara",
+  plataforma: "Fiscalistas.AI",
+  miParte: "los módulos de Claude Code y de Excel",
+  precio: "$3,500 MXN",
+  duracion: "8 horas en vivo, en 4 sesiones de 2",
+  ritmo: "lunes y martes",
+  horario: "18:00, hora del centro de México",
+  sede: "En vivo por Zoom, con grabación incluida",
+  url: "/claude",
+  inicio: "2026-09-28",
+  fin: "2026-10-06",
+};
+
+/** La colaboración solo si todavía no arranca. Mismo criterio que el taller. */
+export function colaboracionVigente(hoy = new Date()): Colaboracion | null {
+  if (!COLABORACION) return null;
+  const limite = new Date(`${COLABORACION.inicio}T23:59:59-06:00`);
+  return limite >= hoy ? COLABORACION : null;
+}
+
 const MESES = [
   "enero", "febrero", "marzo", "abril", "mayo", "junio",
   "julio", "agosto", "septiembre", "octubre", "noviembre", "diciembre",
@@ -61,7 +116,7 @@ const MESES = [
  * sobra porque el rango ya lo dice. Sin año, que siempre es este mes o el
  * siguiente y ponerlo suena a trámite.
  */
-export function fechaDeEdicion(edicion: Edicion): string {
+export function fechaDeEdicion(edicion: { inicio: string; fin?: string }): string {
   const [, mesI, diaI] = edicion.inicio.split("-").map(Number);
   if (!edicion.fin) return `Empieza el ${diaI} de ${MESES[mesI - 1]}`;
 

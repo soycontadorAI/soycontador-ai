@@ -2,6 +2,17 @@
 /**
  * Bloque de preguntas directas. El JSON-LD FAQPage se emite por página con
  * faqPage() de lib/schema.ts sobre el MISMO arreglo que recibe este bloque.
+ *
+ * Es un acordeón, y la respuesta SIEMPRE está en el HTML: se oculta con CSS,
+ * no se monta con JavaScript. Eso importa aquí más que en otros sitios,
+ * porque media estrategia del proyecto es que un buscador o un LLM pueda
+ * leer la respuesta. La primera entra abierta, para que se vea de qué va el
+ * bloque sin tener que hacer clic y para enseñar que los demás abren.
+ *
+ * Va con <button> y no con <details>: el contenido de un details no existe
+ * mientras está cerrado, así que no hay de dónde animar la apertura. Con
+ * grid-template-rows de 0fr a 1fr sí, y el encabezado sigue siendo un h3
+ * (que es lo que el índice del documento necesita) con el botón adentro.
  */
 
 import type { FaqItem } from "../lib/faqs";
@@ -14,37 +25,122 @@ const { items } = Astro.props;
 ---
 
 <div class="faq-lista">
-  {items.map((item) => (
-    <article class="faq-item" data-reveal>
-      <h3>{item.pregunta}</h3>
-      <p>{item.respuesta}</p>
-    </article>
+  {items.map((item, i) => (
+    <div class:list={["faq-item", { abierta: i === 0 }]} data-reveal>
+      <h3>
+        <button type="button" aria-expanded={i === 0 ? "true" : "false"}>
+          <span>{item.pregunta}</span>
+          <span class="cruz" aria-hidden="true"></span>
+        </button>
+      </h3>
+      <div class="caja">
+        <div>
+          <p>{item.respuesta}</p>
+        </div>
+      </div>
+    </div>
   ))}
 </div>
 
 <style>
+  .faq-lista {
+    border-top: 1px solid var(--color-line);
+  }
   .faq-item {
-    border: 1px solid var(--color-line);
-    border-radius: var(--radius-md);
-    background: var(--color-surface-raised);
-    padding: 1.6rem 1.8rem;
-    margin-bottom: 1rem;
+    border-bottom: 1px solid var(--color-line);
   }
   .faq-item h3 {
-    font-size: 1.1rem;
-    font-weight: 700;
-    margin: 0 0 0.5rem;
-    letter-spacing: -0.01em;
-  }
-  .faq-item h3::before {
-    content: "Q  ";
-    font-family: var(--font-mono);
-    color: var(--color-accent);
-    white-space: pre;
-  }
-  .faq-item p {
     margin: 0;
+  }
+  .faq-item button {
+    width: 100%;
+    background: none;
+    border: 0;
+    cursor: pointer;
+    text-align: left;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 1.5rem;
+    align-items: center;
+    padding: 1.5rem 0.2rem;
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-size: clamp(1.15rem, 2.2vw, 1.55rem);
+    line-height: 1.2;
+    color: var(--color-ink);
+    transition:
+      padding-left 0.35s var(--ease-f),
+      color 0.25s;
+  }
+  .faq-item button:hover {
+    padding-left: 0.8rem;
+    color: var(--color-accent);
+  }
+  .cruz {
+    position: relative;
+    width: 18px;
+    height: 18px;
+    flex: none;
+  }
+  .cruz::before,
+  .cruz::after {
+    content: "";
+    position: absolute;
+    background: var(--color-accent);
+    border-radius: 2px;
+    transition:
+      transform 0.35s var(--ease-f),
+      opacity 0.3s;
+  }
+  .cruz::before {
+    inset: 8px 0;
+    height: 2px;
+  }
+  .cruz::after {
+    inset: 0 8px;
+    width: 2px;
+  }
+  .faq-item.abierta .cruz::after {
+    transform: rotate(90deg);
+    opacity: 0;
+  }
+  /* De 0fr a 1fr: la única forma de animar "hasta el alto del contenido" sin
+     medirlo con JavaScript ni inventar un max-height a ojo. */
+  .caja {
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows 0.42s var(--ease-f);
+  }
+  .faq-item.abierta .caja {
+    grid-template-rows: 1fr;
+  }
+  .caja > div {
+    overflow: hidden;
+  }
+  .caja p {
+    margin: 0;
+    padding: 0 3.5rem 1.7rem 0.2rem;
     color: var(--color-ink-soft);
-    font-size: 0.95rem;
+    font-size: 0.96rem;
+    max-width: 62ch;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .caja,
+    .cruz::before,
+    .cruz::after,
+    .faq-item button {
+      transition: none;
+    }
   }
 </style>
+
+<script>
+  document.querySelectorAll(".faq-item").forEach((item) => {
+    const boton = item.querySelector("button");
+    if (!boton) return;
+    boton.addEventListener("click", () => {
+      const abierta = item.classList.toggle("abierta");
+      boton.setAttribute("aria-expanded", String(abierta));
+    });
+  });
+</script>

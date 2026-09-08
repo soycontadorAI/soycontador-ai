@@ -18,7 +18,7 @@ export const FAQ_HOME: FaqItem[] = [
   {
     pregunta: "¿Es seguro usar IA con datos fiscales de mis clientes?",
     respuesta:
-      "Sí, con método. El riesgo de verdad es copiar y pegar RFCs, nóminas o facturas en un chat público, donde ya perdiste el control del dato. Con herramientas hechas para el trabajo fiscal, la IA consulta tus CFDI por un canal controlado. Y con la versión de escritorio de TodoConta, tu e.firma, tus .key, tus .cer y los XML de tus clientes nunca salen de tu computadora.",
+      "Pegar facturas o RFCs en un chat público es regalar la información de tu cliente. Trabajar tus XML por un canal privado y anonimizado es blindaje profesional: el dato no anda suelto y la información contable se queda donde debe estar. Y si quieres el grado máximo de control, la versión de escritorio de TodoConta procesa en tu equipo: tu e.firma, tus .key, tus .cer y los XML de tus clientes nunca salen de tu computadora.",
   },
   {
     pregunta: "¿Necesito saber programar para automatizar mi despacho?",
@@ -98,5 +98,44 @@ export const FAQ_CLUB: FaqItem[] = [
     pregunta: "¿Esto es un curso de IA?",
     respuesta:
       "No. Los cursos te dan videos; el Club te deja procesos automatizados operando en tu despacho. Cada bootcamp mensual termina con algo funcionando, y si te atoras entre sesiones, el soporte lo destraba contigo.",
+  },
+];
+
+/**
+ * Preguntas del Avatar B (dueño o socio de despacho). No repiten las de
+ * FAQ_HOME a propósito: ese avatar pregunta otras cosas. La primera es la del
+ * precio, y se contesta SIN precio pero con el siguiente paso, que es lo que
+ * de verdad quita la ansiedad de una página sin tarifa.
+ */
+export const FAQ_DESPACHOS: FaqItem[] = [
+  {
+    pregunta: "¿Cuánto cuesta capacitar en IA al equipo de mi despacho?",
+    respuesta:
+      "Depende de cuántos son y del alcance, así que no hay tarifa de lista: se cotiza después de un diagnóstico corto. Llenas el formulario, platicamos treinta minutos con los números de tu despacho enfrente y te mando una propuesta de inversión por escrito, con alcance, calendario y precio cerrado por el proyecto. No cobro por hora, porque lo que compras no son mis horas.",
+  },
+  {
+    pregunta: "¿Y si capacito a mi gente y se me va con la competencia?",
+    respuesta:
+      "Peor que capacitar a alguien y que se vaya es no capacitarlo y que se quede. Y en la práctica pasa al revés de lo que temes: se va el que no encuentra razón para quedarse, y un despacho donde se trabaja con herramientas modernas retiene mejor que uno donde se captura a mano hasta las once de la noche. Además, lo que queda no es solo lo que aprendió cada quien: queda escrito el método, con los prompts propios y los criterios de revisión. Y ese método es del despacho aunque alguien se vaya.",
+  },
+  {
+    pregunta: "¿Tenemos que parar la operación para la capacitación?",
+    respuesta:
+      "No. Son sesiones de dos horas y nunca más de una al día, y los días los pones tú: seguidos o repartidos para que no choquen con el cierre. Es un tope que impongo yo por experiencia, no una concesión: nadie aguanta ocho horas seguidas con provecho.",
+  },
+  {
+    pregunta: "Ya llevamos cursos de IA y no pasó nada. ¿Qué cambia aquí?",
+    respuesta:
+      "Que el entregable no son apuntes. Al terminar, tu equipo tiene entre cuatro y seis flujos montados y corriendo sobre la operación real del despacho, más el método por escrito. Se trabaja con tus clientes y tus regímenes, no con ejemplos de manual, y por eso lo que se monta el jueves sirve el viernes.",
+  },
+  {
+    pregunta: "¿Es seguro usar IA con los datos de mis clientes?",
+    respuesta:
+      "Sí, con método, y este es el bloque al que le dedico una hora completa. Se trabaja con datos anonimizados: la e.firma, las claves y la información de tus clientes no se pegan en una IA pública, que es donde de verdad se pierde el control del dato. Para los CFDI que alimentan los flujos se usa TodoConta, que los baja y los procesa por un canal controlado en lugar de un chat abierto.",
+  },
+  {
+    pregunta: "¿Sirve para un colegio de contadores o para un corporativo?",
+    respuesta:
+      "Sí, es el mismo programa impartido por bloques. Un colegio forma a sus agremiados y una empresa a su área contable; en los dos casos cambia el alcance y el calendario, no el método. Escríbeme por el mismo formulario y lo vemos en la llamada.",
   },
 ];
