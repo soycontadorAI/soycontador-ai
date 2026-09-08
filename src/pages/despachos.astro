@@ -1,0 +1,450 @@
+---
+/**
+ * La página del Avatar B: el dueño o socio de un despacho con equipo.
+ *
+ * NO es una versión larga de /capacitacion. /capacitacion le habla al contador
+ * individual que compra su lugar; aquí habla el que firma por su equipo, y sus
+ * dolores son otros (margen y capacidad, no miedo a quedar obsoleto). Un
+ * avatar por página; ver docs/avatar.md.
+ *
+ * A quien llega aquí siendo de uno o dos se le manda de regreso a
+ * /capacitacion, y se le dice por qué. Perder ese lead a propósito es lo que
+ * hace creíble el resto de la página.
+ */
+import BaseLayout from "../layouts/BaseLayout.astro";
+import FaqBlock from "../components/FaqBlock.astro";
+import FormCapacitacion from "../components/FormCapacitacion.astro";
+import Poliza from "../components/Poliza.astro";
+import { FAQ_DESPACHOS } from "../lib/faqs";
+import { breadcrumbs, despachosService, faqPage, graph } from "../lib/schema";
+import { SITE } from "../lib/site";
+import {
+  ARITMETICA,
+  DIAGNOSTICO,
+  ENTREGABLES,
+  FORMATO,
+  NO_ES_PARA_TI,
+  TEMARIO,
+} from "../lib/despachos";
+
+const jsonLd = graph(
+  despachosService(),
+  faqPage(FAQ_DESPACHOS, `${SITE.url}/despachos`),
+  breadcrumbs([
+    { name: "Inicio", path: "/" },
+    { name: "Capacitación para despachos", path: "/despachos" },
+  ]),
+);
+---
+
+<BaseLayout
+  title="Capacitación en IA para despachos contables (in company)"
+  description="Programa de implementación para el equipo de tu despacho: 8 horas en sesiones de 2, sobre tu operación real. Salen con entre 4 y 6 flujos corriendo y con el SOP de IA del despacho documentado. Se cotiza por proyecto, después de un diagnóstico."
+  jsonLd={jsonLd}
+>
+  <main>
+    <section class="encabezado">
+      <div class="container-default">
+        <p class="folio">DESPACHOS · CAPACITACIÓN <b>IN COMPANY</b></p>
+        <h1 class="titulo-xl">Tu equipo entrega más rápido sin que contrates a nadie más</h1>
+        <p class="intro-page">
+          Ocho horas de implementación con tu gente, sobre tus clientes y tus
+          regímenes. No salen con apuntes: salen con los flujos corriendo y con
+          el método escrito para que sobreviva a la rotación.
+        </p>
+        <div class="acciones">
+          <a class="btn btn-primary" href="#diagnostico">Empieza el diagnóstico</a>
+          <a class="btn btn-ghost" href="#programa">Ve el programa</a>
+        </div>
+        <p class="micro">
+          Sin tarifa de lista y sin llamada de ventas. Me cuentas cómo opera tu
+          despacho y te digo si tengo cómo ayudarte.
+        </p>
+      </div>
+    </section>
+
+    <!--
+      La aritmética va ARRIBA de la oferta, no abajo. Un socio no compara este
+      programa contra otro programa: lo compara contra no hacer nada. Si no ve
+      primero lo que ya está pagando cada año, cualquier número que venga
+      después se lee como gasto.
+    -->
+    <section class="cuenta">
+      <div class="container-default">
+        <div class="sec-head"><h2 class="folio">LA <b>CUENTA</b> QUE CASI NADIE SACA</h2></div>
+        <div class="cuenta-grid">
+          <div data-reveal>
+            <h2 class="titulo-lg">Lo caro no es capacitar. Es el año que viene igual que este.</h2>
+            <p>
+              Tu equipo no es lento. Está haciendo a mano cosas que ya se
+              resuelven solas: bajar, clasificar, cuadrar, capturar. Eso tiene
+              un costo y aparece en la nómina todos los meses, solo que nunca
+              se factura por separado, y por eso no se ve.
+            </p>
+            <p>
+              La cuenta de al lado es la de un despacho de doce contadores. La
+              tuya sale del diagnóstico, con tus horas y tu costo, y es la que
+              decide si esto te conviene. Si sale que no, te lo digo.
+            </p>
+            <p class="cuenta-remate">
+              Contra ese número, la pregunta deja de ser cuánto cuesta el
+              programa y pasa a ser <span class="hl">cuánto llevas pagando por no tenerlo</span>.
+            </p>
+          </div>
+          <div data-reveal style="--reveal-delay: .1s">
+            <Poliza
+              folio={ARITMETICA.folio}
+              titulo={ARITMETICA.titulo}
+              columnaCargo={ARITMETICA.columnaCargo}
+              filas={[...ARITMETICA.filas]}
+              total={ARITMETICA.total}
+              nota={ARITMETICA.nota}
+            />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="programa">
+      <div class="container-default">
+        <div class="sec-head"><h2 class="folio">QUÉ SE <b>LLEVA</b> TU DESPACHO</h2></div>
+        <p class="entrada" data-reveal>
+          Esta es la respuesta a la objeción que me ponen siempre, y con
+          razón: <em>ya llevamos cursos y no pasó nada</em>. Un curso deja
+          apuntes. Esto deja cosas funcionando.
+        </p>
+        <ul class="entregables" data-reveal>
+          {ENTREGABLES.map((e, i) => (
+            <li>
+              <span class="num">{String(i + 1).padStart(2, "0")}</span>
+              <span>
+                <h3>{e.titulo}</h3>
+                <p>{e.texto}</p>
+              </span>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+
+    <section class="formato">
+      <div class="container-default">
+        <div class="sec-head"><h2 class="folio">CÓMO SE <b>VE</b> POR DENTRO</h2></div>
+        <div class="formato-grid">
+          <ul class="lista-formato" data-reveal>
+            {FORMATO.map((f) => <li>{f}</li>)}
+          </ul>
+          <div class="temario" data-reveal style="--reveal-delay: .1s">
+            <p class="folio temario-titulo">TEMARIO · 8 HORAS</p>
+            <ol>
+              {TEMARIO.map((t) => (
+                <li>
+                  <span class="horas">{t.horas}</span>
+                  <span>
+                    <b>{t.titulo}.</b> {t.texto}
+                  </span>
+                </li>
+              ))}
+            </ol>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!--
+      El filtro. Va ANTES del formulario a propósito: si alguien se va a
+      autodescartar, que se vaya antes de dejar sus datos y no después de una
+      llamada. Y el tercer punto manda al taller abierto en vez de dejarlo sin
+      salida, porque ese lead sí tiene dónde caer.
+    -->
+    <section class="filtro">
+      <div class="container-narrow">
+        <div class="sec-head"><h2 class="folio">CUÁNDO <b>NO</b> ES PARA TI</h2></div>
+        <ul data-reveal>
+          {NO_ES_PARA_TI.map((n) => <li>{n}</li>)}
+        </ul>
+        <p class="filtro-salida" data-reveal>
+          ¿Eres tú solo o son dos? El método es el mismo y sale más barato en
+          formato individual. <a href="/capacitacion">Ese es el taller →</a>
+        </p>
+      </div>
+    </section>
+
+    <section id="diagnostico" class="diagnostico">
+      <div class="container-default">
+        <div class="sec-head"><h2 class="folio">CÓMO <b>EMPIEZA</b></h2></div>
+        <p class="entrada" data-reveal>
+          No publico tarifa porque no hay una sola: cambia con el tamaño del
+          equipo y con el alcance. Lo que sí puedo decirte de entrada es qué
+          sigue y cuánto tarda.
+        </p>
+        <ol class="pasos" data-reveal>
+          {DIAGNOSTICO.map((d) => (
+            <li>
+              <span class="paso">{d.paso}</span>
+              <span>
+                <h3>{d.titulo}</h3>
+                <p>{d.texto}</p>
+              </span>
+            </li>
+          ))}
+        </ol>
+        <div class="form-wrap" data-reveal>
+          <FormCapacitacion variante="despacho" />
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="container-narrow">
+        <div class="sec-head"><h2 class="folio">LO QUE ME PREGUNTAN LOS <b>SOCIOS</b></h2></div>
+        <FaqBlock items={FAQ_DESPACHOS} />
+      </div>
+    </section>
+  </main>
+</BaseLayout>
+
+<style>
+  section {
+    padding: 4.2rem 0;
+  }
+  .encabezado {
+    padding-top: 3.4rem;
+  }
+  .acciones {
+    display: flex;
+    gap: 0.8rem;
+    flex-wrap: wrap;
+    margin-top: 2rem;
+  }
+  .micro {
+    margin-top: 1rem;
+    font-size: 0.86rem;
+    color: var(--color-ink-dim);
+    max-width: 46ch;
+  }
+  .entrada {
+    max-width: 58ch;
+    color: var(--color-ink-soft);
+    margin: 0 0 2rem;
+  }
+
+  /* La cuenta */
+  .cuenta {
+    background: var(--color-surface);
+    border-block: 1px solid var(--color-line);
+  }
+  .cuenta-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    align-items: center;
+  }
+  @media (max-width: 900px) {
+    .cuenta-grid {
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+  }
+  .cuenta p {
+    color: var(--color-ink-soft);
+    margin: 1rem 0 0;
+    max-width: 50ch;
+  }
+  /* Remate de sección, no texto corrido: sube de tamaño y con él la banda del
+     plumón. Con el --hl-alto por defecto (calibrado para texto corrido) el
+     marcador se quedaba tan bajo que leía como tachado. Mismo valor que
+     .bandos-remate de la home, que es la frase equivalente. */
+  .cuenta-remate {
+    color: var(--color-ink) !important;
+    font-weight: 500;
+    font-size: 1.18rem;
+    line-height: 1.45;
+    margin-top: 1.6rem !important;
+  }
+  .cuenta-remate .hl {
+    --hl-alto: 0.55em;
+  }
+
+  /* Entregables */
+  .entregables {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    border-top: 1px solid var(--color-line);
+  }
+  .entregables li {
+    display: grid;
+    grid-template-columns: 2.8rem 1fr;
+    gap: 1.2rem;
+    padding: 1.4rem 0.2rem;
+    border-bottom: 1px solid var(--color-line);
+  }
+  .entregables .num {
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: var(--color-accent);
+    padding-top: 0.25rem;
+  }
+  .entregables h3 {
+    margin: 0 0 0.3rem;
+    font-size: 1.05rem;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+  }
+  .entregables p {
+    margin: 0;
+    font-size: 0.92rem;
+    color: var(--color-ink-soft);
+    max-width: 64ch;
+  }
+
+  /* Formato y temario */
+  .formato-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    align-items: start;
+  }
+  @media (max-width: 900px) {
+    .formato-grid {
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+  }
+  .lista-formato {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    gap: 1rem;
+  }
+  .lista-formato li {
+    position: relative;
+    padding-left: 1.6rem;
+    color: var(--color-ink-soft);
+    font-size: 0.95rem;
+  }
+  .lista-formato li::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0.62em;
+    width: 8px;
+    height: 8px;
+    border-radius: 2px;
+    background: var(--color-accent);
+  }
+  .temario {
+    background: var(--color-surface-raised);
+    border: 1px solid var(--color-line);
+    border-radius: var(--radius-md);
+    padding: 1.5rem 1.4rem;
+    box-shadow: 6px 6px 0 var(--color-line);
+  }
+  .temario-titulo {
+    margin: 0 0 1rem;
+  }
+  .temario ol {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    gap: 0.9rem;
+  }
+  .temario li {
+    display: grid;
+    grid-template-columns: 2.4rem 1fr;
+    gap: 0.8rem;
+    font-size: 0.88rem;
+    color: var(--color-ink-soft);
+    line-height: 1.5;
+  }
+  .temario .horas {
+    font-family: var(--font-mono);
+    font-size: 0.76rem;
+    color: var(--color-ink-dim);
+    padding-top: 0.1rem;
+  }
+  .temario b {
+    color: var(--color-ink);
+  }
+
+  /* Filtro */
+  .filtro ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    gap: 0.9rem;
+  }
+  .filtro li {
+    position: relative;
+    padding-left: 1.7rem;
+    color: var(--color-ink-soft);
+  }
+  .filtro li::before {
+    content: "×";
+    position: absolute;
+    left: 0.2rem;
+    top: -0.05em;
+    font-family: var(--font-mono);
+    color: var(--color-ink-dim);
+  }
+  .filtro-salida {
+    margin: 1.8rem 0 0;
+    padding-top: 1.4rem;
+    border-top: 1px solid var(--color-line);
+    font-size: 0.95rem;
+  }
+  .filtro-salida a {
+    color: var(--color-accent);
+    font-weight: 500;
+  }
+
+  /* Diagnóstico */
+  .pasos {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 2.6rem;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.4rem;
+  }
+  @media (max-width: 900px) {
+    .pasos {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+  @media (max-width: 560px) {
+    .pasos {
+      grid-template-columns: 1fr;
+    }
+  }
+  .pasos li {
+    border-top: 1.5px solid var(--color-line-strong);
+    padding-top: 0.9rem;
+  }
+  .pasos .paso {
+    font-family: var(--font-mono);
+    font-size: 0.76rem;
+    font-weight: 700;
+    color: var(--color-accent);
+  }
+  .pasos h3 {
+    margin: 0.4rem 0 0.3rem;
+    font-size: 1rem;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+  }
+  .pasos p {
+    margin: 0;
+    font-size: 0.87rem;
+    color: var(--color-ink-soft);
+  }
+  /* Sin max-width: la medida la pone .cap-card, que se centra sola. */
+  .form-wrap {
+    margin-top: 0;
+  }
+</style>

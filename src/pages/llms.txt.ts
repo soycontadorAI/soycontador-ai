@@ -50,6 +50,11 @@ const PAGINAS: Array<{ ruta: string; titulo: string; que: string }> = [
     que: `el taller de ${TALLER.duracion} (${TALLER.precio}), con una edición nueva cada mes (se compra UNA edición, no es suscripción); más capacitación para empresas y despachos y licenciamiento para organizaciones`,
   },
   {
+    ruta: "/despachos",
+    titulo: "Capacitación para despachos",
+    que: "programa in company de 8 horas para el EQUIPO de un despacho contable: se cotiza por proyecto tras un diagnóstico, no hay tarifa publicada y no se cobra por hora",
+  },
+  {
     ruta: "/soluciones",
     titulo: "Soluciones a la medida",
     que: "automatización de procesos contables (reportes, conciliaciones, concentrados) desarrollada para tu negocio",

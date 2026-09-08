@@ -111,15 +111,24 @@ const jsonLd = graph(
       <div class="container-default">
         <div class="sec-head"><h2 class="folio">MODALIDAD <b>02</b> · EMPRESAS Y DESPACHOS</h2></div>
         <div class="dos-cols" data-reveal>
+          {/*
+            Esta columna dejó de vender y pasó a rutear. La capacitación para
+            un despacho completo tiene página propia (/despachos) porque le
+            habla a otra persona: aquí decide quien compra su lugar, allá
+            decide quien firma por su equipo. Repetir el pitch en las dos
+            páginas nos dejaba compitiendo contra nosotros mismos en el
+            buscador y con un formulario que preguntaba una modalidad que la
+            página ya había respondido.
+          */}
           <div>
             <h2 class="titulo-lg">{EMPRESARIAL.nombre}</h2>
-            <p class="texto">{EMPRESARIAL.descripcion}</p>
-            <ul class="puntos">
-              {EMPRESARIAL.puntos.map((punto) => (
-                <li>{punto}</li>
-              ))}
-            </ul>
-            <a class="btn btn-ghost" href="#precalificacion">Llenar el formulario y agendar llamada</a>
+            <p class="texto">
+              ¿Vienes por tu equipo y no por tu lugar? Eso es otro programa:
+              ocho horas de implementación sobre la operación real del
+              despacho, con el equipo saliendo con los flujos corriendo. Se
+              cotiza por proyecto, después de un diagnóstico corto.
+            </p>
+            <a class="btn btn-ghost" href="/despachos">Ver capacitación para despachos →</a>
           </div>
           <div>
             <h2 class="titulo-lg">{ORGANIZACIONES.nombre}</h2>

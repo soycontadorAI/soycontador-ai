@@ -3,7 +3,6 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import FaqBlock from "../components/FaqBlock.astro";
 import LeadForm from "../components/LeadForm.astro";
 import NewsletterForm from "../components/NewsletterForm.astro";
-import Pila from "../components/Pila.astro";
 import Terminal from "../components/Terminal.astro";
 import { Icon } from "astro-icon/components";
 import { FAQ_HOME } from "../lib/faqs";
@@ -44,7 +43,10 @@ const asientos = [
     num: "04",
     icono: "ph:book-open-light",
     titulo: `Ebook: ${EBOOK.titulo}`,
-    texto: `Diecisiete capítulos y tres apéndices para entender la IA antes de que la IA te rebase. Cero código. Cero palabras raras sin explicar. Si después de leerlo sigues sin entender de qué va esto, te devuelvo tus ${EBOOK.precio.replace("$", "$").replace(" MXN", "")}.`,
+    /* El objetivo del libro no se enuncia como conocimiento ("entender la
+       IA") sino como temporada: abril es el único dolor del contador que
+       tiene fecha en el calendario, y por eso es el que mueve. */
+    texto: `Diecisiete capítulos y tres apéndices, sin código y sin palabras raras. El objetivo no es que trabajes más: es que llegues a abril sin contratar auxiliares extra, sin pelearte con el portal del SAT a las 11 de la noche y sin dejar la vida en el despacho durante la anual. Si después de leerlo sigues sin entender de qué va esto, te devuelvo tus ${EBOOK.precio.replace("$", "$").replace(" MXN", "")}.`,
     href: EBOOK.url ?? "/contacto",
     cta: "consíguelo →",
   },
@@ -68,6 +70,19 @@ const asientos = [
   },
 ];
 
+/**
+ * La mañana que cuenta la escena fija. Vivía dentro del <Pila> del hero; se
+ * subió aquí porque ahora la recorre el scroll y el marcado la itera.
+ * `quien` decide el color de la marca: verde cuando lo cerró la máquina,
+ * tinta cuando lo cerraste tú. Ese contraste es el argumento del bloque.
+ */
+const mañana = [
+  { titulo: "3,412 XML descargados", pie: "del portal del SAT, sin abrirlo", quien: "ia", dato: "31 s" },
+  { titulo: "Validados contra 69 y 69-B", pie: "los 3,412, uno por uno", quien: "ia", dato: "0 riesgos" },
+  { titulo: "Concentrado armado", pie: "el mismo de siempre, ya cuadrado", quien: "ia", dato: "4 hojas" },
+  { titulo: "14 diferencias resueltas", pie: "esas no las decide la máquina", quien: "tu", dato: "tu criterio" },
+];
+
 const lineasTerminal = [
   { tipo: "user" as const, texto: "concilia los CFDI de marzo contra el estado de cuenta" },
   { tipo: "dim" as const, texto: "→ mcp: todoconta · leyendo 3,412 XML…" },
@@ -79,50 +94,86 @@ const lineasTerminal = [
 
 <BaseLayout jsonLd={jsonLd}>
   <main>
-    <section class="hero">
-      <div class="container-default margen hero-grid">
-        <div>
-          <p class="eyebrow">
-            <svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="M2.5 8.8 6 12.2 13.5 3.6" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            IA para contadores de carrera
-          </p>
-          <h1>La IA cierra las fáciles.<br />Las difíciles <span class="junto">las cobras <span class="hl">tú</span>.</span></h1>
+    <!--
+      La portada de F: solo tipografía y aire. La pila de tarjetas que vivía
+      aquí no se perdió, se desdobló en la escena de abajo, donde el lector la
+      recorre en vez de mirarla quieta.
+    -->
+    <section class="portada">
+      <div class="container-default" id="portada">
+        <p class="kicker"><span aria-hidden="true"></span>IA para contadores de carrera</p>
+        <h1 class="portada-titulo">
+          <span class="reng" style="--reng-delay: 0.12s"><span>La IA cierra</span></span>
+          <span class="reng" style="--reng-delay: 0.24s"><span>las fáciles.</span></span>
+          <span class="reng" style="--reng-delay: 0.36s"><span><em>Las difíciles</em></span></span>
+          <span class="reng" style="--reng-delay: 0.48s"><span>las cobras <b class="hl">tú</b>.</span></span>
+        </h1>
+        <div class="portada-pie">
           <p class="hero-sub">
             Descargar, validar y capturar ya se resuelve solo. Lo que no se
             resuelve solo es saber cuándo un número miente, y eso se paga con
             años. Esa es la parte que se cobra.
           </p>
-          <div class="hero-actions">
-            <a class="btn btn-primary" href="#contacto">Platiquemos de tu caso</a>
-            {/* El secundario es la salida sin compromiso, y por eso baja al
-                menú en vez de mandar al live: quien todavía no quiere hablar
-                necesita ver el rango completo, no una sola puerta. La cifra
-                sale del arreglo para que el copy no pueda quedar mintiendo si
-                mañana entra o sale un asiento. */}
-            <a class="btn btn-ghost" href="#ofertas">Ve las {asientos.length} formas de empezar</a>
+          <div>
+            <div class="hero-actions">
+              {/* El secundario es la salida sin compromiso, y por eso baja al
+                  menú en vez de mandar al live: quien todavía no quiere hablar
+                  necesita ver el rango completo, no una sola puerta. La cifra
+                  sale del arreglo para que el copy no pueda quedar mintiendo si
+                  mañana entra o sale un asiento. */}
+              <a class="btn btn-primary" href="#contacto">Platiquemos de tu caso</a>
+              <a class="btn btn-ghost" href="#ofertas">Las {asientos.length} formas de empezar</a>
+            </div>
+            <p class="hero-micro">
+              Sin costo. Me cuentas en qué se te va la vida y yo te digo si tengo cómo resolverlo.
+            </p>
           </div>
-          <p class="hero-micro">
-            Sin costo. Me cuentas en qué se te va la vida y yo te digo si tengo cómo resolverlo.
-          </p>
         </div>
-        <div>
-          <Pila
-            tareas={[
-              { hora: "08:14", titulo: "3,412 XML descargados", pie: "del portal del SAT, sin abrirlo", quien: "ia", dato: "31 s" },
-              { hora: "08:15", titulo: "Validados contra 69 y 69-B", pie: "los 3,412, uno por uno", quien: "ia", dato: "0 riesgos" },
-              { hora: "08:16", titulo: "Concentrado armado", pie: "el mismo de siempre, ya cuadrado", quien: "ia", dato: "4 hojas" },
-              { hora: "08:31", titulo: "14 diferencias resueltas", pie: "esas no las decide la máquina", quien: "tu", dato: "tu criterio" },
-            ]}
-            remate="Contadores que ya capacité."
-            personas={[
-              { foto: "/assets/contadora-1.webp" },
-              { foto: "/assets/contador-2.webp" },
-              { foto: "/assets/contadora-3.webp" },
-              {},
-              {},
-            ]}
-            cuantos="+45"
-          />
+      </div>
+      <span class="baja" aria-hidden="true"><i></i>Baja</span>
+    </section>
+
+    <!--
+      La escena fija: la sección se queda pegada y el scroll enciende los
+      renglones uno por uno. El lector no ve una animación, la ejecuta. El
+      orden importa (tres los cierra la máquina, el cuarto no), y por eso
+      aquí sí se justifica fijar: es una narración con remate, no un menú.
+    -->
+    <section class="escena" id="escena">
+      <div class="escena-fija">
+        <div class="container-default escena-grid">
+          <div class="escena-texto">
+            <p class="folio">UNA MAÑANA <b>CUALQUIERA</b></p>
+            <h2 class="escena-titulo">Lo que pasó antes de tu primer café</h2>
+            <p class="escena-apunte">
+              Tres renglones los cerró la máquina. El cuarto no, y por eso el
+              cuarto es el que se cobra.
+            </p>
+            <p class="escena-cuenta">ASIENTO <b id="cuenta-escena">01</b> DE 04</p>
+            <div class="escena-prueba">
+              <span class="caras">
+                <img src="/assets/contadora-1.webp" alt="" aria-hidden="true" width="34" height="34" loading="lazy" decoding="async" />
+                <img src="/assets/contador-2.webp" alt="" aria-hidden="true" width="34" height="34" loading="lazy" decoding="async" />
+                <img src="/assets/contadora-3.webp" alt="" aria-hidden="true" width="34" height="34" loading="lazy" decoding="async" />
+                <b>+45</b>
+              </span>
+              <span class="folio">Contadores que ya capacité.</span>
+            </div>
+          </div>
+          <ol class="renglones" id="renglones">
+            {mañana.map((t) => (
+              <li class:list={["renglon", t.quien]}>
+                <span class="marca">
+                  <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8.5 6.2 11.8 13 4.6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </span>
+                <span>
+                  <h3>{t.titulo}</h3>
+                  <p>{t.pie}</p>
+                </span>
+                <span class="dato">{t.dato}</span>
+              </li>
+            ))}
+          </ol>
         </div>
       </div>
     </section>
@@ -177,7 +228,7 @@ const lineasTerminal = [
     </section>
 
     <section id="quien">
-      <div class="container-default margen">
+      <div class="container-default">
         <div class="sec-head"><h2 class="folio">CUENTA <b>01</b> · QUIÉN TE ESTÁ HABLANDO</h2></div>
         <div class="bio-grid">
           <div class="bio" data-reveal>
@@ -210,28 +261,77 @@ const lineasTerminal = [
             </div>
             <p class="mas"><a href="/sobre-mi">Toda la historia →</a></p>
           </div>
-          <div data-reveal style="--reveal-delay: .12s">
+          {/*
+            La terminal deja de flotar al lado del texto y se vuelve figura de
+            revista: encajada, con pie. En una página de papel una pantalla no
+            flota, va con su explicación debajo, y eso de paso justifica que
+            el único bloque oscuro no rompa la hoja.
+          */}
+          <figure class="figura" data-reveal style="--reveal-delay: .12s">
             <Terminal lineas={lineasTerminal} />
-          </div>
+            {/*
+              Este pie hace un trabajo concreto: desarmar la objeción número
+              uno del avatar A, que es "la IA se inventa cosas". Por eso nombra
+              a ChatGPT en vez de hablar de "la IA" en abstracto: la mala
+              experiencia que el lector tuvo tiene nombre, y negarla en
+              genérico no la desactiva.
+            */}
+            <figcaption class="pie-figura">
+              <b>FIG. 1</b> · Así se pide. No es ChatGPT inventando datos ni
+              sacándose respuestas de la manga para salir del paso. Es un canal
+              controlado conectado a tus XML donde la máquina calcula, procesa el
+              volumen y tú firmas con tu criterio contable.
+            </figcaption>
+          </figure>
         </div>
       </div>
     </section>
 
+    <!--
+      Las seis puertas se recorren de lado y NO se fijan como la escena de
+      arriba. La diferencia importa: la escena es una narración con orden y
+      remate, y esto es un menú. Fijarlo obligaría a pasar por las seis, que
+      es justo lo contrario de lo que dice el titular de la sección.
+    -->
     <section id="ofertas">
-      <div class="container-default margen">
+      <div class="container-default">
         <div class="sec-head"><h2 class="folio">CUENTA <b>02</b> · QUÉ ENCUENTRAS AQUÍ</h2></div>
-        <div class="asientos" data-reveal>
+        <p class="galeria-titulo" data-reveal>
+          Seis puertas. <em>Ninguna te obliga a la siguiente.</em>
+        </p>
+        {/*
+          "Elige tu camino" y no "arrastra de lado": lo primero dice qué ganas
+          y lo segundo solo describe el gesto. El verbo del gesto cambia según
+          con qué se navegue (se desliza con el dedo, se arrastra con el
+          mouse), así que lo pone el CSS y no el marcado.
+
+          El contador de posición existe porque en móvil solo se ve una
+          tarjeta: sin él, las últimas del carrusel no es que estén escondidas,
+          es que el lector no sabe que existen. Con "01 / 06" sabe cuántas
+          faltan y que la última no es la que tiene enfrente.
+        */}
+        <div class="pista-guia" id="guia-pista" data-reveal>
+          <span class="folio pista-etiqueta">ELIGE TU CAMINO <span class="gesto" aria-hidden="true"></span></span>
+          <span class="pista-barra" id="barra-caja"><i id="barra-pista"></i></span>
+          <span class="folio pista-cuenta" id="pista-cuenta" aria-hidden="true">01 / {String(asientos.length).padStart(2, "0")}</span>
+          <span class="punta" aria-hidden="true">
+            <svg viewBox="0 0 16 16" fill="none"><path d="M3 8h9m0 0L8.4 4.4M12 8l-3.6 3.6" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </span>
+        </div>
+      </div>
+      <div class="galeria-carril" id="carril">
+        {/* Región desplazable y enfocable: el teclado tiene que poder
+            recorrerla, no solo el mouse. */}
+        <div class="pista" id="pista" tabindex="0" role="region" aria-label={`Las ${asientos.length} formas de empezar. Se recorre de lado.`}>
           {asientos.map((a) => (
-            <a class="asiento" href={a.href}>
+            <a class="puerta" href={a.href}>
               <span class="num">{a.num}</span>
-              <span>
-                <h3>{a.titulo}</h3>
-                <p>{a.texto}</p>
-              </span>
+              <h3>{a.titulo}</h3>
+              <p>{a.texto}</p>
               <span class="go">{a.cta}</span>
               {/* Marca de agua: aria-hidden porque no aporta información que
                   el título no dé ya, y pointer-events none para que nunca se
-                  interponga al clic del renglón. */}
+                  interponga al clic. */}
               <span class="ilustra" aria-hidden="true"><Icon name={a.icono} /></span>
             </a>
           ))}
@@ -340,19 +440,170 @@ const lineasTerminal = [
       </div>
     </section>
   </main>
+
+  <script>
+    const quieto = matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    /* Los renglones del titular suben al montar y no al entrar en pantalla:
+       están sobre el pliegue y el H1 es el candidato a LCP. Colgarlos del
+       observador costaría el primer render. */
+    requestAnimationFrame(() => document.getElementById("portada")?.classList.add("cargado"));
+
+    /* La escena fija. El avance dentro de la sección decide cuántos renglones
+       van encendidos: una regla de tres sobre su rectángulo, sin librerías. */
+    const escena = document.getElementById("escena");
+    const renglones = [...document.querySelectorAll("#renglones .renglon")];
+    const cuenta = document.getElementById("cuenta-escena");
+
+    if (escena && renglones.length) {
+      if (quieto) {
+        renglones.forEach((el) => el.classList.add("activo"));
+      } else {
+        const pinta = () => {
+          const r = escena.getBoundingClientRect();
+          const recorrido = r.height - window.innerHeight;
+          const p = recorrido > 0 ? Math.min(1, Math.max(0, -r.top / recorrido)) : 1;
+          /* Los cuatro se reparten en el 85% del recorrido, para que el último
+             alcance a leerse antes de que la sección se despegue. */
+          const activos = Math.min(renglones.length, Math.floor((p / 0.85) * renglones.length) + 1);
+          renglones.forEach((el, i) => el.classList.toggle("activo", i < activos));
+          if (cuenta) cuenta.textContent = String(activos).padStart(2, "0");
+        };
+        let pedido = false;
+        addEventListener(
+          "scroll",
+          () => {
+            if (pedido) return;
+            pedido = true;
+            requestAnimationFrame(() => {
+              pinta();
+              pedido = false;
+            });
+          },
+          { passive: true },
+        );
+        pinta();
+      }
+    }
+
+    /* ---------- La galería de las seis puertas ---------- */
+    const pista = document.getElementById("pista");
+    const carril = document.getElementById("carril");
+    const barra = document.getElementById("barra-pista");
+    const barraCaja = document.getElementById("barra-caja");
+    const guiaPista = document.getElementById("guia-pista");
+    const cuentaPista = document.getElementById("pista-cuenta");
+
+    if (pista && carril && barra && barraCaja && guiaPista) {
+      const puertas = pista.querySelectorAll(".puerta");
+      const total = String(puertas.length).padStart(2, "0");
+
+      pista.addEventListener(
+        "scroll",
+        () => {
+          const max = pista.scrollWidth - pista.clientWidth;
+          const p = max > 0 ? pista.scrollLeft / max : 0;
+          barra.style.width = p * 100 + "%";
+
+          /* Qué tarjeta manda: la primera que arranca DENTRO del carril, no la
+             primera que asoma. Con el borde derecho la cuenta se quedaba en 01
+             hasta el final, porque en escritorio la primera tarjeta sigue
+             asomando 90px cuando ya vas en la última. Se mide contra el DOM y
+             no dividiendo el scroll entre un ancho supuesto, porque las
+             tarjetas cambian de ancho con el viewport. */
+          if (cuentaPista && puertas.length) {
+            const izq = pista.getBoundingClientRect().left;
+            let i = puertas.length - 1;
+            for (let n = 0; n < puertas.length; n++) {
+              if (puertas[n].getBoundingClientRect().left >= izq - 24) {
+                i = n;
+                break;
+              }
+            }
+            cuentaPista.textContent = `${String(i + 1).padStart(2, "0")} / ${total}`;
+          }
+          /* En cuanto se mueve, la barra deja de ser señal y pasa a ser avance. */
+          if (pista.scrollLeft > 4) {
+            barraCaja.classList.add("movida");
+            guiaPista.classList.add("movida");
+          }
+          carril.classList.toggle("al-final", p > 0.98);
+        },
+        { passive: true },
+      );
+
+      /* Arrastre con el mouse. En táctil no hace falta: el gesto es nativo. */
+      let abajo = false;
+      let x0 = 0;
+      let s0 = 0;
+      pista.addEventListener("pointerdown", (e) => {
+        if (e.pointerType !== "mouse") return;
+        abajo = true;
+        x0 = e.clientX;
+        s0 = pista.scrollLeft;
+        pista.classList.add("arrastrando");
+      });
+      addEventListener("pointerup", () => {
+        abajo = false;
+        pista.classList.remove("arrastrando");
+      });
+      pista.addEventListener("pointermove", (e) => {
+        if (abajo) pista.scrollLeft = s0 - (e.clientX - x0);
+      });
+
+      /* Teclado: la región es enfocable, así que las flechas tienen que moverla. */
+      pista.addEventListener("keydown", (e) => {
+        const puerta = pista.querySelector(".puerta");
+        if (!puerta) return;
+        const paso = puerta.getBoundingClientRect().width + 19;
+        if (e.key === "ArrowRight") {
+          pista.scrollBy({ left: paso, behavior: "smooth" });
+          e.preventDefault();
+        }
+        if (e.key === "ArrowLeft") {
+          pista.scrollBy({ left: -paso, behavior: "smooth" });
+          e.preventDefault();
+        }
+      });
+
+      /* El empujón: la primera vez que la galería entra en pantalla el carril
+         se asoma 22px y regresa. Es la forma más corta de decir "esto se
+         mueve" sin quitarle el control a nadie, y por eso pasa UNA vez. */
+      if (!quieto) {
+        const ioEmpuje = new IntersectionObserver(
+          (entries) => {
+            for (const entry of entries) {
+              if (!entry.isIntersecting) continue;
+              ioEmpuje.disconnect();
+              setTimeout(() => {
+                if (pista.scrollLeft > 4) return;
+                pista.scrollTo({ left: 22, behavior: "smooth" });
+                setTimeout(() => pista.scrollTo({ left: 0, behavior: "smooth" }), 420);
+              }, 500);
+            }
+          },
+          { threshold: 0.5 },
+        );
+        ioEmpuje.observe(pista);
+      }
+    }
+  </script>
 </BaseLayout>
 
 <style>
   .margen {
     position: relative;
   }
+  /* El filete de margen iba en un hex crudo (#d9e3f0), que era un azul frío
+     heredado de la identidad anterior y sobre el papel cálido se veía morado.
+     Va en token, como manda la regla del sistema. */
   .margen::before {
     content: "";
     position: absolute;
     top: 0;
     bottom: 0;
     left: 0.5rem;
-    border-left: 1px solid #d9e3f0;
+    border-left: 1px solid var(--color-line);
   }
   @media (max-width: 900px) {
     .margen::before {
@@ -372,67 +623,371 @@ const lineasTerminal = [
   }
   /* Solo el título del lead magnet: los demás h2 son folios de sección */
   .guia-titulo {
-    font-weight: 700;
-    font-size: clamp(1.5rem, 3vw, 2.1rem);
-    letter-spacing: -0.02em;
-    line-height: 1.15;
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-size: clamp(1.8rem, 3.6vw, 2.7rem);
+    letter-spacing: -0.01em;
+    line-height: 1.1;
     margin: 0;
   }
   h3 {
     margin: 0;
   }
 
-  /* Hero */
-  /* Llena la primera pantalla completa. Antes medía 580px de una ventana de
-     900 y dejaba asomar 248px de la banda de la vuelta por debajo, que se leía
-     como una franja suelta en vez de como el arranque de la siguiente sección.
-     Con el fondo de la vuelta puesto eso se volvió visible; sin fondo no se
-     notaba.
-
-     Se resta el alto del header (73px, medido) porque es sticky y ocupa
-     espacio en el flujo: sin restarlo la primera pantalla mediría 100svh + 73
-     y volvería a empujar la banda fuera de cuadro. svh y no vh, para que la
-     barra del navegador en móvil no la desborde. */
-  .hero {
+  /* Portada */
+  /*
+     Llena la primera pantalla completa. Se resta el alto del header (73px,
+     medido) porque es sticky y ocupa espacio en el flujo. svh y no vh, para
+     que la barra del navegador en móvil no la desborde.
+  */
+  .portada {
+    position: relative;
     min-height: calc(100svh - 4.6rem);
     display: grid;
-    align-items: center;
-    padding: 3rem 0;
+    align-content: center;
+    padding: 4rem 0 5rem;
   }
-  .hero-grid {
-    display: grid;
-    grid-template-columns: 1.25fr 1fr;
-    gap: 3.5rem;
+  /* La entrada de categoría, en el registro de F: mono en versalitas con una
+     raya que la ancla al margen. Sustituye a la cápsula con palomita. */
+  .kicker {
+    display: flex;
     align-items: center;
+    gap: 0.8rem;
+    margin: 0;
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--color-ink-dim);
+  }
+  .kicker span {
+    width: 2.4rem;
+    height: 1px;
+    background: var(--color-ink-dim);
+    flex: none;
+  }
+  .portada-titulo {
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-size: clamp(2.9rem, 8.4vw, 6.4rem);
+    line-height: 1.02;
+    letter-spacing: -0.02em;
+    margin: 1.6rem 0 0;
+    max-width: 15ch;
+  }
+  .portada-titulo em {
+    font-style: italic;
+  }
+  .portada-titulo b {
+    font-weight: 400;
+  }
+  /* La banda del plumón se calibra para la serif: su altura de equis es más
+     baja que la de la sans, así que el alto de texto corrido se le queda
+     debajo y lee como subrayado. Medido sobre el render, no sobre el código. */
+  .portada-titulo .hl {
+    --hl-abajo: 0.22em;
+    --hl-alto: 0.5em;
+  }
+  .portada-pie {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 2.5rem 3rem;
+    align-items: end;
+    margin-top: 3rem;
   }
   @media (max-width: 900px) {
-    .hero-grid {
+    .portada-pie {
       grid-template-columns: 1fr;
+      gap: 2rem;
     }
   }
   .hero-sub {
-    margin-top: 1.4rem;
-    max-width: 50ch;
+    margin: 0;
+    max-width: 44ch;
     color: var(--color-ink-soft);
+    font-size: 1.12rem;
   }
   .hero-actions {
-    margin-top: 2rem;
     display: flex;
     gap: 0.9rem;
     flex-wrap: wrap;
   }
 
-  /* Quién soy */
-  .bio-grid {
+  /* La señal de "sigue bajando". Va a la orilla derecha y no al centro: la
+     columna de texto llega hasta la mitad y ahí se encimaba. */
+  .baja {
+    position: absolute;
+    bottom: 1.6rem;
+    right: 2.5rem;
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 3rem;
-    align-items: center;
+    justify-items: center;
+    gap: 0.5rem;
+    font-family: var(--font-mono);
+    font-size: 0.64rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--color-ink-dim);
+  }
+  .baja i {
+    display: block;
+    width: 1px;
+    height: 2.4rem;
+    background: linear-gradient(var(--color-ink-dim), transparent);
+    animation: cae 2.2s ease-in-out infinite;
+  }
+  @keyframes cae {
+    0%,
+    100% {
+      transform: scaleY(0.4);
+      transform-origin: top;
+      opacity: 0.4;
+    }
+    50% {
+      transform: scaleY(1);
+      opacity: 1;
+    }
   }
   @media (max-width: 900px) {
-    .bio-grid {
-      grid-template-columns: 1fr;
+    .baja {
+      display: none;
     }
+  }
+
+  /* ---------- La escena fija ----------
+     Tres pantallas de recorrido para cuatro renglones. El alto es lo que
+     compra el tiempo de lectura: con menos, los cuatro se encienden de golpe
+     y se pierde el efecto de ir asentando uno por uno. */
+  .escena {
+    position: relative;
+    height: 320vh;
+    padding: 0;
+  }
+  .escena-fija {
+    position: sticky;
+    top: 0;
+    height: 100svh;
+    display: grid;
+    align-content: center;
+    overflow: hidden;
+  }
+  .escena-grid {
+    display: grid;
+    grid-template-columns: 0.9fr 1.1fr;
+    gap: 3.5rem;
+    align-items: center;
+  }
+  .escena-titulo {
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-size: clamp(1.9rem, 4.4vw, 3.1rem);
+    line-height: 1.08;
+    letter-spacing: -0.01em;
+    margin: 0.9rem 0 0;
+    max-width: 14ch;
+  }
+  .escena-apunte {
+    margin: 1.2rem 0 0;
+    max-width: 38ch;
+    color: var(--color-ink-soft);
+  }
+  .escena-cuenta {
+    margin: 1.6rem 0 0;
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.16em;
+    color: var(--color-ink-dim);
+  }
+  .escena-cuenta b {
+    color: var(--color-accent);
+  }
+  .escena-prueba {
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+    margin-top: 2rem;
+  }
+  .caras {
+    display: flex;
+    align-items: center;
+  }
+  .caras img {
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid var(--color-bg);
+    margin-left: -10px;
+  }
+  .caras img:first-child {
+    margin-left: 0;
+  }
+  .caras b {
+    margin-left: 0.5rem;
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--color-ink);
+  }
+
+  .renglones {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 0.8rem;
+  }
+  .renglon {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    gap: 1.1rem;
+    align-items: center;
+    background: var(--color-surface-raised);
+    border: 1px solid var(--color-line);
+    border-radius: var(--radius-md);
+    padding: 1.05rem 1.2rem;
+    /*
+     * Estado en espera. NO se hace con opacity, aunque sea lo obvio: a 0.28 el
+     * texto quedaba en 1.44:1 contra el fondo (Lighthouse lo marcó), y para
+     * pasar AA la opacidad tendría que subir a 0.92, con lo que ya no se
+     * distinguiría del estado encendido. Se calculó, no se estimó.
+     *
+     * Lo que sí funciona: la fila espera sobre el papel y ENCIENDE al blanco,
+     * con la sombra y el filete entrando a la vez. Los dos estados tienen
+     * contraste de sobra y el gesto se lee mejor, porque la tarjeta se
+     * prende en vez de desvanecerse.
+     */
+    background: var(--color-surface);
+    transform: translateY(10px) scale(0.985);
+    transition:
+      background 0.45s var(--ease-f),
+      color 0.45s var(--ease-f),
+      transform 0.45s var(--ease-f),
+      box-shadow 0.45s,
+      border-color 0.45s;
+  }
+  .renglon h3,
+  .renglon .dato {
+    color: var(--color-ink-soft);
+    transition: color 0.45s var(--ease-f);
+  }
+  .renglon .marca {
+    color: var(--color-ink-dim);
+    background: transparent;
+    transition:
+      color 0.45s var(--ease-f),
+      background 0.45s var(--ease-f);
+  }
+  .renglon.activo {
+    background: var(--color-surface-raised);
+    transform: none;
+    box-shadow: 0 18px 40px -26px rgb(20 22 26 / 0.5);
+    border-color: color-mix(in oklab, var(--color-line) 60%, var(--color-ink-dim));
+  }
+  .renglon.activo h3 {
+    color: var(--color-ink);
+  }
+  .renglon h3 {
+    font-size: 1rem;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    margin: 0;
+  }
+  .renglon p {
+    font-size: 0.82rem;
+    color: var(--color-ink-dim);
+    line-height: 1.4;
+    margin: 0.15rem 0 0;
+  }
+  .renglon .dato {
+    font-family: var(--font-mono);
+    font-size: 0.76rem;
+    font-weight: 700;
+    white-space: nowrap;
+  }
+  .renglon.activo.ia .dato {
+    color: var(--color-accent);
+  }
+  .renglon.tu {
+    border-color: var(--color-line-strong);
+  }
+  .renglon.activo.tu .dato {
+    color: var(--color-ink);
+  }
+  .marca {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    border: 1.5px solid currentColor;
+    flex: none;
+  }
+  .marca svg {
+    width: 12px;
+    height: 12px;
+  }
+  /* Verde cuando lo cerró la máquina, tinta cuando lo cerraste tú. Ese
+     contraste es el argumento del bloque y no se toca. */
+  .renglon.activo.ia .marca {
+    color: var(--color-accent);
+    background: var(--color-accent-soft);
+  }
+  .renglon.activo.tu .marca {
+    color: var(--color-ink);
+    background: var(--color-bg);
+  }
+  @media (max-width: 980px) {
+    .escena {
+      height: 280vh;
+    }
+    .escena-grid {
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+    .escena-prueba {
+      display: none;
+    }
+  }
+  /* Sin animación no hay escena que recorrer: la sección se vuelve una
+     sección normal, con los cuatro renglones puestos. */
+  @media (prefers-reduced-motion: reduce) {
+    .escena {
+      height: auto;
+    }
+    .escena-fija {
+      position: static;
+      height: auto;
+      padding: 4.2rem 0;
+    }
+    .renglon {
+      transform: none;
+      transition: none;
+    }
+  }
+
+  /* Quién soy */
+  /* Una sola columna de lectura. A dos columnas dentro de un contenedor de
+     74rem cada una queda en 33rem, que son unos 90 caracteres por renglón:
+     demasiado para leer cómodo. El ancho de lectura manda sobre la retícula. */
+  .bio-grid {
+    max-width: var(--container-narrow);
+    margin-inline: auto;
+  }
+  .figura {
+    margin: 3.5rem 0 0;
+  }
+  .pie-figura {
+    margin: 1rem 0 0;
+    padding-left: 0.9rem;
+    border-left: 2px solid var(--color-marker);
+    font-family: var(--font-mono);
+    font-size: 0.71rem;
+    line-height: 1.6;
+    color: var(--color-ink-dim);
+    max-width: 54ch;
+  }
+  .pie-figura b {
+    color: var(--color-ink);
+    font-weight: 500;
   }
 
   .bio p {
@@ -443,10 +998,13 @@ const lineasTerminal = [
     color: var(--color-ink);
   }
   .bio .lede {
-    font-size: 1.3rem;
-    font-weight: 500;
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-size: clamp(1.7rem, 3.4vw, 2.4rem);
     color: var(--color-ink);
-    line-height: 1.45;
+    line-height: 1.14;
+    letter-spacing: -0.01em;
+    margin-bottom: 1.4rem;
   }
   .chips {
     display: flex;
@@ -486,115 +1044,246 @@ const lineasTerminal = [
     text-decoration: none;
   }
 
-  /* Asientos */
-  .asientos {
-    border: 1px solid var(--color-line-strong);
-    border-radius: var(--radius-md);
-    overflow: hidden;
-    background: var(--color-surface-raised);
+  /* La galería de las seis puertas */
+  .galeria-titulo {
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-size: clamp(1.9rem, 4.2vw, 3rem);
+    line-height: 1.08;
+    letter-spacing: -0.01em;
+    margin: 0;
+    max-width: 18ch;
   }
-  .asiento {
-    display: grid;
-    grid-template-columns: 5.5rem 1fr auto;
-    gap: 1.5rem;
+  .galeria-titulo em {
+    font-style: italic;
+  }
+
+  .pista-guia {
+    display: flex;
     align-items: center;
-    padding: 1.7rem 1.8rem;
-    border-bottom: 1px solid var(--color-line);
-    text-decoration: none;
-    color: inherit;
-    transition: background 0.15s ease;
-    /* Ancla y recorte de la marca de agua. La retícula no cambia: la
-       ilustración va absoluta encima, así que el CTA no se corre un pixel. */
+    gap: 0.8rem;
+    margin-top: 1.6rem;
+  }
+  /*
+     La misma barra hace dos trabajos: mientras nadie la ha movido es la SEÑAL
+     (un segmento que viaja a la derecha, hermano de la línea de "Baja"), y en
+     cuanto el lector arrastra se convierte en el avance real. Dos elementos
+     distintos para lo mismo serían ruido.
+  */
+  .pista-barra {
     position: relative;
+    flex: 1;
+    max-width: 14rem;
+    height: 2px;
+    background: var(--color-line);
+    border-radius: 99px;
     overflow: hidden;
   }
-  .asiento:last-child {
-    border-bottom: none;
+  .pista-barra i {
+    display: block;
+    height: 100%;
+    width: 0;
+    background: var(--color-accent);
+    border-radius: 99px;
+    transition: width 0.2s linear;
   }
-  .asiento:hover {
-    background: var(--color-accent-soft);
+  .pista-barra::after {
+    content: "";
+    position: absolute;
+    inset: 0 auto 0 0;
+    width: 2.6rem;
+    border-radius: 99px;
+    background: linear-gradient(90deg, transparent, var(--color-accent));
+    animation: viaja 2.4s var(--ease-f) infinite;
   }
-  .asiento .num {
-    font-family: var(--font-mono);
-    font-size: 1.5rem;
-    font-weight: 700;
+  .pista-barra.movida::after {
+    display: none;
+  }
+  @keyframes viaja {
+    0% {
+      transform: translateX(-2.6rem);
+      opacity: 0;
+    }
+    35% {
+      opacity: 1;
+    }
+    100% {
+      transform: translateX(14rem);
+      opacity: 0;
+    }
+  }
+  /* El verbo del gesto lo pone el CSS: con dedo se desliza, con mouse se
+     arrastra. Decirle "arrastra" a quien trae un celular es pedirle algo que
+     no va a hacer. */
+  .pista-etiqueta .gesto::after {
+    content: " (DESLIZA)";
+  }
+  @media (pointer: fine) {
+    .pista-etiqueta .gesto::after {
+      content: " (ARRASTRA)";
+    }
+  }
+  .pista-cuenta {
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+    color: var(--color-ink);
+  }
+  .pista-guia .punta {
+    display: grid;
+    place-items: center;
     color: var(--color-ink-dim);
   }
-  .asiento:hover .num {
-    color: var(--color-accent);
+  .pista-guia .punta svg {
+    width: 13px;
+    height: 13px;
   }
-  .asiento h3 {
-    font-size: 1.2rem;
-    font-weight: 700;
-    letter-spacing: -0.01em;
+  .pista-guia.movida .punta {
+    opacity: 0.35;
   }
-  .asiento p {
-    font-size: 0.92rem;
-    color: var(--color-ink-soft);
-    margin: 0.3rem 0 0;
-    max-width: 58ch;
+  @media (prefers-reduced-motion: reduce) {
+    .pista-barra::after {
+      animation: none;
+      opacity: 0.6;
+    }
   }
-  .asiento .go {
+
+  /* La orilla derecha se desvanece: dice "hay más" sin dibujar nada. */
+  .galeria-carril {
+    position: relative;
+    margin-top: 0.8rem;
+  }
+  .galeria-carril::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 2rem;
+    right: 0;
+    width: 5rem;
+    pointer-events: none;
+    background: linear-gradient(90deg, transparent, var(--color-bg));
+    transition: opacity 0.3s;
+  }
+  .galeria-carril.al-final::after {
+    opacity: 0;
+  }
+
+  .pista {
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: minmax(19rem, 21rem);
+    gap: 1.2rem;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    /* Sin esto el snap alinea la primera tarjeta con la orilla del contenedor
+       y se come el padding: las tarjetas arrancaban 24px a la izquierda del
+       margen del texto. */
+    scroll-padding-inline-start: 1.5rem;
+    padding: 0.6rem 1.5rem 2rem;
+    margin-inline: calc(50% - var(--container-default) / 2);
+    scrollbar-width: none;
+    cursor: grab;
+  }
+  .pista::-webkit-scrollbar {
+    display: none;
+  }
+  @media (max-width: 76rem) {
+    .pista {
+      margin-inline: 0;
+    }
+  }
+  .pista.arrastrando {
+    cursor: grabbing;
+    scroll-snap-type: none;
+  }
+  .pista:focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 4px;
+    border-radius: var(--radius-sm);
+  }
+
+  .puerta {
+    position: relative;
+    overflow: hidden;
+    scroll-snap-align: start;
+    background: var(--color-surface-raised);
+    border: 1px solid var(--color-line);
+    border-radius: var(--radius-lg);
+    padding: 1.7rem 1.5rem 1.5rem;
+    text-decoration: none;
+    color: inherit;
+    display: grid;
+    align-content: start;
+    gap: 0.55rem;
+    transition:
+      transform 0.3s var(--ease-f),
+      box-shadow 0.3s var(--ease-f),
+      border-color 0.3s;
+  }
+  .puerta:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 26px 50px -30px rgb(20 22 26 / 0.55);
+    border-color: color-mix(in oklab, var(--color-line) 55%, var(--color-ink-dim));
+  }
+  .puerta .num {
     font-family: var(--font-mono);
-    font-weight: 700;
+    font-size: 0.72rem;
+    letter-spacing: 0.12em;
     color: var(--color-accent);
-    font-size: 0.9rem;
-    white-space: nowrap;
-    /* Por encima de la marca de agua. */
+  }
+  .puerta h3 {
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-size: 1.6rem;
+    line-height: 1.1;
+    letter-spacing: -0.005em;
+    margin: 0;
+  }
+  .puerta p {
+    font-size: 0.88rem;
+    color: var(--color-ink-soft);
+    margin: 0;
+  }
+  .puerta .go {
+    display: inline-block;
+    margin-top: 0.6rem;
+    font-family: var(--font-mono);
+    font-size: 0.76rem;
+    color: var(--color-accent);
+    transition: transform 0.25s var(--ease-f);
     position: relative;
     z-index: 1;
   }
-
-  /* La marca de agua de cada asiento. Se revela al pasar el cursor: entra
-     desde la derecha y sube de opacidad. Iconos de Phosphor insertados en
-     build por astro-icon, así que no cuestan JavaScript ni peticiones.
-
-     Va en TINTA al 9%, no en verde: el verde marca acción y aquí sería
-     decoración. Y va recortada por el renglón (overflow del .asiento) para
-     que se lea como fondo y no como un elemento suelto. */
-  .asiento .ilustra {
+  .puerta:hover .go {
+    transform: translateX(6px);
+  }
+  /* Marca de agua en tinta al 7%, nunca en verde: el verde marca acción y
+     aquí sería decoración. Recortada por la tarjeta para que lea como fondo. */
+  .puerta .ilustra {
     position: absolute;
-    top: 50%;
-    right: 7.5rem;
-    width: 8.5rem;
-    height: 8.5rem;
+    right: -1.4rem;
+    bottom: -1.4rem;
+    width: 8rem;
+    height: 8rem;
     pointer-events: none;
     opacity: 0;
     color: var(--color-ink);
-    transform: translate(1.5rem, -50%) rotate(-6deg);
+    transform: translateY(0.8rem) rotate(-6deg);
     transition:
       opacity 0.35s ease,
-      transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+      transform 0.45s var(--ease-f);
   }
-  .asiento .ilustra :global(svg) {
+  .puerta .ilustra :global(svg) {
     width: 100%;
     height: 100%;
     display: block;
   }
-  .asiento:hover .ilustra {
-    opacity: 0.09;
-    transform: translate(0, -50%) rotate(-6deg);
+  .puerta:hover .ilustra {
+    opacity: 0.07;
+    transform: translateY(0) rotate(-6deg);
   }
-  /* Sin puntero fino no hay hover: la ilustración no aparecería nunca y solo
-     quedaría el riesgo de que el :hover se quede pegado tras un toque. */
   @media (hover: none) {
-    .asiento .ilustra {
+    .puerta .ilustra {
       display: none;
-    }
-  }
-  @media (prefers-reduced-motion: reduce) {
-    .asiento .ilustra {
-      transition: opacity 0.2s ease;
-      transform: translate(0, -50%) rotate(-6deg);
-    }
-  }
-  @media (max-width: 760px) {
-    .asiento {
-      grid-template-columns: 1fr;
-      gap: 0.5rem;
-    }
-    .asiento .num {
-      font-size: 1.1rem;
     }
   }
 
@@ -604,14 +1293,15 @@ const lineasTerminal = [
     padding: 5rem 0;
   }
   .cita blockquote .hl {
-    --hl-alto: 0.62em;
+    --hl-abajo: 0.22em;
+    --hl-alto: 0.5em;
   }
   .cita blockquote {
     font-family: var(--font-serif-detail);
     font-style: italic;
-    font-size: clamp(1.5rem, 3.2vw, 2.2rem);
-    line-height: 1.35;
-    max-width: 26ch;
+    font-size: clamp(1.8rem, 4.2vw, 3rem);
+    line-height: 1.16;
+    max-width: 22ch;
     margin: 1.2rem auto 0;
     color: var(--color-ink);
   }
@@ -753,33 +1443,6 @@ const lineasTerminal = [
     flex: none;
     color: var(--color-ink-dim);
   }
-  /* Un <br /> y dos renglones: una frase cada uno. Para que la segunda quepa
-     entera hizo falta bajar el tope del clamp de 3.15rem a 2.9rem; a 50px se
-     partía y dejaba "tú" solo en un tercer renglón, con el marcador reducido a
-     una manchita verde. Se midió: 46px es el tamaño más grande donde la frase
-     completa entra en la columna.
-
-     En anchos intermedios (1024, 390) el segundo renglón se parte de todos
-     modos, y ahí `text-wrap: pretty` no basta: se midió y seguía dejando el
-     marcador solo. Por eso "las cobras tú." viaja como una sola pieza con
-     nowrap. Va sobre el grupo de tres palabras y NO sobre el .hl: aplicarlo a
-     "tú" no sirve de nada, porque una palabra de dos letras nunca se parte;
-     lo que hay que impedir es que se separe de lo que la antecede.
-
-     Sin tope de ancho: el corte lo manda el <br />, no la caja. */
-  .hero h1 {
-    margin-top: 2.6rem;
-    font-size: clamp(2rem, 4.4vw, 2.9rem);
-    text-wrap: pretty;
-  }
-  .hero h1 .junto {
-    white-space: nowrap;
-  }
-  @media (max-width: 900px) {
-    .hero h1 {
-      margin-top: 1.6rem;
-    }
-  }
   .hero-micro {
     margin: 1.1rem 0 0;
     max-width: 46ch;
@@ -788,16 +1451,11 @@ const lineasTerminal = [
   }
 
   /* El marcador del titular no cuelga del observador: está sobre el pliegue y
-     el H1 es el candidato a LCP. Se pinta solo al cargar, medio segundo
-     después, que es más o menos cuando el ojo llega a la última palabra.
-
-     La banda sube a 0.68em porque el alto por defecto está calibrado para
-     texto corrido: a 50px se quedaba bajo las letras y leía como subrayado
-     grueso. A esta altura tapa la equis y vuelve a leer como plumón. */
-  .hero h1 .hl {
-    --hl-alto: 0.68em;
+     el H1 es el candidato a LCP. Se pinta solo al cargar, cuando ya
+     terminaron de subir los cuatro renglones. */
+  .portada-titulo .hl {
     transition: none;
-    animation: hl-pinta 0.9s cubic-bezier(0.22, 1, 0.36, 1) 0.55s backwards;
+    animation: hl-pinta 0.9s var(--ease-f) 1.15s backwards;
   }
   @keyframes hl-pinta {
     from {
@@ -805,7 +1463,7 @@ const lineasTerminal = [
     }
   }
   @media (prefers-reduced-motion: reduce) {
-    .hero h1 .hl {
+    .portada-titulo .hl {
       animation: none;
     }
   }
@@ -872,35 +1530,78 @@ const lineasTerminal = [
     }
   }
 
-  /* La objeción, en la voz de quien la dice: serif en cursiva y en gris. Cae
-     sola, con aire suficiente para que se lea como algo que alguien acaba de
-     soltar, y el giro le contesta debajo. Sin animación de entrada. */
+  /*
+   * La objeción, en la voz de quien la dice: serif en cursiva y a tamaño de
+   * titular, como en el mockup de F. A 1.45rem cabía en un renglón pero se
+   * perdía entre el cuerpo, y esta frase es la que abre la sección: tiene que
+   * pesar tanto como la respuesta que le sigue. Que se parta en dos o tres
+   * renglones aquí no le quita nada; en la versión chica sí, porque entonces
+   * competía con el párrafo.
+   */
   .vuelta blockquote {
-    /* El aire, no el tamaño, es lo que la hace caer sola. El tope de 1.45rem
-       (23px) la deja en un solo renglón en escritorio: medido contra la caja
-       de container-narrow, a 24px ocupa 653px de 688 y a 26px se va a 707 y
-       se parte. Una objeción partida en dos pierde el golpe de frase suelta. */
-    margin: 0 0 2.6rem;
+    margin: 0 0 2rem;
     padding: 0;
     font-family: var(--font-serif-detail);
     font-style: italic;
-    font-size: clamp(1.15rem, 2.4vw, 1.45rem);
-    line-height: 1.4;
-    color: var(--color-ink-dim);
+    font-size: clamp(1.5rem, 3.6vw, 2.6rem);
+    line-height: 1.16;
+    letter-spacing: -0.01em;
+    max-width: 20ch;
     text-wrap: pretty;
   }
-  /* El giro va al MISMO tamaño que la objeción de arriba, y ahí está el gesto:
-     dos frases del mismo peso, una en serif gris (la voz ajena) y otra en sans
-     y tinta plena (la respuesta). Se leen como un par que se contesta.
-
-     Deliberadamente por debajo del remate: antes iban los dos en 700 y a un
-     tamaño casi igual, así que la sección tenía dos picos y ninguno ganaba. El
-     único que cierra es el de abajo. */
-  .vuelta-giro {
-    margin: 0 0 1.2rem;
-    font-size: clamp(1.15rem, 2.2vw, 1.4rem);
-    font-weight: 600;
+  /* El giro y la objeción van casi al mismo tamaño, y ahí está el gesto: dos
+     frases del mismo peso, una en cursiva y gris (la voz ajena) y otra en
+     redonda y tinta plena (la respuesta). Se leen como un par que se
+     contesta. */
+  /* La objeción entra en tinta plena y se apaga; el giro llega después, en la
+     display. Es el gesto de la sección: una voz baja el volumen y la otra lo
+     sube. No se tacha la cita: una raya sobre tres renglones se rompe al
+     saltar de línea y además grita. */
+  /*
+   * El apagado va SOLO por color y no por opacidad. Con opacity 0.62 el texto
+   * caía a 2.38:1 contra la banda, que no pasa ni el mínimo de texto grande
+   * (3:1). En ink-dim pleno da 4.74:1 y pasa AA de texto normal, y el gesto de
+   * "esta voz baja el volumen" se lee igual porque el salto es de tinta plena
+   * a gris.
+   */
+  .vuelta blockquote {
     color: var(--color-ink);
+    transition: color 0.55s var(--ease-f) 0.45s;
+  }
+  .vuelta [data-reveal].is-visible blockquote {
+    color: var(--color-ink-dim);
+  }
+  .vuelta-giro {
+    margin: 0 0 1.4rem;
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-size: clamp(1.6rem, 3.2vw, 2.3rem);
+    line-height: 1.1;
+    letter-spacing: -0.01em;
+    color: var(--color-ink);
+  }
+  /* Solo se esconde cuando hay JS, para que sin JavaScript la frase esté ahí. */
+  html.js-reveal .vuelta-giro {
+    opacity: 0;
+    translate: 0 14px;
+    transition:
+      opacity 0.5s var(--ease-f) 0.7s,
+      translate 0.5s var(--ease-f) 0.7s;
+  }
+  html.js-reveal .vuelta [data-reveal].is-visible .vuelta-giro {
+    opacity: 1;
+    translate: none;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .vuelta blockquote {
+      color: var(--color-ink-dim);
+      transition: none;
+    }
+    html.js-reveal .vuelta-giro {
+      opacity: 1;
+      translate: none;
+      transition: none;
+    }
   }
   .vuelta-texto {
     margin: 0 0 1.1rem;
@@ -914,10 +1615,11 @@ const lineasTerminal = [
      es la pausa antes de la frase, y hace tanto por el golpe como el tamaño. */
   .vuelta-remate {
     margin: 2.4rem 0 0;
-    font-size: clamp(1.4rem, 2.9vw, 1.9rem);
-    font-weight: 700;
-    letter-spacing: -0.02em;
-    line-height: 1.25;
+    font-family: var(--font-display);
+    font-size: clamp(1.6rem, 3.2vw, 2.3rem);
+    font-weight: 400;
+    letter-spacing: -0.01em;
+    line-height: 1.14;
     color: var(--color-ink);
   }
   /* El marcador va sobre el compromiso, no sobre la frase entera: el verde
@@ -925,7 +1627,8 @@ const lineasTerminal = [
      que en .cita, porque el default está calibrado para texto corrido y a este
      tamaño se quedaría bajo las letras. */
   .vuelta-remate .hl {
-    --hl-alto: 0.62em;
+    --hl-abajo: 0.22em;
+    --hl-alto: 0.5em;
   }
 
   /* Dos bandos dibujado como cuenta T: es el isotipo de la marca hecho
@@ -935,10 +1638,13 @@ const lineasTerminal = [
      asiento.
  */
   .bandos-entrada {
-    margin: 0 0 1.6rem;
-    font-size: 1.15rem;
-    font-weight: 500;
+    margin: 0 0 1.8rem;
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-size: clamp(1.5rem, 3vw, 2.1rem);
+    line-height: 1.14;
     color: var(--color-ink);
+    max-width: 20ch;
   }
   .bandos-par {
     position: relative;
@@ -990,33 +1696,32 @@ const lineasTerminal = [
     }
   }
   /* El remate de los bandos cierra la última sección antes del formulario, y
-     por eso pesa. NO va en serif como .cita: la serif está reservada a dos
-     momentos de la página (la objeción citada en .vuelta y el asiento de
-     cierre), y un tercero la convertiría en un tic en vez de un recurso.
-
-     Va en el mismo registro que el remate de .vuelta: sans, negritas, grande
-     y con la marca verde sobre lo que importa. Así las secciones cierran
-     todas igual y la serif sigue queriendo decir algo.
+     por eso pesa. Con la dirección F la serif dejó de ser un recurso reservado
+     y pasó a ser LA voz de los titulares, así que el argumento viejo ("no va
+     en serif porque la estamos guardando") ya no aplica: va en display, como
+     todos los remates.
 
      Un punto por debajo del de .vuelta (1.6rem contra 1.9rem) porque esta
      frase es cuatro veces más larga: al tamaño de aquella se comería cuatro
      renglones. */
   .bandos-remate {
+    font-family: var(--font-display);
     /* Aire por los dos lados. El remate es el pico de la sección y necesita
        despegarse de la cuenta T de arriba y de la nota de abajo, que traía
        apenas 18px y se leía como si fuera parte de la misma frase.
        Los márgenes verticales colapsan entre hermanos, así que el de abajo
        manda sobre el margin-top de .bandos-filtro y no se suman. */
     margin: 3.4rem 0 2.8rem;
-    font-size: clamp(1.25rem, 2.4vw, 1.6rem);
-    font-weight: 700;
+    font-size: clamp(1.4rem, 2.8vw, 2rem);
+    font-weight: 400;
     letter-spacing: -0.01em;
-    line-height: 1.3;
+    line-height: 1.16;
     color: var(--color-ink);
     text-wrap: pretty;
   }
   .bandos-remate .hl {
-    --hl-alto: 0.55em;
+    --hl-abajo: 0.22em;
+    --hl-alto: 0.5em;
     /* La frase marcada viaja entera. En 390px se partía en dos renglones y el
        marcador salía como dos bandas sueltas, que lee a error. Son dos
        palabras cortas: caben de sobra en cualquier ancho. */

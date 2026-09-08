@@ -1,29 +1,43 @@
 /*
  * ÚNICO punto de inyección de la identidad visual.
- * Dirección elegida: B "Libro mayor × terminal" (design/mockups/b-*.html,
+ * Dirección elegida: F "Editorial cinético" (design/mockups/f-editorial-cinetico.html,
  * documentada en design/DESIGN.md). Los componentes solo usan este
  * vocabulario semántico, nunca valores crudos.
+ *
+ * Sustituye a la dirección B "Libro mayor × terminal" (2026-08-29 a 2026-09-07).
+ * Lo que se conserva de B, porque funcionaba: los dos verdes (accent para
+ * acción, marker para resultado), la terminal oscura, el mono en cifras y
+ * folios, y Space Grotesk en el texto corrido. Lo que cambia: el papel se
+ * entibia, la display pasa a una serif de revista y las formas se redondean.
  */
 
 @import "@fontsource-variable/space-grotesk";
 @import "@fontsource-variable/jetbrains-mono";
-@import "@fontsource-variable/source-serif-4/wght-italic.css";
+/* Instrument Serif solo tiene 400 (regular e itálica). No hay bold, así que
+   los titulares van SIEMPRE en font-weight 400: pedir 700 hace que el
+   navegador finja la negrita y la deforma. */
+@import "@fontsource/instrument-serif/400.css";
+@import "@fontsource/instrument-serif/400-italic.css";
 
 @theme {
-  /* Superficie */
-  --color-bg: #FAFBFD;
-  --color-surface: #F1F4F9;
+  /* Superficie: papel cálido, no blanco frío */
+  --color-bg: #FBFAF7;
+  --color-surface: #F3F1EB;
   --color-surface-raised: #FFFFFF;
-  --color-line: #DFE6EF;
-  --color-line-strong: #101828;
+  --color-line: #E3E0D8;
+  --color-line-strong: #14161A;
 
   /* Tinta */
-  --color-ink: #101828;
-  --color-ink-soft: #3D4A5C;
-  /* ink-dim cumple AA (>=4.5:1) sobre bg, surface y surface-raised */
-  --color-ink-dim: #5F6B80;
+  --color-ink: #14161A;
+  --color-ink-soft: #454A54;
+  /*
+   * ink-dim cumple AA (>=4.5:1) sobre bg, surface y surface-raised. El
+   * mockup traía #6E7480 y se quedaba en 4.16 sobre el papel cálido de
+   * surface: se corrigió a este, que da 4.74 ahí y 5.13 sobre bg.
+   */
+  --color-ink-dim: #666B75;
 
-  /* Marca: verde registro (solo en momentos de acción/IA, nunca decorativo) */
+  /* Marca: los dos verdes no se tocan. Verde registro para acción/IA... */
   --color-accent: #0A7B45;
   --color-accent-hover: #066035;
   --color-accent-contrast: #FFFFFF;
@@ -44,18 +58,28 @@
   --color-semaforo-rojo: #FF5F57;
   --color-semaforo-ambar: #FEBC2E;
   --color-semaforo-verde: #28C840;
-  /* Marcador inline de citas: el mismo verde de "resultado" de la terminal */
+  /* ...y el plumón, que subraya lo que ya quedó hecho. */
   --color-marker: #3DD68C;
 
   /* Tipografía */
-  --font-display: "Space Grotesk Variable", -apple-system, sans-serif;
+  --font-display: "Instrument Serif", Georgia, serif;
   --font-body: "Space Grotesk Variable", -apple-system, sans-serif;
   --font-mono: "JetBrains Mono Variable", ui-monospace, monospace;
-  --font-serif-detail: "Source Serif 4 Variable", Georgia, serif; /* solo citas en cursiva */
+  /*
+   * Las citas comparten familia con los titulares y se distinguen por la
+   * itálica. En B eran de otra serif (Source Serif 4) porque la display era
+   * sans; con una display serif, meter una segunda serif sería ruido.
+   */
+  --font-serif-detail: "Instrument Serif", Georgia, serif;
 
   /* Forma y ritmo */
-  --radius-sm: 4px;
-  --radius-md: 8px;
-  --container-narrow: 46rem;
-  --container-default: 70rem;
+  --radius-sm: 6px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-pill: 999px;
+  --container-narrow: 44rem;
+  --container-default: 74rem;
+
+  /* Curva de movimiento única. Ver design/DESIGN.md, "Reglas de movimiento". */
+  --ease-f: cubic-bezier(0.16, 0.84, 0.28, 1);
 }

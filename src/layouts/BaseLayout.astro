@@ -197,7 +197,17 @@ const pieLinks = desnudo ? FOOTER_LINKS.filter((l) => !l.href.startsWith("http")
     color: var(--color-accent-contrast);
     background: var(--color-accent);
     padding: 0.55rem 1.1rem;
-    border-radius: var(--radius-sm);
+    border-radius: var(--radius-pill);
+    /* En 390px la frase se partía en dos renglones y el botón se comía media
+       cabecera, empujando el logotipo. No se esconde: en móvil es el único
+       llamado del encabezado. Se aprieta. */
+    white-space: nowrap;
+  }
+  @media (max-width: 480px) {
+    .site-cta {
+      font-size: 0.78rem;
+      padding: 0.5rem 0.9rem;
+    }
   }
   .site-cta:hover {
     background: var(--color-accent-hover);
