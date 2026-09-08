@@ -214,6 +214,34 @@ astro dev --background
 
 Manage con `astro dev stop`, `astro dev status`, `astro dev logs`.
 
+## Medición
+
+GA4 (`G-TR03XNSEKC`) se monta en `BaseLayout` vía `Analytics.astro`. Tres
+reglas:
+
+- **Solo carga en producción.** La condición es `VERCEL_ENV === "production"`,
+  así que en local y en los previews de rama no se emite ni una línea. Si
+  cargara ahí, las pruebas propias ensucian el dato desde el primer día.
+- **El ID vive en `lib/site.ts` (`MEDICION`), no en una variable de entorno.**
+  Un ID de medición no es un secreto: viaja en el HTML de cada página.
+  Esconderlo no protege nada y sí agrega una falla silenciosa (olvidarlo en
+  Vercel y quedarse sin datos sin enterarse).
+- **NUNCA se manda un dato personal a la medición.** Ni correo, ni WhatsApp,
+  ni nombre de empresa. Solo la categoría: qué lista, qué modalidad, qué
+  tamaño de equipo. Todo pasa por `medir()` de `lib/medir.ts`, que además es
+  inofensivo cuando el tag no está (bloqueador, preview, local).
+
+Eventos: `alta_newsletter` (con lista), `lead_enviado` (interés y rol),
+`diagnostico_enviado` (modalidad, equipo y urgencia), `agenda_abierta`,
+`clic_puerta` (cuál de las seis) y `clic_curso`.
+
+El aviso de privacidad ya declara la medición. Al agregar cualquier
+herramienta nueva hay que actualizarlo en el mismo commit: la obligación de la
+LFPDPPP es informarlo ahí.
+
+Pendiente: el pixel de Meta. `MEDICION.metaPixel` está en `null` y el bloque
+ya existe en `Analytics.astro`; solo falta el ID.
+
 ## Nada lleva marca de IA
 
 Commits, PRs y cualquier entregable salen **a nombre de Israel, sin firma de

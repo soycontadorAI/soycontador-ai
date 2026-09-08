@@ -1,6 +1,7 @@
 ---
 import "../styles/global.css";
 
+import Analytics from "../components/Analytics.astro";
 import JsonLd from "../components/JsonLd.astro";
 import SEO from "../components/SEO.astro";
 import { FOOTER_LINKS, NAV, NAV_PAGINAS, SITE } from "../lib/site";
@@ -42,6 +43,7 @@ const pieLinks = desnudo ? FOOTER_LINKS.filter((l) => !l.href.startsWith("http")
     <SEO {title} {description} {image} {type} {noindex} />
     {jsonLd && <JsonLd data={jsonLd} />}
     <meta name="generator" content={Astro.generator} />
+    <Analytics />
   </head>
   <body>
     <header class="site-header">

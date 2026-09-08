@@ -114,6 +114,8 @@ const {
 </style>
 
 <script>
+  import { medir } from "../lib/medir";
+
   document.querySelectorAll<HTMLFormElement>("[data-newsletter]").forEach((form) => {
     form.addEventListener("submit", async (e) => {
       e.preventDefault();
@@ -147,7 +149,14 @@ const {
         // `already` también cierra el formulario: el visitante ya no tiene nada
         // que hacer aquí, y volver a ofrecerle el campo invita a reintentar.
         form.dataset.estado = body.ok ? "ok" : "err";
-        if (body.ok) form.reset();
+        /* Qué promesa jala: la lista es el dato, no el correo. `already`
+           cuenta aparte porque no es un alta nueva y sumarlo inflaría. */
+        if (body.ok) {
+          medir(body.already ? "alta_newsletter_repetida" : "alta_newsletter", {
+            lista: form.dataset.lista,
+          });
+          form.reset();
+        }
 
         /*
          * Alta nueva: a /gracias, que explica el paso que falta con espacio
