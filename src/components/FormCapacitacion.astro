@@ -280,6 +280,8 @@ const calendario = calendarioDe("capacitacion");
 </style>
 
 <script>
+  import { medir } from "../lib/medir";
+
   document.querySelectorAll<HTMLFormElement>("[data-cap]").forEach((form) => {
     form.addEventListener("submit", async (e) => {
       e.preventDefault();
@@ -332,7 +334,17 @@ const calendario = calendarioDe("capacitacion");
           agenda.hidden = false;
           if (boton) boton.hidden = true;
         }
-        if (body.ok) form.reset();
+        if (body.ok) {
+          /* El de mayor valor del sitio. El tamaño del equipo va porque es lo
+             que separa un despacho de un contador solo, y esa diferencia es la
+             que decide si vale la pena empujar /despachos. */
+          medir("diagnostico_enviado", {
+            modalidad: String(data.get("rol") ?? ""),
+            equipo: String(data.get("equipo") ?? ""),
+            cuando: String(data.get("cuando") ?? ""),
+          });
+          form.reset();
+        }
       } catch {
         if (msg) msg.textContent = "No pudimos registrarte. Inténtalo de nuevo.";
       } finally {

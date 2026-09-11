@@ -243,6 +243,8 @@ const opcionesInteres = [
 </style>
 
 <script>
+  import { medir } from "../lib/medir";
+
   document.querySelectorAll<HTMLFormElement>("[data-lead]").forEach((form) => {
     form.addEventListener("submit", async (e) => {
       e.preventDefault();
@@ -290,7 +292,16 @@ const opcionesInteres = [
           agenda.hidden = false;
           if (boton) boton.hidden = true;
         }
-        if (body.ok) form.reset();
+        if (body.ok) {
+          /* Con qué llega la gente y desde qué perfil. Sin correo ni WhatsApp:
+             lo que decide algo es la categoría, no la persona. */
+          medir("lead_enviado", {
+            interes: String(data.get("interes") ?? ""),
+            rol: String(data.get("rol") ?? ""),
+            newsletter: data.get("newsletter") === "si",
+          });
+          form.reset();
+        }
       } catch {
         if (msg) msg.textContent = "No pudimos registrarte. Inténtalo de nuevo.";
       } finally {

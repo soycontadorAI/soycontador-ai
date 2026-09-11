@@ -122,6 +122,22 @@ export const EBOOK = {
 } as const;
 
 /** Nav del sitio: 3 anclas de la home + CTA (decisión de Israel 2026-08-30). */
+/**
+ * Medición. El ID de GA4 va aquí y no en una variable de entorno a propósito:
+ * un ID de medición NO es un secreto (viaja en el HTML de cada página, se ve
+ * con clic derecho), así que esconderlo no protege nada y sí introduce una
+ * falla silenciosa, la de olvidarlo en Vercel y quedarse sin datos sin que
+ * nadie se entere. Lo que sí separa entornos es la condición de carga, que
+ * vive en Analytics.astro: en local y en los previews no se carga nada, para
+ * que las pruebas propias no ensucien el número desde el primer día.
+ */
+export const MEDICION = {
+  /** GA4. Null apaga la medición por completo. */
+  ga: "G-TR03XNSEKC",
+  /** Pixel de Meta. Pendiente del ID; en null no se carga. */
+  metaPixel: null as string | null,
+} as const;
+
 export const NAV = [
   { label: "Quién soy", href: "/#quien" },
   { label: "Qué encuentras aquí", href: "/#ofertas" },

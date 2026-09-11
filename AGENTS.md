@@ -18,8 +18,13 @@ Stack: Astro 7 estático + adapter Vercel (solo `/api/newsletter` es serverless)
   otro sitio sin decir de quién es se lee como poco transparente. Lo que SÍ
   sigue en pie es el criterio: se nombra cuando aporta claridad al lector, no
   como respaldo de marca.
-- PRECIOS (decisión Israel 2026-08-30): la sesión mensual abierta SÍ publica precio
-  ($4,999 MXN) y el ebook también ($297 MXN). El curso de Fiscalistas.AI publica
+- PRECIOS: el ebook publica precio ($297 MXN). **El taller ya NO** (decisión
+  Israel 2026-09-08, revierte la del 2026-08-30): en la misma página vive la
+  colaboración con Fiscalistas.AI a $3,500, y dos números juntos convierten la
+  decisión en una comparación de precio en vez de una de formato. El taller
+  pasa a cotización por correo. Al retirarlo hay que sacarlo de CUATRO lugares,
+  no solo de la tarjeta: la página, el nodo Offer del JSON-LD, `llms.txt` y
+  `llms-full.txt`. Ahí se escapa. El curso de Fiscalistas.AI publica
   el suyo ($3,500 MXN) porque es precio público de ELLOS, no de Israel: por eso
   vive en `COLABORACION` y no en `TALLER`, y no se emite JSON-LD de oferta. NO publicar: el ancla de organizaciones
   ($3,500-4,000/hora, referencia interna de cotización), la capacitación empresarial
@@ -208,6 +213,34 @@ astro dev --background
 ```
 
 Manage con `astro dev stop`, `astro dev status`, `astro dev logs`.
+
+## Medición
+
+GA4 (`G-TR03XNSEKC`) se monta en `BaseLayout` vía `Analytics.astro`. Tres
+reglas:
+
+- **Solo carga en producción.** La condición es `VERCEL_ENV === "production"`,
+  así que en local y en los previews de rama no se emite ni una línea. Si
+  cargara ahí, las pruebas propias ensucian el dato desde el primer día.
+- **El ID vive en `lib/site.ts` (`MEDICION`), no en una variable de entorno.**
+  Un ID de medición no es un secreto: viaja en el HTML de cada página.
+  Esconderlo no protege nada y sí agrega una falla silenciosa (olvidarlo en
+  Vercel y quedarse sin datos sin enterarse).
+- **NUNCA se manda un dato personal a la medición.** Ni correo, ni WhatsApp,
+  ni nombre de empresa. Solo la categoría: qué lista, qué modalidad, qué
+  tamaño de equipo. Todo pasa por `medir()` de `lib/medir.ts`, que además es
+  inofensivo cuando el tag no está (bloqueador, preview, local).
+
+Eventos: `alta_newsletter` (con lista), `lead_enviado` (interés y rol),
+`diagnostico_enviado` (modalidad, equipo y urgencia), `agenda_abierta`,
+`clic_puerta` (cuál de las seis) y `clic_curso`.
+
+El aviso de privacidad ya declara la medición. Al agregar cualquier
+herramienta nueva hay que actualizarlo en el mismo commit: la obligación de la
+LFPDPPP es informarlo ahí.
+
+Pendiente: el pixel de Meta. `MEDICION.metaPixel` está en `null` y el bloque
+ya existe en `Analytics.astro`; solo falta el ID.
 
 ## Nada lleva marca de IA
 

@@ -45,7 +45,9 @@ export function webSite(): JsonLdObject {
 }
 
 /**
- * Capacitación. El taller SÍ publica precio ($4,999 MXN, decisión de
+ * Capacitación. SIN nodo Offer desde el 2026-09-08: el taller dejó de publicar
+ * precio, y el JSON-LD es lo primero que un buscador o un LLM cita. Nota
+ * histórica de la decisión anterior ($4,999 MXN, decisión de
  * Israel); empresarial y organizaciones se cotizan.
  */
 export function capacitacionService(): JsonLdObject {
@@ -60,13 +62,6 @@ export function capacitacionService(): JsonLdObject {
     areaServed: { "@type": "Country", name: "México" },
     availableLanguage: "es",
     serviceType: "Capacitación en IA para despachos contables",
-    offers: {
-      "@type": "Offer",
-      name: "Taller de automatización (8 horas en vivo, en sesiones de 2 horas)",
-      price: "4999",
-      priceCurrency: "MXN",
-      url: `${SITE.url}/capacitacion`,
-    },
   };
 }
 

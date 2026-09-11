@@ -46,7 +46,7 @@ export const FAQ_CAPACITACION: FaqItem[] = [
   {
     pregunta: "¿Cuánto cuesta un taller de IA para contadores?",
     respuesta:
-      "El taller cuesta $4,999 MXN por persona e incluye las 8 horas en vivo (repartidas en sesiones de 2 horas, no en una maratón de un día), la grabación, el material y 30 días de acompañamiento sobre tu proyecto. La capacitación para empresas, despachos completos y organizaciones se cotiza por llamada, después de un formulario corto.",
+      "Se cotiza, no hay tarifa de lista. El taller son 8 horas en vivo repartidas en sesiones de 2 horas (no una maratón de un día) e incluye la grabación, el material y 30 días de acompañamiento sobre tu proyecto; escríbeme por el formulario y te paso el precio y la fecha de la siguiente edición. La capacitación para empresas, despachos completos y organizaciones se cotiza por llamada, después de un formulario corto.",
   },
   {
     pregunta: "¿La capacitación es en línea o presencial?",
