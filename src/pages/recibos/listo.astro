@@ -16,15 +16,20 @@ import VideoFacade from "../../components/VideoFacade.astro";
 
 /*
  * CANDADO DE PUBLICACIÓN. Estos dos se llenan cuando existan de verdad:
- * el video no listado en YouTube (grabación pendiente de la sesión con
- * Claude) y el prompt final verificado (entregables/xml-a-pdf-claude/ en
- * social-studio). El build de producción truena mientras falten, para que
- * esta página no pueda llegar a main a medias: un carrusel mandando gente a
- * una entrega vacía quema a la única audiencia que iba a verlo.
+ * el video no listado en el canal @soycontadorAI (grabación pendiente de la
+ * sesión con Claude) y el prompt final verificado
+ * (entregables/xml-a-pdf-claude/ en social-studio).
+ *
+ * El candado truena SOLO el build de PRODUCCIÓN (VERCEL_ENV): los previews
+ * del PR y el build local construyen con un placeholder visible, para poder
+ * revisar la página sin desactivar nada. Si esto se mergeara a medias, el
+ * deploy de main falla y Vercel se queda sirviendo el último bueno: la
+ * entrega vacía nunca llega a quien venga del carrusel.
  */
 const VIDEO_ID = ""; // TODO(Israel): ID del video no listado en YouTube
 const PROMPT = ``; // TODO: el prompt final, de entregables/xml-a-pdf-claude/prompt.md
-if (import.meta.env.PROD && (!VIDEO_ID || !PROMPT)) {
+const COMPLETA = Boolean(VIDEO_ID && PROMPT);
+if (process.env.VERCEL_ENV === "production" && !COMPLETA) {
   throw new Error(
     "/recibos/listo está incompleta: faltan VIDEO_ID y/o PROMPT. " +
       "Es un candado a propósito; ver el comentario en el frontmatter.",
@@ -50,12 +55,25 @@ if (import.meta.env.PROD && (!VIDEO_ID || !PROMPT)) {
         </p>
 
         <div class="video-marco">
-          <VideoFacade
-            videoId={VIDEO_ID}
-            titulo="XML de nómina a PDF: la sesión completa"
-            poster="/assets/recibos-poster.png"
-            cinta="La sesión completa"
-          />
+          {
+            COMPLETA ? (
+              <VideoFacade
+                videoId={VIDEO_ID}
+                titulo="XML de nómina a PDF: la sesión completa"
+                poster="/assets/recibos-poster.png"
+                cinta="La sesión completa"
+              />
+            ) : (
+              <div class="pendiente" role="img" aria-label="Aquí va el video de la sesión">
+                <span class="pendiente-chip">PENDIENTE</span>
+                <p>
+                  Aquí va el video de la sesión. Este placeholder solo existe
+                  en previews: el build de producción no construye la página
+                  sin él.
+                </p>
+              </div>
+            )
+          }
         </div>
 
         <div class="sec-head"><h2 class="folio">EL PROMPT <b>COMPLETO</b></h2></div>
@@ -64,7 +82,16 @@ if (import.meta.env.PROD && (!VIDEO_ID || !PROMPT)) {
           objeto, datos de muestra y método) vienen explicadas en el video y en
           la guía.
         </p>
-        <pre class="prompt"><code>{PROMPT}</code></pre>
+        {
+          COMPLETA ? (
+            <pre class="prompt"><code>{PROMPT}</code></pre>
+          ) : (
+            <div class="pendiente chico">
+              <span class="pendiente-chip">PENDIENTE</span>
+              <p>Aquí va el prompt completo, en bloque copiable.</p>
+            </div>
+          )
+        }
 
         <div class="regla">
           <p class="regla-titulo">Antes de pasarle un solo XML</p>
@@ -114,6 +141,41 @@ if (import.meta.env.PROD && (!VIDEO_ID || !PROMPT)) {
     max-height: 34rem;
     overflow-y: auto;
   }
+  /* El estado de preview: se ve como lo que es, un hueco reservado. */
+  .pendiente {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.8rem;
+    aspect-ratio: 16 / 9;
+    border: 2px dashed var(--color-line);
+    border-radius: var(--radius-md);
+    background: var(--color-surface);
+    padding: 2rem;
+    text-align: center;
+  }
+  .pendiente.chico {
+    aspect-ratio: auto;
+    padding: 2.4rem 2rem;
+  }
+  .pendiente-chip {
+    font-family: var(--font-mono);
+    font-weight: 700;
+    font-size: 0.72rem;
+    letter-spacing: 0.14em;
+    color: var(--color-ink-dim);
+    border: 1px solid var(--color-line);
+    border-radius: var(--radius-pill);
+    padding: 0.3rem 0.8rem;
+  }
+  .pendiente p {
+    margin: 0;
+    max-width: 40ch;
+    color: var(--color-ink-dim);
+    font-size: 0.9rem;
+  }
+
   .regla {
     margin-top: 2.6rem;
     background: var(--color-accent-soft);
