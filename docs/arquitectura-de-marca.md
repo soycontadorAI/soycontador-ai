@@ -9,8 +9,10 @@
 Hay dos marcas hermanas hablándole al contador mexicano sobre IA, con la misma
 cara al frente:
 
-- **TodoConta**, con su canal nuevo de YouTube y a Israel de conductor.
-- **soycontador.ai**, con `@soycontador.ai` en Instagram, empezado de cero.
+- **TodoConta**, el software, con un canal institucional de YouTube por
+  recrear (ver "El canal de YouTube cambió de dueño", abajo).
+- **soycontador.ai**, con `@soycontador.ai` en Instagram (empezado de cero) y
+  el canal de YouTube `@soycontadorAI` (heredado con su audiencia).
 
 Mismo tema, misma cara, mismo avatar de descubrimiento. **Si nadie escribe quién
 es dueño de qué, el contenido se va a producir dos veces y las dos propiedades
@@ -34,7 +36,7 @@ Es la línea más corta que separa las dos, y aguanta casi todos los casos:
 | "aquí está el método y quién te lo enseña" | soycontador.ai |
 | Descarga masiva, CSF, 32-D, listas negras, el MCP | TodoConta |
 | Capacitación, el Club, soluciones a la medida, el ebook | soycontador.ai |
-| Jueves de ContadorIA (el programa) | TodoConta, con Israel de cara |
+| Jueves de ContadorIA (el programa) | Vive en el canal de la marca personal, con Israel de cara |
 | Quién es Israel, su trayectoria, cómo trabaja | soycontador.ai |
 
 **El caso que se sale:** Jueves de ContadorIA aparece en los dos lados. Es
@@ -55,7 +57,7 @@ propiedad, y respetando que la conversión B2B ya está documentada en LinkedIn:
 | `@soycontador.ai` (Instagram) | **A** | Scrolling: audiencia fría, ruteo | Alcance, guardados, altas a la lista. **No leads de despacho.** |
 | soycontador.ai (el sitio) | A en la home, **B** en su página | Searching para A, **verificación** para B | Altas a Sendy (A), formularios de cotización (B) |
 | LinkedIn (`@soyisracastro`) | **B** | Autoridad y cierre B2B | Conversaciones iniciadas, llamadas agendadas |
-| YouTube (Jueves de ContadorIA) | A | Streaming: horas de contacto | Retención, subs. Es de TodoConta |
+| YouTube (`@soycontadorAI`) | A | Streaming: horas de contacto | Retención, subs. **De la marca personal desde 2026-09-15** |
 | La lista de Sendy | A y B | Nutrición. El único canal propio | Aperturas, respuestas |
 
 ### La trampa de medir Instagram con la vara equivocada
@@ -68,6 +70,28 @@ en LinkedIn, en el sitio y en una llamada.
 
 Si se mide IG por leads B2B, la conclusión va a ser "no funciona" y se va a
 apagar el canal que estaba haciendo bien su trabajo.
+
+---
+
+## El canal de YouTube cambió de dueño (decisión de Israel, 2026-09-15)
+
+El canal que nació como `@todoconta` (con el Jueves de ContadorIA y toda la
+audiencia acumulada) **pasó a la marca personal** y hoy es
+`https://www.youtube.com/@soycontadorAI`. La razón: aprovechar la atracción y
+el contenido ya creado para darle impulso a la marca personal, en armonía con
+el Instagram. El estilo del canal (colores, fuentes, plantillas) se alinea a
+la identidad de soycontador.ai a partir de las siguientes ediciones.
+
+Sobre el handle: Israel quería `@soycontador.ai`, idéntico al de Instagram,
+pero está tomado (posiblemente en el periodo de liberación de ~14 días). Si se
+libera, el handle cambia y hay que actualizar `src/lib/site.ts`, que es la
+única fuente de esa URL en el código.
+
+**TodoConta va a tener canal propio otra vez**, recreado desde cero y
+meramente institucional: features del software, novedades y cómo sacarle
+provecho. Nada de método ni de marca personal ahí. Con eso la división de
+este documento queda intacta: TodoConta vende software (ahora también en su
+canal), soycontador.ai vende a Israel (ahora con YouTube incluido).
 
 ---
 
@@ -85,7 +109,7 @@ arma la cuenta para un socio de despacho:
 5. Lee la página de despachos
 6. Baja la guía o el ebook
 7. Recibe uno o dos correos de la lista
-8. Ve un pedazo de un Jueves de ContadorIA
+8. Ve un pedazo de un Jueves de ContadorIA (ya en el canal de la marca)
 9. Le pregunta a un colega si lo conoce
 10. Manda el formulario
 11. La llamada de diagnóstico
