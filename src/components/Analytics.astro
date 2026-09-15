@@ -1,0 +1,91 @@
+---
+/**
+ * Medición. Se monta en BaseLayout, así que cubre todas las páginas.
+ *
+ * SOLO CARGA EN PRODUCCIÓN. En local y en los previews de Vercel no se emite
+ * ni una línea, porque si carga ahí las pruebas propias ensucian los datos
+ * desde el primer día y el número deja de servir para decidir. La condición es
+ * `VERCEL_ENV`, que Vercel pone en el build: vale "production" solo en el
+ * despliegue de producción, y "preview" en los de rama.
+ *
+ * El ID vive en `lib/site.ts` y no en una variable de entorno: ver la nota de
+ * MEDICION ahí.
+ */
+import { MEDICION } from "../lib/site";
+
+const enProduccion = process.env.VERCEL_ENV === "production";
+const ga = enProduccion ? MEDICION.ga : null;
+const pixel = enProduccion ? MEDICION.metaPixel : null;
+---
+
+{
+  /*
+    is:inline a propósito: este bloque tiene que ejecutarse tal cual y definir
+    window.gtag de forma síncrona, ANTES de que corra cualquier script que
+    quiera medir algo. Si Astro lo empaqueta, se difiere y los primeros
+    eventos se pierden.
+  */
+}
+{ga && (
+  <>
+    <script async is:inline src={`https://www.googletagmanager.com/gtag/js?id=${ga}`}></script>
+    <script is:inline define:vars={{ ga }}>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      window.gtag = gtag;
+      gtag("js", new Date());
+      gtag("config", ga);
+    </script>
+  </>
+)}
+
+{pixel && (
+  <script is:inline define:vars={{ pixel }}>
+    !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+    n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+    document,'script','https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', pixel);
+    fbq('track', 'PageView');
+  </script>
+)}
+
+{ga && (
+  <script>
+    import { medir } from "../lib/medir";
+
+    /*
+      Dos eventos que no viven en ningún formulario y por eso se escuchan aquí,
+      delegados en el documento: sirven en toda página sin tocar cada una.
+    */
+    document.addEventListener("click", (e) => {
+      const enlace = (e.target as HTMLElement | null)?.closest?.("a");
+      if (!enlace) return;
+
+      /* Cuál de las seis puertas se lleva el clic. Es la respuesta directa a
+         si las últimas del carrusel quedan escondidas: si nadie hace clic en
+         la 05 ni en la 06, ya sabemos. */
+      const puerta = enlace.closest(".puerta");
+      if (puerta) {
+        medir("clic_puerta", {
+          puerta: puerta.querySelector("h3")?.textContent?.trim(),
+          posicion: puerta.querySelector(".num")?.textContent?.trim(),
+        });
+        return;
+      }
+
+      /* El curso con Fiscalistas.AI. Se mide el alias propio, no el destino:
+         el destino puede cambiar y el evento tiene que seguir contando lo
+         mismo. */
+      const href = enlace.getAttribute("href") ?? "";
+      if (href === "/claude") medir("clic_curso", { curso: "claude-para-contadores" });
+
+      /* El enlace de agendar aparece solo después de enviar un formulario, así
+         que este clic es la señal de intención más alta del sitio. */
+      if (enlace.closest("[data-agenda]")) medir("agenda_abierta");
+    });
+  </script>
+)}

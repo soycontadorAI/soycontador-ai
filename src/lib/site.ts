@@ -42,10 +42,17 @@ export const PERSONA = {
     "Contador público con 14 años de ejercicio y desarrollador de software: estudió programación, trabajó como desarrollador en una startup mexicana y hoy automatiza su propio despacho con IA. Creador de TodoConta (proyecto nacido en 2012, hoy software fiscal con conexión MCP) y del live semanal Jueves de ContadorIA.",
   pais: "MX",
 
+  /*
+   * El canal de YouTube es de la marca personal desde el 2026-09-15: el canal
+   * que nació como @todoconta se renombró a @soycontadorAI (Israel quería
+   * @soycontador.ai, pero el handle está tomado; si se libera, esto se
+   * actualiza aquí y en ningún otro lado). TodoConta tendrá su propio canal
+   * institucional nuevo, solo de producto.
+   */
   sameAs: [
     "https://www.linkedin.com/in/soyisracastro/",
     "https://www.instagram.com/soycontador.ai/",
-    "https://www.youtube.com/@todoconta",
+    "https://www.youtube.com/@soycontadorAI",
     "https://github.com/soyisracastro",
     "https://todoconta.com",
   ],
@@ -70,7 +77,7 @@ export const PROGRAMA = {
   descripcion:
     "Live semanal en YouTube: cada jueves a las 11:00 (hora del centro de México) Israel resuelve en vivo un problema real de un despacho usando IA.",
   horario: "Jueves 11:00 am, hora del centro de México",
-  canal: "https://www.youtube.com/@todoconta",
+  canal: "https://www.youtube.com/@soycontadorAI",
 } as const;
 
 /** Tráiler del canal. La transcripción alimenta el VideoObject del JSON-LD. */
@@ -122,6 +129,22 @@ export const EBOOK = {
 } as const;
 
 /** Nav del sitio: 3 anclas de la home + CTA (decisión de Israel 2026-08-30). */
+/**
+ * Medición. El ID de GA4 va aquí y no en una variable de entorno a propósito:
+ * un ID de medición NO es un secreto (viaja en el HTML de cada página, se ve
+ * con clic derecho), así que esconderlo no protege nada y sí introduce una
+ * falla silenciosa, la de olvidarlo en Vercel y quedarse sin datos sin que
+ * nadie se entere. Lo que sí separa entornos es la condición de carga, que
+ * vive en Analytics.astro: en local y en los previews no se carga nada, para
+ * que las pruebas propias no ensucien el número desde el primer día.
+ */
+export const MEDICION = {
+  /** GA4. Null apaga la medición por completo. */
+  ga: "G-TR03XNSEKC",
+  /** Pixel de Meta. Pendiente del ID; en null no se carga. */
+  metaPixel: null as string | null,
+} as const;
+
 export const NAV = [
   { label: "Quién soy", href: "/#quien" },
   { label: "Qué encuentras aquí", href: "/#ofertas" },
@@ -166,7 +189,7 @@ export function calendarioDe(proposito?: PropositoCita): string | null {
 }
 
 export const FOOTER_LINKS = [
-  { label: "YouTube", href: "https://www.youtube.com/@todoconta" },
+  { label: "YouTube", href: "https://www.youtube.com/@soycontadorAI" },
   { label: "Instagram", href: "https://www.instagram.com/soycontador.ai/" },
   { label: "LinkedIn", href: "https://www.linkedin.com/in/soyisracastro/" },
   { label: "GitHub", href: "https://github.com/soyisracastro" },
