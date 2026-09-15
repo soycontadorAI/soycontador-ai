@@ -22,10 +22,7 @@ export default defineConfig({
     // familia entera con '*' empaquetaría los ~9,000 de Phosphor.
     icon(),
     sitemap({
-      // /recibos/listo es la entrega tras confirmar el correo: fuera del índice,
-      // como /gracias y /dentro.
-      filter: (page) =>
-        !page.includes('/gracias') && !page.includes('/dentro') && !page.includes('/recibos/listo'),
+      filter: (page) => !page.includes('/gracias') && !page.includes('/dentro'),
     }),
   ],
   prefetch: {
@@ -45,6 +42,11 @@ export default defineConfig({
     // alias es mío a propósito: si el curso cambia de sede, de edición o deja
     // de existir, repunto esto y los videos ya publicados siguen sirviendo.
     '/claude': { status: 302, destination: 'https://www.fiscalistas.ai/cursos/claude-para-contadores/' },
+    // El curso de crear webapps, también en Fiscalistas.AI. Dos grafías porque
+    // se dicta en cámara y en el CTA de /recibos: con y sin guion. OJO: se
+    // dicta en público hasta verificar que la página del curso ya existe.
+    '/crearapp': { status: 302, destination: 'https://fiscalistas.ai/cursos/crea-una-webapp-sin-saber-programar/' },
+    '/crear-app': { status: 302, destination: 'https://fiscalistas.ai/cursos/crea-una-webapp-sin-saber-programar/' },
   },
   env: {
     schema: {
