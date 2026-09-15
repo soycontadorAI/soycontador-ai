@@ -111,9 +111,15 @@ le queda a medias a las dos:
 | `live` (41) | El aviso del Jueves de ContadorIA | `/jueves` |
 | `ebook` (40) | La muestra del libro | `/ebook` |
 | `flujos` (42) | La guía de los 3 flujos híbridos | `/flujos` |
+| `recibos` (43) | El video de la sesión XML→PDF y su prompt | `/recibos` |
 
-Las cuatro son **doble opt-in** y las cuatro tienen su correo de bienvenida
-colgado como autoresponder. En tres de ellas ese correo entrega un archivo
+`recibos` es la única cuyo `confirm_url` NO aterriza en `/dentro`: al
+confirmar, el suscriptor cae en `/recibos/listo`, que ES la entrega (video +
+prompt). El autoresponder manda lo mismo por correo, así que ninguna de las
+dos rutas es la única.
+
+Las cinco son **doble opt-in** y todas tienen su correo de bienvenida
+colgado como autoresponder. En cuatro de ellas ese correo entrega un archivo
 adjunto; en `live` no entrega nada, porque esa lista no promete descarga: su
 llamado a la acción es suscribirse al canal y activar la campanita, que es lo
 que de verdad avisa cuando el live ya empezó. El correo del aviso llega, pero

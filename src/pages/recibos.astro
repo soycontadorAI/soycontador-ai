@@ -1,0 +1,416 @@
+---
+/**
+ * /recibos · Landing de captación del tutorial "XML de nómina a PDF con una
+ * app que construyes tú".
+ *
+ * Es el destino del CTA de Instagram (comenta RECIBOS → DM con este enlace),
+ * y por eso el enlace también va en texto plano dentro del carrusel: si la
+ * automatización del DM se cae, la ruta sigue llegando.
+ *
+ * Va DESNUDA, como /audita y /flujos: aquí llega gente por una sola cosa y
+ * cada enlace de más es una salida.
+ *
+ * Promesa propia, así que lista propia: `recibos` (43 en Sendy). Es la única
+ * lista cuyo confirm_url NO aterriza en /dentro: al confirmar, el suscriptor
+ * cae en /recibos/listo, que ES la entrega (el video y el prompt), en el
+ * momento de máxima intención. El autoresponder manda lo mismo por correo.
+ *
+ * El lector es el default nuevo del avatar (ver docs/avatar.md): ya usa la IA
+ * y ya paga una suscripción. Por eso el ángulo no es "esto es gratis" sino
+ * "ya pagas la herramienta, sácale una app".
+ *
+ * TODO cuando exista el video: agregar el VideoObject al JSON-LD (uploadDate,
+ * thumbnailUrl y duración reales; no antes, para no emitir schema de un video
+ * que no existe).
+ */
+import BaseLayout from "../layouts/BaseLayout.astro";
+import NewsletterForm from "../components/NewsletterForm.astro";
+import { breadcrumbs, graph, personRef } from "../lib/schema";
+import { SITE } from "../lib/site";
+
+const tutorial = {
+  "@type": "CreativeWork",
+  "@id": `${SITE.url}/recibos#tutorial`,
+  name: "XML de nómina a PDF: la sesión completa y el prompt",
+  description:
+    "Video de la sesión completa construyendo con IA una app que convierte XML de recibos de nómina CFDI 4.0 en PDF, más el prompt exacto y la guía de uso.",
+  inLanguage: SITE.lang,
+  isAccessibleForFree: true,
+  author: personRef(),
+  publisher: personRef(),
+};
+
+const jsonLd = graph(
+  tutorial,
+  breadcrumbs([
+    { name: "Inicio", path: "/" },
+    { name: "XML a PDF", path: "/recibos" },
+  ]),
+);
+
+/** La tira del hero: qué llega, contable de un vistazo. */
+const ENTREGA = [
+  { num: "01", texto: "El video de la sesión completa, sin cortes" },
+  { num: "02", texto: "El prompt exacto, listo para copiar" },
+  { num: "03", texto: "La guía de uso en PDF, con lo que se pide y lo que no" },
+];
+
+/** Por qué construirla tú, hablándole a quien ya paga su suscripción. */
+const DETALLE = [
+  {
+    num: "01",
+    titulo: "Ya pagas la suscripción. Sácale una app.",
+    texto:
+      "Si la usas para redactar y resumir, estás usando la parte chica. Una suscripción de IA también construye herramientas: esta app sale de un prompt, queda corriendo en tu navegador y es tuya. Ese es el nivel que ya estás pagando.",
+  },
+  {
+    num: "02",
+    titulo: "El convertidor deja de ser un pendiente",
+    texto:
+      "Arrastras uno o cien XML de nómina, salen sus PDF con el desglose de percepciones y deducciones, y el lote baja en un ZIP. Deja de existir el 'luego lo busco' cada vez que un cliente te pide sus recibos en algo legible.",
+  },
+  {
+    num: "03",
+    titulo: "El método viaja a tu siguiente herramienta",
+    texto:
+      "El prompt tiene cuatro partes (rol, objeto, datos de muestra y método de trabajo) y esa estructura no es del formato de nómina: es de pedir software. La segunda app te va a salir más rápido que la primera.",
+  },
+];
+
+/** Las objeciones, contestadas antes de que se pregunten. */
+const EXTRAS = [
+  {
+    titulo: "¿Necesito saber programar?",
+    texto:
+      "No. El prompt ya lleva los términos técnicos puestos; tu trabajo es pegarlo, pasarle XML de muestra y revisar el resultado como revisarías el de un auxiliar.",
+  },
+  {
+    titulo: "¿Y si no uso Claude?",
+    texto:
+      "La sesión está grabada en Claude, que es con lo que trabajo. La estructura del prompt funciona en cualquier modelo de frontera, y la guía trae la nota de qué cambia en ChatGPT.",
+  },
+  {
+    titulo: "¿Y los datos de mis clientes?",
+    texto:
+      "La app termina corriendo en tu navegador. La parte que casi nadie dice está en la guía: mientras la construyes, los XML de muestra sí viajan, así que esa fase se hace con recibos de prueba.",
+  },
+];
+---
+
+<BaseLayout
+  title="Convierte tus XML de nómina en PDF con una app hecha con IA (video + prompt)"
+  description="La sesión completa en video: cómo pedirle a la IA una app que convierte XML de recibos de nómina CFDI 4.0 en PDF, con el prompt exacto y la guía de uso. Para contadores en México."
+  jsonLd={jsonLd}
+  desnudo
+>
+  <main>
+    <section class="hero">
+      <div class="container-narrow">
+        <p class="folio hero-folio">VIDEO + PROMPT · <b>LA SESIÓN COMPLETA</b></p>
+        <h1 class="hero-titulo">Deja de buscar el convertidor de XML a PDF. Constrúyelo.</h1>
+        <p class="hero-texto">
+          Grabé la sesión completa: le pido la app a la IA con un prompt, le
+          paso recibos de muestra, sale un error, lo corrijo y termina
+          descargando siete PDF en un ZIP. Te mando el video, el prompt exacto
+          y la guía de uso.
+        </p>
+        <div class="hero-form">
+          <NewsletterForm
+            lista="recibos"
+            boton="Mándame el video y el prompt"
+            exito="Listo. Confirma tu correo y entras directo al video."
+            nota="Te mando el video y el prompt al correo, junto con una idea de IA fiscal cada semana. Te das de baja con un clic."
+          />
+        </div>
+        <ul class="capas-tira">
+          {ENTREGA.map((e) => (
+            <li><b>{e.num}</b> {e.texto}</li>
+          ))}
+        </ul>
+      </div>
+    </section>
+
+    <section class="porque">
+      <div class="container-narrow">
+        <p class="lede" data-reveal>
+          No es un curso de programación. Es <span class="hl">una hora de ver
+          cómo se pide</span>, con el prompt que ya quedó probado.
+        </p>
+      </div>
+    </section>
+
+    <section>
+      <div class="container-narrow">
+        <div class="sec-head"><h2 class="folio">POR QUÉ <b>HACERLA TÚ</b></h2></div>
+        <ol class="lista-prompts">
+          {DETALLE.map((d, i) => (
+            <li data-reveal style={`--reveal-delay:${i * 0.06}s`}>
+              <span class="lp-num">{d.num}</span>
+              <div>
+                <h3>{d.titulo}</h3>
+                <p>{d.texto}</p>
+              </div>
+            </li>
+          ))}
+        </ol>
+      </div>
+    </section>
+
+    <section>
+      <div class="container-narrow">
+        <div class="sec-head"><h2 class="folio">LA REGLA <b>DE LOS DATOS</b></h2></div>
+        <div class="regla" data-reveal>
+          <p class="regla-titulo">Copiloto, no autopiloto.</p>
+          <p>
+            La app terminada corre dentro de tu navegador: arrastras el XML, se
+            procesa ahí mismo y el PDF se arma en tu máquina. Pero mientras la
+            construyes es otra historia: los XML de muestra que le pasas a la
+            IA sí viajan a sus servidores. Por eso esa fase se hace con recibos
+            de prueba, nunca con los de un cliente, y la guía trae esa regla
+            por escrito. La máquina construye; los datos y la firma siguen
+            siendo tuyos.
+          </p>
+        </div>
+        <div class="extras">
+          {EXTRAS.map((e, i) => (
+            <article data-reveal style={`--reveal-delay:${i * 0.08}s`}>
+              <h3>{e.titulo}</h3>
+              <p>{e.texto}</p>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="container-narrow">
+        <div class="sec-head"><h2 class="folio">QUIÉN <b>TE LO MANDA</b></h2></div>
+        <p class="firma" data-reveal>
+          Soy Israel Castro, contador público y desarrollador de software.
+          Llevo 14 años de ejercicio y hoy automatizo mi propio despacho
+          dirigiendo a la IA. Esta app la construí en una sesión, de corrido, y
+          así está grabada: con el error incluido, porque corregirlo también se
+          enseña.
+        </p>
+      </div>
+    </section>
+
+    <section class="cierre">
+      <div class="container-narrow">
+        <p class="folio hero-folio">SIN <b>COSTO</b> · AL CORREO</p>
+        <h2 class="cierre-titulo">Déjame tu correo y entras directo</h2>
+        <p class="cierre-texto">
+          Confirmas tu correo y aterrizas en la página con el video y el
+          prompt. Nada de curso, nada de llamada: la sesión y ya.
+        </p>
+        <div class="hero-form">
+          <NewsletterForm
+            lista="recibos"
+            boton="Mándame el video y el prompt"
+            exito="Listo. Confirma tu correo y entras directo al video."
+            nota="Te mando el video y el prompt al correo, junto con una idea de IA fiscal cada semana. Te das de baja con un clic."
+          />
+        </div>
+      </div>
+    </section>
+  </main>
+</BaseLayout>
+
+<style>
+  section {
+    padding: 3.6rem 0;
+  }
+
+  /* Mismo hero oscuro que /audita y /flujos: el campo de correo de
+     NewsletterForm está pintado para fondo de terminal, así que el formulario
+     manda el color de la banda y no al revés. */
+  .hero {
+    background: var(--color-line-strong);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-height: calc(100svh - 4.4rem);
+    padding: 3.2rem 0;
+  }
+  .hero-folio {
+    color: #8da2c0;
+  }
+  .hero-folio b {
+    color: var(--color-terminal-ok);
+  }
+  .hero-titulo {
+    color: #ffffff;
+    font-weight: 700;
+    font-size: clamp(2.1rem, 5.4vw, 3.3rem);
+    line-height: 1.06;
+    letter-spacing: -0.035em;
+    margin: 1.1rem 0 0;
+  }
+  .hero-texto {
+    margin: 1.3rem 0 0;
+    max-width: 48ch;
+    color: #aebbd1;
+    font-size: 1.08rem;
+  }
+  .hero-form {
+    margin-top: 2.2rem;
+    max-width: 34rem;
+  }
+
+  .capas-tira {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0 1.4rem;
+    margin: 3.2rem 0 0;
+    padding: 1.6rem 0 0;
+    border-top: 1px solid #2a3648;
+  }
+  .capas-tira li {
+    padding: 0 1.2rem 0 0;
+    font-size: 0.82rem;
+    line-height: 1.45;
+    color: #9fb0c9;
+  }
+  .capas-tira b {
+    display: block;
+    margin-bottom: 0.35rem;
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--color-terminal-ok);
+  }
+  @media (max-width: 760px) {
+    .capas-tira {
+      grid-template-columns: 1fr;
+      gap: 1.2rem;
+      margin-top: 2.4rem;
+    }
+    .capas-tira li {
+      padding-right: 0;
+    }
+  }
+
+  .porque {
+    padding-top: 4rem;
+  }
+  .lede {
+    margin: 0;
+    font-size: clamp(1.55rem, 3.1vw, 2.2rem);
+    letter-spacing: -0.01em;
+    font-family: var(--font-display);
+    font-weight: 400;
+    line-height: 1.16;
+  }
+  .lede .hl {
+    --hl-abajo: 0.22em;
+    --hl-alto: 0.5em;
+  }
+
+  .lista-prompts {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    border-top: 1px solid var(--color-line);
+  }
+  .lista-prompts li {
+    display: grid;
+    grid-template-columns: 3.4rem 1fr;
+    gap: 1rem;
+    padding: 1.4rem 0;
+    border-bottom: 1px solid var(--color-line);
+  }
+  .lp-num {
+    font-family: var(--font-mono);
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--color-ink-dim);
+  }
+  .lista-prompts h3 {
+    margin: 0 0 0.4rem;
+    font-size: 1.1rem;
+    font-weight: 700;
+    letter-spacing: -0.015em;
+  }
+  .lista-prompts p {
+    margin: 0;
+    color: var(--color-ink-soft);
+    font-size: 0.95rem;
+  }
+  @media (max-width: 560px) {
+    .lista-prompts li {
+      grid-template-columns: 1fr;
+      gap: 0.3rem;
+    }
+  }
+
+  .regla {
+    background: var(--color-accent-soft);
+    border-left: 3px solid var(--color-accent);
+    border-radius: 0 var(--radius-md) var(--radius-md) 0;
+    padding: 1.6rem 1.8rem;
+  }
+  .regla-titulo {
+    margin: 0 0 0.6rem;
+    font-weight: 700;
+    font-size: 1.12rem;
+    letter-spacing: -0.015em;
+  }
+  .regla p:last-child {
+    margin: 0;
+    color: var(--color-ink-soft);
+    font-size: 0.95rem;
+  }
+
+  .extras {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.2rem;
+    margin-top: 2.4rem;
+  }
+  @media (max-width: 860px) {
+    .extras {
+      grid-template-columns: 1fr;
+    }
+  }
+  .extras article {
+    background: var(--color-surface-raised);
+    border: 1px solid var(--color-line);
+    border-radius: var(--radius-md);
+    padding: 1.3rem;
+  }
+  .extras h3 {
+    margin: 0 0 0.45rem;
+    font-size: 0.98rem;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+  }
+  .extras p {
+    margin: 0;
+    color: var(--color-ink-soft);
+    font-size: 0.88rem;
+  }
+
+  .firma {
+    margin: 0;
+    color: var(--color-ink-soft);
+    font-size: 1.02rem;
+  }
+
+  .cierre {
+    background: var(--color-line-strong);
+    padding: 4rem 0;
+  }
+  .cierre-titulo {
+    color: #ffffff;
+    font-weight: 700;
+    font-size: clamp(1.5rem, 3vw, 2.1rem);
+    line-height: 1.12;
+    letter-spacing: -0.025em;
+    margin: 0.9rem 0 0;
+  }
+  .cierre-texto {
+    margin: 1rem 0 0;
+    max-width: 46ch;
+    color: #aebbd1;
+  }
+</style>

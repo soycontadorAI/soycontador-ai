@@ -1,0 +1,134 @@
+---
+/**
+ * /recibos/listo · La entrega del tutorial XML→PDF.
+ *
+ * Es el confirm_url de la lista `recibos` (43): quien confirma su correo
+ * aterriza aquí, con el video y el prompt enfrente, en el momento de máxima
+ * intención. El autoresponder manda lo mismo por correo (el enlace al video y
+ * la guía en PDF adjunta), así que perder esta página no pierde la entrega.
+ *
+ * noindex y fuera del sitemap (filtro en astro.config.mjs): es una entrega,
+ * no una página de descubrimiento. La puerta es blanda a propósito: quien
+ * comparta el enlace está compartiendo el material, y eso es alcance, no fuga.
+ */
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import VideoFacade from "../../components/VideoFacade.astro";
+
+/*
+ * CANDADO DE PUBLICACIÓN. Estos dos se llenan cuando existan de verdad:
+ * el video no listado en YouTube (grabación pendiente de la sesión con
+ * Claude) y el prompt final verificado (entregables/xml-a-pdf-claude/ en
+ * social-studio). El build de producción truena mientras falten, para que
+ * esta página no pueda llegar a main a medias: un carrusel mandando gente a
+ * una entrega vacía quema a la única audiencia que iba a verlo.
+ */
+const VIDEO_ID = ""; // TODO(Israel): ID del video no listado en YouTube
+const PROMPT = ``; // TODO: el prompt final, de entregables/xml-a-pdf-claude/prompt.md
+if (import.meta.env.PROD && (!VIDEO_ID || !PROMPT)) {
+  throw new Error(
+    "/recibos/listo está incompleta: faltan VIDEO_ID y/o PROMPT. " +
+      "Es un candado a propósito; ver el comentario en el frontmatter.",
+  );
+}
+---
+
+<BaseLayout
+  title="Aquí está todo"
+  description="El video de la sesión completa y el prompt para construir tu app de XML a PDF."
+  noindex
+  desnudo
+>
+  <main>
+    <section class="entrega">
+      <div class="container-narrow">
+        <p class="folio">FOLIO <b>OK-03</b> · CONFIRMADO</p>
+        <h1 class="titulo-xl">Aquí está todo</h1>
+        <p class="intro-page">
+          Tu correo quedó confirmado. Abajo está la sesión completa y el
+          prompt; la guía de uso en PDF te llega por correo en unos minutos.
+          Guarda esta página: el enlace no caduca.
+        </p>
+
+        <div class="video-marco">
+          <VideoFacade
+            videoId={VIDEO_ID}
+            titulo="XML de nómina a PDF: la sesión completa"
+            poster="/assets/recibos-poster.png"
+            cinta="La sesión completa"
+          />
+        </div>
+
+        <div class="sec-head"><h2 class="folio">EL PROMPT <b>COMPLETO</b></h2></div>
+        <p class="nota-prompt">
+          Selecciónalo completo y pégalo tal cual. Las cuatro partes (rol,
+          objeto, datos de muestra y método) vienen explicadas en el video y en
+          la guía.
+        </p>
+        <pre class="prompt"><code>{PROMPT}</code></pre>
+
+        <div class="regla">
+          <p class="regla-titulo">Antes de pasarle un solo XML</p>
+          <p>
+            Mientras construyes la app, los archivos de muestra que le pases a
+            la IA sí viajan a sus servidores. Usa recibos de prueba, nunca los
+            de un cliente. La app terminada sí procesa todo en tu navegador.
+          </p>
+        </div>
+      </div>
+    </section>
+  </main>
+</BaseLayout>
+
+<style>
+  .entrega {
+    padding: 4.5rem 0 5rem;
+  }
+  .intro-page {
+    max-width: 52ch;
+  }
+  .video-marco {
+    margin: 2.4rem 0 3.4rem;
+  }
+  .sec-head {
+    margin-bottom: 1rem;
+  }
+  .nota-prompt {
+    margin: 0 0 1.2rem;
+    color: var(--color-ink-soft);
+    font-size: 0.95rem;
+    max-width: 52ch;
+  }
+  /* La misma familia visual que la terminal del sitio: fondo oscuro, mono,
+     esquinas del sistema. Sin semáforo: esto es un documento, no una ventana. */
+  .prompt {
+    background: var(--color-terminal-bg);
+    border: 1px solid var(--color-line-strong);
+    border-radius: var(--radius-md);
+    padding: 1.4rem 1.6rem;
+    overflow-x: auto;
+    font-family: var(--font-mono);
+    font-size: 0.82rem;
+    line-height: 1.65;
+    color: var(--color-terminal-ink);
+    white-space: pre-wrap;
+    max-height: 34rem;
+    overflow-y: auto;
+  }
+  .regla {
+    margin-top: 2.6rem;
+    background: var(--color-accent-soft);
+    border-left: 3px solid var(--color-accent);
+    border-radius: 0 var(--radius-md) var(--radius-md) 0;
+    padding: 1.4rem 1.6rem;
+  }
+  .regla-titulo {
+    margin: 0 0 0.5rem;
+    font-weight: 700;
+    letter-spacing: -0.015em;
+  }
+  .regla p:last-child {
+    margin: 0;
+    color: var(--color-ink-soft);
+    font-size: 0.95rem;
+  }
+</style>

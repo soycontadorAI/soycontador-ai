@@ -22,7 +22,10 @@ export default defineConfig({
     // familia entera con '*' empaquetaría los ~9,000 de Phosphor.
     icon(),
     sitemap({
-      filter: (page) => !page.includes('/gracias') && !page.includes('/dentro'),
+      // /recibos/listo es la entrega tras confirmar el correo: fuera del índice,
+      // como /gracias y /dentro.
+      filter: (page) =>
+        !page.includes('/gracias') && !page.includes('/dentro') && !page.includes('/recibos/listo'),
     }),
   ],
   prefetch: {
@@ -53,6 +56,7 @@ export default defineConfig({
       SENDY_EBOOK_LIST_ID: envField.string({ context: 'server', access: 'public', optional: true }),
       SENDY_LIVE_LIST_ID: envField.string({ context: 'server', access: 'public', optional: true }),
       SENDY_FLUJOS_LIST_ID: envField.string({ context: 'server', access: 'public', optional: true }),
+      SENDY_RECIBOS_LIST_ID: envField.string({ context: 'server', access: 'public', optional: true }),
 
       // Correo de acuse del lead (SES). El dominio ya está verificado con
       // SPF/DKIM, así que el remitente debe ser @soycontador.ai.
