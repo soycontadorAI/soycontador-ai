@@ -87,12 +87,14 @@ pero está tomado (posiblemente en el periodo de liberación de ~14 días). Si s
 libera, el handle cambia y hay que actualizar `src/lib/site.ts`, que es la
 única fuente de esa URL en el código.
 
-El mismo movimiento aplicó a **LinkedIn** el mismo día: el perfil pasó de
-`in/soyisracastro` a `in/soycontadorAI`. Con Instagram, YouTube y LinkedIn
-bajo el mismo nombre, la marca se busca y se reconoce igual en los tres. (La
-reserva del handle `@soyisracastro` para un track de IA no fiscal, más abajo,
-queda como estaba: era del handle, no del perfil de LinkedIn, y ese track
-sigue parqueado.)
+El mismo movimiento aplicó a **LinkedIn** (`in/soycontadorAI`) y a **GitHub**
+(`github.com/soycontadorAI`, rename de la cuenta) el mismo día. Con
+Instagram, YouTube, LinkedIn y GitHub bajo el mismo nombre, la marca se busca
+y se reconoce igual en las cuatro. Ojo con GitHub: los repos redirigen
+mientras nadie reclame `soyisracastro`, así que los enlaces publicados se
+actualizan y no se confía en el redirect. (La reserva del handle
+`@soyisracastro` para un track de IA no fiscal, más abajo, queda como estaba
+y ese track sigue parqueado.)
 
 **TodoConta va a tener canal propio otra vez**, recreado desde cero y
 meramente institucional: features del software, novedades y cómo sacarle

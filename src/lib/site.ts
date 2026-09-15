@@ -53,7 +53,7 @@ export const PERSONA = {
     "https://www.linkedin.com/in/soycontadorAI",
     "https://www.instagram.com/soycontador.ai/",
     "https://www.youtube.com/@soycontadorAI",
-    "https://github.com/soyisracastro",
+    "https://github.com/soycontadorAI",
     "https://todoconta.com",
   ],
 
@@ -192,7 +192,7 @@ export const FOOTER_LINKS = [
   { label: "YouTube", href: "https://www.youtube.com/@soycontadorAI" },
   { label: "Instagram", href: "https://www.instagram.com/soycontador.ai/" },
   { label: "LinkedIn", href: "https://www.linkedin.com/in/soycontadorAI" },
-  { label: "GitHub", href: "https://github.com/soyisracastro" },
+  { label: "GitHub", href: "https://github.com/soycontadorAI" },
   { label: "TodoConta", href: "https://todoconta.com" },
   { label: "Aviso de privacidad", href: "/privacidad" },
 ] as const;
