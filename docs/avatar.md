@@ -34,10 +34,14 @@ por qué; perder ese lead a propósito es lo que hace creíble el resto.
 
 ### Quién es
 
-Contador **independiente o de despacho de 1 a 3 personas**, de 30 a 50 años.
-Dueño de su propia chamba: decide su stack y tiene con qué comprar, sin pedirle
-permiso a nadie. Aprendió Excel a fuerza de necesidad y ve la IA como "otra
-cosa más que aprender, y no tengo tiempo".
+Contador **independiente o de despacho de 1 a 3 personas**, de **45 a 65
+años** (ajuste de Israel, 2026-09-15; antes decía 30 a 50). Es la franja que
+más se siente en desventaja frente a la IA, y es a quien el copy del sitio ya
+le hablaba de facto: la vuelta de la home abre con "esto es para los más
+jóvenes" y el asiento de cierre presume veinte años de criterio. Dueño de su
+propia chamba: decide su stack y tiene con qué comprar, sin pedirle permiso a
+nadie. Aprendió Excel a fuerza de necesidad y ve la IA como "otra cosa más que
+aprender, y no tengo tiempo".
 
 También cabe aquí el profesionista que lleva su propia contabilidad, aunque no
 es el perfil dominante y no se optimiza para él.
@@ -71,9 +75,15 @@ la despiden.
 ### Su nivel de IA
 
 Se cubren los **tres niveles** (nunca la ha usado · ya probó ChatGPT sin método
-· la usa a diario), con **el del medio como default**, que es donde está la
-mayoría: probó, no le funcionó, y concluyó que la IA "inventa cosas". Ese es el
-lector al que le habla el copy cuando hay que elegir.
+· la usa a diario), pero **el default se movió al tercero** (decisión de
+Israel, 2026-09-15): el lector al que se le habla cuando hay que elegir **ya
+usa la IA y ya paga una suscripción**. La lógica: quien ya paga por la
+herramienta es quien compra una capacitación para sacarle provecho; el usuario
+de plan gratuito busca que todo sea gratis. Consecuencia directa para el copy:
+no se usa "funciona con el plan gratuito" como argumento.
+
+El del medio no desaparece (sigue llegando por búsqueda y sus objeciones se
+siguen contestando), pero dejó de ser el default.
 
 ### Cómo busca (el lenguaje literal, para títulos y SEO)
 
@@ -85,6 +95,11 @@ Teclea en dos capas, y **el título que gana combina las dos**:
 - **El ángulo de IA:** "chatgpt para contadores", "inteligencia artificial para
   contabilidad", "prompts para contadores", "hacer una calculadora fiscal sin
   programar", "automatizar la descarga del SAT".
+
+El que ya paga (el default desde 2026-09-15) teclea distinto: no busca si vale
+la pena empezar, busca cómo aprovechar lo que ya tiene. "claude para
+contadores", "prompts para [su herramienta]", "conectar la IA a mis XML". Los
+títulos que le hablan prometen aprovechamiento, no iniciación.
 
 Siempre en el idioma del contador, nunca en jerga interna. Nada de "flujos
 híbridos" en un título: eso es cómo lo llamamos nosotros.
@@ -100,7 +115,12 @@ híbridos" en un título: eso es cómo lo llamamos nosotros.
 3. **"Yo no sé programar."** No hace falta. La habilidad es saber nombrar el
    problema en los términos correctos.
 4. **"Eso es para los jóvenes."** Es al revés, y es la sección de la vuelta en
-   la home: la parte cara de la ecuación son sus años, y esa ya la pagó.
+   la home: la parte cara de la ecuación son sus años, y esa ya la pagó. Con el
+   rango en 45-65 esta objeción gana peso, no lo pierde.
+5. **"Ya pago la suscripción y no le saco ni la cuarta parte."** La que trae el
+   default nuevo (el lector que ya paga), y la que mejor vende: no pide
+   convencerlo de la IA, pide enseñarle a aprovechar lo que ya está pagando.
+   Es la objeción que abre la puerta del taller y la capacitación.
 
 ### Cómo se le habla
 

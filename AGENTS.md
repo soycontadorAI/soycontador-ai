@@ -51,7 +51,33 @@ Stack: Astro 7 estático + adapter Vercel (solo `/api/newsletter` es serverless)
     dato sale de tu computadora" para el MCP. Eso solo aplica a la app de ESCRITORIO.
     El contraste honesto: canal controlado vs pegar datos de clientes en chats públicos.
 - Ángulo Avatar A: la experiencia es la VENTAJA ("con todo lo que sé + IA supero a cualquier
-  recién egresado"); nunca tratar la edad como carencia.
+  recién egresado"); nunca tratar la edad como carencia. El rango del avatar es
+  **45 a 65 años** (decisión Israel 2026-09-15; antes 30-50): es la franja que más
+  se siente en desventaja frente a la IA, y esta regla es justo lo que permite
+  hablarle sin insultarla. El modelo es la vuelta de la home: se nombra la
+  objeción y se voltea a favor.
+- HERRAMIENTA POR PIEZA (decisión Israel 2026-09-15). Tres niveles que no se
+  mezclan:
+  - **La marca y la promesa del sitio: agnósticas, y así se quedan.** Se vende
+    el método y a Israel, no a un proveedor; eventualmente puede haber curso de
+    ChatGPT o de Gemini si lo piden, y el copy de marca no debe estorbarlo.
+  - **Cada pieza de contenido: UNA sola herramienta, a fondo.** Hoy el default
+    es Claude. Si otra herramienta saca algo que valga la pena, se anuncia en
+    su propia pieza. Nunca una pieza que hable de "la IA" en abstracto ni que
+    compare tres herramientas a la vez: eso no le enseña a nadie a hacer nada.
+  - **Las páginas de producto sí pueden ser específicas** (/audita con Claude
+    en el H1 está bien): lo específico vive en la página, no en la promesa.
+  - Guardarraíl: lo que no se haya probado en una plataforma, no se promete en
+    ella, y los datos que dependen del proveedor van con fecha de verificación.
+    Modelos de otros proveedores se verifican antes de nombrarse en copy
+    publicable; no van de memoria.
+- PÚBLICO DE PAGA (decisión Israel 2026-09-15): el contenido asume que el
+  lector ya paga una suscripción de IA. No se optimiza para el plan gratuito ni
+  se usa "funciona gratis" como argumento de venta. La lógica: quien ya paga la
+  herramienta es quien compra capacitación para aprovecharla; el usuario free
+  busca que todo sea gratis. OJO con no sobrecorregir: los imanes gratuitos
+  (las guías, la muestra del ebook) no contradicen esta regla; alguien con
+  suscripción descarga una guía gratis igual.
 
 ## El ebook
 
