@@ -12,6 +12,12 @@
  * exclusividad no es el contenido, es que te llegue al correo y te enteres
  * del siguiente.
  *
+ * El formulario del cierre va a la lista `general` (decisión Israel
+ * 2026-09-17), no a la 43: quien ya está viendo la página no necesita que le
+ * manden el enlace de la página. Lo que se le ofrece es lo mismo que en la
+ * home (la guía de 5 prompts y el aviso del siguiente tutorial), y así no se
+ * inventa una lista nueva por cada tutorial. La 43 queda solo para el DM.
+ *
  * Sin video (decisión Israel 2026-09-17): grabar y editar la sesión completa
  * demoraba la publicación. Lo que se enseña es un GIF del resultado (los XML
  * entran, los PDF salen en ZIP) y lo que se entrega es el prompt con las
@@ -164,7 +170,7 @@ const jsonLd = graph(
         <p class="demo-pie">
           Varios XML al mismo tiempo. Los leyó, armó la tabla y descargó todos
           los PDF en un ZIP. Es un archivo HTML en una carpeta de mi
-          computadora: doble clic y corre.
+          computadora: doble clic y se ejecuta.
         </p>
       </div>
     </section>
@@ -173,11 +179,12 @@ const jsonLd = graph(
       <div class="container-narrow">
         <div class="sec-head"><h2 class="folio">EL PROMPT <b>COMPLETO</b></h2></div>
         <p class="nota-prompt">
-          Cópialo completo y pégalo tal cual. Tiene cuatro partes: rol (quién
+          Listo para copiar y pegar. Tiene cuatro partes: rol (quién
           quieres que sea), objeto (qué construye), norma (el estándar que
-          debe cumplir) y método (cómo van a trabajar). Si te saltas la
-          cuarta, la IA escribe a ciegas.
+          debe cumplir) y método (cómo van a trabajar).
         </p>
+        <p class="nota-prompt">Si te saltas la
+          cuarta, la IA escribe código a ciegas.</p>
         <div class="prompt-caja">
           <button class="btn-copiar" type="button" data-copiar aria-live="polite">
             Copiar el prompt
@@ -237,7 +244,7 @@ const jsonLd = graph(
         </ol>
 
         <div class="norma">
-          <p class="norma-titulo">La norma que le adjuntas (carpeta <code>guia-sat</code>)</p>
+          <p class="norma-titulo">La norma que le adjuntas (carpeta <code>/guia-sat</code>)</p>
           <ul class="norma-lista">
             {NORMA.map((d) => (
               <li>
@@ -256,7 +263,7 @@ const jsonLd = graph(
         <div class="regla">
           <p class="regla-titulo">Antes de pasarle un solo XML</p>
           <p>
-            Mientras construyes no le das ningún recibo: le das la norma, y la
+            Mientras construyes la app no le das ningún recibo: le das la norma, y la
             norma no trae el RFC de nadie. Tus XML de verdad entran hasta que
             la app ya está en tu carpeta, y ahí se procesan en tu navegador,
             sin subir a ningún servidor.
@@ -285,19 +292,17 @@ const jsonLd = graph(
 
     <section class="bloque cierre">
       <div class="container-narrow">
-        <p class="folio">PARA NO <b>PERDERLO</b></p>
-        <h2 class="cierre-titulo">¿Te lo mando al correo?</h2>
+        <p class="folio">EL <b>SIGUIENTE</b></p>
+        <h2 class="cierre-titulo">¿Te sirvió este tutorial?</h2>
         <p class="cierre-texto">
-          Si llegaste directo desde el carrusel, déjame tu correo y te mando
-          el enlace de esta página, más el aviso cuando salga el siguiente
-          tutorial. Es lo mismo que ves aquí: no hay contenido escondido.
+          Déjame tu correo y te aviso cuando salga el siguiente. De entrada
+          te mando la guía de 5 prompts para auditar tus XML con Claude, la
+          misma que corre en mi despacho.
         </p>
         <div class="cierre-form">
           <NewsletterForm
-            lista="recibos"
-            boton="Mándamelo al correo"
-            exito="Listo. Confirma tu correo y el enlace te llega ahí."
-            nota="El enlace de esta página al correo, más una idea de IA fiscal cada semana. Te das de baja con un clic."
+            boton="Mándame la guía"
+            nota="La guía al correo, más una idea de IA fiscal cada semana. Te das de baja con un clic."
           />
         </div>
       </div>
