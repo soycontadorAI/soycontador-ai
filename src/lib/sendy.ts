@@ -32,7 +32,7 @@ export type EstadoSendy = "confirm" | "already" | "invalido" | "error";
  *   live    → el aviso del Jueves de ContadorIA (/jueves)
  *   ebook   → la muestra del libro (/ebook)
  *   flujos  → la guía de los 3 flujos híbridos (/flujos)
- *   recibos → el video de la sesión XML→PDF y su prompt (/recibos)
+ *   recibos → el prompt XML→PDF y cómo usarlo (/recibos)
  *
  * Si una lista no está configurada, el alta cae en la general en lugar de
  * fallar: preferimos un suscriptor en la lista equivocada que un correo

@@ -1,7 +1,8 @@
 ---
 /**
  * /recibos · La ENTREGA del tutorial "XML de nómina a PDF con una app que
- * construyes tú": el video de la sesión, el prompt completo y el CTA al curso.
+ * construyes tú": un GIF del resultado, el prompt completo, cómo usarlo y el
+ * CTA al curso.
  *
  * Simplificación de Israel (2026-09-15): una sola página, sin muro de correo.
  * El circuito es: carrusel en IG → comenta RECIBOS → el DM pide el correo →
@@ -10,6 +11,14 @@
  * texto plano en el carrusel, así que quien llegue directo ve lo mismo: la
  * exclusividad no es el contenido, es que te llegue al correo y te enteres
  * del siguiente.
+ *
+ * Sin video (decisión Israel 2026-09-17): grabar y editar la sesión completa
+ * demoraba la publicación. Lo que se enseña es un GIF del resultado (los XML
+ * entran, los PDF salen en ZIP) y lo que se entrega es el prompt con las
+ * instrucciones para reproducirlo. El prompt vive en `src/lib/recibos-prompt.md`
+ * y es copia textual de `social-studio/entregables/xml-a-pdf-claude/prompt.md`:
+ * el carrusel cita fragmentos de ese archivo y los dos tienen que decir lo
+ * mismo, así que si se toca uno se vuelve a copiar al otro.
  *
  * La monetización vive aquí: el CTA del curso "Crea una WebApp sin saber
  * programar" (Fiscalistas.AI), vía el alias /crearapp. Mismo criterio que
@@ -20,39 +29,79 @@
  * Va DESNUDA, como /audita y /flujos: quien llega viene por una sola cosa.
  *
  * CANDADO DE PUBLICACIÓN: el build de PRODUCCIÓN (VERCEL_ENV) truena
- * mientras falten VIDEO_ID o PROMPT; los previews y el build local muestran
- * placeholders para poder revisar. Un carrusel mandando gente a una entrega
- * vacía quema a la única audiencia que iba a verlo.
+ * mientras falte el GIF en public/; los previews y el build local muestran
+ * un placeholder para poder revisar. Un carrusel mandando gente a una
+ * entrega vacía quema a la única audiencia que iba a verlo.
  *
- * TODO cuando exista el video: agregar el VideoObject al JSON-LD
- * (uploadDate, thumbnailUrl y duración reales).
- * TODO antes de mergear: verificar que la página del curso en Fiscalistas.AI
- * ya exista (el alias /crearapp apunta allá).
+ * La página del curso en Fiscalistas.AI (destino del alias /crearapp) se
+ * verificó en línea el 2026-09-17: responde 200.
  */
+import { existsSync } from "node:fs";
+import { join } from "node:path";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import NewsletterForm from "../components/NewsletterForm.astro";
-import VideoFacade from "../components/VideoFacade.astro";
+import PROMPT from "../lib/recibos-prompt.md?raw";
 import { breadcrumbs, graph, personRef } from "../lib/schema";
 import { SITE } from "../lib/site";
 
-const VIDEO_ID = ""; // TODO(Israel): ID del video no listado en @soycontadorAI
-const PROMPT = ``; // TODO: el prompt final, de entregables/xml-a-pdf-claude/prompt.md
-const COMPLETA = Boolean(VIDEO_ID && PROMPT);
+const GIF = "/assets/recibos-demo.gif"; // TODO(Israel): se genera del video del resultado
+// Se resuelve desde la raíz del proyecto y no desde import.meta.url: en el
+// build el módulo ya vive en .vercel/output/server/... y la ruta relativa
+// apuntaba a una carpeta que no existe.
+const COMPLETA = existsSync(join(process.cwd(), "public", GIF));
 if (process.env.VERCEL_ENV === "production" && !COMPLETA) {
   throw new Error(
-    "/recibos está incompleta: faltan VIDEO_ID y/o PROMPT. " +
+    `/recibos está incompleta: falta public${GIF}. ` +
       "Es un candado a propósito; ver el comentario en el frontmatter.",
   );
 }
 
+// La norma que el prompt da por adjunta. Son documentos públicos del SAT y se
+// enlazan a su origen en vez de re-hospedarlos (9 MB, y si el SAT los
+// actualiza, el enlace sigue apuntando a la versión vigente). El inventario
+// vive en social-studio/entregables/xml-a-pdf-claude/guia-sat/FUENTES.md.
+const NORMA = [
+  {
+    nombre: "Guía de llenado del recibo de nómina (CFDI 4.0 + Nómina 1.2)",
+    nota: "La norma principal del prompt.",
+    url: "http://omawww.sat.gob.mx/tramitesyservicios/Paginas/documentos/Guia_llenado_nomina.pdf",
+  },
+  {
+    nombre: "Anexo 20: guía de llenado del CFDI 4.0",
+    nota: "La parte general del comprobante.",
+    url: "http://omawww.sat.gob.mx/tramitesyservicios/Paginas/documentos/Anexo_20_Guia_de_llenado_CFDI.pdf",
+  },
+  {
+    nombre: "Anexo 20 de la RMF 2022 (DOF)",
+    nota: "El estándar técnico: aquí viven la cadena original y el QR.",
+    url: "http://omawww.sat.gob.mx/tramitesyservicios/Paginas/documentos/Anexo20_2022.pdf",
+  },
+  {
+    nombre: "cfdv40.xsd",
+    nota: "Esquema del comprobante 4.0.",
+    url: "http://www.sat.gob.mx/sitio_internet/cfd/4/cfdv40.xsd",
+  },
+  {
+    nombre: "nomina12.xsd",
+    nota: "Esquema del complemento de nómina 1.2.",
+    url: "http://www.sat.gob.mx/sitio_internet/cfd/nomina/nomina12.xsd",
+  },
+  {
+    nombre: "TimbreFiscalDigitalv11.xsd",
+    nota: "Esquema del Timbre Fiscal Digital 1.1.",
+    url: "http://www.sat.gob.mx/sitio_internet/cfd/TimbreFiscalDigital/TimbreFiscalDigitalv11.xsd",
+  },
+];
+
 const tutorial = {
   "@type": "CreativeWork",
   "@id": `${SITE.url}/recibos#tutorial`,
-  name: "XML de nómina a PDF: la sesión completa y el prompt",
+  name: "XML de nómina a PDF: el prompt completo y cómo usarlo",
   description:
-    "Video de la sesión completa construyendo con IA una app que convierte XML de recibos de nómina CFDI 4.0 en PDF, más el prompt exacto para construir la tuya.",
+    "El prompt exacto para pedirle a la IA una app que convierte XML de recibos de nómina CFDI 4.0 en PDF, con las instrucciones para construirla en Cowork y el resultado en pantalla.",
   inLanguage: SITE.lang,
   isAccessibleForFree: true,
+  ...(COMPLETA ? { image: `${SITE.url}${GIF}` } : {}),
   author: personRef(),
   publisher: personRef(),
 };
@@ -67,48 +116,56 @@ const jsonLd = graph(
 ---
 
 <BaseLayout
-  title="Convierte tus XML de nómina en PDF con una app hecha con IA (video + prompt)"
-  description="La sesión completa en video: cómo pedirle a la IA una app que convierte XML de recibos de nómina CFDI 4.0 en PDF, con el prompt exacto listo para copiar. Para contadores en México."
+  title="Convierte tus XML de nómina en PDF con una app hecha con IA (el prompt completo)"
+  description="El prompt exacto para pedirle a la IA una app que convierte XML de recibos de nómina CFDI 4.0 en PDF, listo para copiar, con las instrucciones para construirla en tu computadora. Para contadores en México."
   jsonLd={jsonLd}
   desnudo
 >
   <main>
     <section class="hero">
       <div class="container-narrow">
-        <p class="folio">VIDEO + PROMPT · <b>LA SESIÓN COMPLETA</b></p>
+        <p class="folio">EL PROMPT + <b>CÓMO USARLO</b></p>
         <h1 class="titulo-xl">Deja de buscar el convertidor. Constrúyelo.</h1>
         <p class="intro-page">
-          Esta es la sesión completa: le pido la app a la IA con un prompt, le
-          paso recibos de muestra, sale un error, lo corrijo y termina
-          descargando los PDF en un ZIP. Abajo está el video y el prompt
-          exacto, listo para copiar.
+          Esto es lo que sale: arrastras los XML, la app los lee, arma la
+          tabla y descarga los PDF en un ZIP. Abajo está el prompt exacto con
+          el que se construyó, listo para copiar, y los pasos para tenerla
+          corriendo en tu computadora.
         </p>
       </div>
     </section>
 
     <section class="bloque">
       <div class="container-narrow">
-        <div class="video-marco">
+        <div class="demo-marco">
           {
             COMPLETA ? (
-              <VideoFacade
-                videoId={VIDEO_ID}
-                titulo="XML de nómina a PDF: la sesión completa"
-                poster="/assets/recibos-poster.png"
-                cinta="La sesión completa"
+              <img
+                class="demo"
+                src={GIF}
+                alt="La app terminada: se arrastran varios XML de nómina, aparece la lista con empleado, periodo y neto, y se descargan los PDF en un ZIP."
+                width="960"
+                height="540"
+                loading="eager"
+                decoding="async"
               />
             ) : (
-              <div class="pendiente" role="img" aria-label="Aquí va el video de la sesión">
+              <div class="pendiente" role="img" aria-label="Aquí va el GIF del resultado">
                 <span class="pendiente-chip">PENDIENTE</span>
                 <p>
-                  Aquí va el video de la sesión. Este placeholder solo existe
-                  en previews: el build de producción no construye la página
-                  sin él.
+                  Aquí va el GIF del resultado ({GIF}). Este placeholder solo
+                  existe en previews: el build de producción no construye la
+                  página sin él.
                 </p>
               </div>
             )
           }
         </div>
+        <p class="demo-pie">
+          Varios XML al mismo tiempo. Los leyó, armó la tabla y descargó todos
+          los PDF en un ZIP. Es un archivo HTML en una carpeta de mi
+          computadora: doble clic y corre.
+        </p>
       </div>
     </section>
 
@@ -116,26 +173,93 @@ const jsonLd = graph(
       <div class="container-narrow">
         <div class="sec-head"><h2 class="folio">EL PROMPT <b>COMPLETO</b></h2></div>
         <p class="nota-prompt">
-          Selecciónalo completo y pégalo tal cual. Las cuatro partes (rol,
-          objeto, datos de muestra y método) vienen explicadas en el video.
+          Cópialo completo y pégalo tal cual. Tiene cuatro partes: rol (quién
+          quieres que sea), objeto (qué construye), norma (el estándar que
+          debe cumplir) y método (cómo van a trabajar). Si te saltas la
+          cuarta, la IA escribe a ciegas.
         </p>
-        {
-          COMPLETA ? (
-            <pre class="prompt"><code>{PROMPT}</code></pre>
-          ) : (
-            <div class="pendiente chico">
-              <span class="pendiente-chip">PENDIENTE</span>
-              <p>Aquí va el prompt completo, en bloque copiable.</p>
+        <div class="prompt-caja">
+          <button class="btn-copiar" type="button" data-copiar aria-live="polite">
+            Copiar el prompt
+          </button>
+          <pre class="prompt" tabindex="0"><code data-prompt>{PROMPT}</code></pre>
+        </div>
+      </div>
+    </section>
+
+    <section class="bloque">
+      <div class="container-narrow">
+        <div class="sec-head"><h2 class="folio">CÓMO <b>USARLO</b></h2></div>
+        <ol class="pasos">
+          <li>
+            <span class="paso-num">01</span>
+            <div>
+              <h3>Abre Cowork en Claude Desktop.</h3>
+              <p>Claude trabaja sobre carpetas de tu computadora, y ahí va a quedar la app.</p>
             </div>
-          )
-        }
+          </li>
+          <li>
+            <span class="paso-num">02</span>
+            <div>
+              <h3>Selecciona una carpeta y mete la norma.</h3>
+              <p>
+                Dentro crea una carpeta <code>guia-sat</code> con los seis
+                archivos del SAT de abajo. Sin la norma, la IA adivina la
+                estructura.
+              </p>
+            </div>
+          </li>
+          <li>
+            <span class="paso-num">03</span>
+            <div>
+              <h3>Pega el prompt completo y envía.</h3>
+              <p>Va a confirmar, proponer y preguntar antes de escribir una línea. Contéstale.</p>
+            </div>
+          </li>
+          <li>
+            <span class="paso-num">04</span>
+            <div>
+              <h3>Abre el HTML con doble clic.</h3>
+              <p>Cuando termine, en la carpeta aparece un archivo <code>.html</code>. Ábrelo y arrastra tus XML.</p>
+            </div>
+          </li>
+          <li>
+            <span class="paso-num">05</span>
+            <div>
+              <h3>Si algo sale mal, se lo dices.</h3>
+              <p>
+                Un total que no cuadra, un sello que se sale del margen:
+                descríbeselo en el mismo chat y se corrige sobre el mismo
+                archivo. La primera prueba hazla con dos o tres recibos.
+              </p>
+            </div>
+          </li>
+        </ol>
+
+        <div class="norma">
+          <p class="norma-titulo">La norma que le adjuntas (carpeta <code>guia-sat</code>)</p>
+          <ul class="norma-lista">
+            {NORMA.map((d) => (
+              <li>
+                <a href={d.url} rel="noopener">{d.nombre}</a>
+                <span>{d.nota}</span>
+              </li>
+            ))}
+          </ul>
+          <p class="norma-pie">
+            Los seis salen del portal del SAT. Ojo con <code>GuiaNomina12.pdf</code>,
+            que vive en la misma carpeta del SAT: es la guía vieja para CFDI
+            3.2 y no es la que va.
+          </p>
+        </div>
 
         <div class="regla">
           <p class="regla-titulo">Antes de pasarle un solo XML</p>
           <p>
-            Mientras construyes la app, los archivos de muestra que le pases a
-            la IA sí viajan a sus servidores. Usa recibos de prueba, nunca los
-            de un cliente. La app terminada sí procesa todo en tu navegador.
+            Mientras construyes no le das ningún recibo: le das la norma, y la
+            norma no trae el RFC de nadie. Tus XML de verdad entran hasta que
+            la app ya está en tu carpeta, y ahí se procesan en tu navegador,
+            sin subir a ningún servidor.
           </p>
         </div>
       </div>
@@ -181,6 +305,33 @@ const jsonLd = graph(
   </main>
 </BaseLayout>
 
+<script>
+  // Copiar el prompt al portapapeles. Sin clipboard (http, navegador viejo)
+  // el botón no aparece y queda el camino de siempre: seleccionar y copiar.
+  const boton = document.querySelector<HTMLButtonElement>("[data-copiar]");
+  const codigo = document.querySelector<HTMLElement>("[data-prompt]");
+  if (boton && codigo) {
+    if (!navigator.clipboard) {
+      boton.hidden = true;
+    } else {
+      const original = boton.textContent;
+      boton.addEventListener("click", async () => {
+        try {
+          await navigator.clipboard.writeText(codigo.textContent ?? "");
+          boton.textContent = "Copiado";
+          boton.dataset.estado = "ok";
+        } catch {
+          boton.textContent = "No se pudo copiar: selecciónalo";
+        }
+        setTimeout(() => {
+          boton.textContent = original;
+          delete boton.dataset.estado;
+        }, 2200);
+      });
+    }
+  }
+</script>
+
 <style>
   .hero {
     padding: 4.5rem 0 1rem;
@@ -194,22 +345,70 @@ const jsonLd = graph(
   .sec-head {
     margin-bottom: 1rem;
   }
-  .video-marco {
+  /* El GIF va enmarcado como la terminal del sitio: borde fuerte y esquinas
+     del sistema, sin sombra, porque el contenido ya se mueve solo. */
+  .demo-marco {
     margin-top: 0.5rem;
+    border: 1px solid var(--color-line-strong);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    background: var(--color-terminal-bg);
+  }
+  .demo {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+  .demo-pie {
+    margin: 0.9rem 0 0;
+    color: var(--color-ink-soft);
+    font-size: 0.92rem;
+    max-width: 56ch;
   }
   .nota-prompt {
     margin: 0 0 1.2rem;
     color: var(--color-ink-soft);
     font-size: 0.95rem;
-    max-width: 52ch;
+    max-width: 56ch;
+  }
+  .prompt-caja {
+    position: relative;
+  }
+  .btn-copiar {
+    position: absolute;
+    top: 0.8rem;
+    right: 0.8rem;
+    z-index: 1;
+    font-family: var(--font-mono);
+    font-size: 0.74rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--color-terminal-ink);
+    background: var(--color-terminal-bg);
+    border: 1px solid var(--color-terminal-ink);
+    border-radius: var(--radius-pill);
+    padding: 0.45rem 0.9rem;
+    cursor: pointer;
+  }
+  .btn-copiar:hover,
+  .btn-copiar:focus-visible {
+    color: var(--color-terminal-bg);
+    background: var(--color-terminal-ink);
+  }
+  .btn-copiar[data-estado="ok"] {
+    color: var(--color-terminal-bg);
+    background: var(--color-terminal-ok);
+    border-color: var(--color-terminal-ok);
   }
   /* La misma familia visual que la terminal del sitio: fondo oscuro, mono,
      esquinas del sistema. Sin semáforo: esto es un documento, no una ventana. */
   .prompt {
+    margin: 0;
     background: var(--color-terminal-bg);
     border: 1px solid var(--color-line-strong);
     border-radius: var(--radius-md);
-    padding: 1.4rem 1.6rem;
+    padding: 3.2rem 1.6rem 1.4rem;
     overflow-x: auto;
     font-family: var(--font-mono);
     font-size: 0.82rem;
@@ -227,15 +426,9 @@ const jsonLd = graph(
     justify-content: center;
     gap: 0.8rem;
     aspect-ratio: 16 / 9;
-    border: 2px dashed var(--color-line);
-    border-radius: var(--radius-md);
     background: var(--color-surface);
     padding: 2rem;
     text-align: center;
-  }
-  .pendiente.chico {
-    aspect-ratio: auto;
-    padding: 2.4rem 2rem;
   }
   .pendiente-chip {
     font-family: var(--font-mono);
@@ -253,8 +446,89 @@ const jsonLd = graph(
     color: var(--color-ink-dim);
     font-size: 0.9rem;
   }
+
+  /* Los pasos, con el mismo patrón de lista numerada de /audita y /flujos. */
+  .pasos {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    border-top: 1px solid var(--color-line);
+  }
+  .pasos li {
+    display: grid;
+    grid-template-columns: 3.4rem 1fr;
+    gap: 1rem;
+    padding: 1.3rem 0;
+    border-bottom: 1px solid var(--color-line);
+  }
+  .paso-num {
+    font-family: var(--font-mono);
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--color-ink-dim);
+  }
+  .pasos h3 {
+    margin: 0 0 0.35rem;
+    font-size: 1.08rem;
+    font-weight: 700;
+    letter-spacing: -0.015em;
+  }
+  .pasos p {
+    margin: 0;
+    color: var(--color-ink-soft);
+    font-size: 0.95rem;
+  }
+  .pasos code,
+  .norma code {
+    font-family: var(--font-mono);
+    font-size: 0.88em;
+  }
+  @media (max-width: 560px) {
+    .pasos li {
+      grid-template-columns: 1fr;
+      gap: 0.3rem;
+    }
+  }
+
+  .norma {
+    margin-top: 1.8rem;
+    background: var(--color-surface-raised);
+    border: 1px solid var(--color-line);
+    border-radius: var(--radius-md);
+    padding: 1.4rem 1.6rem;
+  }
+  .norma-titulo {
+    margin: 0 0 0.8rem;
+    font-weight: 700;
+    letter-spacing: -0.015em;
+  }
+  .norma-lista {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 0.55rem;
+  }
+  .norma-lista li {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.2rem 0.6rem;
+    font-size: 0.93rem;
+  }
+  .norma-lista a {
+    font-weight: 600;
+  }
+  .norma-lista span {
+    color: var(--color-ink-soft);
+  }
+  .norma-pie {
+    margin: 1rem 0 0;
+    color: var(--color-ink-soft);
+    font-size: 0.88rem;
+  }
+
   .regla {
-    margin-top: 2rem;
+    margin-top: 1.8rem;
     background: var(--color-accent-soft);
     border-left: 3px solid var(--color-accent);
     border-radius: 0 var(--radius-md) var(--radius-md) 0;
