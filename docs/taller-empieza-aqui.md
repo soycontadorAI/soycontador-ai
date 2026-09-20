@@ -120,17 +120,39 @@ vivo, cupo 25, con tarea hecha:
   taller) lo publican. Va en los cuatro lugares (página, JSON-LD, `llms.txt`,
   `llms-full.txt`) o en ninguno.
 
-## Calendario propuesto
+## Calendario de venta (ajustado el 2026-09-20: arranca esta semana)
+
+La promoción del curso del 28 sale esta semana de todas formas, y la
+objeción "todavía no es para mí" está viva en ese momento, no en octubre.
+Así que el taller se anuncia desde ya, montado en el correo del curso, y el
+empuje completo viene cuando el curso ya arrancó.
 
 | Fecha | Qué |
 |---|---|
-| 28-sep | Arranca Claude para Contadores. El taller no se menciona ahí: ese público ya dio el salto. |
-| 1-oct | Primer jueves de la serie. Al cierre: "si esto te quedó grande, el 17 hay taller para empezar". |
-| 5-oct | Correo a los 60 de la encuesta: "esto es lo que pidieron". Precio de lanzamiento hasta el 12. |
-| 8-oct | Correo al boletín completo. Página `/empieza` publicada. Destacado "Empieza aquí" de IG remata ahí durante octubre. |
+| 22 o 23-sep | Correo del curso Claude para Contadores al boletín, con la posdata del taller (abajo). Página `/empieza` publicada, aunque diga "abre en unos días" hasta que exista el producto en nas.io. |
+| 24-sep | Jueves "¿Qué hace la IA con tus datos?". Cierra al curso del 28; una línea al final: "y si eso te queda grande, el 17 de octubre hay un taller para empezar". |
+| 28-sep | Arranca el curso. Ahí no se menciona el taller: ese público ya dio el salto. |
+| 30-sep | Correo a los 60 de la encuesta: "esto es lo que pidieron", con el cupón de $497. Vence el 7 de octubre. |
+| 1-oct | Primer jueves de la serie. Al cierre: el taller. |
+| 6-oct | Correo al boletín completo. Destacado "Empieza aquí" de IG remata en `/empieza` durante octubre. |
+| 8 y 15-oct | Jueves 2 y 3 de la serie, cierre al taller. El 15: "último día para cancelar con devolución". |
 | **17-oct (sábado)** | **Taller, 11:00.** |
 | 18-oct | Correo a los asistentes con la grabación y la invitación a la siguiente edición del curso de Claude. |
 | Nov | Segunda edición si el cupo se llenó; si no, se revisa el precio o la promesa antes de repetir. |
+
+Nota sobre el cupón: al mover el correo a los 60 al 30 de septiembre, el
+vencimiento pasa del 12 al 7 de octubre (siete días). Si Israel prefiere
+mandarlo esta misma semana, se cruza con el correo del curso y la lista
+recibe dos ofertas en tres días; mejor no.
+
+### Posdata para el correo del curso (esta semana)
+
+> P. D. Si leíste todo esto y sentiste que Claude para Contadores todavía no
+> es para ti, que primero necesitas los primeros pasos, preparé otro taller:
+> "Empieza aquí", dos horas el sábado 17 de octubre, sin nada que saber antes.
+> Sales con un proyecto de Claude configurado, un prompt que cita el
+> fundamento y tu primer lote de XML revisado. Los detalles:
+> https://soycontador.ai/empieza
 
 ## La página: `/empieza`
 
@@ -212,9 +234,11 @@ Asunto: **Tu lugar del 17 de octubre, y cinco minutos de tarea**
 
 ## Lo que sigue (construcción)
 
-- [ ] `src/lib/empieza.ts` con el copy, y la página `/empieza` (estructura de
-      `/ebook`), con JSON-LD `Course` + `Offer` y su FAQ.
-- [ ] Precio en `llms.txt` y `llms-full.txt`.
+- [x] `src/lib/empieza.ts` con el copy, y la página `/empieza` (estructura de
+      `/ebook`), con JSON-LD `Course` + `Offer` y su FAQ. PR #14.
+- [x] Precio en `llms.txt` y `llms-full.txt`. PR #14.
+- [ ] Pegar el `PRODUCT_ID` de nas.io en `src/lib/empieza.ts` (Israel lo crea,
+      yo lo pego): hasta entonces la página dice "abre en unos días".
 - [ ] Producto y cupón en nas.io (Israel).
 - [ ] Segmento en Sendy de quienes contestaron la encuesta (Israel).
 - [ ] Datos ficticios del taller (lote de XML) y los prompts, en el repo
