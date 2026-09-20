@@ -10,29 +10,42 @@ La ruta corta que se busca: alguien ve un corte de un jueves o un carrusel,
 entra al perfil, el destacado de testimonios lo convence, y con un clic llega
 al sitio con la guía de 5 prompts (lista `general`), que es donde se vende.
 
-## El perfil
+## El perfil (decidido el 2026-09-20)
 
-**Nombre visible (campo de búsqueda de Instagram):**
-`Israel Castro · IA para Contadores`
+**Nombre visible (campo de búsqueda de Instagram), 37 de 64 caracteres:**
+`Israel Castro · IA para Contadores MX`
 
-No "soycontador.ai" ni "Isca": el campo de nombre es lo que Instagram indexa
-y nadie busca la marca todavía; buscan "IA contadores".
+Con apellido, aunque sea más largo: "Israel Castro" es la entidad que el
+sitio posiciona (JSON-LD, `sameAs`, `llms.txt`), y el cruce entre el sitio y
+el perfil funciona porque el nombre coincide. "Israel" solo es nombre de país
+y de pila común: como palabra clave vale cero. "MX" es el nicho que pide el
+lineamiento y separa de los perfiles de España y Argentina que salen en la
+misma búsqueda. Sin "Claude": la marca es agnóstica, lo específico vive en
+las piezas.
 
-**Bio, tres líneas:**
+**Bio, tres líneas, 148 de 150 caracteres:**
 
 ```
-Contador público y desarrollador de software. IA para contadores en México.
-14 años de fiscal · Jueves de ContadorIA en YouTube, en vivo a las 11
-5 prompts para auditar tus XML con Claude, gratis 👇
+IA para contadores de carrera. Sin programar.
+CP y desarrollador · 14 años de fiscal · En vivo, jueves 11 am
+5 prompts para auditar XML con Claude 👇
 ```
 
-Línea 1 qué hago y para quién; línea 2 prueba; línea 3 la acción. Sin
-metáforas y sin "transformo despachos". La palabra "gratis" va en el imán,
-que es la excepción explícita de la regla de público de paga.
+Línea 1 para quién ("de carrera" nombra al avatar sin decirle la edad) y la
+objeción de habilidad fuera desde el arranque. Línea 2 la prueba: identidad
+honesta (sin "AI-native": es jerga, y la mezcla de idiomas es lo que hacía
+que Instagram pusiera "See Translation" encima de la bio) más el live, que es
+lo que dice que esto está vivo. Línea 3 la acción. Nada de metáforas: la
+vuelta de la home comprimida se vuelve frase que hay que pensar, y en la bio
+no hay tiempo de pensar.
 
 **Un solo enlace:** `https://soycontador.ai/audita` (la guía, lista
-`general`). No Linktree, no la home. Cuando corra una campaña (curso, taller)
-se cambia el enlace ese periodo y se regresa.
+`general`). Ya apunta ahí. No Linktree, no la home. Cuando corra una campaña
+(curso, taller) se cambia el enlace ese periodo y se regresa.
+
+**Estado al 2026-09-20:** el perfil ya tiene el enlace correcto, la foto con
+el plumón verde y un destacado "Testimonios" con portada del DS. Faltan el
+nombre y la bio nuevos (se cambian a mano en la app) y los otros destacados.
 
 ## Los destacados, de izquierda a derecha
 
@@ -124,6 +137,4 @@ guía.
 ## Qué falta
 
 - Producir las 8 stories y las 6 portadas en social-studio (`ig-story`).
-- Confirmar que el nombre visible y la bio caben en los límites de
-  Instagram (150 caracteres de bio).
-- Cambiar el enlace del perfil al de la guía si hoy apunta a otro lado.
+- Cambiar nombre y bio en la app (ya están contados: 37/64 y 148/150).
