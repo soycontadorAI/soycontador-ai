@@ -128,7 +128,6 @@ export const EBOOK = {
   url: "/ebook" as string | null,
 } as const;
 
-/** Nav del sitio: 3 anclas de la home + CTA (decisión de Israel 2026-08-30). */
 /**
  * Medición. El ID de GA4 va aquí y no en una variable de entorno a propósito:
  * un ID de medición NO es un secreto (viaja en el HTML de cada página, se ve
@@ -145,12 +144,27 @@ export const MEDICION = {
   metaPixel: null as string | null,
 } as const;
 
-export const NAV = [
+/** Un enlace de menú, de pie o de botón. */
+export interface Enlace {
+  label: string;
+  href: string;
+}
+
+/**
+ * El menú de la cabecera es de cada página, no del sitio (decisión de Israel
+ * 2026-09-20): cada una pasa a BaseLayout las anclas de sus propias secciones
+ * y el botón que le corresponde. Este es solo el de la home (las 4 anclas de
+ * 2026-08-30).
+ */
+export const NAV_HOME: readonly Enlace[] = [
   { label: "Quién soy", href: "/#quien" },
   { label: "Testimonios", href: "/#testimonios" },
   { label: "Qué encuentras aquí", href: "/#ofertas" },
   { label: "Preguntas", href: "/#faq" },
-] as const;
+];
+
+/** El botón de cabecera de las páginas que no tienen formulario propio. */
+export const CTA_DIAGNOSTICO: Enlace = { label: "Agenda un diagnóstico", href: "/contacto" };
 
 /** Páginas internas, para el footer y el crawleo. */
 export const NAV_PAGINAS = [
