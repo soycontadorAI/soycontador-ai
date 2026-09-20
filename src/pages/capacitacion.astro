@@ -3,6 +3,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import FaqBlock from "../components/FaqBlock.astro";
 import FormCapacitacion from "../components/FormCapacitacion.astro";
 import FlujoExpediente from "../components/FlujoExpediente.astro";
+import { EMPIEZA, empiezaVigente } from "../lib/empieza";
 import {
   CASO_AUDITOR,
   EMPRESARIAL,
@@ -140,6 +141,14 @@ const jsonLd = graph(
                 siguiente con acompañamiento, esta es la fecha más cercana.
               </p>
               <a class="btn btn-primary" href={colaboracion.url}>Ver el temario y apartar lugar</a>
+              {/* El paso de antes, para quien lee esto y siente que todavía
+                  no es para él. Ángulo de Israel (2026-09-20). */}
+              {empiezaVigente() && (
+                <p class="colab-antes">
+                  ¿Sientes que todavía no es para ti? Hay un paso de antes:{" "}
+                  <a href="/empieza">{EMPIEZA.nombre}, {EMPIEZA.duracion.replace(" en vivo", "")} el {EMPIEZA.fechaTexto.toLowerCase().replace("sábado ", "")}</a>.
+                </p>
+              )}
             </div>
             <dl class="colab-datos">
               <div>
@@ -266,6 +275,16 @@ const jsonLd = graph(
     margin: 0;
     font-size: 0.95rem;
     color: var(--color-ink-soft);
+  }
+  .colab-antes {
+    margin: 1.2rem 0 0;
+    font-size: 0.95rem;
+    color: var(--color-ink-soft);
+  }
+  .colab-antes a {
+    font-weight: 700;
+    color: var(--color-accent);
+    text-decoration: none;
   }
   .colab-precio {
     font-family: var(--font-mono);

@@ -1,0 +1,524 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import FaqBlock from "../components/FaqBlock.astro";
+import { COLABORACION } from "../lib/capacitacion";
+import {
+  BLOQUES,
+  EMPIEZA,
+  ENTREGABLES,
+  FAQ_EMPIEZA,
+  INCLUYE,
+  PARA_QUIEN,
+  empiezaVigente,
+} from "../lib/empieza";
+import { breadcrumbs, empiezaCourse, faqPage, graph } from "../lib/schema";
+import { SITE } from "../lib/site";
+import { TESTIMONIOS } from "../lib/testimonios";
+
+const jsonLd = graph(
+  empiezaCourse(),
+  faqPage(FAQ_EMPIEZA, `${SITE.url}/empieza`),
+  breadcrumbs([
+    { name: "Inicio", path: "/" },
+    { name: "Capacitación", path: "/capacitacion" },
+    { name: EMPIEZA.nombreCompleto, path: "/empieza" },
+  ]),
+);
+
+const vigente = empiezaVigente();
+/* Daniel es la prueba de esta página: su "analfabetos en programación" es
+   exactamente el miedo de quien la lee. */
+const daniel = TESTIMONIOS.find((t) => t.slug === "daniel-souza");
+---
+
+<BaseLayout
+  title={`${EMPIEZA.nombreCompleto}. Taller en vivo para empezar sin saber nada`}
+  description={`Taller en vivo de 2 horas, ${EMPIEZA.fechaTexto.toLowerCase()}: sales con un proyecto de Claude configurado, un prompt que cita el fundamento y tu primer lote de XML revisado. Sin conocimientos previos. ${EMPIEZA.precioTexto}.`}
+  jsonLd={jsonLd}
+>
+  <main>
+    <section class="hero">
+      <div class="container-default hero-grid">
+        <div>
+          <p class="folio">TALLER EN VIVO · <b>{EMPIEZA.fechaTexto.toUpperCase()}</b> · 11:00</p>
+          <h1 class="titulo-xl">{EMPIEZA.nombre}: <span class="hl">{EMPIEZA.titulo}</span></h1>
+          <p class="hero-headline">Sales con tres cosas hechas, no con apuntes.</p>
+          {/*
+            El ángulo es de Israel (2026-09-20): esta página existe para quien
+            vio Claude para Contadores y sintió que todavía no era para él.
+            Por eso se nombra el curso de frente y se dice "el paso de antes",
+            no "una alternativa": es la misma escalera.
+          */}
+          <p class="hero-gancho">
+            ¿Viste {COLABORACION?.nombre ?? "Claude para Contadores"} y sentiste que todavía no es para ti?{" "}
+            <span class="tenue">Este es el paso de antes. Dos horas, y empiezas a sacarle provecho.</span>
+          </p>
+          <div class="hero-precio">
+            <p class="precio">
+              <b>{EMPIEZA.precioTexto}</b>
+              <span>pago único · {EMPIEZA.duracion} · cupo de {EMPIEZA.cupo}</span>
+            </p>
+            <div class="hero-acciones">
+              {vigente && EMPIEZA.url ? (
+                <a class="btn btn-primary" href={EMPIEZA.url} rel="noopener">Apartar mi lugar</a>
+              ) : vigente ? (
+                <span class="btn btn-primary btn-espera" aria-disabled="true">La inscripción abre en unos días</span>
+              ) : (
+                <span class="btn btn-primary btn-espera" aria-disabled="true">Próxima fecha por anunciar</span>
+              )}
+              <a class="btn btn-ghost" href="#las-dos-horas">Ver las dos horas</a>
+            </div>
+          </div>
+        </div>
+        <aside class="entregables" aria-labelledby="entregables-titulo">
+          <p class="folio" id="entregables-titulo">CON QUÉ <b>SALES</b></p>
+          <ol>
+            {ENTREGABLES.map((e, i) => (
+              <li>
+                <span class="entregable-num">{String(i + 1).padStart(2, "0")}</span>
+                <span>
+                  <b>{e.titulo}</b>
+                  <span class="entregable-texto">{e.texto}</span>
+                </span>
+              </li>
+            ))}
+          </ol>
+        </aside>
+      </div>
+    </section>
+
+    <section>
+      <div class="container-default">
+        <div class="sec-head"><h2 class="folio">PARA <b>QUIÉN</b> ES</h2></div>
+        <div class="perfiles">
+          {PARA_QUIEN.map((p, i) => (
+            <article class="perfil" data-reveal style={`--reveal-delay: ${i * 0.08}s`}>
+              <h3>{p.titulo}</h3>
+              <p>{p.texto}</p>
+            </article>
+          ))}
+        </div>
+        <p class="no-es" data-reveal>
+          Y para quién no: si ya usas proyectos de Claude y quieres construir con
+          Claude Code, sáltate este y ve directo a <a href="/capacitacion">{COLABORACION?.nombre ?? "Claude para Contadores"}</a>.
+        </p>
+      </div>
+    </section>
+
+    <section id="las-dos-horas">
+      <div class="container-default">
+        <div class="sec-head"><h2 class="folio">LAS <b>DOS HORAS</b>, BLOQUE POR BLOQUE</h2></div>
+        <p class="intro-bloques" data-reveal>
+          Ritmo de taller, no de plática: cada bloque termina con algo hecho en
+          tu pantalla. Los datos son ficticios y te los llevas.
+        </p>
+        <ol class="bloques">
+          {BLOQUES.map((b) => (
+            <li class="bloque" data-reveal>
+              <span class="bloque-min folio">MIN <b>{b.minutos}</b></span>
+              <div>
+                <h3>{b.titulo}</h3>
+                <p>{b.texto}</p>
+                <p class="bloque-sale"><span class="folio">SALES CON</span> {b.sale}</p>
+              </div>
+            </li>
+          ))}
+        </ol>
+      </div>
+    </section>
+
+    <section class="necesitas-sec">
+      <div class="container-narrow">
+        <div class="sec-head"><h2 class="folio">LO QUE <b>NECESITAS</b></h2></div>
+        <div class="necesitas" data-reveal>
+          {/*
+            Claude Pro se pide como parte del precio real, no como requisito
+            seco: la mayoría de quien compra esto no paga ninguna herramienta
+            hoy, y el trámite espanta más que el costo. El porqué del plan de
+            pago (límites del gratuito en vivo) está en la FAQ.
+          */}
+          <p>
+            <b>Una cuenta de {EMPIEZA.herramienta.nombre}.</b> Cuesta aparte,
+            {" "}{EMPIEZA.herramienta.costoTexto}, y es la misma que vas a usar
+            el lunes. Si no la tienes, en el correo de confirmación te digo cómo
+            sacarla en cinco minutos, y los primeros minutos del taller son para
+            que todos la tengan abierta antes de empezar.
+          </p>
+          <p><b>Computadora, no celular.</b> Se trabaja en vivo, con archivos.</p>
+          <p><b>Nada más.</b> Ni programación, ni IA, ni haber leído nada. Cero.</p>
+        </div>
+      </div>
+    </section>
+
+    {daniel && (
+      <section>
+        <div class="container-narrow">
+          <div class="sec-head"><h2 class="folio">ALGUIEN QUE <b>YA EMPEZÓ</b></h2></div>
+          <figure class="prueba" data-reveal>
+            <blockquote>"{daniel.antes}"</blockquote>
+            <p class="prueba-texto">
+              {daniel.nombre} lleva solo su despacho en {daniel.ciudad}. Hoy
+              encuentra en minutos la diferencia entre el auxiliar de bancos y el
+              estado de cuenta, que le tomaba horas. Lo cuenta en 3 minutos:{" "}
+              <a href={`/#testimonio-${daniel.slug}`}>su testimonio →</a>
+            </p>
+          </figure>
+        </div>
+      </section>
+    )}
+
+    <section id="apartar">
+      <div class="container-default">
+        <div class="sec-head"><h2 class="folio">CÓMO <b>APARTAR</b> TU LUGAR</h2></div>
+        <article class="compra" data-reveal>
+          <p class="folio">{EMPIEZA.fechaTexto.toUpperCase()} · <b>{EMPIEZA.horario.toUpperCase()}</b></p>
+          <p class="precio"><b>{EMPIEZA.precioTexto}</b> <span>pago único, más tu cuenta de {EMPIEZA.herramienta.nombre}</span></p>
+          <ul class="incluye">
+            {INCLUYE.map((item) => (
+              <li>{item}</li>
+            ))}
+          </ul>
+          {vigente && EMPIEZA.url ? (
+            <a class="btn btn-primary" href={EMPIEZA.url} rel="noopener">Apartar mi lugar</a>
+          ) : vigente ? (
+            <p class="espera-texto">La inscripción abre en unos días. Si quieres que te avise, <a href="/contacto">escríbeme</a>.</p>
+          ) : (
+            <p class="espera-texto">Esta fecha ya pasó. La siguiente se anuncia en el boletín y en <a href="/jueves">Jueves de ContadorIA</a>.</p>
+          )}
+          <p class="garantia folio">// {EMPIEZA.garantia.toUpperCase()}</p>
+        </article>
+      </div>
+    </section>
+
+    <section>
+      <div class="container-narrow">
+        <div class="sec-head"><h2 class="folio">QUIÉN <b>LO DA</b></h2></div>
+        <div class="autor" data-reveal>
+          <img src="/assets/israel-castro.jpg" alt="Israel Castro" width="120" height="120" loading="lazy" />
+          <div>
+            <p>
+              Soy Israel Castro, contador público con 14 años de ejercicio y
+              desarrollador de software. Empecé capturando pólizas y peleándome
+              con el portal del SAT, igual que tú.
+            </p>
+            <p>
+              Cada jueves resuelvo un problema de despacho en vivo en{" "}
+              <a href="/jueves">Jueves de ContadorIA</a>, y doy los módulos de
+              Claude Code y de Excel en {COLABORACION?.nombre ?? "Claude para Contadores"}. Este taller
+              es lo que le daría a alguien antes de cualquiera de las dos cosas.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="container-narrow">
+        <div class="sec-head"><h2 class="folio">PREGUNTAS <b>DIRECTAS</b></h2></div>
+        <FaqBlock items={FAQ_EMPIEZA} />
+      </div>
+    </section>
+  </main>
+</BaseLayout>
+
+<style>
+  section {
+    padding: 3.4rem 0;
+  }
+  .hero {
+    padding-top: 4.5rem;
+  }
+  .hero-grid {
+    display: grid;
+    grid-template-columns: 1.15fr 0.85fr;
+    gap: 3.2rem;
+    align-items: start;
+  }
+  @media (max-width: 880px) {
+    .hero-grid {
+      grid-template-columns: 1fr;
+      gap: 2.4rem;
+    }
+  }
+  .titulo-xl .hl {
+    --hl-abajo: 0.22em;
+  }
+  .hero-headline {
+    margin: 0.7rem 0 1.4rem;
+    font-family: var(--font-serif-detail);
+    font-style: italic;
+    font-size: clamp(1.15rem, 2vw, 1.4rem);
+    color: var(--color-ink-soft);
+  }
+  .hero-gancho {
+    margin: 0;
+    font-size: 1.12rem;
+    font-weight: 500;
+    line-height: 1.45;
+    max-width: 48ch;
+  }
+  .tenue {
+    color: var(--color-ink-dim);
+  }
+  .hero-precio {
+    margin-top: 1.8rem;
+  }
+  .precio {
+    margin: 0 0 1rem;
+    font-family: var(--font-mono);
+  }
+  .precio b {
+    font-size: 1.9rem;
+    font-weight: 700;
+    color: var(--color-accent);
+    letter-spacing: -0.02em;
+  }
+  .precio span {
+    display: block;
+    margin-top: 0.2rem;
+    color: var(--color-ink-dim);
+    font-size: 0.85rem;
+  }
+  .hero-acciones {
+    display: flex;
+    gap: 0.9rem;
+    flex-wrap: wrap;
+  }
+  /* Un botón que todavía no lleva a ningún lado se ve como botón para que el
+     lugar del CTA no cambie cuando entre el enlace, pero apagado por color
+     (no por opacidad: contraste) y sin cursor. */
+  .btn-espera {
+    background: var(--color-ink-dim);
+    cursor: default;
+  }
+
+  /* Los tres entregables, en tarjeta: son el argumento entero */
+  .entregables {
+    border: 1px solid var(--color-line-strong);
+    border-radius: var(--radius-md);
+    background: var(--color-surface-raised);
+    box-shadow: 10px 10px 0 var(--color-accent-soft);
+    padding: 1.6rem 1.8rem 1.2rem;
+  }
+  .entregables ol {
+    list-style: none;
+    margin: 0.8rem 0 0;
+    padding: 0;
+  }
+  .entregables li {
+    display: grid;
+    grid-template-columns: 2.4rem 1fr;
+    gap: 0.8rem;
+    padding: 0.9rem 0;
+    border-top: 1px solid var(--color-line);
+  }
+  .entregable-num {
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--color-accent);
+  }
+  .entregables b {
+    display: block;
+    font-size: 1rem;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+  }
+  .entregable-texto {
+    display: block;
+    margin-top: 0.2rem;
+    font-size: 0.9rem;
+    color: var(--color-ink-soft);
+  }
+
+  .perfiles {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.4rem;
+  }
+  @media (max-width: 800px) {
+    .perfiles {
+      grid-template-columns: 1fr;
+    }
+  }
+  .perfil {
+    border: 1px solid var(--color-line-strong);
+    border-radius: var(--radius-md);
+    background: var(--color-surface-raised);
+    padding: 1.4rem 1.6rem;
+  }
+  .perfil h3 {
+    margin: 0 0 0.5rem;
+    font-size: 1.1rem;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+  }
+  .perfil p {
+    margin: 0;
+    color: var(--color-ink-soft);
+    font-size: 0.95rem;
+  }
+  .no-es {
+    margin: 1.8rem 0 0;
+    color: var(--color-ink-soft);
+    max-width: 62ch;
+  }
+  .no-es a {
+    font-weight: 700;
+    color: var(--color-accent);
+    text-decoration: none;
+  }
+
+  .intro-bloques {
+    margin: 0 0 1.8rem;
+    color: var(--color-ink-soft);
+    max-width: 56ch;
+  }
+  .bloques {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    border-top: 1px solid var(--color-line);
+  }
+  .bloque {
+    display: grid;
+    grid-template-columns: 8rem 1fr;
+    gap: 1.4rem;
+    padding: 1.3rem 0;
+    border-bottom: 1px solid var(--color-line);
+  }
+  @media (max-width: 640px) {
+    .bloque {
+      grid-template-columns: 1fr;
+      gap: 0.4rem;
+    }
+  }
+  .bloque h3 {
+    margin: 0 0 0.4rem;
+    font-size: 1.15rem;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+  }
+  .bloque p {
+    margin: 0;
+    color: var(--color-ink-soft);
+    max-width: 64ch;
+  }
+  .bloque-sale {
+    margin-top: 0.6rem !important;
+    color: var(--color-ink) !important;
+  }
+  .bloque-sale .folio {
+    margin-right: 0.4rem;
+  }
+
+  .necesitas-sec {
+    background: var(--color-surface);
+  }
+  .necesitas p {
+    margin: 0 0 1rem;
+    color: var(--color-ink-soft);
+  }
+  .necesitas p:last-child {
+    margin-bottom: 0;
+  }
+  .necesitas b {
+    color: var(--color-ink);
+  }
+
+  .prueba {
+    margin: 0;
+    padding-left: 1.2rem;
+    border-left: 2px solid var(--color-marker);
+  }
+  .prueba blockquote {
+    margin: 0 0 0.8rem;
+    padding: 0;
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-size: clamp(1.5rem, 2.8vw, 2rem);
+    line-height: 1.16;
+    color: var(--color-ink);
+  }
+  .prueba-texto {
+    margin: 0;
+    color: var(--color-ink-soft);
+    max-width: 58ch;
+  }
+  .prueba-texto a {
+    font-weight: 700;
+    color: var(--color-accent);
+    text-decoration: none;
+  }
+
+  .compra {
+    max-width: 34rem;
+    border: 1px solid var(--color-line-strong);
+    border-radius: var(--radius-md);
+    background: var(--color-surface-raised);
+    box-shadow: 8px 8px 0 var(--color-accent-soft);
+    padding: 1.9rem 2rem;
+  }
+  .compra .precio {
+    margin: 0.9rem 0 1.3rem;
+  }
+  .incluye {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 1.8rem;
+  }
+  .incluye li {
+    padding: 0.55rem 0 0.55rem 1.6rem;
+    position: relative;
+    color: var(--color-ink-soft);
+    border-bottom: 1px solid var(--color-line);
+    font-size: 0.94rem;
+  }
+  .incluye li::before {
+    content: "✓";
+    position: absolute;
+    left: 0;
+    font-family: var(--font-mono);
+    font-weight: 700;
+    color: var(--color-accent);
+  }
+  .espera-texto {
+    margin: 0;
+    color: var(--color-ink-soft);
+  }
+  .espera-texto a {
+    font-weight: 700;
+    color: var(--color-accent);
+    text-decoration: none;
+  }
+  .garantia {
+    margin: 1.4rem 0 0;
+  }
+
+  .autor {
+    display: grid;
+    grid-template-columns: 120px 1fr;
+    gap: 1.8rem;
+    align-items: start;
+  }
+  @media (max-width: 700px) {
+    .autor {
+      grid-template-columns: 1fr;
+    }
+  }
+  .autor img {
+    border-radius: 50%;
+  }
+  .autor p {
+    margin: 0 0 0.9rem;
+    color: var(--color-ink-soft);
+  }
+  .autor p:last-child {
+    margin-bottom: 0;
+  }
+  .autor a {
+    color: var(--color-accent);
+    font-weight: 700;
+    text-decoration: none;
+  }
+</style>

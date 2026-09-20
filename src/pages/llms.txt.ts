@@ -16,6 +16,7 @@
 import type { APIRoute } from "astro";
 
 import { TALLER } from "../lib/capacitacion";
+import { EMPIEZA } from "../lib/empieza";
 import { EBOOK, PERSONA, SITE } from "../lib/site";
 
 /** Etiqueta legible de cada perfil, por dominio. */
@@ -48,6 +49,11 @@ const PAGINAS: Array<{ ruta: string; titulo: string; que: string }> = [
     ruta: "/capacitacion",
     titulo: "Capacitación",
     que: `el taller de ${TALLER.duracion}, con una edición nueva cada mes (se compra UNA edición, no es suscripción); se cotiza por correo, igual que la capacitación para empresas y despachos y el licenciamiento para organizaciones`,
+  },
+  {
+    ruta: "/empieza",
+    titulo: `Taller: ${EMPIEZA.nombreCompleto}`,
+    que: `taller en vivo de 2 horas para contadores sin experiencia en IA (${EMPIEZA.fechaTexto.toLowerCase()}, ${EMPIEZA.precioTexto}, pago único; requiere cuenta de ${EMPIEZA.herramienta.nombre}, que se paga aparte). Es el paso anterior al curso Claude para Contadores`,
   },
   {
     ruta: "/despachos",

@@ -4,6 +4,7 @@
  */
 
 import { APENDICES, COMPRA, EDICION, PARTES } from "./ebook";
+import { EMPIEZA } from "./empieza";
 import { CLUB, EBOOK, PERSONA, PROGRAMA, SITE, TRAILER } from "./site";
 import type { FaqItem } from "./faqs";
 import type { Testimonio } from "./testimonios";
@@ -173,6 +174,50 @@ export function ebookBook(): JsonLdObject {
       priceCurrency: "MXN",
       availability: "https://schema.org/InStock",
       url: `${SITE.url}/ebook`,
+    },
+  };
+}
+
+/**
+ * Taller "Empieza aquí" como Course + CourseInstance + Offer. Aquí el precio
+ * SÍ se publica: es producto de precio fijo, como el ebook, y la regla de no
+ * publicar es del high ticket. `teaches` es lo que el buscador cita.
+ */
+export function empiezaCourse(): JsonLdObject {
+  return {
+    "@type": "Course",
+    "@id": `${SITE.url}/empieza#taller`,
+    name: EMPIEZA.nombreCompleto,
+    description: EMPIEZA.descripcion,
+    url: `${SITE.url}/empieza`,
+    provider: personRef(),
+    instructor: personRef(),
+    inLanguage: "es-MX",
+    educationalLevel: "Beginner",
+    audience: { "@type": "Audience", audienceType: "Contadores públicos en México sin experiencia previa en IA" },
+    teaches: [
+      "Cómo pedirle a Claude una consulta fiscal que cite el fundamento legal",
+      "Cómo configurar un proyecto de Claude para un despacho contable",
+      "Qué datos de clientes nunca se suben a un chat de IA",
+      "Cómo convertir un lote de XML (CFDI) en una tabla revisada",
+    ],
+    hasCourseInstance: {
+      "@type": "CourseInstance",
+      courseMode: "Online",
+      courseWorkload: "PT2H",
+      startDate: `${EMPIEZA.inicio}T11:00:00-06:00`,
+      endDate: `${EMPIEZA.inicio}T13:00:00-06:00`,
+      location: { "@type": "VirtualLocation", url: `${SITE.url}/empieza` },
+      maximumAttendeeCapacity: EMPIEZA.cupo,
+    },
+    offers: {
+      "@type": "Offer",
+      name: EMPIEZA.nombreCompleto,
+      price: EMPIEZA.precio,
+      priceCurrency: "MXN",
+      availability: "https://schema.org/InStock",
+      validThrough: `${EMPIEZA.inicio}T11:00:00-06:00`,
+      url: `${SITE.url}/empieza`,
     },
   };
 }
