@@ -115,6 +115,11 @@ nada de ahí a una página sin revisar la tabla de precios de este archivo.
   vende a Israel.** Instagram sirve a A y no se mide con leads de despacho; a B
   se le cierra en LinkedIn y en el sitio.
 
+- `docs/jueves/episodios.csv`: la base de episodios de Jueves de ContadorIA
+  (emitidos, con live y corte, y los que vienen). Es la fuente única del
+  calendario del canal; lo que se decida sobre temas futuros se escribe ahí,
+  no en memoria de sesión. Columnas en `docs/jueves/README.md`.
+
 La metodología es la de Eloisa Wolf. La oferta de despachos ya está
 productizada en `todoconta-apps/docs/taller-ia-despachos.md`: no se redefine
 aquí.
