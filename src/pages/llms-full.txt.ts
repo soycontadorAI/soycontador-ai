@@ -17,7 +17,7 @@ import { CLUB, EBOOK, PERSONA, PROGRAMA, SITE } from "../lib/site";
 import { CASO_GASOLINERA, SOLUCIONES } from "../lib/soluciones";
 import { TESTIMONIOS } from "../lib/testimonios";
 
-function faqMd(items: { pregunta: string; respuesta: string }[]): string {
+function faqMd(items: readonly { pregunta: string; respuesta: string }[]): string {
   return items.map((f) => `### ${f.pregunta}\n\n${f.respuesta}`).join("\n\n");
 }
 
