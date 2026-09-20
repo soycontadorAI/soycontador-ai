@@ -54,6 +54,12 @@ export const EDICIONES: readonly Edicion[] = [
   // { inicio: "2026-10-24", fechaTexto: "Sábado 24 de octubre", checkout: null },
 ];
 
+/**
+ * El ángulo es de Israel (2026-09-20): esta página existe para quien vio
+ * Claude para Contadores y sintió que todavía no era para él. Por eso el hero
+ * nombra el curso de frente y dice "el paso de antes", no "una alternativa":
+ * es la misma escalera.
+ */
 export const EMPIEZA = {
   nombre: "Empieza aquí",
   titulo: "Claude para contadores en 2 horas",
@@ -67,7 +73,12 @@ export const EMPIEZA = {
   cupo: 25,
   precio: "697",
   precioTexto: "$697 MXN",
-  /** Lo que se paga aparte, dicho de frente: es parte del precio real */
+  /**
+   * Lo que se paga aparte, dicho de frente como parte del precio real y no
+   * como requisito seco: la mayoría de quien compra esto no paga ninguna
+   * herramienta hoy, y el trámite espanta más que el costo. El porqué del
+   * plan de pago (límites del gratuito en vivo) está en la FAQ.
+   */
   herramienta: {
     nombre: "Claude Pro",
     costoTexto: "unos $400 MXN al mes",

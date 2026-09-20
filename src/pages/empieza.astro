@@ -64,12 +64,6 @@ const CTA: Enlace = urlAbierta
           <p class="folio">TALLER EN VIVO · <b>{fechaFolio.toUpperCase()}</b> · 11:00</p>
           <h1 class="titulo-xl">{EMPIEZA.nombre}: <span class="hl">{EMPIEZA.titulo}</span></h1>
           <p class="hero-headline">Sales con tres cosas hechas, no con apuntes.</p>
-          {/*
-            El ángulo es de Israel (2026-09-20): esta página existe para quien
-            vio Claude para Contadores y sintió que todavía no era para él.
-            Por eso se nombra el curso de frente y se dice "el paso de antes",
-            no "una alternativa": es la misma escalera.
-          */}
           <p class="hero-gancho">
             ¿Viste {COLABORACION?.nombre ?? "Claude para Contadores"} y sentiste que todavía no es para ti?{" "}
             <span class="tenue">Este es el paso de antes. Dos horas, y empiezas a sacarle provecho.</span>
@@ -162,12 +156,6 @@ const CTA: Enlace = urlAbierta
       <div class="container-narrow">
         <div class="sec-head"><h2 class="folio">LO QUE <b>NECESITAS</b></h2></div>
         <div class="necesitas" data-reveal>
-          {/*
-            Claude Pro se pide como parte del precio real, no como requisito
-            seco: la mayoría de quien compra esto no paga ninguna herramienta
-            hoy, y el trámite espanta más que el costo. El porqué del plan de
-            pago (límites del gratuito en vivo) está en la FAQ.
-          */}
           <p>
             <b>Una cuenta de {EMPIEZA.herramienta.nombre}.</b> Cuesta aparte,
             {" "}{EMPIEZA.herramienta.costoTexto}, y es la misma que vas a usar

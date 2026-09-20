@@ -88,6 +88,13 @@ export interface Colaboracion {
   fin?: string;
 }
 
+/**
+ * No es el taller de Israel y la página no puede sugerir que lo sea: lo
+ * encabeza otra persona, lo vende otra plataforma y él da una parte. Por eso
+ * el bloque dice quién, dónde y qué parte da, y el precio que se publica es
+ * el de ESE curso, no el suyo. Sin JSON-LD de oferta a propósito: no se emite
+ * un precio de algo que no vende.
+ */
 export const COLABORACION: Colaboracion | null = {
   nombre: "Claude para Contadores",
   imparte: "José de Jesús Pérez Lara",
