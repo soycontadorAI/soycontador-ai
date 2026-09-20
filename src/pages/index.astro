@@ -8,7 +8,7 @@ import VideoFacade from "../components/VideoFacade.astro";
 import { Icon } from "astro-icon/components";
 import { FAQ_HOME } from "../lib/faqs";
 import { faqPage, graph, person, testimonioVideo, webSite } from "../lib/schema";
-import { EBOOK, SITE } from "../lib/site";
+import { CTA_DIAGNOSTICO, EBOOK, NAV_HOME, SITE } from "../lib/site";
 import { TESTIMONIOS } from "../lib/testimonios";
 
 const jsonLd = graph(
@@ -99,7 +99,7 @@ const lineasTerminal = [
 ];
 ---
 
-<BaseLayout jsonLd={jsonLd}>
+<BaseLayout jsonLd={jsonLd} nav={NAV_HOME} cta={CTA_DIAGNOSTICO}>
   <main>
     <!--
       La portada de F: solo tipografía y aire. La pila de tarjetas que vivía
