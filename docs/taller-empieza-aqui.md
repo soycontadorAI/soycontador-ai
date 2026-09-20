@@ -1,6 +1,6 @@
 # Taller "Empieza aquí": Claude para contadores en 2 horas
 
-Producto nuevo, en definición (2026-09-20). Sale de la pregunta abierta de la
+Producto nuevo, definido el 2026-09-20 (todas las decisiones tomadas; falta construir la página y producir el material). Sale de la pregunta abierta de la
 encuesta de agosto (`jueves/encuesta-2026-08.md`): "si diseñáramos un taller
 práctico de 2 horas, ¿sobre qué te urge que sea?". 14 de 60 pidieron "las
 bases", 27 dijeron que ChatGPT les contesta como blog, y 15 no la usan. Ese
@@ -94,7 +94,9 @@ sirve de respiro.
 - Material: los datos ficticios, los prompts del taller, la guía de 5
   prompts y una lista de verificación de "qué nunca se sube".
 - Cobro: checkout de nas.io, igual que el ebook. Sin formulario ni cotización:
-  a este precio se compra, no se pregunta.
+  a este precio se compra, no se pregunta. nas.io permite cupones con fecha de
+  caducidad: el precio de lanzamiento es un cupón que vence el 12 de octubre,
+  no un segundo checkout.
 
 ## Precio (decidido por Israel el 2026-09-20)
 
@@ -107,12 +109,16 @@ vivo, cupo 25, con tarea hecha:
   tiempo), y por hora cuesta más que el curso, que es lo correcto: el grupo
   chico y el "cero conocimiento previo" son lo caro.
 - Precio de lanzamiento para quienes contestaron la encuesta: **$497**, por
-  siete días, porque ellos lo pidieron. Aprobado. No es descuento público: es un correo
+  siete días, porque ellos lo pidieron. Aprobado. Mecánica: cupón de nas.io
+  con vencimiento el 12 de octubre, enviado solo al segmento de Sendy de
+  quienes contestaron la encuesta. El cupón no se publica en la página ni en
+  redes: es un correo a 60 personas. No es descuento público: es un correo
   a 60 personas.
-- Se publica en la página. La regla de "el taller no publica precio" nació de
-  una página donde convivía con los $3,500 del curso; esta página es suya y no
-  tiene con qué compararse. Pero hay que meterlo en los cuatro lugares (página,
-  JSON-LD, `llms.txt`, `llms-full.txt`) o en ninguno.
+- Se publica en la página. Israel aclaró la regla (2026-09-20): "el taller
+  no publica precio" aplica a las páginas de high ticket, donde cada caso se
+  evalúa y no hay precio fijo. Los productos de precio fijo (el ebook, este
+  taller) lo publican. Va en los cuatro lugares (página, JSON-LD, `llms.txt`,
+  `llms-full.txt`) o en ninguno.
 
 ## Calendario propuesto
 
@@ -195,13 +201,23 @@ Asunto: **Tu lugar del 17 de octubre, y cinco minutos de tarea**
 
 ## Decisiones tomadas (2026-09-20)
 
-1. Precio: $697, con $497 de lanzamiento para los 60 de la encuesta.
+1. Precio: $697, con $497 de lanzamiento para los 60 de la encuesta, vía
+   cupón de nas.io con vencimiento el 12 de octubre, al segmento de Sendy que
+   contestó la encuesta.
 2. Solo Claude, y Claude Pro obligatorio, pedido como parte del precio real
    y con los tres apoyos de arriba.
+3. Fecha: sábado 17 de octubre, 11:00 a 13:00, hora del centro.
+4. Cobro: nas.io.
+5. El precio se publica en la página, en los cuatro lugares.
 
-## Decisiones pendientes de Israel
+## Lo que sigue (construcción)
 
-1. Fecha (17 de octubre es la propuesta; la alternativa es el 24).
-2. Cobro por nas.io o por otro lado.
-3. Si se publica el precio en la página (recomendación: sí, en los cuatro
-   lugares).
+- [ ] `src/lib/empieza.ts` con el copy, y la página `/empieza` (estructura de
+      `/ebook`), con JSON-LD `Course` + `Offer` y su FAQ.
+- [ ] Precio en `llms.txt` y `llms-full.txt`.
+- [ ] Producto y cupón en nas.io (Israel).
+- [ ] Segmento en Sendy de quienes contestaron la encuesta (Israel).
+- [ ] Datos ficticios del taller (lote de XML) y los prompts, en el repo
+      público del canal.
+- [ ] Video "cómo sacar tu cuenta de Claude" para el destacado (Israel).
+- [ ] Correo de confirmación cargado donde nas.io lo dispare, con las capturas.
