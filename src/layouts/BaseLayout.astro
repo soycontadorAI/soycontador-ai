@@ -183,6 +183,14 @@ const pieLinks = desnudo ? FOOTER_LINKS.filter((l) => !l.href.startsWith("http")
     padding: 0;
     flex-wrap: wrap;
   }
+  /* Solo en la cabecera van sin envolver: con cuatro entradas, entre 760 y
+     880 px la última se caía a un segundo renglón. Antes de que no quepan se
+     esconden (regla de abajo). El pie SÍ envuelve: ahí son diez enlaces y
+     sin wrap se salían del ancho de la página. */
+  .site-nav .site-links {
+    flex-wrap: nowrap;
+    white-space: nowrap;
+  }
   .site-links a {
     text-decoration: none;
     font-size: 0.88rem;
@@ -228,6 +236,12 @@ const pieLinks = desnudo ? FOOTER_LINKS.filter((l) => !l.href.startsWith("http")
     border-bottom: 1px solid var(--color-line);
     padding-block: 1.4rem;
   }
+  .site-foot-paginas .site-links {
+    gap: 0.6rem 1.5rem;
+  }
+  .site-foot-paginas a {
+    font-size: 0.82rem;
+  }
   .site-foot {
     display: flex;
     justify-content: space-between;
@@ -244,7 +258,7 @@ const pieLinks = desnudo ? FOOTER_LINKS.filter((l) => !l.href.startsWith("http")
     text-transform: uppercase;
     color: var(--color-ink-dim);
   }
-  @media (max-width: 760px) {
+  @media (max-width: 880px) {
     .site-nav .site-links {
       display: none;
     }

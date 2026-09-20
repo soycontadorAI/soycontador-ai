@@ -147,6 +147,7 @@ export const MEDICION = {
 
 export const NAV = [
   { label: "Quién soy", href: "/#quien" },
+  { label: "Testimonios", href: "/#testimonios" },
   { label: "Qué encuentras aquí", href: "/#ofertas" },
   { label: "Preguntas", href: "/#faq" },
 ] as const;
@@ -155,6 +156,7 @@ export const NAV = [
 export const NAV_PAGINAS = [
   { label: "Sobre mí", href: "/sobre-mi" },
   { label: "Capacitación", href: "/capacitacion" },
+  { label: "Taller: Empieza aquí", href: "/empieza" },
   { label: "Capacitación para despachos", href: "/despachos" },
   { label: "Soluciones a la medida", href: "/soluciones" },
   { label: "Herramientas", href: "/herramientas" },
