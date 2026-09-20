@@ -175,15 +175,19 @@ const pieLinks = desnudo ? FOOTER_LINKS.filter((l) => !l.href.startsWith("http")
     letter-spacing: -0.02em;
     color: var(--color-accent);
   }
-  /* Sin wrap: con cuatro entradas, entre 760 y 880 px la última se caía a
-     un segundo renglón y el encabezado crecía. Antes de que no quepan, se
-     esconden (regla de abajo), como ya pasaba en móvil. */
   .site-links {
     display: flex;
     gap: 1.5rem;
     list-style: none;
     margin: 0;
     padding: 0;
+    flex-wrap: wrap;
+  }
+  /* Solo en la cabecera van sin envolver: con cuatro entradas, entre 760 y
+     880 px la última se caía a un segundo renglón. Antes de que no quepan se
+     esconden (regla de abajo). El pie SÍ envuelve: ahí son diez enlaces y
+     sin wrap se salían del ancho de la página. */
+  .site-nav .site-links {
     flex-wrap: nowrap;
     white-space: nowrap;
   }
@@ -231,6 +235,12 @@ const pieLinks = desnudo ? FOOTER_LINKS.filter((l) => !l.href.startsWith("http")
   .site-foot-paginas {
     border-bottom: 1px solid var(--color-line);
     padding-block: 1.4rem;
+  }
+  .site-foot-paginas .site-links {
+    gap: 0.6rem 1.5rem;
+  }
+  .site-foot-paginas a {
+    font-size: 0.82rem;
   }
   .site-foot {
     display: flex;
