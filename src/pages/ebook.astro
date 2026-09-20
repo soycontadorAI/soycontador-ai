@@ -4,7 +4,15 @@ import FaqBlock from "../components/FaqBlock.astro";
 import NewsletterForm from "../components/NewsletterForm.astro";
 import { APENDICES, COMPRA, EBOOK_META, EDICION, FAQ_EBOOK, PARTES } from "../lib/ebook";
 import { breadcrumbs, ebookBook, faqPage, graph } from "../lib/schema";
-import { EBOOK, SITE } from "../lib/site";
+import { EBOOK, SITE, type Enlace } from "../lib/site";
+
+const NAV: readonly Enlace[] = [
+  { label: "Por qué", href: "#por-que" },
+  { label: "Temario", href: "#temario" },
+  { label: "Muestra gratis", href: "#muestra" },
+  { label: "Preguntas", href: "#faq" },
+];
+const CTA: Enlace = { label: "Comprar el libro", href: COMPRA.ebook.url };
 
 const jsonLd = graph(
   ebookBook(),
@@ -22,6 +30,8 @@ const totalCapitulos = PARTES.reduce((n, parte) => n + parte.piezas.length, 0);
   title="IA para Contadores: el ebook para entender la inteligencia artificial"
   description="Ebook de Israel Castro para contadores mexicanos: 17 capítulos y 3 apéndices que explican cómo funciona la inteligencia artificial con analogías contables. Cero código, contexto SAT y CFDI. $297 MXN, con muestra gratuita."
   jsonLd={jsonLd}
+  nav={NAV}
+  cta={CTA}
 >
   <main>
     <section class="hero">
@@ -57,7 +67,7 @@ const totalCapitulos = PARTES.reduce((n, parte) => n + parte.piezas.length, 0);
       </div>
     </section>
 
-    <section>
+    <section id="por-que">
       <div class="container-narrow">
         <div class="sec-head"><h2 class="folio">POR QUÉ <b>ESTE LIBRO</b></h2></div>
         <div class="argumento" data-reveal>
@@ -85,7 +95,7 @@ const totalCapitulos = PARTES.reduce((n, parte) => n + parte.piezas.length, 0);
       </div>
     </section>
 
-    <section>
+    <section id="temario">
       <div class="container-default">
         <div class="sec-head"><h2 class="folio">EL <b>TEMARIO</b> COMPLETO</h2></div>
         <div class="temario">
@@ -199,7 +209,7 @@ const totalCapitulos = PARTES.reduce((n, parte) => n + parte.piezas.length, 0);
       </div>
     </section>
 
-    <section>
+    <section id="faq">
       <div class="container-narrow">
         <div class="sec-head"><h2 class="folio">PREGUNTAS <b>DIRECTAS</b></h2></div>
         <FaqBlock items={FAQ_EBOOK} />

@@ -4,7 +4,13 @@ import FaqBlock from "../components/FaqBlock.astro";
 import LeadForm from "../components/LeadForm.astro";
 import { FAQ_CLUB } from "../lib/faqs";
 import { breadcrumbs, clubService, faqPage, graph } from "../lib/schema";
-import { CLUB, SITE } from "../lib/site";
+import { CLUB, SITE, type Enlace } from "../lib/site";
+
+const NAV: readonly Enlace[] = [
+  { label: "Los 3 pilares", href: "#pilares" },
+  { label: "Preguntas", href: "#faq" },
+];
+const CTA: Enlace = { label: "Aplicar al Club", href: "#aplicar" };
 
 const jsonLd = graph(
   clubService(),
@@ -20,6 +26,8 @@ const jsonLd = graph(
   title="Club de Automatización Fiscal: membresía para automatizar tu despacho"
   description="Membresía anual con lugares limitados para despachos contables en México: TodoConta con conexión MCP, un bootcamp de implementación en vivo cada mes y soporte humano cuando el equipo se atora. La entrada es por aplicación."
   jsonLd={jsonLd}
+  nav={NAV}
+  cta={CTA}
 >
   <main>
     <section class="encabezado">
@@ -37,7 +45,7 @@ const jsonLd = graph(
       </div>
     </section>
 
-    <section>
+    <section id="pilares">
       <div class="container-default">
         <div class="sec-head"><h2 class="folio">LOS <b>3 PILARES</b></h2></div>
         <div class="grid3">
@@ -71,7 +79,7 @@ const jsonLd = graph(
       </div>
     </section>
 
-    <section>
+    <section id="faq">
       <div class="container-narrow">
         <div class="sec-head"><h2 class="folio">PREGUNTAS <b>DIRECTAS</b></h2></div>
         <FaqBlock items={FAQ_CLUB} />

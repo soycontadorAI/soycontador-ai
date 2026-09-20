@@ -5,8 +5,16 @@ import FlujoConcentrado from "../components/FlujoConcentrado.astro";
 import LeadForm from "../components/LeadForm.astro";
 import { FAQ_SOLUCIONES } from "../lib/faqs";
 import { breadcrumbs, faqPage, graph, solucionesService } from "../lib/schema";
-import { SITE } from "../lib/site";
+import { SITE, type Enlace } from "../lib/site";
 import { CASO_GASOLINERA, SOLUCIONES, VIGIA } from "../lib/soluciones";
+
+const NAV: readonly Enlace[] = [
+  { label: "Caso real", href: "#caso" },
+  { label: "Qué construyo", href: "#que-construyo" },
+  { label: "Vigía fiscal", href: "#vigia-fiscal" },
+  { label: "Preguntas", href: "#faq" },
+];
+const CTA: Enlace = { label: "Cotiza tu proceso", href: "#contacto" };
 
 const jsonLd = graph(
   solucionesService(),
@@ -22,6 +30,8 @@ const jsonLd = graph(
   title="Soluciones a la medida: automatización de procesos contables"
   description="¿Prefieres que lo haga por ti? Automatizo procesos contables y fiscales de despachos y empresas en México: reportes recurrentes, conciliaciones y concentrados que hoy haces a mano, convertidos en herramientas que corren en segundos."
   jsonLd={jsonLd}
+  nav={NAV}
+  cta={CTA}
 >
   <main>
     <section class="encabezado">
@@ -36,7 +46,7 @@ const jsonLd = graph(
       </div>
     </section>
 
-    <section>
+    <section id="caso">
       <div class="container-default">
         <div class="sec-head"><h2 class="folio">CASO <b>REAL</b> · CORTES DE GASOLINERA</h2></div>
         <div class="caso">
@@ -58,7 +68,7 @@ const jsonLd = graph(
       </div>
     </section>
 
-    <section>
+    <section id="que-construyo">
       <div class="container-default">
         <div class="sec-head"><h2 class="folio">QUÉ <b>PUEDO CONSTRUIRTE</b></h2></div>
         <div class="grid3" data-reveal>
@@ -124,7 +134,7 @@ const jsonLd = graph(
       </div>
     </section>
 
-    <section>
+    <section id="faq">
       <div class="container-narrow">
         <div class="sec-head"><h2 class="folio">PREGUNTAS <b>DIRECTAS</b></h2></div>
         <FaqBlock items={FAQ_SOLUCIONES} />

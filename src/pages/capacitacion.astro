@@ -15,13 +15,21 @@ import {
 } from "../lib/capacitacion";
 import { FAQ_CAPACITACION } from "../lib/faqs";
 import { breadcrumbs, capacitacionService, faqPage, graph } from "../lib/schema";
-import { SITE } from "../lib/site";
+import { SITE, type Enlace } from "../lib/site";
 
 /** Null si la fecha ya pasó: nunca se anuncia una edición vencida. */
 const edicion = edicionVigente();
 /** Mismo criterio para el curso en el que Israel participa como invitado. */
 const colaboracion = colaboracionVigente();
 const empiezaAbierta = edicionAbierta();
+
+const NAV: readonly Enlace[] = [
+  { label: "El taller", href: "#taller" },
+  ...(colaboracion ? [{ label: "Como invitado", href: "#invitado" }] : []),
+  { label: "Empresas", href: "#empresas" },
+  { label: "Preguntas", href: "#faq" },
+];
+const CTA: Enlace = { label: "Cuéntame de tu equipo", href: "#precalificacion" };
 
 const jsonLd = graph(
   capacitacionService(),
@@ -37,6 +45,8 @@ const jsonLd = graph(
   title="Capacitación en IA para contadores y despachos contables"
   description="Talleres de inteligencia artificial aplicada al trabajo fiscal en México: el taller de 8 horas en sesiones de 2 horas, con 30 días de acompañamiento, más capacitación para empresas y despachos y licenciamiento para organizaciones y capacitadoras."
   jsonLd={jsonLd}
+  nav={NAV}
+  cta={CTA}
 >
   <main>
     <section class="encabezado">
@@ -71,7 +81,7 @@ const jsonLd = graph(
       </div>
     </section>
 
-    <section>
+    <section id="taller">
       <div class="container-default">
         <div class="sec-head"><h2 class="folio">MODALIDAD <b>01</b> · EL TALLER</h2></div>
         <div class="mensual" data-reveal>
@@ -119,7 +129,7 @@ const jsonLd = graph(
     </section>
 
     {colaboracion && (
-      <section class="colab-sec">
+      <section id="invitado" class="colab-sec">
         <div class="container-default">
           <div class="sec-head"><h2 class="folio">PRÓXIMA FECHA · <b>COMO INVITADO</b></h2></div>
           {/*
@@ -174,7 +184,7 @@ const jsonLd = graph(
       </section>
     )}
 
-    <section>
+    <section id="empresas">
       <div class="container-default">
         <div class="sec-head"><h2 class="folio">MODALIDAD <b>02</b> · EMPRESAS Y DESPACHOS</h2></div>
         <div class="dos-cols" data-reveal>
@@ -217,7 +227,7 @@ const jsonLd = graph(
       </div>
     </section>
 
-    <section>
+    <section id="faq">
       <div class="container-narrow">
         <div class="sec-head"><h2 class="folio">PREGUNTAS <b>DIRECTAS</b></h2></div>
         <FaqBlock items={FAQ_CAPACITACION} />
