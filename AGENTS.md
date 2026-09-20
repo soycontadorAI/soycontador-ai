@@ -24,7 +24,11 @@ Stack: Astro 7 estático + adapter Vercel (solo `/api/newsletter` es serverless)
   decisión en una comparación de precio en vez de una de formato. El taller
   pasa a cotización por correo. Al retirarlo hay que sacarlo de CUATRO lugares,
   no solo de la tarjeta: la página, el nodo Offer del JSON-LD, `llms.txt` y
-  `llms-full.txt`. Ahí se escapa. El curso de Fiscalistas.AI publica
+  `llms-full.txt`. Ahí se escapa. **Aclaración de Israel (2026-09-20): la
+  regla de no publicar precio es para el high ticket**, donde cada caso se
+  evalúa y no hay precio fijo (taller de 8 horas, empresarial, organizaciones,
+  Club). Los productos de precio fijo SÍ lo publican: el ebook ($297) y el
+  taller "Empieza aquí" de 2 horas ($697; ver `docs/taller-empieza-aqui.md`). El curso de Fiscalistas.AI publica
   el suyo ($3,500 MXN) porque es precio público de ELLOS, no de Israel: por eso
   vive en `COLABORACION` y no en `TALLER`, y no se emite JSON-LD de oferta. NO publicar: el ancla de organizaciones
   ($3,500-4,000/hora, referencia interna de cotización), la capacitación empresarial
@@ -114,6 +118,15 @@ nada de ahí a una página sin revisar la tabla de precios de este archivo.
 - `docs/arquitectura-de-marca.md`: **TodoConta vende software, soycontador.ai
   vende a Israel.** Instagram sirve a A y no se mide con leads de despacho; a B
   se le cierra en LinkedIn y en el sitio.
+
+- `docs/jueves/episodios.csv`: la base de episodios de Jueves de ContadorIA
+  (emitidos, con live y corte, y los que vienen). Es la fuente única del
+  calendario del canal; lo que se decida sobre temas futuros se escribe ahí,
+  no en memoria de sesión. Columnas en `docs/jueves/README.md`.
+
+- `docs/instagram/perfil-landing.md`: el perfil de IG como landing (nombre,
+  bio, un enlace, destacados como menú y las stories fijas de "Empieza
+  aquí"). El lineamiento de origen está al lado.
 
 La metodología es la de Eloisa Wolf. La oferta de despachos ya está
 productizada en `todoconta-apps/docs/taller-ia-despachos.md`: no se redefine
