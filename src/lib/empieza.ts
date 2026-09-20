@@ -23,13 +23,36 @@ function conUtm(url: string, contenido: string): string {
 }
 
 /**
- * Checkout del evento en nas.com (Israel lo creó el 2026-09-20). Es la URL de
- * compra directa, con el boleto ya elegido, no la página del evento: un clic
- * menos. Si se cambia el evento (otra edición), se pega aquí la URL nueva. Si
- * queda vacía, la página no muestra el botón sino "abre en unos días".
+ * Las ediciones. El cupo de 25 no se sube: si una fecha se llena se abre la
+ * siguiente (decisión de Israel, 2026-09-20), y por eso esto es una lista.
+ * Cada edición es un evento distinto en nas.com con su propio checkout (la
+ * URL de compra directa, con el boleto elegido, no la página del evento).
+ *
+ * `agotado` se marca a mano en cuanto se venda el lugar 25: no sabemos si
+ * nas.com cierra el boleto solo al llegar al cupo, y mientras no se pruebe,
+ * el interruptor vive aquí. Una edición agotada se sigue mostrando (como
+ * prueba de que se llenó) mientras no haya pasado su fecha.
  */
-const CHECKOUT: string | null =
-  "https://nas.com/checkout-global?communityId=67ab5a14d444670df4027cad&communityCode=TODOCONTA_CLUB&sourceInfoType=event&sourceInfoOrigin=6aaf95ba7d4e46c810c12971&ticketCount=1&ticketTypeObjectId=6aaf95ba7d4e46c810c12972";
+export interface Edicion {
+  /** YYYY-MM-DD */
+  inicio: string;
+  fechaTexto: string;
+  /** Checkout directo en nas.com; null mientras el evento no exista */
+  checkout: string | null;
+  agotado?: boolean;
+}
+
+export const EDICIONES: readonly Edicion[] = [
+  {
+    inicio: "2026-10-17",
+    fechaTexto: "Sábado 17 de octubre",
+    checkout:
+      "https://nas.com/checkout-global?communityId=67ab5a14d444670df4027cad&communityCode=TODOCONTA_CLUB&sourceInfoType=event&sourceInfoOrigin=6aaf95ba7d4e46c810c12971&ticketCount=1&ticketTypeObjectId=6aaf95ba7d4e46c810c12972",
+  },
+  // Segunda edición, SOLO si la del 17 se llena: se destapa, se crea el
+  // evento en nas.com y se pega su checkout. Mientras, no existe para nadie.
+  // { inicio: "2026-10-24", fechaTexto: "Sábado 24 de octubre", checkout: null },
+];
 
 export const EMPIEZA = {
   nombre: "Empieza aquí",
@@ -38,28 +61,38 @@ export const EMPIEZA = {
   nombreCompleto: "Empieza aquí: Claude para contadores en 2 horas",
   descripcion:
     "Taller en vivo de 2 horas para contadores que no han usado inteligencia artificial o la probaron y les contestó como blog. Sales con un proyecto de Claude configurado para tu despacho, un prompt que cita el fundamento legal y tu primer lote de XML convertido en tabla y revisado. Sin conocimientos previos.",
-  inicio: "2026-10-17",
-  fechaTexto: "Sábado 17 de octubre",
   horario: "11:00 a 13:00, hora del centro de México",
   duracion: "2 horas en vivo",
   sede: "Por Zoom, con grabación disponible 30 días",
   cupo: 25,
   precio: "697",
   precioTexto: "$697 MXN",
-  url: CHECKOUT ? conUtm(CHECKOUT, "pagina") : null,
   /** Lo que se paga aparte, dicho de frente: es parte del precio real */
   herramienta: {
     nombre: "Claude Pro",
     costoTexto: "unos $400 MXN al mes",
   },
   garantia:
-    "Si cancelas antes del 15 de octubre te devuelvo el dinero completo. Si no puedes asistir en vivo, la grabación es tuya 30 días.",
+    "Si cancelas hasta dos días antes de tu fecha te devuelvo el dinero completo. Si no puedes asistir en vivo, la grabación es tuya 30 días.",
 } as const;
 
-/** El taller solo se vende mientras no haya pasado. Mismo criterio que el taller de 8 horas. */
-export function empiezaVigente(hoy = new Date()): boolean {
-  const limite = new Date(`${EMPIEZA.inicio}T23:59:59-06:00`);
-  return limite >= hoy;
+function limiteDe(e: Edicion): Date {
+  return new Date(`${e.inicio}T23:59:59-06:00`);
+}
+
+/** Las ediciones que todavía no pasan, en orden de fecha (agotadas incluidas). */
+export function edicionesVigentes(hoy = new Date()): Edicion[] {
+  return EDICIONES.filter((e) => limiteDe(e) >= hoy).sort((a, b) => a.inicio.localeCompare(b.inicio));
+}
+
+/** La primera edición con lugares y checkout: es a la que apunta el botón. Null si no hay. */
+export function edicionAbierta(hoy = new Date()): Edicion | null {
+  return edicionesVigentes(hoy).find((e) => !e.agotado && e.checkout) ?? null;
+}
+
+/** URL de compra de una edición, con UTM de la página. */
+export function checkoutDe(e: Edicion, contenido = "pagina"): string | null {
+  return e.checkout ? conUtm(e.checkout, contenido) : null;
 }
 
 /** La promesa: con qué sales. Es el argumento entero de la página. */
@@ -165,7 +198,7 @@ export const FAQ_EMPIEZA = [
   {
     pregunta: "¿Qué pasa si no puedo en vivo?",
     respuesta:
-      "La grabación es tuya 30 días. Pero el taller está hecho para hacerlo en vivo: cada bloque termina con algo hecho en tu pantalla, y en vivo puedes atorarte y preguntar. Si sabes que no vas a poder, mejor espera la siguiente fecha.",
+      "La grabación es tuya 30 días. Pero el taller está hecho para hacerlo en vivo: cada bloque termina con algo hecho en tu pantalla, y en vivo puedes atorarte y preguntar. Si sabes que no vas a poder, mejor espera la siguiente fecha: el cupo es de 25 y cuando una fecha se llena se abre otra.",
   },
   {
     pregunta: "¿Esto es el curso Claude para Contadores?",
@@ -173,8 +206,13 @@ export const FAQ_EMPIEZA = [
       "No: es el escalón anterior. Claude para Contadores son 8 horas en Fiscalistas.AI para ir a fondo, con Claude Code y Excel. Si sientes que ese todavía no es para ti, este taller es el paso de antes. Si ya usas proyectos de Claude, sáltate este y ve directo al curso.",
   },
   {
+    pregunta: "¿Por qué solo 25 lugares?",
+    respuesta:
+      "Porque en dos horas con gente que empieza en cero, cada bloque termina con algo hecho en la pantalla de cada quien, y con más gente eso se vuelve conferencia. El cupo no se sube: cuando una fecha se llena, se abre la siguiente.",
+  },
+  {
     pregunta: "¿Cuánto cuesta el taller?",
     respuesta:
-      "$697 MXN, pago único, más tu suscripción a Claude Pro, que se paga aparte. Si cancelas antes del 15 de octubre te devuelvo el dinero completo.",
+      "$697 MXN, pago único, más tu suscripción a Claude Pro, que se paga aparte. Si cancelas hasta dos días antes de tu fecha te devuelvo el dinero completo.",
   },
 ] as const;
