@@ -119,7 +119,7 @@ ${CLUB.pilares.map((p) => `### ${p.titulo}\n\n${p.texto}`).join("\n\n")}
 ${TESTIMONIOS.map(
   (t) => `### ${t.nombre}, ${t.despacho} (${t.ciudad})
 
-${t.perfil} Sitio: ${t.sitio}
+${t.perfil} Sitio: ${t.sitio}${t.whatsapp ? ` · WhatsApp: +${t.whatsapp}` : ""}
 
 Video: "${t.titulo}" (https://www.youtube.com/watch?v=${t.videoId})
 

@@ -87,9 +87,10 @@ Viven en `src/lib/testimonios.ts` y de ahí salen la sección de la home
 `public/assets/` (1280x720 jpg, comprimida a menos de 100 KB). Nombre,
 despacho y ciudad van completos y con enlace al sitio del colega: el
 testimonio vale porque se puede verificar, y de paso le manda clientes de su
-zona. Su WhatsApp y su correo NO se copian al sitio, aunque estén públicos en
-el suyo: ahí decide él qué muestra. Las citas son sus palabras, limpias de
-muletillas pero sin reescribir.
+zona. El WhatsApp se publica solo si el colega lo autorizó (campo opcional
+`whatsapp`); el correo no se copia nunca, aunque esté público en su sitio, para
+no meterlo en listas de spam que no pidió. Las citas son sus palabras, limpias
+de muletillas pero sin reescribir.
 
 ## El ebook
 

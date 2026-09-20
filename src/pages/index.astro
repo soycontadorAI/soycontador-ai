@@ -344,6 +344,14 @@ const lineasTerminal = [
                   <p class="testimonio-perfil">
                     {t.perfil} Si por allá buscas un contador que ya trabaja con IA, <a href={t.sitio} rel="noopener">aquí está su despacho →</a>
                   </p>
+                  {t.whatsapp && (
+                    <p class="testimonio-contacto">
+                      <a href={`https://wa.me/${t.whatsapp}`} rel="noopener">
+                        <Icon name="ph:whatsapp-logo-light" aria-hidden="true" />
+                        WhatsApp: +{t.whatsapp.slice(0, 2)} {t.whatsapp.slice(2, 5)} {t.whatsapp.slice(5, 8)} {t.whatsapp.slice(8)}
+                      </a>
+                    </p>
+                  )}
                 </footer>
               </div>
             </article>
@@ -1219,6 +1227,32 @@ const lineasTerminal = [
   .testimonio-perfil a:hover,
   .testimonio-perfil a:focus-visible {
     text-decoration: underline;
+  }
+  .testimonio-contacto {
+    margin-top: 0.8rem !important;
+  }
+  .testimonio-contacto a {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    padding: 0.45rem 0.85rem;
+    border: 1px solid var(--color-line);
+    border-radius: var(--radius-pill);
+    background: var(--color-surface-raised);
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    font-weight: 500;
+    color: var(--color-ink);
+    text-decoration: none;
+  }
+  .testimonio-contacto a:hover,
+  .testimonio-contacto a:focus-visible {
+    border-color: var(--color-accent);
+    color: var(--color-accent);
+  }
+  .testimonio-contacto svg {
+    width: 1.1rem;
+    height: 1.1rem;
   }
   @media (max-width: 860px) {
     .testimonio {

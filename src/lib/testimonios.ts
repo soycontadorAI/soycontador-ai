@@ -12,8 +12,9 @@
  *   reescribir. Si una frase no la dijo, no va entre comillas.
  * - Nombre, despacho y ciudad van completos: el testimonio vale porque se
  *   puede verificar. Quien lo da está de acuerdo en aparecer con su nombre.
- * - Del contacto se publica el sitio del despacho, que es donde el colega
- *   decide qué datos mostrar. Su WhatsApp y su correo no se copian aquí.
+ * - Del contacto se publica el sitio del despacho y, si el colega lo
+ *   autorizó, su WhatsApp. El correo no: se cosecha de sitios ajenos y
+ *   termina en listas de spam que él no pidió.
  */
 
 export interface Testimonio {
@@ -24,6 +25,9 @@ export interface Testimonio {
   ciudad: string;
   /** Sitio del despacho: la salida para quien busca contador en su zona */
   sitio: string;
+  /** WhatsApp del despacho en formato internacional sin espacios, solo si el
+   *  colega autorizó publicarlo aquí. Opcional: no todos van a querer. */
+  whatsapp?: string;
   /** Cómo se describe él, para presentarlo en una línea */
   perfil: string;
   videoId: string;
@@ -52,6 +56,8 @@ export const TESTIMONIOS: readonly Testimonio[] = [
     despacho: "DSouza Consultores Fiscales",
     ciudad: "Mexicali, B.C.",
     sitio: "https://dsouzaconsultores.mx/",
+    // Autorizado por Daniel vía Israel, 2026-09-19. Es el mismo que publica su sitio.
+    whatsapp: "526862567293",
     perfil:
       "Lleva solo su despacho: asesoría fiscal y contabilidad para PyMEs y profesionistas de Baja California.",
     videoId: "xKSD3KxDNqM",
