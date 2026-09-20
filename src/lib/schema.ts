@@ -4,7 +4,7 @@
  */
 
 import { APENDICES, COMPRA, EDICION, PARTES } from "./ebook";
-import { EMPIEZA } from "./empieza";
+import { EDICIONES, EMPIEZA } from "./empieza";
 import { CLUB, EBOOK, PERSONA, PROGRAMA, SITE, TRAILER } from "./site";
 import type { FaqItem } from "./faqs";
 import type { Testimonio } from "./testimonios";
@@ -201,22 +201,22 @@ export function empiezaCourse(): JsonLdObject {
       "Qué datos de clientes nunca se suben a un chat de IA",
       "Cómo convertir un lote de XML (CFDI) en una tabla revisada",
     ],
-    hasCourseInstance: {
+    hasCourseInstance: EDICIONES.map((e) => ({
       "@type": "CourseInstance",
       courseMode: "Online",
       courseWorkload: "PT2H",
-      startDate: `${EMPIEZA.inicio}T11:00:00-06:00`,
-      endDate: `${EMPIEZA.inicio}T13:00:00-06:00`,
+      startDate: `${e.inicio}T11:00:00-06:00`,
+      endDate: `${e.inicio}T13:00:00-06:00`,
       location: { "@type": "VirtualLocation", url: `${SITE.url}/empieza` },
       maximumAttendeeCapacity: EMPIEZA.cupo,
-    },
+    })),
     offers: {
       "@type": "Offer",
       name: EMPIEZA.nombreCompleto,
       price: EMPIEZA.precio,
       priceCurrency: "MXN",
       availability: "https://schema.org/InStock",
-      validThrough: `${EMPIEZA.inicio}T11:00:00-06:00`,
+      validThrough: `${EDICIONES[EDICIONES.length - 1].inicio}T11:00:00-06:00`,
       url: `${SITE.url}/empieza`,
     },
   };

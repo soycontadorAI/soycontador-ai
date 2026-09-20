@@ -9,7 +9,9 @@ import {
   FAQ_EMPIEZA,
   INCLUYE,
   PARA_QUIEN,
-  empiezaVigente,
+  checkoutDe,
+  edicionAbierta,
+  edicionesVigentes,
 } from "../lib/empieza";
 import { breadcrumbs, empiezaCourse, faqPage, graph } from "../lib/schema";
 import { SITE } from "../lib/site";
@@ -25,7 +27,12 @@ const jsonLd = graph(
   ]),
 );
 
-const vigente = empiezaVigente();
+/* Varias fechas: el botón apunta a la primera con lugares; las agotadas se
+   quedan a la vista mientras no pasen, como prueba de que se llenaron. */
+const ediciones = edicionesVigentes();
+const abierta = edicionAbierta();
+const urlAbierta = abierta ? checkoutDe(abierta) : null;
+const fechaFolio = abierta?.fechaTexto ?? ediciones[0]?.fechaTexto ?? "Próxima fecha por anunciar";
 /* Daniel es la prueba de esta página: su "analfabetos en programación" es
    exactamente el miedo de quien la lee. */
 const daniel = TESTIMONIOS.find((t) => t.slug === "daniel-souza");
@@ -33,14 +40,14 @@ const daniel = TESTIMONIOS.find((t) => t.slug === "daniel-souza");
 
 <BaseLayout
   title={`${EMPIEZA.nombreCompleto}. Taller en vivo para empezar sin saber nada`}
-  description={`Taller en vivo de 2 horas, ${EMPIEZA.fechaTexto.toLowerCase()}: sales con un proyecto de Claude configurado, un prompt que cita el fundamento y tu primer lote de XML revisado. Sin conocimientos previos. ${EMPIEZA.precioTexto}.`}
+  description={`Taller en vivo de 2 horas, ${fechaFolio.toLowerCase()}: sales con un proyecto de Claude configurado, un prompt que cita el fundamento y tu primer lote de XML revisado. Sin conocimientos previos. ${EMPIEZA.precioTexto}.`}
   jsonLd={jsonLd}
 >
   <main>
     <section class="hero">
       <div class="container-default hero-grid">
         <div>
-          <p class="folio">TALLER EN VIVO · <b>{EMPIEZA.fechaTexto.toUpperCase()}</b> · 11:00</p>
+          <p class="folio">TALLER EN VIVO · <b>{fechaFolio.toUpperCase()}</b> · 11:00</p>
           <h1 class="titulo-xl">{EMPIEZA.nombre}: <span class="hl">{EMPIEZA.titulo}</span></h1>
           <p class="hero-headline">Sales con tres cosas hechas, no con apuntes.</p>
           {/*
@@ -59,15 +66,25 @@ const daniel = TESTIMONIOS.find((t) => t.slug === "daniel-souza");
               <span>pago único · {EMPIEZA.duracion} · cupo de {EMPIEZA.cupo}</span>
             </p>
             <div class="hero-acciones">
-              {vigente && EMPIEZA.url ? (
-                <a class="btn btn-primary" href={EMPIEZA.url} rel="noopener">Apartar mi lugar</a>
-              ) : vigente ? (
-                <span class="btn btn-primary btn-espera" aria-disabled="true">La inscripción abre en unos días</span>
+              {urlAbierta ? (
+                <a class="btn btn-primary" href={urlAbierta} rel="noopener">Apartar mi lugar</a>
+              ) : ediciones.length ? (
+                <span class="btn btn-primary btn-espera" aria-disabled="true">Cupo lleno. La siguiente fecha, en unos días</span>
               ) : (
                 <span class="btn btn-primary btn-espera" aria-disabled="true">Próxima fecha por anunciar</span>
               )}
               <a class="btn btn-ghost" href="#las-dos-horas">Ver las dos horas</a>
             </div>
+            {ediciones.length > 1 && (
+              <ul class="fechas" aria-label="Fechas">
+                {ediciones.map((e) => (
+                  <li class:list={{ agotada: e.agotado }}>
+                    {e.fechaTexto}
+                    <span class="folio">{e.agotado ? "AGOTADO" : "QUEDAN LUGARES"}</span>
+                  </li>
+                ))}
+              </ul>
+            )}
           </div>
         </div>
         <aside class="entregables" aria-labelledby="entregables-titulo">
@@ -171,17 +188,33 @@ const daniel = TESTIMONIOS.find((t) => t.slug === "daniel-souza");
       <div class="container-default">
         <div class="sec-head"><h2 class="folio">CÓMO <b>APARTAR</b> TU LUGAR</h2></div>
         <article class="compra" data-reveal>
-          <p class="folio">{EMPIEZA.fechaTexto.toUpperCase()} · <b>{EMPIEZA.horario.toUpperCase()}</b></p>
+          <p class="folio">{fechaFolio.toUpperCase()} · <b>{EMPIEZA.horario.toUpperCase()}</b></p>
           <p class="precio"><b>{EMPIEZA.precioTexto}</b> <span>pago único, más tu cuenta de {EMPIEZA.herramienta.nombre}</span></p>
           <ul class="incluye">
             {INCLUYE.map((item) => (
               <li>{item}</li>
             ))}
           </ul>
-          {vigente && EMPIEZA.url ? (
-            <a class="btn btn-primary" href={EMPIEZA.url} rel="noopener">Apartar mi lugar</a>
-          ) : vigente ? (
-            <p class="espera-texto">La inscripción abre en unos días. Si quieres que te avise, <a href="/contacto">escríbeme</a>.</p>
+          {ediciones.length > 1 ? (
+            <ul class="compra-fechas">
+              {ediciones.map((e) => {
+                const url = e.agotado ? null : checkoutDe(e, "ficha");
+                return (
+                  <li class:list={{ agotada: e.agotado }}>
+                    <span>{e.fechaTexto}</span>
+                    {url ? (
+                      <a class="btn btn-primary" href={url} rel="noopener">Apartar mi lugar</a>
+                    ) : (
+                      <span class="folio">{e.agotado ? "AGOTADO" : "ABRE EN UNOS DÍAS"}</span>
+                    )}
+                  </li>
+                );
+              })}
+            </ul>
+          ) : urlAbierta ? (
+            <a class="btn btn-primary" href={urlAbierta} rel="noopener">Apartar mi lugar</a>
+          ) : ediciones.length ? (
+            <p class="espera-texto">Esta fecha se llenó. La siguiente se anuncia en unos días en el boletín; si quieres que te avise, <a href="/contacto">escríbeme</a>.</p>
           ) : (
             <p class="espera-texto">Esta fecha ya pasó. La siguiente se anuncia en el boletín y en <a href="/jueves">Jueves de ContadorIA</a>.</p>
           )}
@@ -290,6 +323,32 @@ const daniel = TESTIMONIOS.find((t) => t.slug === "daniel-souza");
   .btn-espera {
     background: var(--color-ink-dim);
     cursor: default;
+  }
+  /* Lista de fechas bajo el CTA, solo cuando hay más de una. La agotada se
+     apaga por color, no por opacidad, y no se tacha: una fecha que se llenó
+     es prueba, no error. */
+  .fechas {
+    list-style: none;
+    margin: 1.2rem 0 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem 1.6rem;
+    font-weight: 500;
+  }
+  .fechas li {
+    display: flex;
+    align-items: baseline;
+    gap: 0.6rem;
+  }
+  .fechas li .folio {
+    color: var(--color-accent);
+  }
+  .fechas li.agotada {
+    color: var(--color-ink-dim);
+  }
+  .fechas li.agotada .folio {
+    color: var(--color-ink-dim);
   }
 
   /* Los tres entregables, en tarjeta: son el argumento entero */
@@ -481,6 +540,27 @@ const daniel = TESTIMONIOS.find((t) => t.slug === "daniel-souza");
     font-family: var(--font-mono);
     font-weight: 700;
     color: var(--color-accent);
+  }
+  .compra-fechas {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 0.8rem;
+  }
+  .compra-fechas li {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    flex-wrap: wrap;
+    padding: 0.8rem 0;
+    border-top: 1px solid var(--color-line);
+    font-weight: 700;
+  }
+  .compra-fechas li.agotada {
+    color: var(--color-ink-dim);
+    font-weight: 500;
   }
   .espera-texto {
     margin: 0;

@@ -10,7 +10,7 @@ import type { APIRoute } from "astro";
 
 import { CASO_AUDITOR, EMPRESARIAL, ORGANIZACIONES, TALLER } from "../lib/capacitacion";
 import { APENDICES, COMPRA, EDICION, FAQ_EBOOK, PARTES } from "../lib/ebook";
-import { BLOQUES, EMPIEZA, ENTREGABLES, FAQ_EMPIEZA, INCLUYE } from "../lib/empieza";
+import { BLOQUES, EMPIEZA, ENTREGABLES, FAQ_EMPIEZA, INCLUYE, edicionesVigentes } from "../lib/empieza";
 import { FAQ_CAPACITACION, FAQ_CLUB, FAQ_HOME, FAQ_SOLUCIONES } from "../lib/faqs";
 import { HERRAMIENTAS } from "../lib/herramientas";
 import { CLUB, EBOOK, PERSONA, PROGRAMA, SITE } from "../lib/site";
@@ -84,7 +84,7 @@ ${HERRAMIENTAS.map((h) => `### ${h.nombre} (${h.estado})\n\n${h.descripcion}\n\n
 
 ${EMPIEZA.descripcion}
 
-Fecha: ${EMPIEZA.fechaTexto}, ${EMPIEZA.horario}. ${EMPIEZA.sede}. Cupo: ${EMPIEZA.cupo}.
+Fechas: ${edicionesVigentes().map((e) => e.fechaTexto + (e.agotado ? " (agotado)" : "")).join("; ") || "próxima por anunciar"}. ${EMPIEZA.horario}. ${EMPIEZA.sede}. Cupo: ${EMPIEZA.cupo} por fecha; cuando una se llena se abre la siguiente.
 Precio: ${EMPIEZA.precioTexto}, pago único. Requiere cuenta de ${EMPIEZA.herramienta.nombre} (${EMPIEZA.herramienta.costoTexto}, se paga aparte). ${EMPIEZA.garantia}
 Es el paso anterior al curso Claude para Contadores (Fiscalistas.AI).
 
