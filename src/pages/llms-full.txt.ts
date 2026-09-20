@@ -10,6 +10,7 @@ import type { APIRoute } from "astro";
 
 import { CASO_AUDITOR, EMPRESARIAL, ORGANIZACIONES, TALLER } from "../lib/capacitacion";
 import { APENDICES, COMPRA, EDICION, FAQ_EBOOK, PARTES } from "../lib/ebook";
+import { BLOQUES, EMPIEZA, ENTREGABLES, FAQ_EMPIEZA, INCLUYE } from "../lib/empieza";
 import { FAQ_CAPACITACION, FAQ_CLUB, FAQ_HOME, FAQ_SOLUCIONES } from "../lib/faqs";
 import { HERRAMIENTAS } from "../lib/herramientas";
 import { CLUB, EBOOK, PERSONA, PROGRAMA, SITE } from "../lib/site";
@@ -78,6 +79,25 @@ ${CASO_GASOLINERA.detalle}
 ## Herramientas (https://soycontador.ai/herramientas)
 
 ${HERRAMIENTAS.map((h) => `### ${h.nombre} (${h.estado})\n\n${h.descripcion}\n\nURL: ${h.url}`).join("\n\n")}
+
+## Taller "${EMPIEZA.nombreCompleto}" (https://soycontador.ai/empieza)
+
+${EMPIEZA.descripcion}
+
+Fecha: ${EMPIEZA.fechaTexto}, ${EMPIEZA.horario}. ${EMPIEZA.sede}. Cupo: ${EMPIEZA.cupo}.
+Precio: ${EMPIEZA.precioTexto}, pago único. Requiere cuenta de ${EMPIEZA.herramienta.nombre} (${EMPIEZA.herramienta.costoTexto}, se paga aparte). ${EMPIEZA.garantia}
+Es el paso anterior al curso Claude para Contadores (Fiscalistas.AI).
+
+Con qué sales:
+${ENTREGABLES.map((e) => `- ${e.titulo}: ${e.texto}`).join("\n")}
+
+Las dos horas:
+${BLOQUES.map((b) => `- Min ${b.minutos}, ${b.titulo}: ${b.texto} Sales con: ${b.sale}.`).join("\n")}
+
+Incluye:
+${INCLUYE.map((i) => `- ${i}`).join("\n")}
+
+${faqMd(FAQ_EMPIEZA)}
 
 ## Ebook "${EBOOK.titulo}" (https://soycontador.ai/ebook)
 
