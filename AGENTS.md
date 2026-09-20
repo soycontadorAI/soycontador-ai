@@ -79,6 +79,18 @@ Stack: Astro 7 estático + adapter Vercel (solo `/api/newsletter` es serverless)
   (las guías, la muestra del ebook) no contradicen esta regla; alguien con
   suscripción descarga una guía gratis igual.
 
+## Testimonios
+
+Viven en `src/lib/testimonios.ts` y de ahí salen la sección de la home
+(CUENTA 02), el `VideoObject` del JSON-LD (con transcripción) y el bloque de
+`llms-full.txt`. Para sumar uno: entrada nueva ahí + carátula en
+`public/assets/` (1280x720 jpg, comprimida a menos de 100 KB). Nombre,
+despacho y ciudad van completos y con enlace al sitio del colega: el
+testimonio vale porque se puede verificar, y de paso le manda clientes de su
+zona. Su WhatsApp y su correo NO se copian al sitio, aunque estén públicos en
+el suyo: ahí decide él qué muestra. Las citas son sus palabras, limpias de
+muletillas pero sin reescribir.
+
 ## El ebook
 
 El libro "IA para Contadores" vive en `ebook/` (contenido, diseño y generadores
@@ -271,7 +283,9 @@ reglas:
 
 Eventos: `alta_newsletter` (con lista), `lead_enviado` (interés y rol),
 `diagnostico_enviado` (modalidad, equipo y urgencia), `agenda_abierta`,
-`clic_puerta` (cuál de las seis) y `clic_curso`.
+`clic_puerta` (cuál de las seis), `clic_curso` y `video_reproducido` (el ID
+de YouTube; lo emite `VideoFacade`, así que cubre el tráiler y los
+testimonios).
 
 El aviso de privacidad ya declara la medición. Al agregar cualquier
 herramienta nueva hay que actualizarlo en el mismo commit: la obligación de la

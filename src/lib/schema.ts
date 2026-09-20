@@ -6,6 +6,7 @@
 import { APENDICES, COMPRA, EDICION, PARTES } from "./ebook";
 import { CLUB, EBOOK, PERSONA, PROGRAMA, SITE, TRAILER } from "./site";
 import type { FaqItem } from "./faqs";
+import type { Testimonio } from "./testimonios";
 
 type JsonLdObject = Record<string, unknown>;
 
@@ -210,6 +211,35 @@ export function trailerVideo(): JsonLdObject {
     creator: personRef(),
     publisher: personRef(),
     isPartOf: { "@id": `${SITE.url}/jueves#serie` },
+  };
+}
+
+/**
+ * Testimonio en video de un colega. Va como VideoObject y no como Review: las
+ * reseñas que uno mismo publica sobre sí no generan rich results y Google las
+ * trata como auto-promoción. Lo que sí vale es la transcripción: es lo que
+ * deja que un buscador o un LLM cite lo que el colega dijo, con su nombre.
+ */
+export function testimonioVideo(t: Testimonio): JsonLdObject {
+  return {
+    "@type": "VideoObject",
+    "@id": `${SITE.url}/#testimonio-${t.slug}`,
+    name: t.titulo,
+    description: `${t.nombre}, de ${t.despacho} (${t.ciudad}), cuenta cómo cambió su despacho después de la capacitación en IA de Israel Castro.`,
+    thumbnailUrl: `${SITE.url}${t.poster}`,
+    uploadDate: t.fechaPublicacion,
+    duration: t.duracionISO,
+    embedUrl: `https://www.youtube.com/embed/${t.videoId}`,
+    contentUrl: `https://www.youtube.com/watch?v=${t.videoId}`,
+    transcript: t.transcripcion,
+    inLanguage: "es-MX",
+    actor: {
+      "@type": "Person",
+      name: t.nombre,
+      worksFor: { "@type": "Organization", name: t.despacho, url: t.sitio },
+    },
+    creator: personRef(),
+    publisher: personRef(),
   };
 }
 
