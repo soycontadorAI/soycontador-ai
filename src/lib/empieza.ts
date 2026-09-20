@@ -22,15 +22,14 @@ function conUtm(url: string, contenido: string): string {
   return u.toString();
 }
 
-const NAS_BASE =
-  "https://nas.io/checkout-global?communityId=67ab5a14d444670df4027cad&communityCode=TODOCONTA_CLUB";
-
 /**
- * El ID del producto en nas.io. Mientras sea null la página no muestra el
- * botón de compra sino el aviso de "abre en unos días": mejor eso que un
- * botón que lleve a ningún lado. Israel lo crea en nas.io y lo pega aquí.
+ * Checkout del evento en nas.com (Israel lo creó el 2026-09-20). Es la URL de
+ * compra directa, con el boleto ya elegido, no la página del evento: un clic
+ * menos. Si se cambia el evento (otra edición), se pega aquí la URL nueva. Si
+ * queda vacía, la página no muestra el botón sino "abre en unos días".
  */
-const PRODUCT_ID: string | null = null;
+const CHECKOUT: string | null =
+  "https://nas.com/checkout-global?communityId=67ab5a14d444670df4027cad&communityCode=TODOCONTA_CLUB&sourceInfoType=event&sourceInfoOrigin=6aaf95ba7d4e46c810c12971&ticketCount=1&ticketTypeObjectId=6aaf95ba7d4e46c810c12972";
 
 export const EMPIEZA = {
   nombre: "Empieza aquí",
@@ -47,7 +46,7 @@ export const EMPIEZA = {
   cupo: 25,
   precio: "697",
   precioTexto: "$697 MXN",
-  url: PRODUCT_ID ? conUtm(`${NAS_BASE}&productId=${PRODUCT_ID}`, "pagina") : null,
+  url: CHECKOUT ? conUtm(CHECKOUT, "pagina") : null,
   /** Lo que se paga aparte, dicho de frente: es parte del precio real */
   herramienta: {
     nombre: "Claude Pro",
