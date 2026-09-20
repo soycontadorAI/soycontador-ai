@@ -323,6 +323,18 @@ LFPDPPP es informarlo ahí.
 Pendiente: el pixel de Meta. `MEDICION.metaPixel` está en `null` y el bloque
 ya existe en `Analytics.astro`; solo falta el ID.
 
+## Comentarios: nunca en la plantilla HTML
+
+Los comentarios van en el frontmatter (`---`), en `<style>` o en `<script>`,
+que es donde un dev espera verlos. **Nunca** entre etiquetas: ni `{/* */}`
+ni `<!-- -->`. Los `<!-- -->` además se emiten al navegador (Astro los
+conserva en el HTML construido), y en los dos casos se leen como marca de IA.
+Lo que registra una decisión (fecha, nombre, un porqué que no se deduce del
+código) va en un bloque `/* Decisiones de esta página */` al final del
+frontmatter, o junto al dato en `lib/*.ts` si es de ahí; lo descriptivo no se
+escribe: ya lo dice el código o `design/DESIGN.md`. Limpieza hecha el
+2026-09-20 (23 comentarios en 5 archivos).
+
 ## Nada lleva marca de IA
 
 Commits, PRs y cualquier entregable salen **a nombre de Israel, sin firma de
