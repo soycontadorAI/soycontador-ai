@@ -16,7 +16,7 @@ hizo una tarea real; el curso de 8 horas es lo que sigue.
 |---|---|---|---|
 | Guía de 5 prompts | Imán (lista `general`) | Todos | Gratis |
 | Ebook | Entender qué es la IA antes de usarla | Nivel cero | $297 MXN |
-| **Taller "Empieza aquí"** | **2 horas, la primera tarea real hecha** | **Nivel cero y aficionado (70 %)** | **por decidir** |
+| **Taller "Empieza aquí"** | **2 horas, la primera tarea real hecha** | **Nivel cero y aficionado (70 %)** | **$697 MXN ($497 lanzamiento)** |
 | Claude para Contadores | 8 horas, Claude a fondo, con Fiscalistas.AI | Aficionado e intermedio | $3,500 MXN (de ellos) |
 | Soluciones a la medida | Lo construyo yo | Avanzado y despachos | Cotización |
 
@@ -39,11 +39,32 @@ y nombre, no se pega en un chat.
 
 ## Requisitos
 
-- Suscripción a Claude (Pro). Se dice desde la página: el taller es para
-  sacarle provecho a lo que ya pagas, no para decidir si pagarlo. Quien no la
-  tiene, se la saca antes; en la confirmación de compra va cómo.
+- **Claude Pro, obligatorio (decisión de Israel, 2026-09-20).** No es
+  filtro de público: es que el plan gratuito tiene límites de uso que se
+  topan en una sesión intensa, y que a diez personas les salga "alcanzaste tu
+  límite" a la mitad del bloque de XML rompe el taller en vivo, frente a
+  principiantes. Y quien no va a pagar la herramienta no conserva el hábito el
+  lunes. Solo Claude, además: en dos horas con gente que no sabe nada, dos
+  interfaces son caos, y el proyecto del bloque 3 es una función concreta de
+  Claude.
+- **Cómo se pide, para que no espante.** La mayoría de quien compra esto no
+  paga ninguna herramienta hoy (27 de la encuesta "probaron ChatGPT", 15 no la
+  usan). Así que en la página no va como requisito seco: va como parte del
+  precio real. "El taller cuesta $697. La herramienta cuesta aparte, unos
+  $400 al mes, y es la misma que vas a usar el lunes. Si no la tienes, en el
+  correo de confirmación te digo cómo sacarla en cinco minutos." Tres apoyos:
+  1. Correo de confirmación con los pasos y capturas para sacar la cuenta.
+  2. Video de tres minutos "cómo sacar tu cuenta de Claude" en el destacado
+     "Empieza aquí" de Instagram.
+  3. Los primeros cinco minutos del taller: todos con la cuenta abierta antes
+     de arrancar. Nadie se queda atrás por un trámite.
 - Computadora, no celular. Se trabaja en vivo.
 - Ningún conocimiento previo. Cero. Ni de programación ni de IA.
+
+Descartado: aceptar el plan gratuito. Solo se reconsidera si una prueba real
+con cuenta nueva aguanta las dos horas del taller sin topar, con fecha de
+verificación; los límites cambian sin aviso y no se promete lo que no se
+probó.
 
 ## Las dos horas
 
@@ -75,18 +96,18 @@ sirve de respiro.
 - Cobro: checkout de nas.io, igual que el ebook. Sin formulario ni cotización:
   a este precio se compra, no se pregunta.
 
-## Precio (decisión de Israel)
+## Precio (decidido por Israel el 2026-09-20)
 
 Tres anclas: el ebook está en $297, el reto de 12 días estuvo en $2,997 y el
 curso de Fiscalistas.AI en $3,500 por 8 horas ($437 la hora). Dos horas en
 vivo, cupo 25, con tarea hecha:
 
-- **$697 MXN** es la recomendación. Arriba del ebook con claridad (es en vivo
+- **$697 MXN.** Arriba del ebook con claridad (es en vivo
   y con el instructor), abajo del curso con claridad (es una quinta parte del
   tiempo), y por hora cuesta más que el curso, que es lo correcto: el grupo
   chico y el "cero conocimiento previo" son lo caro.
 - Precio de lanzamiento para quienes contestaron la encuesta: **$497**, por
-  siete días, porque ellos lo pidieron. No es descuento público: es un correo
+  siete días, porque ellos lo pidieron. Aprobado. No es descuento público: es un correo
   a 60 personas.
 - Se publica en la página. La regla de "el taller no publica precio" nació de
   una página donde convivía con los $3,500 del curso; esta página es suya y no
@@ -135,8 +156,15 @@ Asunto: **Lo que pidieron en la encuesta, con fecha**
 > cita el artículo, y tu primer lote de XML convertido en tabla y revisado.
 > Con datos ficticios que te llevas para practicar.
 >
-> Cero conocimiento previo. Lo único que hace falta es tu suscripción a
-> Claude y una computadora.
+> Cero conocimiento previo. Se trabaja en Claude, y solo en Claude: en dos
+> horas no hay tiempo para dos herramientas, y lo que aprendas el sábado es lo
+> que vas a usar el lunes.
+>
+> Lo que sí hace falta: computadora y una cuenta de Claude Pro. La cuenta
+> cuesta aparte, unos $400 al mes, y es la misma que vas a seguir usando.
+> Si no la tienes, no te preocupes ahora: en el correo de confirmación te
+> explico cómo sacarla en cinco minutos, y los primeros minutos del taller
+> son para que todos la tengan abierta antes de empezar.
 >
 > Cupo de 25. Como ustedes lo pidieron, hasta el 12 de octubre está en $497
 > en vez de $697.
@@ -147,10 +175,33 @@ Asunto: **Lo que pidieron en la encuesta, con fecha**
 > jóvenes. Hoy concilia bancos en minutos. Lo cuenta en 3 minutos aquí:
 > https://youtu.be/xKSD3KxDNqM
 
+## Correo de confirmación (borrador)
+
+Asunto: **Tu lugar del 17 de octubre, y cinco minutos de tarea**
+
+> Ya quedó tu lugar en "Empieza aquí", el sábado 17 de octubre de 11 a 1,
+> hora del centro. El enlace de Zoom llega el viernes.
+>
+> Una sola cosa que hacer antes, y toma cinco minutos: tu cuenta de Claude
+> Pro. Entra a claude.ai, crea tu cuenta con el correo que uses en el
+> despacho, y en Configuración elige el plan Pro (se paga con tarjeta, en
+> dólares). Aquí van las capturas paso a paso: [enlace o adjunto].
+>
+> Si algo se atora, contéstame este correo. Y si llegas el sábado sin la
+> cuenta, tampoco pasa nada: los primeros minutos son para eso.
+>
+> Lo que vas a necesitar el sábado: computadora (no celular), la cuenta
+> abierta y una duda fiscal real que quieras resolver. El resto lo pongo yo.
+
+## Decisiones tomadas (2026-09-20)
+
+1. Precio: $697, con $497 de lanzamiento para los 60 de la encuesta.
+2. Solo Claude, y Claude Pro obligatorio, pedido como parte del precio real
+   y con los tres apoyos de arriba.
+
 ## Decisiones pendientes de Israel
 
-1. Precio ($697 / $497 lanzamiento es la propuesta).
-2. Fecha (17 de octubre es la propuesta; la alternativa es el 24).
-3. Cobro por nas.io o por otro lado.
-4. Si se publica el precio en la página (recomendación: sí, en los cuatro
+1. Fecha (17 de octubre es la propuesta; la alternativa es el 24).
+2. Cobro por nas.io o por otro lado.
+3. Si se publica el precio en la página (recomendación: sí, en los cuatro
    lugares).
