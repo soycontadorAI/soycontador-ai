@@ -136,5 +136,5 @@ guía.
 
 ## Qué falta
 
-- Producir las 8 stories y las 6 portadas en social-studio (`ig-story`).
+- Grabar las 8 stories (guiones en `stories-empieza-aqui-guiones.md`). Las portadas ya existen en el canvas "Highlights con plumón" (https://claude.ai/artifact/AeoeSNjHtmtPmhSHsLvgZP), incluida la de Empieza aquí (bandera).
 - Cambiar nombre y bio en la app (ya están contados: 37/64 y 148/150).
