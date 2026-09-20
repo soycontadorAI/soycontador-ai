@@ -127,12 +127,16 @@ const { videoId, titulo, poster, aria, cinta } = Astro.props;
 </style>
 
 <script>
+  import { medir } from "../lib/medir";
+
   document.querySelectorAll<HTMLElement>("[data-video]").forEach((caja) => {
     const boton = caja.querySelector("button");
     boton?.addEventListener(
       "click",
       () => {
         const id = caja.dataset.video;
+        // Solo el ID del video: es lo que dice qué se abrió, no quién lo abrió.
+        medir("video_reproducido", { video: id });
         const iframe = document.createElement("iframe");
         iframe.src = `https://www.youtube-nocookie.com/embed/${id}?autoplay=1&rel=0&modestbranding=1`;
         iframe.title = boton.getAttribute("aria-label") ?? "";

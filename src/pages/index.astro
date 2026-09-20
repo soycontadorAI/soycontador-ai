@@ -4,12 +4,19 @@ import FaqBlock from "../components/FaqBlock.astro";
 import LeadForm from "../components/LeadForm.astro";
 import NewsletterForm from "../components/NewsletterForm.astro";
 import Terminal from "../components/Terminal.astro";
+import VideoFacade from "../components/VideoFacade.astro";
 import { Icon } from "astro-icon/components";
 import { FAQ_HOME } from "../lib/faqs";
-import { faqPage, graph, person, webSite } from "../lib/schema";
+import { faqPage, graph, person, testimonioVideo, webSite } from "../lib/schema";
 import { EBOOK, SITE } from "../lib/site";
+import { TESTIMONIOS } from "../lib/testimonios";
 
-const jsonLd = graph(person(), webSite(), faqPage(FAQ_HOME, `${SITE.url}/`));
+const jsonLd = graph(
+  person(),
+  webSite(),
+  faqPage(FAQ_HOME, `${SITE.url}/`),
+  ...TESTIMONIOS.map(testimonioVideo),
+);
 
 const asientos = [
   {
@@ -288,6 +295,72 @@ const lineasTerminal = [
     </section>
 
     <!--
+      La prueba va después de "quién te está hablando" y antes del menú: primero
+      quién habla, luego que a un colega ya le funcionó, y hasta entonces qué se
+      puede comprar. Cada testimonio es un artículo completo (la objeción, la
+      cita, lo que cambió, la firma) y sale de lib/testimonios.ts: para sumar el
+      siguiente se agrega ahí y se sube su carátula, la página no se toca. Con
+      varios se apilan y el video alterna de lado.
+
+      El nombre, el despacho y la ciudad van completos y con enlace a su sitio.
+      Es lo que separa un testimonio de una cita inventada, y de paso le manda
+      clientes de su zona al colega que dio la cara.
+    -->
+    <section id="testimonios">
+      <div class="container-default">
+        <div class="sec-head"><h2 class="folio">CUENTA <b>02</b> · QUIÉN YA DIO EL PASO</h2></div>
+        <p class="testimonios-lede" data-reveal>
+          No me creas a mí. Estos son colegas que tomaron la capacitación, con
+          nombre, despacho y ciudad.
+        </p>
+        {
+          TESTIMONIOS.map((t) => (
+            <article class="testimonio" id={`testimonio-${t.slug}`}>
+              <div class="testimonio-video" data-reveal>
+                <VideoFacade
+                  videoId={t.videoId}
+                  titulo={t.titulo}
+                  poster={t.poster}
+                  aria={`Reproducir el testimonio de ${t.nombre}: ${t.titulo}`}
+                  cinta={`${t.nombre.split(" ")[0]} · ${t.duracionTexto}`}
+                />
+              </div>
+              <div class="testimonio-texto" data-reveal style="--reveal-delay: .12s">
+                <p class="testimonio-antes">"{t.antes}"</p>
+                <blockquote class="testimonio-cita">{t.cita}</blockquote>
+                <p class="folio testimonio-folio">LO QUE <b>CAMBIÓ</b> EN SU DESPACHO</p>
+                <ol class="testimonio-logros">
+                  {t.logros.map((logro, n) => (
+                    <li>
+                      <span class="testimonio-num">{String(n + 1).padStart(2, "0")}</span>
+                      <span>{logro}</span>
+                    </li>
+                  ))}
+                </ol>
+                <p class="testimonio-remate">"{t.remate}"</p>
+                <footer class="testimonio-firma">
+                  <p class="testimonio-nombre">{t.nombre}</p>
+                  <p class="folio testimonio-despacho">{t.despacho} · {t.ciudad}</p>
+                  <p class="testimonio-perfil">
+                    {t.perfil} Si por allá buscas un contador que ya trabaja con IA, <a href={t.sitio} rel="noopener">aquí está su despacho →</a>
+                  </p>
+                  {t.whatsapp && (
+                    <p class="testimonio-contacto">
+                      <a href={`https://wa.me/${t.whatsapp}`} rel="noopener">
+                        <Icon name="ph:whatsapp-logo-light" aria-hidden="true" />
+                        WhatsApp: +{t.whatsapp.slice(0, 2)} {t.whatsapp.slice(2, 5)} {t.whatsapp.slice(5, 8)} {t.whatsapp.slice(8)}
+                      </a>
+                    </p>
+                  )}
+                </footer>
+              </div>
+            </article>
+          ))
+        }
+      </div>
+    </section>
+
+    <!--
       Las seis puertas se recorren de lado y NO se fijan como la escena de
       arriba. La diferencia importa: la escena es una narración con orden y
       remate, y esto es un menú. Fijarlo obligaría a pasar por las seis, que
@@ -295,7 +368,7 @@ const lineasTerminal = [
     -->
     <section id="ofertas">
       <div class="container-default">
-        <div class="sec-head"><h2 class="folio">CUENTA <b>02</b> · QUÉ ENCUENTRAS AQUÍ</h2></div>
+        <div class="sec-head"><h2 class="folio">CUENTA <b>03</b> · QUÉ ENCUENTRAS AQUÍ</h2></div>
         <p class="galeria-titulo" data-reveal>
           Seis puertas. <em>Ninguna te obliga a la siguiente.</em>
         </p>
@@ -389,7 +462,7 @@ const lineasTerminal = [
 
     <section id="faq">
       <div class="container-narrow">
-        <div class="sec-head"><h2 class="folio">CUENTA <b>03</b> · PREGUNTAS DIRECTAS</h2></div>
+        <div class="sec-head"><h2 class="folio">CUENTA <b>04</b> · PREGUNTAS DIRECTAS</h2></div>
         <FaqBlock items={FAQ_HOME} />
       </div>
     </section>
@@ -1042,6 +1115,160 @@ const lineasTerminal = [
     font-size: 0.92rem;
     color: var(--color-accent);
     text-decoration: none;
+  }
+
+  /* Testimonios */
+  /* Dos columnas de verdad, no la columna de lectura de la bio: el video
+     ocupa la mitad y el texto de al lado queda en unos 34rem, que con la cita
+     en serif grande y la lista numerada no es un párrafo corrido de 90
+     caracteres sino piezas cortas. El video se queda pegado al bajar porque
+     el texto es más alto que él: así la cara del colega acompaña lo que se
+     está leyendo de él, y no se pierde arriba. */
+  .testimonios-lede {
+    margin: 0 0 3rem;
+    max-width: 48ch;
+    color: var(--color-ink-soft);
+    font-size: 1.05rem;
+  }
+  .testimonio {
+    display: grid;
+    grid-template-columns: 1fr 1.1fr;
+    gap: 3.5rem;
+    align-items: start;
+  }
+  .testimonio + .testimonio {
+    margin-top: 5rem;
+    padding-top: 5rem;
+    border-top: 1px solid var(--color-line);
+  }
+  .testimonio:nth-child(even of .testimonio) .testimonio-video {
+    order: 2;
+  }
+  .testimonio-video {
+    position: sticky;
+    top: 6rem;
+  }
+  /* La objeción entra en gris y en cursiva, como en la vuelta: es la voz de
+     antes. Va en color, no en opacidad, por la misma razón de contraste. */
+  .testimonio-antes {
+    margin: 0 0 0.9rem;
+    font-family: var(--font-serif-detail);
+    font-style: italic;
+    font-size: 1.2rem;
+    color: var(--color-ink-dim);
+  }
+  .testimonio-cita {
+    margin: 0 0 2.2rem;
+    padding: 0;
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-size: clamp(1.5rem, 2.9vw, 2.15rem);
+    line-height: 1.16;
+    letter-spacing: -0.01em;
+    color: var(--color-ink);
+    text-wrap: pretty;
+  }
+  .testimonio-folio {
+    margin: 0;
+  }
+  .testimonio-logros {
+    list-style: none;
+    margin: 0.8rem 0 2rem;
+    padding: 0;
+    border-top: 1px solid var(--color-line);
+  }
+  .testimonio-logros li {
+    display: grid;
+    grid-template-columns: 2.6rem 1fr;
+    gap: 0.8rem;
+    align-items: baseline;
+    padding: 0.85rem 0;
+    border-bottom: 1px solid var(--color-line);
+    color: var(--color-ink-soft);
+  }
+  .testimonio-num {
+    font-family: var(--font-mono);
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: var(--color-accent);
+  }
+  .testimonio-remate {
+    margin: 0 0 1.6rem;
+    padding-left: 0.9rem;
+    border-left: 2px solid var(--color-marker);
+    font-family: var(--font-serif-detail);
+    font-style: italic;
+    font-size: 1.25rem;
+    line-height: 1.3;
+    color: var(--color-ink);
+    text-wrap: pretty;
+  }
+  .testimonio-firma p {
+    margin: 0;
+  }
+  .testimonio-nombre {
+    font-weight: 700;
+    color: var(--color-ink);
+  }
+  .testimonio-despacho {
+    margin-top: 0.25rem !important;
+  }
+  .testimonio-perfil {
+    margin-top: 0.9rem !important;
+    font-size: 0.92rem;
+    color: var(--color-ink-soft);
+    max-width: 48ch;
+  }
+  .testimonio-perfil a {
+    font-weight: 700;
+    color: var(--color-accent);
+    text-decoration: none;
+  }
+  .testimonio-perfil a:hover,
+  .testimonio-perfil a:focus-visible {
+    text-decoration: underline;
+  }
+  .testimonio-contacto {
+    margin-top: 0.8rem !important;
+  }
+  .testimonio-contacto a {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    padding: 0.45rem 0.85rem;
+    border: 1px solid var(--color-line);
+    border-radius: var(--radius-pill);
+    background: var(--color-surface-raised);
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    font-weight: 500;
+    color: var(--color-ink);
+    text-decoration: none;
+  }
+  .testimonio-contacto a:hover,
+  .testimonio-contacto a:focus-visible {
+    border-color: var(--color-accent);
+    color: var(--color-accent);
+  }
+  .testimonio-contacto svg {
+    width: 1.1rem;
+    height: 1.1rem;
+  }
+  @media (max-width: 860px) {
+    .testimonio {
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+    .testimonio:nth-child(even of .testimonio) .testimonio-video {
+      order: 0;
+    }
+    .testimonio-video {
+      position: static;
+    }
+    .testimonio + .testimonio {
+      margin-top: 3.5rem;
+      padding-top: 3.5rem;
+    }
   }
 
   /* La galería de las seis puertas */

@@ -14,6 +14,7 @@ import { FAQ_CAPACITACION, FAQ_CLUB, FAQ_HOME, FAQ_SOLUCIONES } from "../lib/faq
 import { HERRAMIENTAS } from "../lib/herramientas";
 import { CLUB, EBOOK, PERSONA, PROGRAMA, SITE } from "../lib/site";
 import { CASO_GASOLINERA, SOLUCIONES } from "../lib/soluciones";
+import { TESTIMONIOS } from "../lib/testimonios";
 
 function faqMd(items: { pregunta: string; respuesta: string }[]): string {
   return items.map((f) => `### ${f.pregunta}\n\n${f.respuesta}`).join("\n\n");
@@ -112,6 +113,25 @@ Canal: ${PROGRAMA.canal}
 ${CLUB.descripcion}
 
 ${CLUB.pilares.map((p) => `### ${p.titulo}\n\n${p.texto}`).join("\n\n")}
+
+## Testimonios de colegas que tomaron la capacitación
+
+${TESTIMONIOS.map(
+  (t) => `### ${t.nombre}, ${t.despacho} (${t.ciudad})
+
+${t.perfil} Sitio: ${t.sitio}${t.whatsapp ? ` · WhatsApp: +${t.whatsapp}` : ""}
+
+Video: "${t.titulo}" (https://www.youtube.com/watch?v=${t.videoId})
+
+Antes: "${t.antes}"
+
+"${t.cita}"
+
+Lo que cambió en su despacho:
+${t.logros.map((l) => `- ${l}`).join("\n")}
+
+"${t.remate}"`,
+).join("\n\n")}
 
 ## Preguntas frecuentes
 
