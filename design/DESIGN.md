@@ -253,3 +253,13 @@ una fila flex. Descontarlo del padding no sirve, porque el navegador dibuja
 - El ancho de lectura manda sobre la retícula: con el contenedor en 74rem, una
   columna de texto a dos columnas pasa de 90 caracteres por renglón. Por eso
   la bio de la home y el cuerpo de las páginas viven en `container-narrow`.
+
+## Sombra desplazada: gris, siempre
+
+La sombra dura (`Npx Npx 0`) que llevan las tarjetas, la portada del ebook
+y el video es **gris**: `var(--color-line)`. Nunca `--color-accent-soft`.
+Lo señaló Israel el 2026-09-20 al ver la imagen del taller con sombra verde:
+el verde tenue venía de `.compra` en `/ebook`, que es el único sitio que
+todavía la trae y queda pendiente de unificar junto con los demás
+componentes repetidos (tarjeta con borde + sombra, lista numerada, ficha de
+compra).
