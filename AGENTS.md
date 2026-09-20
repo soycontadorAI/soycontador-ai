@@ -120,6 +120,10 @@ nada de ahí a una página sin revisar la tabla de precios de este archivo.
   calendario del canal; lo que se decida sobre temas futuros se escribe ahí,
   no en memoria de sesión. Columnas en `docs/jueves/README.md`.
 
+- `docs/instagram/perfil-landing.md`: el perfil de IG como landing (nombre,
+  bio, un enlace, destacados como menú y las stories fijas de "Empieza
+  aquí"). El lineamiento de origen está al lado.
+
 La metodología es la de Eloisa Wolf. La oferta de despachos ya está
 productizada en `todoconta-apps/docs/taller-ia-despachos.md`: no se redefine
 aquí.

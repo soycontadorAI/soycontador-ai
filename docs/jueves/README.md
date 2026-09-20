@@ -12,7 +12,7 @@ futuros, invitados por confirmar y vistas: nada de eso es para la audiencia.
 |---|---|
 | `num` | Número de Jueves (el repo público ya usa esta numeración: live 07 = grafos). Vacío en piezas que no son Jueves. |
 | `fecha` | Fecha de emisión, o tentativa si `estado` no es `emitido`. |
-| `tipo` | `jueves` (live semanal), `ig` (carrusel o reel propio, no corte de un jueves), `taller`, `tutorial` (pieza para IG con entrega en el sitio), `sesion-externa` (en comunidad ajena). |
+| `tipo` | `jueves` (live semanal), `ig` (carrusel o reel propio, no corte de un jueves), `story` (story fija en un destacado del perfil; ver `../instagram/perfil-landing.md`), `taller`, `tutorial` (pieza para IG con entrega en el sitio), `sesion-externa` (en comunidad ajena). |
 | `estado` | `idea` → `planeado` → `deck-listo` → `emitido`. Una idea sin fecha va con `fecha` vacía. |
 | `serie` | Nombre de la serie, si la pieza es parte de una. Vacío si es suelta. |
 | `titulo`, `subtitulo` | Los del deck. Si YouTube lo publica con otro título, se anota en `notas`. |
