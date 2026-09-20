@@ -3,7 +3,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import FaqBlock from "../components/FaqBlock.astro";
 import FormCapacitacion from "../components/FormCapacitacion.astro";
 import FlujoExpediente from "../components/FlujoExpediente.astro";
-import { EMPIEZA, empiezaVigente } from "../lib/empieza";
+import { EMPIEZA, edicionAbierta } from "../lib/empieza";
 import {
   CASO_AUDITOR,
   EMPRESARIAL,
@@ -21,6 +21,7 @@ import { SITE } from "../lib/site";
 const edicion = edicionVigente();
 /** Mismo criterio para el curso en el que Israel participa como invitado. */
 const colaboracion = colaboracionVigente();
+const empiezaAbierta = edicionAbierta();
 
 const jsonLd = graph(
   capacitacionService(),
@@ -143,10 +144,10 @@ const jsonLd = graph(
               <a class="btn btn-primary" href={colaboracion.url}>Ver el temario y apartar lugar</a>
               {/* El paso de antes, para quien lee esto y siente que todavía
                   no es para él. Ángulo de Israel (2026-09-20). */}
-              {empiezaVigente() && (
+              {empiezaAbierta && (
                 <p class="colab-antes">
                   ¿Sientes que todavía no es para ti? Hay un paso de antes:{" "}
-                  <a href="/empieza">{EMPIEZA.nombre}, {EMPIEZA.duracion.replace(" en vivo", "")} el {EMPIEZA.fechaTexto.toLowerCase().replace("sábado ", "")}</a>.
+                  <a href="/empieza">{EMPIEZA.nombre}, {EMPIEZA.duracion.replace(" en vivo", "")} el {empiezaAbierta.fechaTexto.toLowerCase().replace("sábado ", "")}</a>.
                 </p>
               )}
             </div>

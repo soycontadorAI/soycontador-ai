@@ -16,7 +16,7 @@
 import type { APIRoute } from "astro";
 
 import { TALLER } from "../lib/capacitacion";
-import { EMPIEZA } from "../lib/empieza";
+import { EMPIEZA, edicionesVigentes } from "../lib/empieza";
 import { EBOOK, PERSONA, SITE } from "../lib/site";
 
 /** Etiqueta legible de cada perfil, por dominio. */
@@ -53,7 +53,7 @@ const PAGINAS: Array<{ ruta: string; titulo: string; que: string }> = [
   {
     ruta: "/empieza",
     titulo: `Taller: ${EMPIEZA.nombreCompleto}`,
-    que: `taller en vivo de 2 horas para contadores sin experiencia en IA (${EMPIEZA.fechaTexto.toLowerCase()}, ${EMPIEZA.precioTexto}, pago único; requiere cuenta de ${EMPIEZA.herramienta.nombre}, que se paga aparte). Es el paso anterior al curso Claude para Contadores`,
+    que: `taller en vivo de 2 horas para contadores sin experiencia en IA (${edicionesVigentes().map((e) => e.fechaTexto.toLowerCase() + (e.agotado ? ", agotado" : "")).join(" y ") || "próxima fecha por anunciar"}; ${EMPIEZA.precioTexto}, pago único; requiere cuenta de ${EMPIEZA.herramienta.nombre}, que se paga aparte). Es el paso anterior al curso Claude para Contadores`,
   },
   {
     ruta: "/despachos",

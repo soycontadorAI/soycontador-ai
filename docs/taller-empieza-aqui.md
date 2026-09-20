@@ -232,15 +232,34 @@ Asunto: **Tu lugar del 17 de octubre, y cinco minutos de tarea**
 4. Cobro: nas.io.
 5. El precio se publica en la página, en los cuatro lugares.
 
+## Si se llena (decisión de Israel, 2026-09-20)
+
+El cupo de 25 no se sube: es pedagogía, no escasez. Si la fecha del 17 se
+llena, se abre la del **sábado 24 de octubre**, misma hora y mismo precio,
+como evento nuevo en nas.com. La página ya está preparada: `EDICIONES` en
+`src/lib/empieza.ts` es una lista; se marca `agotado: true` en la del 17, se
+destapa la del 24 con su checkout, y la página muestra las dos ("17: agotado
+· 24: quedan lugares") con el botón apuntando a la abierta. El cupón de la
+encuesta aplica solo a la del 17.
+
+Si se llena también la del 24, el taller pasa a mensual (un sábado fijo) y la
+tercera edición sube de precio. Si la del 17 no se llena, no se abre la
+segunda: se revisa la promesa o el precio antes de repetir.
+
+Pendiente de probar: si nas.com cierra el boleto solo al llegar a 25 o hay
+que cerrarlo a mano. Israel nunca ha puesto un cupo tan bajo. Mientras, el
+"agotado" se marca a mano en el archivo.
+
 ## Lo que sigue (construcción)
 
 - [x] `src/lib/empieza.ts` con el copy, y la página `/empieza` (estructura de
       `/ebook`), con JSON-LD `Course` + `Offer` y su FAQ. PR #14.
 - [x] Precio en `llms.txt` y `llms-full.txt`. PR #14.
-- [ ] Pegar el `PRODUCT_ID` de nas.io en `src/lib/empieza.ts` (Israel lo crea,
-      yo lo pego): hasta entonces la página dice "abre en unos días".
-- [ ] Producto y cupón en nas.io (Israel).
-- [ ] Segmento en Sendy de quienes contestaron la encuesta (Israel).
+- [x] Checkout de nas.com pegado en `src/lib/empieza.ts` (PR #16); la página
+      soporta varias fechas (PR #17).
+- [x] Evento en nas.com (Israel, 2026-09-20). Falta el cupón de $497 con
+      vencimiento 7-oct.
+- [x] Lista 44 de Sendy con los 74 que dieron clic a la encuesta (2026-09-20).
 - [ ] Datos ficticios del taller (lote de XML) y los prompts, en el repo
       público del canal.
 - [ ] Video "cómo sacar tu cuenta de Claude" para el destacado (Israel).
