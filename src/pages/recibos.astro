@@ -260,9 +260,9 @@ const jsonLd = graph(
           </p>
         </div>
 
-        <div class="regla">
+        <div class="regla aviso">
           <p class="regla-titulo">Antes de pasarle un solo XML</p>
-          <p>
+          <p class="aviso-texto">
             Mientras construyes la app no le das ningún recibo: le das la norma, y la
             norma no trae el RFC de nadie. Tus XML de verdad entran hasta que
             la app ya está en tu carpeta, y ahí se procesan en tu navegador,
@@ -531,20 +531,12 @@ const jsonLd = graph(
 
   .regla {
     margin-top: 1.8rem;
-    background: var(--color-accent-soft);
-    border-left: 3px solid var(--color-accent);
-    border-radius: 0 var(--radius-md) var(--radius-md) 0;
     padding: 1.4rem 1.6rem;
   }
   .regla-titulo {
     margin: 0 0 0.5rem;
     font-weight: 700;
     letter-spacing: -0.015em;
-  }
-  .regla p:last-child {
-    margin: 0;
-    color: var(--color-ink-soft);
-    font-size: 0.95rem;
   }
 
   /* El CTA del curso: una sola tarjeta, un solo botón. */

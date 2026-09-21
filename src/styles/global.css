@@ -247,6 +247,31 @@ html.js-reveal .is-visible .reng > span {
   box-shadow: var(--ficha-offset, 6px) var(--ficha-offset, 6px) 0 var(--ficha-sombra, var(--color-line));
 }
 
+/*
+ * El aviso: la nota con filete verde a la izquierda (la regla de oro de las
+ * guías, la próxima edición del taller). `--aviso-radio` cambia el redondeo
+ * del lado derecho; el relleno de las notas chicas se pone local. El texto
+ * lleva su clase y no se toma por posición, para que una caja con otros
+ * párrafos (la edición) no herede un tamaño que no pidió.
+ */
+.aviso {
+  background: var(--color-accent-soft);
+  border-left: 3px solid var(--color-accent);
+  border-radius: 0 var(--aviso-radio, var(--radius-md)) var(--aviso-radio, var(--radius-md)) 0;
+  padding: 1.6rem 1.8rem;
+}
+.aviso-titulo {
+  margin: 0 0 0.6rem;
+  font-weight: 700;
+  font-size: 1.12rem;
+  letter-spacing: -0.015em;
+}
+.aviso-texto {
+  margin: 0;
+  color: var(--color-ink-soft);
+  font-size: 0.95rem;
+}
+
 /* Doble raya de suma contable (bajo totales) */
 @utility doble-raya {
   border-top: 1.5px solid var(--color-line-strong);

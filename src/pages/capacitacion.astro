@@ -97,7 +97,7 @@ const jsonLd = graph(
           <div class="mensual-info">
             <h2 class="titulo-lg">{TALLER.nombre}</h2>
             {edicion && (
-              <div class="edicion" data-edicion data-vence={edicion.inicio}>
+              <div class="edicion aviso" data-edicion data-vence={edicion.inicio}>
                 <p class="folio">PRÓXIMA <b>EDICIÓN</b></p>
                 <p class="edicion-fecha">{fechaDeEdicion(edicion)}</p>
                 <p class="edicion-ritmo">{edicion.ritmo}, de {edicion.horario}</p>
@@ -320,11 +320,9 @@ const jsonLd = graph(
   }
   /* La fecha es lo primero que busca quien ya decidió: va antes del precio. */
   .edicion {
+    --aviso-radio: var(--radius-sm);
     margin: 1.2rem 0 1.4rem;
     padding: 1rem 1.2rem;
-    border-left: 3px solid var(--color-accent);
-    background: var(--color-accent-soft);
-    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
   }
   .edicion-fecha {
     margin: 0.5rem 0 0.3rem;
