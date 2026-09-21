@@ -1474,17 +1474,6 @@ const lineasTerminal = [
   .guia {
     background: var(--color-line-strong);
   }
-  .guia-inner {
-    display: grid;
-    grid-template-columns: 1.2fr 1fr;
-    gap: 3rem;
-    align-items: center;
-  }
-  @media (max-width: 760px) {
-    .guia-inner {
-      grid-template-columns: 1fr;
-    }
-  }
   .guia .guia-folio {
     color: var(--color-terminal-folio);
   }
@@ -1508,12 +1497,9 @@ const lineasTerminal = [
      contar es la mitad del valor percibido de un imán gratuito, y numeradas en
      mono se cuentan de un vistazo. */
   .capas-tira {
-    list-style: none;
-    display: grid;
     grid-template-columns: repeat(5, 1fr);
     gap: 0;
     margin: 2.6rem 0 0;
-    padding: 1.6rem 0 0;
     position: relative;
   }
   /* La raya de arriba es un pseudo-elemento y no un border para poder
@@ -1528,19 +1514,6 @@ const lineasTerminal = [
     background: var(--color-terminal-raya);
     transform-origin: left;
   }
-  .capas-tira li {
-    padding: 0 1.2rem 0 0;
-    font-size: 0.82rem;
-    line-height: 1.45;
-    color: var(--color-terminal-ink);
-  }
-  .capas-tira b {
-    display: block;
-    margin-bottom: 0.35rem;
-    font-family: var(--font-mono);
-    font-size: 0.75rem;
-    color: var(--color-terminal-ok);
-  }
   /* En celular cinco columnas no caben, y apiladas hacen una torre de cinco
      renglones sueltos. Dos columnas: se siguen contando y ocupan la mitad. */
   @media (max-width: 760px) {
@@ -1548,9 +1521,6 @@ const lineasTerminal = [
       grid-template-columns: 1fr 1fr;
       gap: 1.2rem 1.4rem;
       margin-top: 2.2rem;
-    }
-    .capas-tira li {
-      padding-right: 0;
     }
     /* La quinta queda sola en su renglón: que ocupe el ancho completo en vez
        de dejar un hueco a la derecha. */

@@ -387,28 +387,4 @@ const totalCapitulos = PARTES.reduce((n, parte) => n + parte.piezas.length, 0);
     margin: 1.4rem 0 0;
   }
 
-  .autor {
-    display: grid;
-    grid-template-columns: 120px 1fr;
-    gap: 1.8rem;
-    align-items: start;
-  }
-  @media (max-width: 700px) {
-    .autor {
-      grid-template-columns: 1fr;
-    }
-  }
-  /* La foto trae su propio recorte circular sobre blanco. Con esquinas
-     cuadradas se veían dos bordes: el del círculo de la imagen y el del marco
-     CSS. Se recorta en círculo y se va el marco. */
-  .autor img {
-    border-radius: 50%;
-  }
-  .autor p {
-    margin: 0 0 0.9rem;
-    color: var(--color-ink-soft);
-  }
-  .autor p:last-child {
-    margin-bottom: 0;
-  }
 </style>

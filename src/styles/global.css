@@ -446,6 +446,107 @@ html.js-reveal .is-visible .reng > span {
   max-width: 34ch;
 }
 
+/* Lista numerada de las guías: número mono a la izquierda, filete entre renglones. */
+.lista-num {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  border-top: 1px solid var(--color-line);
+}
+.lista-num li {
+  display: grid;
+  grid-template-columns: 3.4rem 1fr;
+  gap: 1rem;
+  padding: 1.4rem 0;
+  border-bottom: 1px solid var(--color-line);
+}
+.lista-num .num {
+  font-family: var(--font-mono);
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--color-ink-dim);
+}
+.lista-num h3 {
+  margin: 0 0 0.4rem;
+  font-size: 1.1rem;
+  font-weight: 700;
+  letter-spacing: -0.015em;
+}
+.lista-num p {
+  margin: 0;
+  color: var(--color-ink-soft);
+  font-size: 0.95rem;
+}
+@media (max-width: 560px) {
+  .lista-num li {
+    grid-template-columns: 1fr;
+    gap: 0.3rem;
+  }
+}
+
+/* La firma del autor: retrato redondo y dos párrafos. */
+.autor {
+  display: grid;
+  grid-template-columns: 120px 1fr;
+  gap: 1.8rem;
+  align-items: start;
+}
+@media (max-width: 700px) {
+  .autor {
+    grid-template-columns: 1fr;
+  }
+}
+/* La foto trae su propio recorte circular sobre blanco. */
+.autor img {
+  border-radius: 50%;
+}
+.autor p {
+  margin: 0 0 0.9rem;
+  color: var(--color-ink-soft);
+}
+.autor p:last-child {
+  margin-bottom: 0;
+}
+
+/* La banda de la guía: promesa a la izquierda, correo a la derecha. */
+.guia-inner {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 3rem;
+  align-items: center;
+}
+@media (max-width: 760px) {
+  .guia-inner {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* La tira de capas bajo la banda oscura: numeradas en mono se cuentan de un
+   vistazo. Columnas, márgenes y la raya de arriba los pone cada página. */
+.capas-tira {
+  list-style: none;
+  display: grid;
+  padding: 1.6rem 0 0;
+}
+.capas-tira li {
+  padding: 0 1.2rem 0 0;
+  font-size: 0.82rem;
+  line-height: 1.45;
+  color: var(--color-terminal-ink);
+}
+.capas-tira b {
+  display: block;
+  margin-bottom: 0.35rem;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--color-terminal-ok);
+}
+@media (max-width: 760px) {
+  .capas-tira li {
+    padding-right: 0;
+  }
+}
+
 /* Doble raya de suma contable (bajo totales) */
 @utility doble-raya {
   border-top: 1.5px solid var(--color-line-strong);

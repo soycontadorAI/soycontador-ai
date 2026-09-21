@@ -147,10 +147,10 @@ const EXTRAS = [
     <section>
       <div class="container-narrow">
         <div class="sec-head"><h2 class="folio">LOS CINCO, <b>UNO POR UNO</b></h2></div>
-        <ol class="lista-prompts">
+        <ol class="lista-num">
           {PROMPTS.map((p, i) => (
             <li data-reveal style={`--reveal-delay:${i * 0.06}s`}>
-              <span class="lp-num">{p.num}</span>
+              <span class="num">{p.num}</span>
               <div>
                 <h3>{p.titulo}</h3>
                 <p>{p.texto}</p>
@@ -264,26 +264,10 @@ const EXTRAS = [
   /* La tira de capas: numeradas en mono se cuentan de un vistazo, y contarlas
      es la mitad del valor percibido de un imán gratuito. */
   .capas-tira {
-    list-style: none;
-    display: grid;
     grid-template-columns: repeat(5, 1fr);
     gap: 0;
     margin: 3.2rem 0 0;
-    padding: 1.6rem 0 0;
     border-top: 1px solid var(--color-terminal-raya);
-  }
-  .capas-tira li {
-    padding: 0 1.2rem 0 0;
-    font-size: 0.82rem;
-    line-height: 1.45;
-    color: var(--color-terminal-ink);
-  }
-  .capas-tira b {
-    display: block;
-    margin-bottom: 0.35rem;
-    font-family: var(--font-mono);
-    font-size: 0.75rem;
-    color: var(--color-terminal-ok);
   }
   /* En celular cinco columnas no caben, y apiladas hacen una torre de cinco
      renglones sueltos. Dos columnas: se siguen contando y ocupan la mitad. */
@@ -292,9 +276,6 @@ const EXTRAS = [
       grid-template-columns: 1fr 1fr;
       gap: 1.2rem 1.4rem;
       margin-top: 2.4rem;
-    }
-    .capas-tira li {
-      padding-right: 0;
     }
     .capas-tira li:last-child {
       grid-column: 1 / -1;
@@ -312,42 +293,6 @@ const EXTRAS = [
     letter-spacing: -0.015em;
   }
 
-  .lista-prompts {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    border-top: 1px solid var(--color-line);
-  }
-  .lista-prompts li {
-    display: grid;
-    grid-template-columns: 3.4rem 1fr;
-    gap: 1rem;
-    padding: 1.4rem 0;
-    border-bottom: 1px solid var(--color-line);
-  }
-  .lp-num {
-    font-family: var(--font-mono);
-    font-size: 1rem;
-    font-weight: 700;
-    color: var(--color-ink-dim);
-  }
-  .lista-prompts h3 {
-    margin: 0 0 0.4rem;
-    font-size: 1.1rem;
-    font-weight: 700;
-    letter-spacing: -0.015em;
-  }
-  .lista-prompts p {
-    margin: 0;
-    color: var(--color-ink-soft);
-    font-size: 0.95rem;
-  }
-  @media (max-width: 560px) {
-    .lista-prompts li {
-      grid-template-columns: 1fr;
-      gap: 0.3rem;
-    }
-  }
 
 
   .extras {
