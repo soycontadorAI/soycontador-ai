@@ -375,9 +375,6 @@ const totalCapitulos = PARTES.reduce((n, parte) => n + parte.piezas.length, 0);
   .compra {
     max-width: 34rem;
     --ficha-offset: 8px;
-    /* Verde tenue y no gris: es el error que DESIGN.md ya documenta. Se
-       preserva aquí para que este commit no cambie nada; se corrige aparte. */
-    --ficha-sombra: var(--color-accent-soft);
     padding: 1.9rem 2rem;
   }
   .compra .precio {
