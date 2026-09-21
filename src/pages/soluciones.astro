@@ -71,7 +71,7 @@ const jsonLd = graph(
     <section id="que-construyo">
       <div class="container-default">
         <div class="sec-head"><h2 class="folio">QUÉ <b>PUEDO CONSTRUIRTE</b></h2></div>
-        <div class="grid3" data-reveal>
+        <div class="grid-3" data-reveal>
           {SOLUCIONES.map((s, i) => (
             <article class="tarjeta ficha">
               <span class="num">{String(i + 1).padStart(2, "0")}</span>
@@ -158,16 +158,6 @@ const jsonLd = graph(
   }
   .texto strong {
     color: var(--color-ink);
-  }
-  .grid3 {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 1.2rem;
-  }
-  @media (max-width: 860px) {
-    .grid3 {
-      grid-template-columns: 1fr;
-    }
   }
   .tarjeta {
     padding: 1.8rem;

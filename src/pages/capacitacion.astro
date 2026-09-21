@@ -109,7 +109,7 @@ const jsonLd = graph(
               siguiente, antes de que se llene.
             </p>
             <p class="precio"><b>Escríbeme</b> <span>y lo vemos · {TALLER.duracion}</span></p>
-            <ul class="incluye">
+            <ul class="lista-check">
               {TALLER.incluye.map((item) => (
                 <li>{item}</li>
               ))}
@@ -347,37 +347,9 @@ const jsonLd = graph(
   }
   .precio {
     margin: 1rem 0 1.4rem;
-    font-family: var(--font-mono);
   }
-  .precio b {
-    font-size: 1.9rem;
-    font-weight: 700;
-    color: var(--color-accent);
-    letter-spacing: -0.02em;
-  }
-  .precio span {
-    color: var(--color-ink-dim);
-    font-size: 0.85rem;
-  }
-  .incluye {
-    list-style: none;
-    padding: 0;
-    margin: 0 0 1.8rem;
-  }
-  .incluye li {
-    padding: 0.55rem 0 0.55rem 1.6rem;
-    position: relative;
-    color: var(--color-ink-soft);
-    border-bottom: 1px solid var(--color-line);
+  .lista-check li {
     font-size: 0.96rem;
-  }
-  .incluye li::before {
-    content: "✓";
-    position: absolute;
-    left: 0;
-    font-family: var(--font-mono);
-    font-weight: 700;
-    color: var(--color-accent);
   }
   .temario {
     padding: 1.6rem 1.8rem;

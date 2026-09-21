@@ -272,6 +272,81 @@ html.js-reveal .is-visible .reng > span {
   font-size: 0.95rem;
 }
 
+/* Tres fichas en fila; en angosto se apilan. */
+.grid-3 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.2rem;
+}
+@media (max-width: 860px) {
+  .grid-3 {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Lista de lo que incluye una compra: palomita mono en verde, renglones con filete. */
+.lista-check {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 1.8rem;
+}
+.lista-check li {
+  padding: 0.55rem 0 0.55rem 1.6rem;
+  position: relative;
+  color: var(--color-ink-soft);
+  border-bottom: 1px solid var(--color-line);
+  font-size: 0.94rem;
+}
+.lista-check li::before {
+  content: "✓";
+  position: absolute;
+  left: 0;
+  font-family: var(--font-mono);
+  font-weight: 700;
+  color: var(--color-accent);
+}
+
+/* Precio en mono: la cifra grande en verde y la condición en chico. Los márgenes son locales. */
+.precio {
+  font-family: var(--font-mono);
+}
+.precio b {
+  font-size: 1.9rem;
+  font-weight: 700;
+  color: var(--color-accent);
+  letter-spacing: -0.02em;
+}
+.precio span {
+  color: var(--color-ink-dim);
+  font-size: 0.85rem;
+}
+
+/* Página de un solo mensaje (gracias, dentro, 404). */
+.mensaje {
+  padding: 6rem 0;
+  text-align: center;
+}
+.mensaje .intro-page {
+  margin-inline: auto;
+}
+
+/* Cierre de página: un titular centrado y su fila de botones. */
+.cierre-caja {
+  text-align: center;
+  padding: 1rem 0 2rem;
+}
+.cierre-caja .acciones {
+  margin-top: 1.4rem;
+  justify-content: center;
+}
+
+/* Fila de botones. El margen y la alineación los pone quien la monta. */
+@utility acciones {
+  display: flex;
+  gap: 0.9rem;
+  flex-wrap: wrap;
+}
+
 /* Doble raya de suma contable (bajo totales) */
 @utility doble-raya {
   border-top: 1.5px solid var(--color-line-strong);

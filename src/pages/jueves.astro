@@ -96,7 +96,7 @@ const jsonLd = graph(
     <section id="como-funciona">
       <div class="container-default">
         <div class="sec-head"><h2 class="folio">CÓMO <b>FUNCIONA</b></h2></div>
-        <div class="grid3">
+        <div class="grid-3">
           <article class="paso ficha" data-reveal>
             <span class="num">01</span>
             <h3>Un caso real por semana</h3>
@@ -165,9 +165,6 @@ const jsonLd = graph(
   }
   .acciones {
     margin-top: 2rem;
-    display: flex;
-    gap: 0.9rem;
-    flex-wrap: wrap;
   }
   .hero-grid {
     display: grid;
@@ -245,16 +242,6 @@ const jsonLd = graph(
     color: var(--color-ink-soft);
     font-size: 1.02rem;
     line-height: 1.6;
-  }
-  .grid3 {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 1.2rem;
-  }
-  @media (max-width: 860px) {
-    .grid3 {
-      grid-template-columns: 1fr;
-    }
   }
   .paso {
     padding: 1.8rem;

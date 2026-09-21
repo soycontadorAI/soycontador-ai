@@ -48,7 +48,7 @@ const totalCapitulos = PARTES.reduce((n, parte) => n + parte.piezas.length, 0);
           </p>
           <div class="hero-precio">
             <p class="precio"><b>{COMPRA.ebook.precioTexto}</b> <span>pago único · PDF</span></p>
-            <div class="hero-acciones">
+            <div class="acciones">
               <a class="btn btn-primary" href={COMPRA.ebook.url} rel="noopener">Comprar el libro</a>
               <a class="btn btn-ghost" href="#muestra">Leer 3 capítulos gratis</a>
             </div>
@@ -174,7 +174,7 @@ const totalCapitulos = PARTES.reduce((n, parte) => n + parte.piezas.length, 0);
         <article class="compra ficha ficha-dura" data-reveal>
           <p class="folio">EL LIBRO <b>COMPLETO</b> · PDF</p>
           <p class="precio"><b>{COMPRA.ebook.precioTexto}</b> <span>pago único, no suscripción</span></p>
-          <ul class="incluye">
+          <ul class="lista-check">
             {COMPRA.ebook.incluye.map((item) => (
               <li>{item}</li>
             ))}
@@ -266,22 +266,6 @@ const totalCapitulos = PARTES.reduce((n, parte) => n + parte.piezas.length, 0);
   }
   .precio {
     margin: 0 0 1rem;
-    font-family: var(--font-mono);
-  }
-  .precio b {
-    font-size: 1.9rem;
-    font-weight: 700;
-    color: var(--color-accent);
-    letter-spacing: -0.02em;
-  }
-  .precio span {
-    color: var(--color-ink-dim);
-    font-size: 0.85rem;
-  }
-  .hero-acciones {
-    display: flex;
-    gap: 0.9rem;
-    flex-wrap: wrap;
   }
 
   .argumento p {
@@ -398,26 +382,6 @@ const totalCapitulos = PARTES.reduce((n, parte) => n + parte.piezas.length, 0);
   }
   .compra .precio {
     margin: 0.9rem 0 1.3rem;
-  }
-  .incluye {
-    list-style: none;
-    padding: 0;
-    margin: 0 0 1.8rem;
-  }
-  .incluye li {
-    padding: 0.55rem 0 0.55rem 1.6rem;
-    position: relative;
-    color: var(--color-ink-soft);
-    border-bottom: 1px solid var(--color-line);
-    font-size: 0.94rem;
-  }
-  .incluye li::before {
-    content: "✓";
-    position: absolute;
-    left: 0;
-    font-family: var(--font-mono);
-    font-weight: 700;
-    color: var(--color-accent);
   }
   .garantia {
     margin: 1.4rem 0 0;

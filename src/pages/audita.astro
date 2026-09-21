@@ -175,7 +175,7 @@ const EXTRAS = [
             modelo.
           </p>
         </div>
-        <div class="extras">
+        <div class="extras grid-3">
           {EXTRAS.map((e, i) => (
             <article class="ficha" data-reveal style={`--reveal-delay:${i * 0.08}s`}>
               <h3>{e.titulo}</h3>
@@ -351,15 +351,7 @@ const EXTRAS = [
 
 
   .extras {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 1.2rem;
     margin-top: 2.4rem;
-  }
-  @media (max-width: 860px) {
-    .extras {
-      grid-template-columns: 1fr;
-    }
   }
   .extras article {
     padding: 1.3rem;
