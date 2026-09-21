@@ -10,6 +10,16 @@
  * A quien llega aquí siendo de uno o dos se le manda de regreso a
  * /capacitacion, y se le dice por qué. Perder ese lead a propósito es lo que
  * hace creíble el resto de la página.
+ *
+ * Orden de las secciones:
+ * - La aritmética va ARRIBA de la oferta. Un socio no compara este programa
+ *   contra otro programa: lo compara contra no hacer nada. Si no ve primero
+ *   lo que ya paga cada año, cualquier número que venga después se lee como
+ *   gasto.
+ * - El filtro ("cuándo no es para ti") va ANTES del formulario: si alguien
+ *   se va a autodescartar, que se vaya antes de dejar sus datos y no después
+ *   de una llamada. Su tercer punto manda al taller abierto, porque ese lead
+ *   sí tiene dónde caer.
  */
 import BaseLayout from "../layouts/BaseLayout.astro";
 import FaqBlock from "../components/FaqBlock.astro";
@@ -73,12 +83,6 @@ const jsonLd = graph(
       </div>
     </section>
 
-    <!--
-      La aritmética va ARRIBA de la oferta, no abajo. Un socio no compara este
-      programa contra otro programa: lo compara contra no hacer nada. Si no ve
-      primero lo que ya está pagando cada año, cualquier número que venga
-      después se lee como gasto.
-    -->
     <section id="cuenta" class="cuenta">
       <div class="container-default">
         <div class="sec-head"><h2 class="folio">LA <b>CUENTA</b> QUE CASI NADIE SACA</h2></div>
@@ -161,12 +165,6 @@ const jsonLd = graph(
       </div>
     </section>
 
-    <!--
-      El filtro. Va ANTES del formulario a propósito: si alguien se va a
-      autodescartar, que se vaya antes de dejar sus datos y no después de una
-      llamada. Y el tercer punto manda al taller abierto en vez de dejarlo sin
-      salida, porque ese lead sí tiene dónde caer.
-    -->
     <section class="filtro">
       <div class="container-narrow">
         <div class="sec-head"><h2 class="folio">CUÁNDO <b>NO</b> ES PARA TI</h2></div>

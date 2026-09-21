@@ -97,15 +97,34 @@ const lineasTerminal = [
   { tipo: "ok" as const, texto: "✓ reporte listo en 31 segundos" },
   { tipo: "dim" as const, texto: "# la máquina hizo las 3,398 fáciles. las 14 difíciles son tuyas." },
 ];
+
+/*
+ * Decisiones de esta página (el porqué del orden y del copy; la identidad
+ * visual está en design/DESIGN.md):
+ * - El botón secundario del hero baja al menú de ofertas y no manda al live:
+ *   quien todavía no quiere hablar necesita ver el rango completo. La cifra
+ *   sale del arreglo para que el copy no mienta si entra o sale un asiento.
+ * - El pie de la terminal desarma la objeción número uno del avatar A ("la
+ *   IA se inventa cosas") y por eso nombra a ChatGPT: la mala experiencia del
+ *   lector tiene nombre, y negarla en genérico no la desactiva.
+ * - Orden: quién habla, luego la prueba de que a un colega ya le funcionó, y
+ *   hasta entonces el menú de lo que se puede comprar. Los testimonios salen
+ *   de lib/testimonios.ts con nombre, despacho y ciudad completos: es lo que
+ *   separa un testimonio de una cita inventada.
+ * - La galería dice "elige tu camino" y no "arrastra de lado": lo primero
+ *   dice qué ganas, lo segundo describe el gesto. El verbo del gesto lo pone
+ *   el CSS según con qué se navegue. El contador "01 / 06" existe porque en
+ *   móvil solo se ve una tarjeta y sin él las últimas no es que estén
+ *   escondidas, es que el lector no sabe que existen.
+ * - En la guía el campo de correo va arriba, junto a la promesa, y las cinco
+ *   capas bajan a una tira: quien ya decidió no tiene que leer cinco viñetas
+ *   para encontrar dónde dejarlo. El aviso del boletín va pegado al campo,
+ *   no tres párrafos antes.
+ */
 ---
 
 <BaseLayout jsonLd={jsonLd} nav={NAV_HOME} cta={CTA_DIAGNOSTICO}>
   <main>
-    <!--
-      La portada de F: solo tipografía y aire. La pila de tarjetas que vivía
-      aquí no se perdió, se desdobló en la escena de abajo, donde el lector la
-      recorre en vez de mirarla quieta.
-    -->
     <section class="portada">
       <div class="container-default" id="portada">
         <p class="kicker"><span aria-hidden="true"></span>IA para contadores de carrera</p>
@@ -123,11 +142,6 @@ const lineasTerminal = [
           </p>
           <div>
             <div class="hero-actions">
-              {/* El secundario es la salida sin compromiso, y por eso baja al
-                  menú en vez de mandar al live: quien todavía no quiere hablar
-                  necesita ver el rango completo, no una sola puerta. La cifra
-                  sale del arreglo para que el copy no pueda quedar mintiendo si
-                  mañana entra o sale un asiento. */}
               <a class="btn btn-primary" href="#contacto">Platiquemos de tu caso</a>
               <a class="btn btn-ghost" href="#ofertas">Las {asientos.length} formas de empezar</a>
             </div>
@@ -140,12 +154,6 @@ const lineasTerminal = [
       <span class="baja" aria-hidden="true"><i></i>Baja</span>
     </section>
 
-    <!--
-      La escena fija: la sección se queda pegada y el scroll enciende los
-      renglones uno por uno. El lector no ve una animación, la ejecuta. El
-      orden importa (tres los cierra la máquina, el cuarto no), y por eso
-      aquí sí se justifica fijar: es una narración con remate, no un menú.
-    -->
     <section class="escena" id="escena">
       <div class="escena-fija">
         <div class="container-default escena-grid">
@@ -185,14 +193,6 @@ const lineasTerminal = [
       </div>
     </section>
 
-    <!--
-      El puente entre el titular y las secciones. Antes esto era la nota al pie
-      completa, con la historia de la contadora de 46 años. La historia larga se
-      fue, pero sin ella el titular se queda como afirmación sin respaldo: aquí
-      queda la vuelta que la cerraba, que es la tesis del proyecto en tres
-      frases. Termina en "de eso me encargo yo" y en seguida entra "quién te
-      está hablando", que es exactamente la pregunta que deja abierta.
-    -->
     <section class="vuelta">
       <div class="container-default vuelta-grid">
         <div data-reveal>
@@ -219,8 +219,6 @@ const lineasTerminal = [
           </p>
           <p class="vuelta-remate">Y de eso <span class="hl">me encargo yo</span>.</p>
         </div>
-        {/* Decorativo: aria-hidden y alt vacío porque no dice nada que el texto
-            no diga ya. Es la cara de quien está hablando, no información. */}
         <img
           class="vuelta-retrato"
           src="/assets/israel-cruzado.webp"
@@ -268,21 +266,8 @@ const lineasTerminal = [
             </div>
             <p class="mas"><a href="/sobre-mi">Toda la historia →</a></p>
           </div>
-          {/*
-            La terminal deja de flotar al lado del texto y se vuelve figura de
-            revista: encajada, con pie. En una página de papel una pantalla no
-            flota, va con su explicación debajo, y eso de paso justifica que
-            el único bloque oscuro no rompa la hoja.
-          */}
           <figure class="figura" data-reveal style="--reveal-delay: .12s">
             <Terminal lineas={lineasTerminal} />
-            {/*
-              Este pie hace un trabajo concreto: desarmar la objeción número
-              uno del avatar A, que es "la IA se inventa cosas". Por eso nombra
-              a ChatGPT en vez de hablar de "la IA" en abstracto: la mala
-              experiencia que el lector tuvo tiene nombre, y negarla en
-              genérico no la desactiva.
-            */}
             <figcaption class="pie-figura">
               <b>FIG. 1</b> · Así se pide. No es ChatGPT inventando datos ni
               sacándose respuestas de la manga para salir del paso. Es un canal
@@ -294,18 +279,6 @@ const lineasTerminal = [
       </div>
     </section>
 
-    <!--
-      La prueba va después de "quién te está hablando" y antes del menú: primero
-      quién habla, luego que a un colega ya le funcionó, y hasta entonces qué se
-      puede comprar. Cada testimonio es un artículo completo (la objeción, la
-      cita, lo que cambió, la firma) y sale de lib/testimonios.ts: para sumar el
-      siguiente se agrega ahí y se sube su carátula, la página no se toca. Con
-      varios se apilan y el video alterna de lado.
-
-      El nombre, el despacho y la ciudad van completos y con enlace a su sitio.
-      Es lo que separa un testimonio de una cita inventada, y de paso le manda
-      clientes de su zona al colega que dio la cara.
-    -->
     <section id="testimonios">
       <div class="container-default">
         <div class="sec-head"><h2 class="folio">CUENTA <b>02</b> · QUIÉN YA DIO EL PASO</h2></div>
@@ -360,29 +333,12 @@ const lineasTerminal = [
       </div>
     </section>
 
-    <!--
-      Las seis puertas se recorren de lado y NO se fijan como la escena de
-      arriba. La diferencia importa: la escena es una narración con orden y
-      remate, y esto es un menú. Fijarlo obligaría a pasar por las seis, que
-      es justo lo contrario de lo que dice el titular de la sección.
-    -->
     <section id="ofertas">
       <div class="container-default">
         <div class="sec-head"><h2 class="folio">CUENTA <b>03</b> · QUÉ ENCUENTRAS AQUÍ</h2></div>
         <p class="galeria-titulo" data-reveal>
           Seis puertas. <em>Ninguna te obliga a la siguiente.</em>
         </p>
-        {/*
-          "Elige tu camino" y no "arrastra de lado": lo primero dice qué ganas
-          y lo segundo solo describe el gesto. El verbo del gesto cambia según
-          con qué se navegue (se desliza con el dedo, se arrastra con el
-          mouse), así que lo pone el CSS y no el marcado.
-
-          El contador de posición existe porque en móvil solo se ve una
-          tarjeta: sin él, las últimas del carrusel no es que estén escondidas,
-          es que el lector no sabe que existen. Con "01 / 06" sabe cuántas
-          faltan y que la última no es la que tiene enfrente.
-        */}
         <div class="pista-guia" id="guia-pista" data-reveal>
           <span class="folio pista-etiqueta">ELIGE TU CAMINO <span class="gesto" aria-hidden="true"></span></span>
           <span class="pista-barra" id="barra-caja"><i id="barra-pista"></i></span>
@@ -393,8 +349,6 @@ const lineasTerminal = [
         </div>
       </div>
       <div class="galeria-carril" id="carril">
-        {/* Región desplazable y enfocable: el teclado tiene que poder
-            recorrerla, no solo el mouse. */}
         <div class="pista" id="pista" tabindex="0" role="region" aria-label={`Las ${asientos.length} formas de empezar. Se recorre de lado.`}>
           {asientos.map((a) => (
             <a class="puerta" href={a.href}>
@@ -402,9 +356,6 @@ const lineasTerminal = [
               <h3>{a.titulo}</h3>
               <p>{a.texto}</p>
               <span class="go">{a.cta}</span>
-              {/* Marca de agua: aria-hidden porque no aporta información que
-                  el título no dé ya, y pointer-events none para que nunca se
-                  interponga al clic. */}
               <span class="ilustra" aria-hidden="true"><Icon name={a.icono} /></span>
             </a>
           ))}
@@ -422,12 +373,6 @@ const lineasTerminal = [
       </div>
     </section>
 
-    <!--
-      El campo de correo va arriba, al lado de la promesa, y el detalle de las
-      cinco capas baja a una tira. Antes el correo quedaba al final de una lista
-      de cinco viñetas: quien ya había decidido tenía que leerlas todas para
-      encontrar dónde dejarlo.
-    -->
     <section class="guia">
       <div class="container-default guia-inner">
         <div>
@@ -440,9 +385,6 @@ const lineasTerminal = [
           </p>
         </div>
         <div class="guia-form">
-          {/* Lo del boletín se dice AQUÍ y no en un párrafo aparte: el aviso de
-              a qué te estás dando de alta tiene que estar donde se da el
-              correo, no tres párrafos antes. */}
           <NewsletterForm
             boton="Mándame los prompts"
             nota="Te los mando al correo, junto con una idea de IA fiscal cada semana. Te das de baja con un clic."

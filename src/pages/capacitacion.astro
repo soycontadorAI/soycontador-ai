@@ -31,6 +31,15 @@ const NAV: readonly Enlace[] = [
 ];
 const CTA: Enlace = { label: "Cuéntame de tu equipo", href: "#precalificacion" };
 
+/*
+ * Decisiones de esta página:
+ * - La columna de empresas no vende, rutea a /despachos: le habla a otra
+ *   persona (aquí decide quien compra su lugar, allá quien firma por su
+ *   equipo). Repetir el pitch en las dos páginas nos ponía a competir contra
+ *   nosotros mismos en el buscador.
+ * - Bajo la colaboración va el enlace a "Empieza aquí" como el paso de antes,
+ *   para quien lee eso y siente que todavía no es para él (Israel, 2026-09-20).
+ */
 const jsonLd = graph(
   capacitacionService(),
   faqPage(FAQ_CAPACITACION, `${SITE.url}/capacitacion`),
@@ -99,12 +108,6 @@ const jsonLd = graph(
               Déjame tus datos aquí abajo y te aviso en cuanto se abra la
               siguiente, antes de que se llene.
             </p>
-            {/* Aquí iba el precio. Se retiró el 2026-09-08: con la colaboración
-                a $3,500 en la misma página, dos números juntos convierten la
-                decisión en una comparación de precio en vez de una de formato.
-                Lo que queda es la invitación, que además sirve para los dos
-                casos que llegan a este bloque: el que quiere fecha y el que
-                quiere cotización. */}
             <p class="precio"><b>Escríbeme</b> <span>y lo vemos · {TALLER.duracion}</span></p>
             <ul class="incluye">
               {TALLER.incluye.map((item) => (
@@ -132,13 +135,6 @@ const jsonLd = graph(
       <section id="invitado" class="colab-sec">
         <div class="container-default">
           <div class="sec-head"><h2 class="folio">PRÓXIMA FECHA · <b>COMO INVITADO</b></h2></div>
-          {/*
-            No es el taller de Israel y la página no puede sugerir que lo sea:
-            lo encabeza otra persona, lo vende otra plataforma y él da una
-            parte. Por eso el bloque dice quién, dónde y qué parte da, y el
-            precio que aparece es el de ESE curso, no el suyo. Sin JSON-LD de
-            oferta a propósito: no se emite un precio de algo que no vende.
-          */}
           <div class="colab" data-reveal>
             <div>
               <h2 class="titulo-lg">{colaboracion.nombre}</h2>
@@ -152,8 +148,6 @@ const jsonLd = graph(
                 siguiente con acompañamiento, esta es la fecha más cercana.
               </p>
               <a class="btn btn-primary" href={colaboracion.url}>Ver el temario y apartar lugar</a>
-              {/* El paso de antes, para quien lee esto y siente que todavía
-                  no es para él. Ángulo de Israel (2026-09-20). */}
               {empiezaAbierta && (
                 <p class="colab-antes">
                   ¿Sientes que todavía no es para ti? Hay un paso de antes:{" "}
@@ -188,15 +182,6 @@ const jsonLd = graph(
       <div class="container-default">
         <div class="sec-head"><h2 class="folio">MODALIDAD <b>02</b> · EMPRESAS Y DESPACHOS</h2></div>
         <div class="dos-cols" data-reveal>
-          {/*
-            Esta columna dejó de vender y pasó a rutear. La capacitación para
-            un despacho completo tiene página propia (/despachos) porque le
-            habla a otra persona: aquí decide quien compra su lugar, allá
-            decide quien firma por su equipo. Repetir el pitch en las dos
-            páginas nos dejaba compitiendo contra nosotros mismos en el
-            buscador y con un formulario que preguntaba una modalidad que la
-            página ya había respondido.
-          */}
           <div>
             <h2 class="titulo-lg">{EMPRESARIAL.nombre}</h2>
             <p class="texto">

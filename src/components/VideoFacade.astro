@@ -5,6 +5,12 @@
  * entra al primer render, así que el sitio conserva su performance y no
  * rastrea a nadie sin permiso. Al hacer clic se inserta el iframe de
  * youtube-nocookie con autoplay.
+ *
+ * El nombre accesible del botón ARRANCA con el texto visible de la cinta.
+ * WCAG 2.5.3 (Label in Name) pide que lo que se ve esté contenido en lo que
+ * se anuncia: si alguien maneja el navegador por voz y dice "el tráiler",
+ * tiene que activarse este botón. Con la cinta solo en aria-hidden, el
+ * comando no encontraba nada. Lo marcó Lighthouse en /jueves.
  */
 
 interface Props {
@@ -21,13 +27,6 @@ const { videoId, titulo, poster, aria, cinta } = Astro.props;
 ---
 
 <div class="video" data-video={videoId}>
-  {/*
-    El nombre accesible ARRANCA con el texto visible de la cinta. WCAG 2.5.3
-    (Label in Name) pide que lo que se ve esté contenido en lo que se anuncia:
-    si alguien maneja el navegador por voz y dice "el tráiler", tiene que
-    activarse este botón. Con la cinta solo en aria-hidden, el comando no
-    encontraba nada. Lo marcó Lighthouse en /jueves.
-  */}
   <button
     type="button"
     class="video-btn"
