@@ -1,7 +1,12 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import { breadcrumbs, graph, person } from "../lib/schema";
-import { PERSONA } from "../lib/site";
+import { CTA_DIAGNOSTICO, PERSONA, type Enlace } from "../lib/site";
+
+const NAV: readonly Enlace[] = [
+  { label: "La historia", href: "#historia" },
+  { label: "Nota aclaratoria", href: "#nota" },
+];
 
 const jsonLd = graph(
   person(),
@@ -44,6 +49,8 @@ const diario = [
   description={PERSONA.bioCorta}
   type="profile"
   jsonLd={jsonLd}
+  nav={NAV}
+  cta={CTA_DIAGNOSTICO}
 >
   <main>
     <section class="encabezado">
@@ -65,7 +72,7 @@ const diario = [
       </div>
     </section>
 
-    <section>
+    <section id="historia">
       <div class="container-default">
         <div class="sec-head"><h2 class="folio">LIBRO <b>DIARIO</b> · LA HISTORIA</h2></div>
         <div class="diario">
@@ -82,7 +89,7 @@ const diario = [
       </div>
     </section>
 
-    <section>
+    <section id="nota">
       <div class="container-narrow" data-reveal>
         <div class="sec-head"><h2 class="folio">NOTA <b>ACLARATORIA</b></h2></div>
         <div class="nota">

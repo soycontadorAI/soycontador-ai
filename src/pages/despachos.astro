@@ -17,7 +17,7 @@ import FormCapacitacion from "../components/FormCapacitacion.astro";
 import Poliza from "../components/Poliza.astro";
 import { FAQ_DESPACHOS } from "../lib/faqs";
 import { breadcrumbs, despachosService, faqPage, graph } from "../lib/schema";
-import { SITE } from "../lib/site";
+import { SITE, type Enlace } from "../lib/site";
 import {
   ARITMETICA,
   DIAGNOSTICO,
@@ -26,6 +26,14 @@ import {
   NO_ES_PARA_TI,
   TEMARIO,
 } from "../lib/despachos";
+
+const NAV: readonly Enlace[] = [
+  { label: "La cuenta", href: "#cuenta" },
+  { label: "El programa", href: "#programa" },
+  { label: "Cómo se ve", href: "#formato" },
+  { label: "Preguntas", href: "#faq" },
+];
+const CTA: Enlace = { label: "Empieza el diagnóstico", href: "#diagnostico" };
 
 const jsonLd = graph(
   despachosService(),
@@ -41,6 +49,8 @@ const jsonLd = graph(
   title="Capacitación en IA para despachos contables (in company)"
   description="Programa de implementación para el equipo de tu despacho: 8 horas en sesiones de 2, sobre tu operación real. Salen con entre 4 y 6 flujos corriendo y con el método del despacho por escrito. Se cotiza por proyecto, después de un diagnóstico."
   jsonLd={jsonLd}
+  nav={NAV}
+  cta={CTA}
 >
   <main>
     <section class="encabezado">
@@ -69,7 +79,7 @@ const jsonLd = graph(
       primero lo que ya está pagando cada año, cualquier número que venga
       después se lee como gasto.
     -->
-    <section class="cuenta">
+    <section id="cuenta" class="cuenta">
       <div class="container-default">
         <div class="sec-head"><h2 class="folio">LA <b>CUENTA</b> QUE CASI NADIE SACA</h2></div>
         <div class="cuenta-grid">
@@ -127,7 +137,7 @@ const jsonLd = graph(
       </div>
     </section>
 
-    <section class="formato">
+    <section id="formato" class="formato">
       <div class="container-default">
         <div class="sec-head"><h2 class="folio">CÓMO SE <b>VE</b> POR DENTRO</h2></div>
         <div class="formato-grid">
@@ -195,7 +205,7 @@ const jsonLd = graph(
       </div>
     </section>
 
-    <section>
+    <section id="faq">
       <div class="container-narrow">
         <div class="sec-head"><h2 class="folio">LO QUE ME PREGUNTAN LOS <b>SOCIOS</b></h2></div>
         <FaqBlock items={FAQ_DESPACHOS} />

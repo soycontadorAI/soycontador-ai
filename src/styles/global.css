@@ -61,6 +61,32 @@ body {
   font-weight: 700;
 }
 
+/* Lista de enlaces del chrome: la comparten la cabecera (Nav.astro) y el pie
+   (Pie.astro), por eso vive aquí y no en el scoped de ninguno de los dos. */
+.site-links {
+  display: flex;
+  gap: 1.5rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  flex-wrap: wrap;
+}
+.site-links a {
+  text-decoration: none;
+  font-size: 0.88rem;
+  font-weight: 500;
+  color: var(--color-ink-soft);
+}
+.site-links a:hover {
+  color: var(--color-accent);
+}
+
+/* La cabecera es pegajosa: sin este margen, un salto de ancla aterriza con
+   el folio de la sección tapado por ella. */
+main [id] {
+  scroll-margin-top: 4.5rem;
+}
+
 /* Encabezado de sección con folio y regla al margen */
 .sec-head {
   display: flex;

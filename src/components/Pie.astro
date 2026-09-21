@@ -1,0 +1,85 @@
+---
+/**
+ * Pie del sitio. Completo lleva el índice de páginas, las redes y lo legal;
+ * desnudo (landings de captación) conserva solo lo legal, porque a una
+ * landing llega tráfico que viene por UNA cosa y cada enlace de más es una
+ * salida.
+ */
+import { FOOTER_LINKS, NAV_PAGINAS } from "../lib/site";
+
+interface Props {
+  desnudo?: boolean;
+}
+
+const { desnudo = false } = Astro.props;
+const year = new Date().getFullYear();
+const pieLinks = desnudo ? FOOTER_LINKS.filter((l) => !l.href.startsWith("http")) : FOOTER_LINKS;
+---
+
+<footer class:list={["site-footer", { "site-footer-desnudo": desnudo }]}>
+  <div class="container-default">
+    {!desnudo && (
+      <nav class="site-foot-paginas" aria-label="Páginas del sitio">
+        <ul class="site-links">
+          {NAV_PAGINAS.map((item) => (
+            <li><a href={item.href}>{item.label}</a></li>
+          ))}
+        </ul>
+      </nav>
+    )}
+    <div class="site-foot">
+      <small>soycontador.ai · Israel Castro · Hecho en México · {year}</small>
+      <ul class="site-links">
+        {pieLinks.map((item) => (
+          <li>
+            <a
+              href={item.href}
+              rel={item.href.startsWith("http") ? "me noopener" : undefined}
+            >
+              {item.label}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    background: var(--color-surface-raised);
+    border-top: 1.5px solid var(--color-line-strong);
+    margin-top: 4rem;
+  }
+  /* En una landing la última sección es la banda del correo: el respiro de
+     4rem metía una franja clara entre esa banda y el pie. */
+  .site-footer-desnudo {
+    margin-top: 0;
+  }
+  .site-foot-paginas {
+    border-bottom: 1px solid var(--color-line);
+    padding-block: 1.4rem;
+  }
+  .site-foot-paginas .site-links {
+    gap: 0.6rem 1.5rem;
+  }
+  .site-foot-paginas a {
+    font-size: 0.82rem;
+  }
+  .site-foot {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+    padding-block: 2rem 2.5rem;
+  }
+  .site-foot small {
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--color-ink-dim);
+  }
+</style>

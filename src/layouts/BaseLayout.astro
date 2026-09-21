@@ -3,8 +3,10 @@ import "../styles/global.css";
 
 import Analytics from "../components/Analytics.astro";
 import JsonLd from "../components/JsonLd.astro";
+import Nav from "../components/Nav.astro";
+import Pie from "../components/Pie.astro";
 import SEO from "../components/SEO.astro";
-import { FOOTER_LINKS, NAV, NAV_PAGINAS, SITE } from "../lib/site";
+import { SITE, type Enlace } from "../lib/site";
 
 interface Props {
   title?: string;
@@ -14,19 +16,19 @@ interface Props {
   noindex?: boolean;
   /** Grafo JSON-LD ya armado con graph(...) de lib/schema.ts */
   jsonLd?: Record<string, unknown>;
+  /** Menú de la cabecera: las anclas de esta página. Sin él, solo logotipo. */
+  nav?: readonly Enlace[];
+  /** Botón de la cabecera. En una landing apunta al formulario de la misma página. */
+  cta?: Enlace;
   /**
    * Página de captación: se queda el logotipo y lo legal, y se van la
    * navegación, el CTA de la cabecera, el índice de páginas del pie y las
-   * redes. A una landing llega tráfico que viene por UNA cosa (un QR, el
-   * live, un reel), y cada enlace de más es una salida.
+   * redes, aunque la página pase nav o cta.
    */
   desnudo?: boolean;
 }
 
-const { title, description, image, type, noindex, jsonLd, desnudo } = Astro.props;
-const year = new Date().getFullYear();
-/** Desnuda, el pie conserva solo los enlaces internos (el aviso de privacidad). */
-const pieLinks = desnudo ? FOOTER_LINKS.filter((l) => !l.href.startsWith("http")) : FOOTER_LINKS;
+const { title, description, image, type, noindex, jsonLd, nav, cta, desnudo = false } = Astro.props;
 ---
 
 <!doctype html>
@@ -46,32 +48,7 @@ const pieLinks = desnudo ? FOOTER_LINKS.filter((l) => !l.href.startsWith("http")
     <Analytics />
   </head>
   <body>
-    <header class="site-header">
-      <nav class="container-default site-nav" aria-label="Principal">
-        <a class="site-logo" href="/" aria-label="soycontador.ai, inicio">
-          <svg class="site-isotipo" viewBox="5 18 86 60" fill="none" aria-hidden="true">
-            <rect x="12" y="25" width="72" height="5" fill="currentColor"></rect>
-            <rect x="45.5" y="25" width="5" height="46" fill="currentColor"></rect>
-            <rect x="16" y="39" width="24" height="7" fill="currentColor"></rect>
-            <rect x="16" y="52" width="17" height="7" fill="currentColor"></rect>
-            <rect x="56" y="39" width="24" height="7" fill="var(--color-accent)"></rect>
-            <rect x="56" y="52" width="17" height="7" fill="var(--color-accent)"></rect>
-          </svg>
-          <span class="site-wordmark">
-            <span class="site-wordmark-nombre">soycontador</span>
-            <span class="site-wordmark-tld">.ai</span>
-          </span>
-        </a>
-        {!desnudo && (
-          <ul class="site-links">
-            {NAV.map((item) => (
-              <li><a href={item.href}>{item.label}</a></li>
-            ))}
-          </ul>
-        )}
-        {!desnudo && <a class="site-cta" href="/contacto">Agenda un diagnóstico</a>}
-      </nav>
-    </header>
+    <Nav nav={desnudo ? undefined : nav} cta={desnudo ? undefined : cta} />
 
     <slot />
 
@@ -93,174 +70,6 @@ const pieLinks = desnudo ? FOOTER_LINKS.filter((l) => !l.href.startsWith("http")
       document.querySelectorAll("[data-reveal]").forEach((el) => io.observe(el));
     </script>
 
-    <footer class:list={["site-footer", { "site-footer-desnudo": desnudo }]}>
-      <div class="container-default">
-        {!desnudo && (
-          <nav class="site-foot-paginas" aria-label="Páginas del sitio">
-            <ul class="site-links">
-              {NAV_PAGINAS.map((item) => (
-                <li><a href={item.href}>{item.label}</a></li>
-              ))}
-            </ul>
-          </nav>
-        )}
-        <div class="site-foot">
-          <small>soycontador.ai · Israel Castro · Hecho en México · {year}</small>
-          <ul class="site-links">
-            {pieLinks.map((item) => (
-              <li>
-                <a
-                  href={item.href}
-                  rel={item.href.startsWith("http") ? "me noopener" : undefined}
-                >
-                  {item.label}
-                </a>
-              </li>
-            ))}
-          </ul>
-        </div>
-      </div>
-    </footer>
+    <Pie desnudo={desnudo} />
   </body>
 </html>
-
-<style>
-  /* Chrome de la identidad "Libro mayor × terminal" (ver design/DESIGN.md) */
-  .site-header {
-    background: var(--color-surface-raised);
-    border-bottom: 1px solid var(--color-line);
-    position: sticky;
-    top: 0;
-    z-index: 5;
-  }
-  .site-nav {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 1rem;
-    padding-block: 1rem;
-  }
-  /*
-   * Logotipo: isotipo (cuenta T, abono verde a la derecha) + wordmark de dos
-   * líneas. "soycontador" en la sans del sitio, ".ai" en mono y en verde: la
-   * única parte que cambia de familia. Ver design/DESIGN.md.
-   */
-  .site-logo {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.6rem;
-    text-decoration: none;
-    color: var(--color-ink);
-  }
-  /* viewBox recortado al asiento (deja un renglón de aire por lado) */
-  .site-isotipo {
-    height: 1.7rem;
-    width: auto;
-    flex: none;
-  }
-  .site-wordmark {
-    display: flex;
-    flex-direction: column;
-    line-height: 0.94;
-  }
-  .site-wordmark-nombre {
-    font-size: 1.05rem;
-    font-weight: 700;
-    letter-spacing: -0.035em;
-  }
-  .site-wordmark-tld {
-    font-family: var(--font-mono);
-    font-size: 0.82rem;
-    font-weight: 700;
-    letter-spacing: -0.02em;
-    color: var(--color-accent);
-  }
-  .site-links {
-    display: flex;
-    gap: 1.5rem;
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    flex-wrap: wrap;
-  }
-  /* Solo en la cabecera van sin envolver: con cuatro entradas, entre 760 y
-     880 px la última se caía a un segundo renglón. Antes de que no quepan se
-     esconden (regla de abajo). El pie SÍ envuelve: ahí son diez enlaces y
-     sin wrap se salían del ancho de la página. */
-  .site-nav .site-links {
-    flex-wrap: nowrap;
-    white-space: nowrap;
-  }
-  .site-links a {
-    text-decoration: none;
-    font-size: 0.88rem;
-    font-weight: 500;
-    color: var(--color-ink-soft);
-  }
-  .site-links a:hover {
-    color: var(--color-accent);
-  }
-  .site-cta {
-    font-weight: 700;
-    font-size: 0.85rem;
-    text-decoration: none;
-    color: var(--color-accent-contrast);
-    background: var(--color-accent);
-    padding: 0.55rem 1.1rem;
-    border-radius: var(--radius-pill);
-    /* En 390px la frase se partía en dos renglones y el botón se comía media
-       cabecera, empujando el logotipo. No se esconde: en móvil es el único
-       llamado del encabezado. Se aprieta. */
-    white-space: nowrap;
-  }
-  @media (max-width: 480px) {
-    .site-cta {
-      font-size: 0.78rem;
-      padding: 0.5rem 0.9rem;
-    }
-  }
-  .site-cta:hover {
-    background: var(--color-accent-hover);
-  }
-  .site-footer {
-    background: var(--color-surface-raised);
-    border-top: 1.5px solid var(--color-line-strong);
-    margin-top: 4rem;
-  }
-  /* En una landing la última sección es la banda del correo: el respiro de
-     4rem metía una franja clara entre esa banda y el pie. */
-  .site-footer-desnudo {
-    margin-top: 0;
-  }
-  .site-foot-paginas {
-    border-bottom: 1px solid var(--color-line);
-    padding-block: 1.4rem;
-  }
-  .site-foot-paginas .site-links {
-    gap: 0.6rem 1.5rem;
-  }
-  .site-foot-paginas a {
-    font-size: 0.82rem;
-  }
-  .site-foot {
-    display: flex;
-    justify-content: space-between;
-    align-items: baseline;
-    gap: 1.5rem;
-    flex-wrap: wrap;
-    padding-block: 2rem 2.5rem;
-  }
-  .site-foot small {
-    font-family: var(--font-mono);
-    font-size: 0.68rem;
-    font-weight: 500;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: var(--color-ink-dim);
-  }
-  @media (max-width: 880px) {
-    .site-nav .site-links {
-      display: none;
-    }
-  }
-</style>

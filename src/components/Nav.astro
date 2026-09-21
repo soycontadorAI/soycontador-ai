@@ -1,0 +1,128 @@
+---
+/**
+ * Cabecera del sitio: logotipo, el menú de la página y su botón. El menú es
+ * de cada página (sus propias anclas) y no del sitio; sin `nav` no hay lista y
+ * sin `cta` no hay botón, y queda solo el logotipo.
+ */
+import type { Enlace } from "../lib/site";
+
+interface Props {
+  nav?: readonly Enlace[];
+  cta?: Enlace;
+}
+
+const { nav = [], cta } = Astro.props;
+---
+
+<header class="site-header">
+  <nav class="container-default site-nav" aria-label="Principal">
+    <a class="site-logo" href="/" aria-label="soycontador.ai, inicio">
+      <svg class="site-isotipo" viewBox="5 18 86 60" fill="none" aria-hidden="true">
+        <rect x="12" y="25" width="72" height="5" fill="currentColor"></rect>
+        <rect x="45.5" y="25" width="5" height="46" fill="currentColor"></rect>
+        <rect x="16" y="39" width="24" height="7" fill="currentColor"></rect>
+        <rect x="16" y="52" width="17" height="7" fill="currentColor"></rect>
+        <rect x="56" y="39" width="24" height="7" fill="var(--color-accent)"></rect>
+        <rect x="56" y="52" width="17" height="7" fill="var(--color-accent)"></rect>
+      </svg>
+      <span class="site-wordmark">
+        <span class="site-wordmark-nombre">soycontador</span>
+        <span class="site-wordmark-tld">.ai</span>
+      </span>
+    </a>
+    {nav.length > 0 && (
+      <ul class="site-links">
+        {nav.map((item) => (
+          <li><a href={item.href}>{item.label}</a></li>
+        ))}
+      </ul>
+    )}
+    {cta && <a class="site-cta" href={cta.href}>{cta.label}</a>}
+  </nav>
+</header>
+
+<style>
+  .site-header {
+    background: var(--color-surface-raised);
+    border-bottom: 1px solid var(--color-line);
+    position: sticky;
+    top: 0;
+    z-index: 5;
+  }
+  .site-nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding-block: 1rem;
+  }
+  /*
+   * Logotipo: isotipo (cuenta T, abono verde a la derecha) + wordmark de dos
+   * líneas. "soycontador" en la sans del sitio, ".ai" en mono y en verde: la
+   * única parte que cambia de familia. Ver design/DESIGN.md.
+   */
+  .site-logo {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    text-decoration: none;
+    color: var(--color-ink);
+  }
+  /* viewBox recortado al asiento (deja un renglón de aire por lado) */
+  .site-isotipo {
+    height: 1.7rem;
+    width: auto;
+    flex: none;
+  }
+  .site-wordmark {
+    display: flex;
+    flex-direction: column;
+    line-height: 0.94;
+  }
+  .site-wordmark-nombre {
+    font-size: 1.05rem;
+    font-weight: 700;
+    letter-spacing: -0.035em;
+  }
+  .site-wordmark-tld {
+    font-family: var(--font-mono);
+    font-size: 0.82rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: var(--color-accent);
+  }
+  /* En la cabecera los enlaces van sin envolver: con cuatro entradas, entre
+     760 y 880 px la última se caía a un segundo renglón. Antes de que no
+     quepan se esconden (regla de abajo). El pie SÍ envuelve. */
+  .site-nav .site-links {
+    flex-wrap: nowrap;
+    white-space: nowrap;
+  }
+  .site-cta {
+    font-weight: 700;
+    font-size: 0.85rem;
+    text-decoration: none;
+    color: var(--color-accent-contrast);
+    background: var(--color-accent);
+    padding: 0.55rem 1.1rem;
+    border-radius: var(--radius-pill);
+    /* En 390px la frase se partía en dos renglones y el botón se comía media
+       cabecera, empujando el logotipo. No se esconde: en móvil es el único
+       llamado del encabezado. Se aprieta. */
+    white-space: nowrap;
+  }
+  @media (max-width: 480px) {
+    .site-cta {
+      font-size: 0.78rem;
+      padding: 0.5rem 0.9rem;
+    }
+  }
+  .site-cta:hover {
+    background: var(--color-accent-hover);
+  }
+  @media (max-width: 880px) {
+    .site-nav .site-links {
+      display: none;
+    }
+  }
+</style>

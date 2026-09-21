@@ -3,7 +3,14 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import NewsletterForm from "../components/NewsletterForm.astro";
 import VideoFacade from "../components/VideoFacade.astro";
 import { breadcrumbs, graph, juevesSeries, trailerVideo } from "../lib/schema";
-import { PROGRAMA, TRAILER } from "../lib/site";
+import { PROGRAMA, TRAILER, type Enlace } from "../lib/site";
+
+const NAV: readonly Enlace[] = [
+  { label: "El tráiler", href: "#trailer" },
+  { label: "Cómo funciona", href: "#como-funciona" },
+  { label: "Recordatorio", href: "#recordatorio" },
+];
+const CTA: Enlace = { label: "Recuérdamelo por correo", href: "#recordatorio" };
 
 const jsonLd = graph(
   juevesSeries(),
@@ -19,6 +26,8 @@ const jsonLd = graph(
   title="Jueves de ContadorIA, el live semanal de IA para contadores"
   description="Cada jueves a las 11:00 (hora del centro de México) resuelvo en vivo un problema real de un despacho usando IA: CFDI, conciliaciones, papeles de trabajo y automatización, sin humo y con casos del SAT."
   jsonLd={jsonLd}
+  nav={NAV}
+  cta={CTA}
 >
   <main>
     <section class="encabezado">
@@ -48,7 +57,7 @@ const jsonLd = graph(
       </div>
     </section>
 
-    <section class="trailer">
+    <section id="trailer" class="trailer">
       <div class="container-narrow">
         <div class="sec-head"><h2 class="folio">POR QUÉ <b>ESTE</b> Y NO OTRO CANAL DE IA</h2></div>
         <div class="guion">
@@ -84,7 +93,7 @@ const jsonLd = graph(
       </div>
     </section>
 
-    <section>
+    <section id="como-funciona">
       <div class="container-default">
         <div class="sec-head"><h2 class="folio">CÓMO <b>FUNCIONA</b></h2></div>
         <div class="grid3">

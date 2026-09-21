@@ -14,7 +14,7 @@ import {
   edicionesVigentes,
 } from "../lib/empieza";
 import { breadcrumbs, empiezaCourse, faqPage, graph } from "../lib/schema";
-import { SITE } from "../lib/site";
+import { SITE, type Enlace } from "../lib/site";
 import { TESTIMONIOS } from "../lib/testimonios";
 
 const jsonLd = graph(
@@ -36,12 +36,26 @@ const fechaFolio = abierta?.fechaTexto ?? ediciones[0]?.fechaTexto ?? "Próxima 
 /* Daniel es la prueba de esta página: su "analfabetos en programación" es
    exactamente el miedo de quien la lee. */
 const daniel = TESTIMONIOS.find((t) => t.slug === "daniel-souza");
+
+const NAV: readonly Enlace[] = [
+  { label: "Para quién", href: "#para-quien" },
+  { label: "Las dos horas", href: "#las-dos-horas" },
+  { label: "Lo que necesitas", href: "#necesitas" },
+  { label: "Preguntas", href: "#faq" },
+];
+/* El botón de cabecera sigue al hero: con lugares manda al checkout; sin
+   ellos, a la ficha, que es donde se explica qué sigue. */
+const CTA: Enlace = urlAbierta
+  ? { label: "Apartar mi lugar", href: urlAbierta }
+  : { label: "Próxima fecha", href: "#apartar" };
 ---
 
 <BaseLayout
   title={`${EMPIEZA.nombreCompleto}. Taller en vivo para empezar sin saber nada`}
   description={`Taller en vivo de 2 horas, ${fechaFolio.toLowerCase()}: sales con un proyecto de Claude configurado, un prompt que cita el fundamento y tu primer lote de XML revisado. Sin conocimientos previos. ${EMPIEZA.precioTexto}.`}
   jsonLd={jsonLd}
+  nav={NAV}
+  cta={CTA}
 >
   <main>
     <section class="hero">
@@ -104,7 +118,7 @@ const daniel = TESTIMONIOS.find((t) => t.slug === "daniel-souza");
       </div>
     </section>
 
-    <section>
+    <section id="para-quien">
       <div class="container-default">
         <div class="sec-head"><h2 class="folio">PARA <b>QUIÉN</b> ES</h2></div>
         <div class="perfiles">
@@ -144,7 +158,7 @@ const daniel = TESTIMONIOS.find((t) => t.slug === "daniel-souza");
       </div>
     </section>
 
-    <section class="necesitas-sec">
+    <section id="necesitas" class="necesitas-sec">
       <div class="container-narrow">
         <div class="sec-head"><h2 class="folio">LO QUE <b>NECESITAS</b></h2></div>
         <div class="necesitas" data-reveal>
@@ -245,7 +259,7 @@ const daniel = TESTIMONIOS.find((t) => t.slug === "daniel-souza");
       </div>
     </section>
 
-    <section>
+    <section id="faq">
       <div class="container-narrow">
         <div class="sec-head"><h2 class="folio">PREGUNTAS <b>DIRECTAS</b></h2></div>
         <FaqBlock items={FAQ_EMPIEZA} />
