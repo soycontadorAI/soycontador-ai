@@ -135,10 +135,10 @@ const EXTRAS = [
     <section>
       <div class="container-narrow">
         <div class="sec-head"><h2 class="folio">LOS TRES, <b>UNO POR UNO</b></h2></div>
-        <ol class="lista-prompts">
+        <ol class="lista-num">
           {DETALLE.map((d, i) => (
             <li data-reveal style={`--reveal-delay:${i * 0.06}s`}>
-              <span class="lp-num">{d.num}</span>
+              <span class="num">{d.num}</span>
               <div>
                 <h3>{d.titulo}</h3>
                 <p>{d.texto}</p>
@@ -152,9 +152,9 @@ const EXTRAS = [
     <section>
       <div class="container-narrow">
         <div class="sec-head"><h2 class="folio">POR QUÉ <b>HÍBRIDOS</b></h2></div>
-        <div class="regla" data-reveal>
-          <p class="regla-titulo">Copiloto, no autopiloto.</p>
-          <p>
+        <div class="aviso" data-reveal>
+          <p class="aviso-titulo">Copiloto, no autopiloto.</p>
+          <p class="aviso-texto">
             En los tres flujos la IA carga el volumen: lee, cruza y ordena. Nunca
             determina. La conclusión fiscal, la consulta en los portales y la
             firma son tuyas. Por eso se llaman híbridos y no automáticos: la
@@ -162,9 +162,9 @@ const EXTRAS = [
             último tramo, que es el que se paga, lo caminas tú.
           </p>
         </div>
-        <div class="extras">
+        <div class="extras grid-3">
           {EXTRAS.map((e, i) => (
-            <article data-reveal style={`--reveal-delay:${i * 0.08}s`}>
+            <article class="ficha" data-reveal style={`--reveal-delay:${i * 0.08}s`}>
               <h3>{e.titulo}</h3>
               <p>{e.texto}</p>
             </article>
@@ -207,8 +207,8 @@ const EXTRAS = [
 </BaseLayout>
 
 <style>
-  section {
-    padding: 3.6rem 0;
+  main {
+    --ritmo-seccion: 3.6rem;
   }
 
   /*
@@ -225,13 +225,13 @@ const EXTRAS = [
     padding: 3.2rem 0;
   }
   .hero-folio {
-    color: #8da2c0;
+    color: var(--color-terminal-folio);
   }
   .hero-folio b {
     color: var(--color-terminal-ok);
   }
   .hero-titulo {
-    color: #ffffff;
+    color: var(--color-terminal-titulo);
     font-weight: 700;
     font-size: clamp(2.1rem, 5.4vw, 3.3rem);
     line-height: 1.06;
@@ -241,7 +241,7 @@ const EXTRAS = [
   .hero-texto {
     margin: 1.3rem 0 0;
     max-width: 48ch;
-    color: #aebbd1;
+    color: var(--color-terminal-texto);
     font-size: 1.08rem;
   }
   .hero-form {
@@ -252,35 +252,16 @@ const EXTRAS = [
   /* Tres columnas y no cinco como en /audita: son tres flujos y cada texto es
      más largo, así que a cinco tramos quedarían dos huecos y renglones rotos. */
   .capas-tira {
-    list-style: none;
-    display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 0 1.4rem;
     margin: 3.2rem 0 0;
-    padding: 1.6rem 0 0;
-    border-top: 1px solid #2a3648;
-  }
-  .capas-tira li {
-    padding: 0 1.2rem 0 0;
-    font-size: 0.82rem;
-    line-height: 1.45;
-    color: #9fb0c9;
-  }
-  .capas-tira b {
-    display: block;
-    margin-bottom: 0.35rem;
-    font-family: var(--font-mono);
-    font-size: 0.75rem;
-    color: var(--color-terminal-ok);
+    border-top: 1px solid var(--color-terminal-raya);
   }
   @media (max-width: 760px) {
     .capas-tira {
       grid-template-columns: 1fr;
       gap: 1.2rem;
       margin-top: 2.4rem;
-    }
-    .capas-tira li {
-      padding-right: 0;
     }
   }
 
@@ -300,76 +281,12 @@ const EXTRAS = [
     --hl-alto: 0.5em;
   }
 
-  .lista-prompts {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    border-top: 1px solid var(--color-line);
-  }
-  .lista-prompts li {
-    display: grid;
-    grid-template-columns: 3.4rem 1fr;
-    gap: 1rem;
-    padding: 1.4rem 0;
-    border-bottom: 1px solid var(--color-line);
-  }
-  .lp-num {
-    font-family: var(--font-mono);
-    font-size: 1rem;
-    font-weight: 700;
-    color: var(--color-ink-dim);
-  }
-  .lista-prompts h3 {
-    margin: 0 0 0.4rem;
-    font-size: 1.1rem;
-    font-weight: 700;
-    letter-spacing: -0.015em;
-  }
-  .lista-prompts p {
-    margin: 0;
-    color: var(--color-ink-soft);
-    font-size: 0.95rem;
-  }
-  @media (max-width: 560px) {
-    .lista-prompts li {
-      grid-template-columns: 1fr;
-      gap: 0.3rem;
-    }
-  }
 
-  .regla {
-    background: var(--color-accent-soft);
-    border-left: 3px solid var(--color-accent);
-    border-radius: 0 var(--radius-md) var(--radius-md) 0;
-    padding: 1.6rem 1.8rem;
-  }
-  .regla-titulo {
-    margin: 0 0 0.6rem;
-    font-weight: 700;
-    font-size: 1.12rem;
-    letter-spacing: -0.015em;
-  }
-  .regla p:last-child {
-    margin: 0;
-    color: var(--color-ink-soft);
-    font-size: 0.95rem;
-  }
 
   .extras {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 1.2rem;
     margin-top: 2.4rem;
   }
-  @media (max-width: 860px) {
-    .extras {
-      grid-template-columns: 1fr;
-    }
-  }
   .extras article {
-    background: var(--color-surface-raised);
-    border: 1px solid var(--color-line);
-    border-radius: var(--radius-md);
     padding: 1.3rem;
   }
   .extras h3 {
@@ -395,7 +312,7 @@ const EXTRAS = [
     padding: 4rem 0;
   }
   .cierre-titulo {
-    color: #ffffff;
+    color: var(--color-terminal-titulo);
     font-weight: 700;
     font-size: clamp(1.5rem, 3vw, 2.1rem);
     line-height: 1.12;
@@ -405,6 +322,6 @@ const EXTRAS = [
   .cierre-texto {
     margin: 1rem 0 0;
     max-width: 46ch;
-    color: #aebbd1;
+    color: var(--color-terminal-texto);
   }
 </style>

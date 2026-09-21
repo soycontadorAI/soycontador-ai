@@ -39,7 +39,7 @@ const jsonLd = graph(
           curso: es tu despacho automatizándose mes con mes, con software,
           implementación en vivo y alguien que te destraba cuando hace falta.
         </p>
-        <div class="acciones">
+        <div class="accion">
           <a class="btn btn-primary" href="#aplicar">Aplicar al Club</a>
         </div>
       </div>
@@ -48,9 +48,9 @@ const jsonLd = graph(
     <section id="pilares">
       <div class="container-default">
         <div class="sec-head"><h2 class="folio">LOS <b>3 PILARES</b></h2></div>
-        <div class="grid3">
+        <div class="grid-3">
           {CLUB.pilares.map((pilar, i) => (
-            <article class="pilar" data-reveal style={`--reveal-delay:${i * 0.08}s`}>
+            <article class="pilar ficha" data-reveal style={`--reveal-delay:${i * 0.08}s`}>
               <span class="num">{String(i + 1).padStart(2, "0")}</span>
               <h3>{pilar.titulo}</h3>
               <p>{pilar.texto}</p>
@@ -89,29 +89,10 @@ const jsonLd = graph(
 </BaseLayout>
 
 <style>
-  section {
-    padding: 3.4rem 0;
-  }
-  .encabezado {
-    padding-top: 4.5rem;
-  }
-  .acciones {
+  .accion {
     margin-top: 2rem;
   }
-  .grid3 {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 1.2rem;
-  }
-  @media (max-width: 860px) {
-    .grid3 {
-      grid-template-columns: 1fr;
-    }
-  }
   .pilar {
-    background: var(--color-surface-raised);
-    border: 1px solid var(--color-line);
-    border-radius: var(--radius-md);
     padding: 1.8rem;
   }
   .pilar .num {

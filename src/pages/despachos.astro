@@ -148,7 +148,7 @@ const jsonLd = graph(
           <ul class="lista-formato" data-reveal>
             {FORMATO.map((f) => <li>{f}</li>)}
           </ul>
-          <div class="temario" data-reveal style="--reveal-delay: .1s">
+          <div class="temario ficha ficha-dura" data-reveal style="--reveal-delay: .1s">
             <p class="folio temario-titulo">TEMARIO · 8 HORAS</p>
             <ol>
               {TEMARIO.map((t) => (
@@ -213,16 +213,14 @@ const jsonLd = graph(
 </BaseLayout>
 
 <style>
-  section {
-    padding: 4.2rem 0;
+  main {
+    --ritmo-seccion: 4.2rem;
   }
   .encabezado {
     padding-top: 3.4rem;
   }
   .acciones {
-    display: flex;
     gap: 0.8rem;
-    flex-wrap: wrap;
     margin-top: 2rem;
   }
   .micro {
@@ -345,11 +343,10 @@ const jsonLd = graph(
     background: var(--color-accent);
   }
   .temario {
-    background: var(--color-surface-raised);
-    border: 1px solid var(--color-line);
-    border-radius: var(--radius-md);
+    /* Borde tenue con sombra dura: es la única ficha así en el sitio. Se
+       conserva tal cual; unificarla es una decisión visual aparte. */
+    --ficha-borde: var(--color-line);
     padding: 1.5rem 1.4rem;
-    box-shadow: 6px 6px 0 var(--color-line);
   }
   .temario-titulo {
     margin: 0 0 1rem;

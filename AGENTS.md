@@ -275,6 +275,17 @@ copy propio; jamás copiar párrafos del blog o landing de TodoConta.
   La tabla de valores está en `design/DESIGN.md`.
 - Es una marca hermana de TodoConta pero NO comparte su identidad (nada de Inter + azul
   #0B5FFF + cian #06B6D4), ni la de sicastro-v2 (Geist + Fraunces).
+- **Lo que se repite en más de una página va a `global.css`, no al `<style>` de la
+  página** (refactor del 2026-09-20; la tabla de átomos está en `design/DESIGN.md`):
+  `ficha`/`ficha-dura`, `aviso`, `acciones`, `grid-3`, `lista-check`, `lista-num`,
+  `precio`, `encabezado`, `mensaje`, `cierre-caja`, y `FormCard.astro` para los
+  formularios de lead. Antes de crear un nombre global, `grep` de homónimos en `src`.
+- **El ritmo de sección se cambia con `main { --ritmo-seccion }`, NUNCA con
+  `section { padding }` scoped**: ese selector le gana a `.encabezado` por
+  especificidad y la página pierde el aire de arriba.
+- **Cero cambio visual se demuestra, no se supone**: `design/capturas/comparar.mjs`
+  vuelca los estilos computados del build (18 rutas, 3 anchos, estado post-envío) y
+  se comparan dos instantáneas con `diff -r`. Se corre al tocar cualquier átomo.
 
 ## Entidad (SEO/AEO)
 

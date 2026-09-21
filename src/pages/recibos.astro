@@ -243,7 +243,7 @@ const jsonLd = graph(
           </li>
         </ol>
 
-        <div class="norma">
+        <div class="norma ficha">
           <p class="norma-titulo">La norma que le adjuntas (carpeta <code>/guia-sat</code>)</p>
           <ul class="norma-lista">
             {NORMA.map((d) => (
@@ -260,9 +260,9 @@ const jsonLd = graph(
           </p>
         </div>
 
-        <div class="regla">
+        <div class="regla aviso">
           <p class="regla-titulo">Antes de pasarle un solo XML</p>
-          <p>
+          <p class="aviso-texto">
             Mientras construyes la app no le das ningún recibo: le das la norma, y la
             norma no trae el RFC de nadie. Tus XML de verdad entran hasta que
             la app ya está en tu carpeta, y ahí se procesan en tu navegador,
@@ -275,7 +275,7 @@ const jsonLd = graph(
     <section class="bloque curso">
       <div class="container-narrow">
         <div class="sec-head"><h2 class="folio">EL PASO <b>SIGUIENTE</b></h2></div>
-        <div class="curso-card" data-reveal>
+        <div class="curso-card ficha" data-reveal>
           <p class="curso-kicker">CURSO EN VIVO · CON FISCALISTAS.AI</p>
           <h3 class="curso-titulo">Crea una webapp sin saber programar</h3>
           <p class="curso-texto">
@@ -497,9 +497,6 @@ const jsonLd = graph(
 
   .norma {
     margin-top: 1.8rem;
-    background: var(--color-surface-raised);
-    border: 1px solid var(--color-line);
-    border-radius: var(--radius-md);
     padding: 1.4rem 1.6rem;
   }
   .norma-titulo {
@@ -534,9 +531,6 @@ const jsonLd = graph(
 
   .regla {
     margin-top: 1.8rem;
-    background: var(--color-accent-soft);
-    border-left: 3px solid var(--color-accent);
-    border-radius: 0 var(--radius-md) var(--radius-md) 0;
     padding: 1.4rem 1.6rem;
   }
   .regla-titulo {
@@ -544,16 +538,9 @@ const jsonLd = graph(
     font-weight: 700;
     letter-spacing: -0.015em;
   }
-  .regla p:last-child {
-    margin: 0;
-    color: var(--color-ink-soft);
-    font-size: 0.95rem;
-  }
 
   /* El CTA del curso: una sola tarjeta, un solo botón. */
   .curso-card {
-    background: var(--color-surface-raised);
-    border: 1px solid var(--color-line);
     border-radius: var(--radius-lg);
     padding: 2rem 2.2rem;
   }
@@ -587,13 +574,13 @@ const jsonLd = graph(
     padding: 3.6rem 0 4rem;
   }
   .cierre .folio {
-    color: #8da2c0;
+    color: var(--color-terminal-folio);
   }
   .cierre .folio b {
     color: var(--color-terminal-ok);
   }
   .cierre-titulo {
-    color: #ffffff;
+    color: var(--color-terminal-titulo);
     font-weight: 700;
     font-size: clamp(1.5rem, 3vw, 2.1rem);
     line-height: 1.12;
@@ -603,7 +590,7 @@ const jsonLd = graph(
   .cierre-texto {
     margin: 1rem 0 0;
     max-width: 48ch;
-    color: #aebbd1;
+    color: var(--color-terminal-texto);
   }
   .cierre-form {
     margin-top: 1.8rem;

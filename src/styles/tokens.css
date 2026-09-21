@@ -54,6 +54,19 @@
      sobre banda oscura. No se reusa semaforo-rojo: ese es el botón de
      ventana de macOS y significa otra cosa. */
   --color-terminal-err: #FF8A8A;
+  /*
+   * Familia de las bandas oscuras (NewsletterForm y los heroes/cierres de las
+   * landings). Nacieron como hex sueltos en cada página y se recogieron aquí
+   * con el MISMO valor, para que subirlos a token no cambiara nada. No
+   * coinciden con terminal-ink/dim/chrome; unificarlos con esos es una
+   * decisión visual pendiente, no un refactor.
+   */
+  --color-terminal-campo: #1A2436;
+  --color-terminal-borde: #33415C;
+  --color-terminal-folio: #8DA2C0;
+  --color-terminal-texto: #AEBBD1;
+  --color-terminal-raya: #2A3648;
+  --color-terminal-titulo: #FFFFFF;
   /* Semáforo de ventana macOS: lo usan Terminal.astro y FlujoConcentrado.astro */
   --color-semaforo-rojo: #FF5F57;
   --color-semaforo-ambar: #FEBC2E;

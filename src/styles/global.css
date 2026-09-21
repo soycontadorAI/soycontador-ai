@@ -87,6 +87,20 @@ main [id] {
   scroll-margin-top: 4.5rem;
 }
 
+/*
+ * Ritmo de sección. Una página lo cambia con `main { --ritmo-seccion: … }` y
+ * NUNCA con `section { padding }` en su <style>: ese selector scoped sale
+ * como `section[data-astro-cid]` (0,1,1), le gana a `.encabezado` (0,1,0) y
+ * el encabezado de la página pierde su aire. La sección que necesita otro
+ * relleno lo declara con su propia clase, que gana por especificidad.
+ */
+main > section {
+  padding: var(--ritmo-seccion, 3.4rem) 0;
+}
+.encabezado {
+  padding-top: 4.5rem;
+}
+
 /* Encabezado de sección con folio y regla al margen */
 .sec-head {
   display: flex;
@@ -210,6 +224,326 @@ html.js-reveal .is-visible .reng > span {
     background: var(--color-line-strong);
     color: var(--color-bg);
     transform: translateY(-2px);
+  }
+}
+
+/*
+ * La ficha: la tarjeta de papel elevado del sitio. Sola es la plana (borde
+ * tenue); con `ficha-dura` lleva el borde fuerte y la sombra desplazada gris
+ * de la contabilidad (ver design/DESIGN.md, "Sombra desplazada"). Las
+ * variantes se piden con variables desde el <style> de quien la monta:
+ * `--ficha-borde` (el color del filete), `--ficha-offset` (el desplazamiento
+ * de la sombra, 6px por defecto) y `--ficha-sombra` (su color). El relleno
+ * SIEMPRE es local: no hay dos fichas con el mismo. Un fondo distinto (la
+ * terminal) también se pone local: el scoped le gana a la utilidad.
+ */
+@utility ficha {
+  background: var(--color-surface-raised);
+  border: 1px solid var(--ficha-borde, var(--color-line));
+  border-radius: var(--radius-md);
+}
+@utility ficha-dura {
+  --ficha-borde: var(--color-line-strong);
+  box-shadow: var(--ficha-offset, 6px) var(--ficha-offset, 6px) 0 var(--ficha-sombra, var(--color-line));
+}
+
+/*
+ * El aviso: la nota con filete verde a la izquierda (la regla de oro de las
+ * guías, la próxima edición del taller). `--aviso-radio` cambia el redondeo
+ * del lado derecho; el relleno de las notas chicas se pone local. El texto
+ * lleva su clase y no se toma por posición, para que una caja con otros
+ * párrafos (la edición) no herede un tamaño que no pidió.
+ */
+.aviso {
+  background: var(--color-accent-soft);
+  border-left: 3px solid var(--color-accent);
+  border-radius: 0 var(--aviso-radio, var(--radius-md)) var(--aviso-radio, var(--radius-md)) 0;
+  padding: 1.6rem 1.8rem;
+}
+.aviso-titulo {
+  margin: 0 0 0.6rem;
+  font-weight: 700;
+  font-size: 1.12rem;
+  letter-spacing: -0.015em;
+}
+.aviso-texto {
+  margin: 0;
+  color: var(--color-ink-soft);
+  font-size: 0.95rem;
+}
+
+/* Tres fichas en fila; en angosto se apilan. */
+.grid-3 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.2rem;
+}
+@media (max-width: 860px) {
+  .grid-3 {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Lista de lo que incluye una compra: palomita mono en verde, renglones con filete. */
+.lista-check {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 1.8rem;
+}
+.lista-check li {
+  padding: 0.55rem 0 0.55rem 1.6rem;
+  position: relative;
+  color: var(--color-ink-soft);
+  border-bottom: 1px solid var(--color-line);
+  font-size: 0.94rem;
+}
+.lista-check li::before {
+  content: "✓";
+  position: absolute;
+  left: 0;
+  font-family: var(--font-mono);
+  font-weight: 700;
+  color: var(--color-accent);
+}
+
+/* Precio en mono: la cifra grande en verde y la condición en chico. Los márgenes son locales. */
+.precio {
+  font-family: var(--font-mono);
+}
+.precio b {
+  font-size: 1.9rem;
+  font-weight: 700;
+  color: var(--color-accent);
+  letter-spacing: -0.02em;
+}
+.precio span {
+  color: var(--color-ink-dim);
+  font-size: 0.85rem;
+}
+
+/* Página de un solo mensaje (gracias, dentro, 404). */
+.mensaje {
+  padding: 6rem 0;
+  text-align: center;
+}
+.mensaje .intro-page {
+  margin-inline: auto;
+}
+
+/* Cierre de página: un titular centrado y su fila de botones. */
+.cierre-caja {
+  text-align: center;
+  padding: 1rem 0 2rem;
+}
+.cierre-caja .acciones {
+  margin-top: 1.4rem;
+  justify-content: center;
+}
+
+/* Fila de botones. El margen y la alineación los pone quien la monta. */
+@utility acciones {
+  display: flex;
+  gap: 0.9rem;
+  flex-wrap: wrap;
+}
+
+/*
+ * Campos de los formularios de lead. Van acotados a .form-card (el cascarón
+ * de FormCard.astro) y viven aquí y no en el scoped de esa tarjeta porque el
+ * <form> llega por el slot con el cid del componente hijo, y un scoped no
+ * alcanza lo que no está en su propia plantilla. NewsletterForm no entra
+ * aquí: es otra pieza, pintada para banda oscura.
+ */
+.form-card form {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem 1.2rem;
+}
+@media (max-width: 700px) {
+  .form-card form {
+    grid-template-columns: 1fr;
+  }
+}
+.form-card .campo-full {
+  grid-column: 1 / -1;
+}
+.form-card label {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-ink-dim);
+  margin-bottom: 0.4rem;
+}
+.form-card input,
+.form-card select,
+.form-card textarea {
+  width: 100%;
+  padding: 0.75rem 0.9rem;
+  font-size: 0.95rem;
+  font-family: var(--font-body);
+  color: var(--color-ink);
+  background: var(--color-bg);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-sm);
+  box-sizing: border-box;
+}
+.form-card input:focus,
+.form-card select:focus,
+.form-card textarea:focus {
+  border-color: var(--color-accent);
+  outline: none;
+}
+.form-card textarea {
+  resize: vertical;
+}
+.form-card .consentimiento label {
+  display: flex;
+  gap: 0.65rem;
+  align-items: flex-start;
+  cursor: pointer;
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  line-height: 1.5;
+  color: var(--color-ink-soft);
+  text-transform: none;
+  letter-spacing: 0;
+  margin: 0;
+}
+.form-card .consentimiento input {
+  width: auto;
+  margin: 0.15rem 0 0;
+  flex-shrink: 0;
+  accent-color: var(--color-accent);
+}
+.form-card .consentimiento b {
+  color: var(--color-ink);
+  font-weight: 700;
+}
+/* El honeypot: fuera de pantalla, y con más peso que `.form-card input`. */
+.form-card .form-hp {
+  position: absolute;
+  left: -9999px;
+  height: 0;
+  width: 0;
+  opacity: 0;
+}
+.form-envio {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+.form-envio button {
+  cursor: pointer;
+  border: none;
+}
+.form-envio small {
+  color: var(--color-ink-dim);
+  font-size: 0.8rem;
+  max-width: 34ch;
+}
+
+/* Lista numerada de las guías: número mono a la izquierda, filete entre renglones. */
+.lista-num {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  border-top: 1px solid var(--color-line);
+}
+.lista-num li {
+  display: grid;
+  grid-template-columns: 3.4rem 1fr;
+  gap: 1rem;
+  padding: 1.4rem 0;
+  border-bottom: 1px solid var(--color-line);
+}
+.lista-num .num {
+  font-family: var(--font-mono);
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--color-ink-dim);
+}
+.lista-num h3 {
+  margin: 0 0 0.4rem;
+  font-size: 1.1rem;
+  font-weight: 700;
+  letter-spacing: -0.015em;
+}
+.lista-num p {
+  margin: 0;
+  color: var(--color-ink-soft);
+  font-size: 0.95rem;
+}
+@media (max-width: 560px) {
+  .lista-num li {
+    grid-template-columns: 1fr;
+    gap: 0.3rem;
+  }
+}
+
+/* La firma del autor: retrato redondo y dos párrafos. */
+.autor {
+  display: grid;
+  grid-template-columns: 120px 1fr;
+  gap: 1.8rem;
+  align-items: start;
+}
+@media (max-width: 700px) {
+  .autor {
+    grid-template-columns: 1fr;
+  }
+}
+/* La foto trae su propio recorte circular sobre blanco. */
+.autor img {
+  border-radius: 50%;
+}
+.autor p {
+  margin: 0 0 0.9rem;
+  color: var(--color-ink-soft);
+}
+.autor p:last-child {
+  margin-bottom: 0;
+}
+
+/* La banda de la guía: promesa a la izquierda, correo a la derecha. */
+.guia-inner {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 3rem;
+  align-items: center;
+}
+@media (max-width: 760px) {
+  .guia-inner {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* La tira de capas bajo la banda oscura: numeradas en mono se cuentan de un
+   vistazo. Columnas, márgenes y la raya de arriba los pone cada página. */
+.capas-tira {
+  list-style: none;
+  display: grid;
+  padding: 1.6rem 0 0;
+}
+.capas-tira li {
+  padding: 0 1.2rem 0 0;
+  font-size: 0.82rem;
+  line-height: 1.45;
+  color: var(--color-terminal-ink);
+}
+.capas-tira b {
+  display: block;
+  margin-bottom: 0.35rem;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--color-terminal-ok);
+}
+@media (max-width: 760px) {
+  .capas-tira li {
+    padding-right: 0;
   }
 }
 

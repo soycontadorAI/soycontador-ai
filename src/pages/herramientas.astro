@@ -41,7 +41,7 @@ const jsonLd = graph(
     <section id="catalogo">
       <div class="container-default">
         <div class="sec-head"><h2 class="folio">EL <b>CATÁLOGO</b></h2></div>
-        <div class="lista">
+        <div class="lista ficha">
           {HERRAMIENTAS.map((h, i) => (
             <article class="fila" data-reveal>
               <span class="num">{String(i + 1).padStart(2, "0")}</span>
@@ -71,7 +71,7 @@ const jsonLd = graph(
       <div class="container-default" data-reveal>
         <div class="cierre-caja">
           <p class="titulo-lg">¿Quieres que estas herramientas trabajen en tu despacho?</p>
-          <div class="cierre-acciones">
+          <div class="acciones">
             <a class="btn btn-primary" href="/capacitacion">Capacita a tu equipo</a>
             <a class="btn btn-ghost" href="/club">Conoce el Club</a>
           </div>
@@ -82,17 +82,9 @@ const jsonLd = graph(
 </BaseLayout>
 
 <style>
-  section {
-    padding: 3.4rem 0;
-  }
-  .encabezado {
-    padding-top: 4.5rem;
-  }
   .lista {
-    border: 1px solid var(--color-line-strong);
-    border-radius: var(--radius-md);
+    --ficha-borde: var(--color-line-strong);
     overflow: hidden;
-    background: var(--color-surface-raised);
   }
   .fila {
     display: grid;
@@ -164,16 +156,5 @@ const jsonLd = graph(
   }
   .nota {
     margin-top: 1.2rem;
-  }
-  .cierre-caja {
-    text-align: center;
-    padding: 1rem 0 2rem;
-  }
-  .cierre-acciones {
-    margin-top: 1.4rem;
-    display: flex;
-    gap: 0.9rem;
-    justify-content: center;
-    flex-wrap: wrap;
   }
 </style>

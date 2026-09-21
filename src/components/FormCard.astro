@@ -1,0 +1,77 @@
+---
+/**
+ * La tarjeta que envuelve a los dos formularios de lead (LeadForm y
+ * FormCapacitacion): cabecera con folio, título en display y la entrada del
+ * texto; el <form> viene por el slot. Sin medida propia: llena el contenedor
+ * que la monta, y así las dos se leen como la misma pieza (acuerdo con
+ * Israel, 2026-09-07). Los campos que van dentro se estilizan en global.css
+ * acotados a .form-card, porque el slot trae el cid del componente hijo y el
+ * scoped de esta tarjeta no lo alcanza.
+ */
+
+interface Props {
+  id: string;
+  /** El folio del documento, p. ej. DIAG-01 */
+  folio: string;
+  /** Qué documento es, p. ej. DIAGNÓSTICO */
+  etiqueta: string;
+  titulo: string;
+  intro: string;
+  /**
+   * Nivel del título. h3 donde la tarjeta cierra una página que ya trae h2
+   * de sección; h2 donde el formulario ES el contenido y va bajo el h1
+   * (/contacto), para no saltar de h1 a h3 (lo marcó Lighthouse).
+   */
+  nivel?: 2 | 3;
+  /** Medida de la entrada; el default es el de LeadForm. */
+  introMax?: string;
+}
+
+const { id, folio, etiqueta, titulo, intro, nivel = 3, introMax } = Astro.props;
+const Titulo = `h${nivel}` as "h2" | "h3";
+---
+
+<div class="form-card" id={id} style={introMax ? `--form-intro-max:${introMax}` : undefined}>
+  <div class="form-head">
+    <span class="folio">FOLIO <b>{folio}</b> · {etiqueta}</span>
+  </div>
+  <div class="form-body">
+    <Titulo>{titulo}</Titulo>
+    <p class="form-intro">{intro}</p>
+    <slot />
+  </div>
+</div>
+
+<style>
+  /* Sombra suave y radio grande: el acabado de F, no el offset duro de B. */
+  .form-card {
+    background: var(--color-surface-raised);
+    border: 1px solid var(--color-line);
+    border-radius: var(--radius-lg);
+    box-shadow: 0 30px 60px -50px rgb(20 22 26 / 0.6);
+    overflow: hidden;
+  }
+  .form-head {
+    padding: 0.8rem 1.8rem;
+    border-bottom: 1px solid var(--color-line);
+    background: var(--color-surface);
+  }
+  .form-body {
+    padding: 2rem 1.8rem 2.2rem;
+  }
+  .form-body h2,
+  .form-body h3 {
+    margin: 0 0 0.5rem;
+    font-family: var(--font-display);
+    font-size: clamp(1.6rem, 3vw, 2.1rem);
+    font-weight: 400;
+    line-height: 1.12;
+    letter-spacing: -0.01em;
+  }
+  .form-intro {
+    margin: 0 0 1.4rem;
+    color: var(--color-ink-soft);
+    font-size: 0.95rem;
+    max-width: var(--form-intro-max, 56ch);
+  }
+</style>

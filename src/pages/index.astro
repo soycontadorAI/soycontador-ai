@@ -141,7 +141,7 @@ const lineasTerminal = [
             años. Esa es la parte que se cobra.
           </p>
           <div>
-            <div class="hero-actions">
+            <div class="acciones">
               <a class="btn btn-primary" href="#contacto">Platiquemos de tu caso</a>
               <a class="btn btn-ghost" href="#ofertas">Las {asientos.length} formas de empezar</a>
             </div>
@@ -625,8 +625,8 @@ const lineasTerminal = [
       display: none;
     }
   }
-  section {
-    padding: 4.2rem 0;
+  main {
+    --ritmo-seccion: 4.2rem;
   }
   h1 {
     font-weight: 700;
@@ -721,11 +721,6 @@ const lineasTerminal = [
     max-width: 44ch;
     color: var(--color-ink-soft);
     font-size: 1.12rem;
-  }
-  .hero-actions {
-    display: flex;
-    gap: 0.9rem;
-    flex-wrap: wrap;
   }
 
   /* La señal de "sigue bajando". Va a la orilla derecha y no al centro: la
@@ -1479,29 +1474,18 @@ const lineasTerminal = [
   .guia {
     background: var(--color-line-strong);
   }
-  .guia-inner {
-    display: grid;
-    grid-template-columns: 1.2fr 1fr;
-    gap: 3rem;
-    align-items: center;
-  }
-  @media (max-width: 760px) {
-    .guia-inner {
-      grid-template-columns: 1fr;
-    }
-  }
   .guia .guia-folio {
-    color: #8da2c0;
+    color: var(--color-terminal-folio);
   }
   .guia .guia-folio b {
     color: var(--color-terminal-ok);
   }
   .guia .guia-titulo {
-    color: #ffffff;
+    color: var(--color-terminal-titulo);
     margin: 0.8rem 0;
   }
   .guia-texto {
-    color: #aebbd1;
+    color: var(--color-terminal-texto);
     max-width: 46ch;
     margin: 0;
   }
@@ -1513,12 +1497,9 @@ const lineasTerminal = [
      contar es la mitad del valor percibido de un imán gratuito, y numeradas en
      mono se cuentan de un vistazo. */
   .capas-tira {
-    list-style: none;
-    display: grid;
     grid-template-columns: repeat(5, 1fr);
     gap: 0;
     margin: 2.6rem 0 0;
-    padding: 1.6rem 0 0;
     position: relative;
   }
   /* La raya de arriba es un pseudo-elemento y no un border para poder
@@ -1530,21 +1511,8 @@ const lineasTerminal = [
     left: 0;
     right: 0;
     height: 1px;
-    background: #2a3648;
+    background: var(--color-terminal-raya);
     transform-origin: left;
-  }
-  .capas-tira li {
-    padding: 0 1.2rem 0 0;
-    font-size: 0.82rem;
-    line-height: 1.45;
-    color: #9fb0c9;
-  }
-  .capas-tira b {
-    display: block;
-    margin-bottom: 0.35rem;
-    font-family: var(--font-mono);
-    font-size: 0.75rem;
-    color: var(--color-terminal-ok);
   }
   /* En celular cinco columnas no caben, y apiladas hacen una torre de cinco
      renglones sueltos. Dos columnas: se siguen contando y ocupan la mitad. */
@@ -1553,9 +1521,6 @@ const lineasTerminal = [
       grid-template-columns: 1fr 1fr;
       gap: 1.2rem 1.4rem;
       margin-top: 2.2rem;
-    }
-    .capas-tira li {
-      padding-right: 0;
     }
     /* La quinta queda sola en su renglón: que ocupe el ancho completo en vez
        de dejar un hueco a la derecha. */

@@ -71,9 +71,9 @@ const jsonLd = graph(
     <section id="que-construyo">
       <div class="container-default">
         <div class="sec-head"><h2 class="folio">QUÉ <b>PUEDO CONSTRUIRTE</b></h2></div>
-        <div class="grid3" data-reveal>
+        <div class="grid-3" data-reveal>
           {SOLUCIONES.map((s, i) => (
-            <article class="tarjeta">
+            <article class="tarjeta ficha">
               <span class="num">{String(i + 1).padStart(2, "0")}</span>
               <h3>{s.titulo}</h3>
               <p>{s.descripcion}</p>
@@ -106,7 +106,7 @@ const jsonLd = graph(
               <a class="btn btn-primary" href="#contacto" data-vigia-cta>Cotizarlo para mi cartera</a>
             </p>
           </div>
-          <div class="vigia-panel">
+          <div class="vigia-panel ficha ficha-dura">
             <ul class="vigia-lista">
               {VIGIA.vigila.map((v) => (
                 <li>
@@ -144,12 +144,6 @@ const jsonLd = graph(
 </BaseLayout>
 
 <style>
-  section {
-    padding: 3.4rem 0;
-  }
-  .encabezado {
-    padding-top: 4.5rem;
-  }
   .caso {
     display: grid;
     gap: 2.4rem;
@@ -165,20 +159,7 @@ const jsonLd = graph(
   .texto strong {
     color: var(--color-ink);
   }
-  .grid3 {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 1.2rem;
-  }
-  @media (max-width: 860px) {
-    .grid3 {
-      grid-template-columns: 1fr;
-    }
-  }
   .tarjeta {
-    background: var(--color-surface-raised);
-    border: 1px solid var(--color-line);
-    border-radius: var(--radius-md);
     padding: 1.8rem;
   }
   .tarjeta .num {
@@ -214,10 +195,6 @@ const jsonLd = graph(
     margin: 1.7rem 0 0;
   }
   .vigia-panel {
-    background: var(--color-surface-raised);
-    border: 1px solid var(--color-line-strong);
-    border-radius: var(--radius-md);
-    box-shadow: 6px 6px 0 var(--color-line);
     overflow: hidden;
   }
   .vigia-lista {

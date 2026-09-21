@@ -229,6 +229,49 @@ subrayado, y en el editor se ve idéntico.
 6. **Nada que siga al cursor en pantallas táctiles.**
 7. **Una sola curva**: `--ease-f`, `cubic-bezier(0.16, 0.84, 0.28, 1)`.
 
+## Átomos (desde el 2026-09-20)
+
+Lo que se repite en más de una página vive en `src/styles/global.css`, no
+en el `<style>` de cada una. Regla de reparto: una `@utility` (capa
+`utilities`) para el átomo de un solo elemento sin descendientes ni media
+query; una clase global sin capa para lo que lleva descendientes o media
+query; un componente solo donde hay marcado y comportamiento compartidos.
+Lo único no se abstrae.
+
+| Átomo | Qué es | Variantes |
+|---|---|---|
+| `btn` + `btn-primary` / `btn-ghost` | El botón, lo escriba `<a>` o `<button>` | ver abajo |
+| `ficha` / `ficha ficha-dura` | La tarjeta de papel elevado: plana con borde tenue, o con borde fuerte y la sombra desplazada gris | `--ficha-borde`, `--ficha-offset` (6px), `--ficha-sombra`. El relleno es siempre local |
+| `aviso` + `aviso-titulo` + `aviso-texto` | La nota con filete verde a la izquierda | `--aviso-radio` |
+| `acciones` | Fila de botones (flex, envuelve) | margen y alineación locales |
+| `grid-3` | Tres fichas en fila; apiladas bajo 860px | |
+| `lista-check` | Lo que incluye una compra, con palomita mono | |
+| `lista-num` (+ `.num`) | Lista numerada de las guías | |
+| `precio` | Cifra grande en mono y verde, condición en chico | márgenes locales |
+| `encabezado` | La primera sección de una página (4.5rem arriba) | |
+| `mensaje` | Página de un solo mensaje (gracias, dentro, 404) | |
+| `cierre-caja` | Titular centrado con su fila de botones | |
+| `autor`, `guia-inner`, `capas-tira` | Firma del autor, banda de la guía y tira de capas | |
+| `FormCard.astro` | El cascarón de los formularios de lead; los campos van en `global.css` acotados a `.form-card` | `nivel`, `introMax` |
+
+**El ritmo de sección es global** (`main > section { padding: 3.4rem 0 }`).
+Una página lo cambia con `main { --ritmo-seccion: 4.2rem }` y NUNCA con
+`section { padding }` en su `<style>`: ese selector sale scoped como
+`section[data-astro-cid]` y le gana a `.encabezado` por especificidad.
+
+**Capas.** Las `@utility` de Tailwind salen en `@layer utilities`; los
+`<style>` de Astro y las clases de `global.css` salen sin capa, y lo que
+está fuera de una capa le gana SIEMPRE a lo que está dentro, sin importar
+la especificidad. Es lo que hace que un override local funcione sin `!important`,
+y también lo que hizo que `.cap-calendario a { color }` le ganara a
+`btn-primary` y pintara verde sobre verde. Un selector sin capa no declara
+`color` ni `background` de un `.btn`.
+
+**Verificación.** `design/capturas/comparar.mjs` vuelca la caja y los
+estilos computados de cada elemento del sitio construido; dos instantáneas
+se comparan con `diff -r`. Es la prueba de "cero cambio visual" que se usó
+en el refactor del 2026-09-20 y la que se vuelve a correr al tocar un átomo.
+
 ## Botones
 
 Un botón es un botón, lo escriba `<a>` o `<button>`. `@utility btn` resetea
@@ -238,6 +281,11 @@ Un botón es un botón, lo escriba `<a>` o `<button>`. `@utility btn` resetea
 y dejaba al ghost más alto que el sólido, lo que se veía donde conviven en
 una fila flex. Descontarlo del padding no sirve, porque el navegador dibuja
 1.5px como 1px y la cuenta se pasa.
+
+Pendientes de decisión: `.site-cta` (el botón de la cabecera) sigue siendo
+una copia a mano de `btn-primary` en chico; pasarlo a `btn btn-primary
+btn-sm` le daría el hover con elevación del resto. Y el botón de
+`NewsletterForm` es propio (banda oscura, radio chico).
 
 ## Reglas del sistema
 
@@ -256,10 +304,9 @@ una fila flex. Descontarlo del padding no sirve, porque el navegador dibuja
 
 ## Sombra desplazada: gris, siempre
 
-La sombra dura (`Npx Npx 0`) que llevan las tarjetas, la portada del ebook
-y el video es **gris**: `var(--color-line)`. Nunca `--color-accent-soft`.
-Lo señaló Israel el 2026-09-20 al ver la imagen del taller con sombra verde:
-el verde tenue venía de `.compra` en `/ebook`, que es el único sitio que
-todavía la trae y queda pendiente de unificar junto con los demás
-componentes repetidos (tarjeta con borde + sombra, lista numerada, ficha de
-compra).
+La sombra dura (`Npx Npx 0`) que llevan las fichas, la portada del ebook y
+el video es **gris**: `var(--color-line)`. Nunca `--color-accent-soft`. Lo
+señaló Israel el 2026-09-20 al ver la imagen del taller con sombra verde; el
+verde tenue venía de `.compra` en `/ebook` y se corrigió ese mismo día al
+unificar las fichas (`ficha ficha-dura`). Hoy `--ficha-sombra` existe para
+una variante futura, no para volver al verde.

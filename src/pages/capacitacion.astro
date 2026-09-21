@@ -97,7 +97,7 @@ const jsonLd = graph(
           <div class="mensual-info">
             <h2 class="titulo-lg">{TALLER.nombre}</h2>
             {edicion && (
-              <div class="edicion" data-edicion data-vence={edicion.inicio}>
+              <div class="edicion aviso" data-edicion data-vence={edicion.inicio}>
                 <p class="folio">PRÓXIMA <b>EDICIÓN</b></p>
                 <p class="edicion-fecha">{fechaDeEdicion(edicion)}</p>
                 <p class="edicion-ritmo">{edicion.ritmo}, de {edicion.horario}</p>
@@ -109,7 +109,7 @@ const jsonLd = graph(
               siguiente, antes de que se llene.
             </p>
             <p class="precio"><b>Escríbeme</b> <span>y lo vemos · {TALLER.duracion}</span></p>
-            <ul class="incluye">
+            <ul class="lista-check">
               {TALLER.incluye.map((item) => (
                 <li>{item}</li>
               ))}
@@ -118,7 +118,7 @@ const jsonLd = graph(
               {edicion ? "Quiero mi lugar en esta edición" : "Avísame de la próxima edición"}
             </a>
           </div>
-          <div class="temario">
+          <div class="temario ficha ficha-dura">
             <p class="folio temario-titulo">TEMARIO · 8 HORAS</p>
             {TALLER.temario.map((bloque) => (
               <div class="temario-bloque">
@@ -155,7 +155,7 @@ const jsonLd = graph(
                 </p>
               )}
             </div>
-            <dl class="colab-datos">
+            <dl class="colab-datos ficha">
               <div>
                 <dt class="folio">FECHAS</dt>
                 <dd>{fechaDeEdicion(colaboracion)}</dd>
@@ -257,8 +257,6 @@ const jsonLd = graph(
   }
   .colab-datos {
     margin: 0;
-    background: var(--color-surface-raised);
-    border: 1px solid var(--color-line);
     border-radius: var(--radius-lg);
     padding: 1.6rem 1.5rem;
     display: grid;
@@ -289,12 +287,6 @@ const jsonLd = graph(
     color: var(--color-ink) !important;
   }
 
-  section {
-    padding: 3.4rem 0;
-  }
-  .encabezado {
-    padding-top: 4.5rem;
-  }
   .caso {
     display: grid;
     gap: 2.2rem;
@@ -328,11 +320,9 @@ const jsonLd = graph(
   }
   /* La fecha es lo primero que busca quien ya decidió: va antes del precio. */
   .edicion {
+    --aviso-radio: var(--radius-sm);
     margin: 1.2rem 0 1.4rem;
     padding: 1rem 1.2rem;
-    border-left: 3px solid var(--color-accent);
-    background: var(--color-accent-soft);
-    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
   }
   .edicion-fecha {
     margin: 0.5rem 0 0.3rem;
@@ -357,43 +347,11 @@ const jsonLd = graph(
   }
   .precio {
     margin: 1rem 0 1.4rem;
-    font-family: var(--font-mono);
   }
-  .precio b {
-    font-size: 1.9rem;
-    font-weight: 700;
-    color: var(--color-accent);
-    letter-spacing: -0.02em;
-  }
-  .precio span {
-    color: var(--color-ink-dim);
-    font-size: 0.85rem;
-  }
-  .incluye {
-    list-style: none;
-    padding: 0;
-    margin: 0 0 1.8rem;
-  }
-  .incluye li {
-    padding: 0.55rem 0 0.55rem 1.6rem;
-    position: relative;
-    color: var(--color-ink-soft);
-    border-bottom: 1px solid var(--color-line);
+  .lista-check li {
     font-size: 0.96rem;
   }
-  .incluye li::before {
-    content: "✓";
-    position: absolute;
-    left: 0;
-    font-family: var(--font-mono);
-    font-weight: 700;
-    color: var(--color-accent);
-  }
   .temario {
-    background: var(--color-surface-raised);
-    border: 1px solid var(--color-line-strong);
-    border-radius: var(--radius-md);
-    box-shadow: 6px 6px 0 var(--color-line);
     padding: 1.6rem 1.8rem;
   }
   .temario-titulo {

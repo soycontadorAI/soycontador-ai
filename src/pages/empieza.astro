@@ -58,7 +58,7 @@ const CTA: Enlace = urlAbierta
   cta={CTA}
 >
   <main>
-    <section class="hero">
+    <section class="encabezado">
       <div class="container-default hero-grid">
         <div>
           <p class="folio">TALLER EN VIVO · <b>{fechaFolio.toUpperCase()}</b> · 11:00</p>
@@ -73,7 +73,7 @@ const CTA: Enlace = urlAbierta
               <b>{EMPIEZA.precioTexto}</b>
               <span>pago único · {EMPIEZA.duracion} · cupo de {EMPIEZA.cupo}</span>
             </p>
-            <div class="hero-acciones">
+            <div class="acciones">
               {urlAbierta ? (
                 <a class="btn btn-primary" href={urlAbierta} rel="noopener">Apartar mi lugar</a>
               ) : ediciones.length ? (
@@ -95,7 +95,7 @@ const CTA: Enlace = urlAbierta
             )}
           </div>
         </div>
-        <aside class="entregables" aria-labelledby="entregables-titulo">
+        <aside class="entregables ficha ficha-dura" aria-labelledby="entregables-titulo">
           <p class="folio" id="entregables-titulo">CON QUÉ <b>SALES</b></p>
           <ol>
             {ENTREGABLES.map((e, i) => (
@@ -117,7 +117,7 @@ const CTA: Enlace = urlAbierta
         <div class="sec-head"><h2 class="folio">PARA <b>QUIÉN</b> ES</h2></div>
         <div class="perfiles">
           {PARA_QUIEN.map((p, i) => (
-            <article class="perfil" data-reveal style={`--reveal-delay: ${i * 0.08}s`}>
+            <article class="perfil ficha" data-reveal style={`--reveal-delay: ${i * 0.08}s`}>
               <h3>{p.titulo}</h3>
               <p>{p.texto}</p>
             </article>
@@ -189,10 +189,10 @@ const CTA: Enlace = urlAbierta
     <section id="apartar">
       <div class="container-default">
         <div class="sec-head"><h2 class="folio">CÓMO <b>APARTAR</b> TU LUGAR</h2></div>
-        <article class="compra" data-reveal>
+        <article class="compra ficha ficha-dura" data-reveal>
           <p class="folio">{fechaFolio.toUpperCase()} · <b>{EMPIEZA.horario.toUpperCase()}</b></p>
           <p class="precio"><b>{EMPIEZA.precioTexto}</b> <span>pago único, más tu cuenta de {EMPIEZA.herramienta.nombre}</span></p>
-          <ul class="incluye">
+          <ul class="lista-check">
             {INCLUYE.map((item) => (
               <li>{item}</li>
             ))}
@@ -257,12 +257,6 @@ const CTA: Enlace = urlAbierta
 </BaseLayout>
 
 <style>
-  section {
-    padding: 3.4rem 0;
-  }
-  .hero {
-    padding-top: 4.5rem;
-  }
   .hero-grid {
     display: grid;
     grid-template-columns: 1.15fr 0.85fr;
@@ -300,24 +294,10 @@ const CTA: Enlace = urlAbierta
   }
   .precio {
     margin: 0 0 1rem;
-    font-family: var(--font-mono);
-  }
-  .precio b {
-    font-size: 1.9rem;
-    font-weight: 700;
-    color: var(--color-accent);
-    letter-spacing: -0.02em;
   }
   .precio span {
     display: block;
     margin-top: 0.2rem;
-    color: var(--color-ink-dim);
-    font-size: 0.85rem;
-  }
-  .hero-acciones {
-    display: flex;
-    gap: 0.9rem;
-    flex-wrap: wrap;
   }
   /* Un botón que todavía no lleva a ningún lado se ve como botón para que el
      lugar del CTA no cambie cuando entre el enlace, pero apagado por color
@@ -355,10 +335,7 @@ const CTA: Enlace = urlAbierta
 
   /* Los tres entregables, en tarjeta: son el argumento entero */
   .entregables {
-    border: 1px solid var(--color-line-strong);
-    border-radius: var(--radius-md);
-    background: var(--color-surface-raised);
-    box-shadow: 10px 10px 0 var(--color-line);
+    --ficha-offset: 10px;
     padding: 1.6rem 1.8rem 1.2rem;
   }
   .entregables ol {
@@ -403,9 +380,7 @@ const CTA: Enlace = urlAbierta
     }
   }
   .perfil {
-    border: 1px solid var(--color-line-strong);
-    border-radius: var(--radius-md);
-    background: var(--color-surface-raised);
+    --ficha-borde: var(--color-line-strong);
     padding: 1.4rem 1.6rem;
   }
   .perfil h3 {
@@ -514,34 +489,11 @@ const CTA: Enlace = urlAbierta
 
   .compra {
     max-width: 34rem;
-    border: 1px solid var(--color-line-strong);
-    border-radius: var(--radius-md);
-    background: var(--color-surface-raised);
-    box-shadow: 8px 8px 0 var(--color-line);
+    --ficha-offset: 8px;
     padding: 1.9rem 2rem;
   }
   .compra .precio {
     margin: 0.9rem 0 1.3rem;
-  }
-  .incluye {
-    list-style: none;
-    padding: 0;
-    margin: 0 0 1.8rem;
-  }
-  .incluye li {
-    padding: 0.55rem 0 0.55rem 1.6rem;
-    position: relative;
-    color: var(--color-ink-soft);
-    border-bottom: 1px solid var(--color-line);
-    font-size: 0.94rem;
-  }
-  .incluye li::before {
-    content: "✓";
-    position: absolute;
-    left: 0;
-    font-family: var(--font-mono);
-    font-weight: 700;
-    color: var(--color-accent);
   }
   .compra-fechas {
     list-style: none;
@@ -577,27 +529,6 @@ const CTA: Enlace = urlAbierta
     margin: 1.4rem 0 0;
   }
 
-  .autor {
-    display: grid;
-    grid-template-columns: 120px 1fr;
-    gap: 1.8rem;
-    align-items: start;
-  }
-  @media (max-width: 700px) {
-    .autor {
-      grid-template-columns: 1fr;
-    }
-  }
-  .autor img {
-    border-radius: 50%;
-  }
-  .autor p {
-    margin: 0 0 0.9rem;
-    color: var(--color-ink-soft);
-  }
-  .autor p:last-child {
-    margin-bottom: 0;
-  }
   .autor a {
     color: var(--color-accent);
     font-weight: 700;

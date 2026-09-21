@@ -92,7 +92,7 @@ const diario = [
     <section id="nota">
       <div class="container-narrow" data-reveal>
         <div class="sec-head"><h2 class="folio">NOTA <b>ACLARATORIA</b></h2></div>
-        <div class="nota">
+        <div class="nota ficha ficha-dura">
           <p>
             Soy desarrollador, pero hoy dirijo el código más de lo que lo tecleo.
             <strong>Lo leo, lo reviso y se lo pido a la IA en los términos
@@ -114,7 +114,7 @@ const diario = [
       <div class="container-default" data-reveal>
         <div class="cierre-caja">
           <p class="titulo-lg">¿Platicamos de tu caso?</p>
-          <div class="cierre-acciones">
+          <div class="acciones">
             <a class="btn btn-primary" href="/contacto">Agenda un diagnóstico</a>
             <a class="btn btn-ghost" href="/jueves">Ve el live de los jueves</a>
           </div>
@@ -125,12 +125,6 @@ const diario = [
 </BaseLayout>
 
 <style>
-  section {
-    padding: 3.4rem 0;
-  }
-  .encabezado {
-    padding-top: 4.5rem;
-  }
   .hero-grid {
     display: grid;
     grid-template-columns: 1.4fr auto;
@@ -203,10 +197,6 @@ const diario = [
     }
   }
   .nota {
-    background: var(--color-surface-raised);
-    border: 1px solid var(--color-line-strong);
-    border-radius: var(--radius-md);
-    box-shadow: 6px 6px 0 var(--color-line);
     padding: 1.8rem 2rem;
   }
   .nota p {
@@ -218,16 +208,5 @@ const diario = [
   }
   .nota strong {
     color: var(--color-ink);
-  }
-  .cierre-caja {
-    text-align: center;
-    padding: 1rem 0 2rem;
-  }
-  .cierre-acciones {
-    margin-top: 1.4rem;
-    display: flex;
-    gap: 0.9rem;
-    justify-content: center;
-    flex-wrap: wrap;
   }
 </style>

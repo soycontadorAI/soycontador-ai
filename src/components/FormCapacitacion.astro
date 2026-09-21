@@ -6,6 +6,7 @@
  * POST a /api/lead con campos personalizados de Sendy.
  */
 
+import FormCard from "./FormCard.astro";
 import { calendarioDe } from "../lib/site";
 
 interface Props {
@@ -30,242 +31,116 @@ const esDespacho = variante === "despacho";
 const calendario = calendarioDe("capacitacion");
 ---
 
-<div class="cap-card" id="precalificacion">
-  <div class="cap-head">
-    <span class="folio">
-      FOLIO <b>{esDespacho ? "DESP-02" : "CAP-01"}</b> · {esDespacho ? "DIAGNÓSTICO" : "PRECALIFICACIÓN"}
-    </span>
-  </div>
-  <div class="cap-body">
-    <h3>{esDespacho ? "Cuéntame de tu despacho" : "Cuéntame de tu equipo antes de agendar"}</h3>
-    <p class="cap-intro">
-      {esDespacho
-        ? "Cinco minutos. Con esto llego a la llamada conociendo tu operación, y los treinta minutos se van en sacar tus números, no en presentarme. Si por lo que leo esto no es para tu despacho, te lo digo por correo y no gastamos la llamada."
-        : "Con esto llego a la llamada conociendo tu operación y la reunión se va directo a lo importante: qué automatizar primero y cómo se ve el programa para tu caso."}
-    </p>
-    <form method="post" action="/api/lead" data-cap>
+<FormCard
+  id="precalificacion"
+  folio={esDespacho ? "DESP-02" : "CAP-01"}
+  etiqueta={esDespacho ? "DIAGNÓSTICO" : "PRECALIFICACIÓN"}
+  titulo={esDespacho ? "Cuéntame de tu despacho" : "Cuéntame de tu equipo antes de agendar"}
+  intro={esDespacho
+    ? "Cinco minutos. Con esto llego a la llamada conociendo tu operación, y los treinta minutos se van en sacar tus números, no en presentarme. Si por lo que leo esto no es para tu despacho, te lo digo por correo y no gastamos la llamada."
+    : "Con esto llego a la llamada conociendo tu operación y la reunión se va directo a lo importante: qué automatizar primero y cómo se ve el programa para tu caso."}
+  introMax="58ch"
+>
+  <form method="post" action="/api/lead" data-cap>
+    <div class="campo">
+      <label for="cap-nombre">Tu nombre *</label>
+      <input id="cap-nombre" type="text" name="nombre" required autocomplete="name" />
+    </div>
+    <div class="campo">
+      <label for="cap-email">Tu correo *</label>
+      <input id="cap-email" type="email" name="email" required placeholder="tu@correo.com" autocomplete="email" />
+    </div>
+    <div class="campo">
+      <label for="cap-whatsapp">WhatsApp (opcional)</label>
+      <input id="cap-whatsapp" type="tel" name="whatsapp" placeholder="+52 " autocomplete="tel" />
+    </div>
+    <div class="campo">
+      <label for="cap-empresa">Empresa, despacho u organización *</label>
+      <input id="cap-empresa" type="text" name="empresa" required autocomplete="organization" />
+    </div>
+    {esDespacho ? (
+      <input type="hidden" name="rol" value="Capacitación: empresarial" />
+    ) : (
       <div class="campo">
-        <label for="cap-nombre">Tu nombre *</label>
-        <input id="cap-nombre" type="text" name="nombre" required autocomplete="name" />
-      </div>
-      <div class="campo">
-        <label for="cap-email">Tu correo *</label>
-        <input id="cap-email" type="email" name="email" required placeholder="tu@correo.com" autocomplete="email" />
-      </div>
-      <div class="campo">
-        <label for="cap-whatsapp">WhatsApp (opcional)</label>
-        <input id="cap-whatsapp" type="tel" name="whatsapp" placeholder="+52 " autocomplete="tel" />
-      </div>
-      <div class="campo">
-        <label for="cap-empresa">Empresa, despacho u organización *</label>
-        <input id="cap-empresa" type="text" name="empresa" required autocomplete="organization" />
-      </div>
-      {esDespacho ? (
-        <input type="hidden" name="rol" value="Capacitación: empresarial" />
-      ) : (
-        <div class="campo">
-          <label for="cap-modalidad">¿Qué modalidad te interesa?</label>
-          <select id="cap-modalidad" name="rol">
-            <option value="Capacitación: taller">El taller (mi lugar individual)</option>
-            <option value="Capacitación: empresarial">Capacitación para mi empresa o despacho</option>
-            <option value="Capacitación: organización">Licenciar el taller para mi organización o comunidad</option>
-          </select>
-        </div>
-      )}
-      <div class="campo">
-        <label for="cap-equipo">¿Cuántas personas son?</label>
-        <select id="cap-equipo" name="equipo">
-          {!esDespacho && <option value="Solo yo">Solo yo</option>}
-          <option value="2-5">2 a 5</option>
-          <option value="6-20">6 a 20</option>
-          <option value="21-50">21 a 50</option>
-          <option value="50+">Más de 50</option>
+        <label for="cap-modalidad">¿Qué modalidad te interesa?</label>
+        <select id="cap-modalidad" name="rol">
+          <option value="Capacitación: taller">El taller (mi lugar individual)</option>
+          <option value="Capacitación: empresarial">Capacitación para mi empresa o despacho</option>
+          <option value="Capacitación: organización">Licenciar el taller para mi organización o comunidad</option>
         </select>
       </div>
-      <div class="campo">
-        <label for="cap-nivel">¿Qué tanto usan IA hoy?</label>
-        <select id="cap-nivel" name="nivelIA">
-          <option value="No la usamos">Todavía no la usamos</option>
-          <option value="Probamos sin método">La probamos, pero sin método</option>
-          <option value="Uso diario">La usamos casi a diario</option>
-        </select>
-      </div>
-      <div class="campo">
-        <label for="cap-cuando">¿Para cuándo lo necesitas?</label>
-        <select id="cap-cuando" name="cuando">
-          <option value="Lo antes posible">Lo antes posible</option>
-          <option value="Este trimestre">En los próximos 3 meses</option>
-          <option value="Explorando">Apenas estoy explorando</option>
-        </select>
-      </div>
-      <div class="campo campo-full">
-        <label for="cap-mensaje">
-          {esDespacho ? "¿Dónde se le va el tiempo a tu equipo hoy? *" : "¿Qué procesos te gustaría automatizar? *"}
-        </label>
-        <textarea
-          id="cap-mensaje"
-          name="mensaje"
-          rows="3"
-          required
-          maxlength="500"
-          placeholder="Ej. descargamos CFDI a mano para 40 clientes y las conciliaciones nos toman una semana cada cierre…"></textarea>
-      </div>
-      <div class="campo-full consentimiento">
-        <label>
-          <input type="checkbox" name="newsletter" value="si" />
-          <span>
-            Me uno al newsletter: una idea de IA fiscal a la semana, avisos del
-            live y de los talleres. <b>(Opcional)</b>
-          </span>
-        </label>
-      </div>
-      <input type="text" name="hp" tabindex="-1" autocomplete="off" aria-hidden="true" class="cap-hp" />
-      <div class="campo-full cap-envio">
-        <button type="submit" class="btn btn-primary">
-          {esDespacho ? "Enviar y agendar el diagnóstico" : "Enviar y agendar llamada"}
-        </button>
-        <small data-cap-msg>
-          {esDespacho
-            ? "Te llega el resumen a tu correo. Te contesto en menos de 48 horas hábiles."
-            : "Te llega el resumen a tu correo y de ahí agendamos la llamada."}
-        </small>
-      </div>
-    </form>
-    {calendario && (
-      <p class="cap-calendario" data-agenda hidden>
-        <a class="btn btn-primary" href={calendario} target="_blank" rel="noopener">
-          Agendar la llamada ahora
-        </a>
-      </p>
     )}
-  </div>
-</div>
+    <div class="campo">
+      <label for="cap-equipo">¿Cuántas personas son?</label>
+      <select id="cap-equipo" name="equipo">
+        {!esDespacho && <option value="Solo yo">Solo yo</option>}
+        <option value="2-5">2 a 5</option>
+        <option value="6-20">6 a 20</option>
+        <option value="21-50">21 a 50</option>
+        <option value="50+">Más de 50</option>
+      </select>
+    </div>
+    <div class="campo">
+      <label for="cap-nivel">¿Qué tanto usan IA hoy?</label>
+      <select id="cap-nivel" name="nivelIA">
+        <option value="No la usamos">Todavía no la usamos</option>
+        <option value="Probamos sin método">La probamos, pero sin método</option>
+        <option value="Uso diario">La usamos casi a diario</option>
+      </select>
+    </div>
+    <div class="campo">
+      <label for="cap-cuando">¿Para cuándo lo necesitas?</label>
+      <select id="cap-cuando" name="cuando">
+        <option value="Lo antes posible">Lo antes posible</option>
+        <option value="Este trimestre">En los próximos 3 meses</option>
+        <option value="Explorando">Apenas estoy explorando</option>
+      </select>
+    </div>
+    <div class="campo campo-full">
+      <label for="cap-mensaje">
+        {esDespacho ? "¿Dónde se le va el tiempo a tu equipo hoy? *" : "¿Qué procesos te gustaría automatizar? *"}
+      </label>
+      <textarea
+        id="cap-mensaje"
+        name="mensaje"
+        rows="3"
+        required
+        maxlength="500"
+        placeholder="Ej. descargamos CFDI a mano para 40 clientes y las conciliaciones nos toman una semana cada cierre…"></textarea>
+    </div>
+    <div class="campo-full consentimiento">
+      <label>
+        <input type="checkbox" name="newsletter" value="si" />
+        <span>
+          Me uno al newsletter: una idea de IA fiscal a la semana, avisos del
+          live y de los talleres. <b>(Opcional)</b>
+        </span>
+      </label>
+    </div>
+    <input type="text" name="hp" tabindex="-1" autocomplete="off" aria-hidden="true" class="form-hp" />
+    <div class="campo-full form-envio">
+      <button type="submit" class="btn btn-primary">
+        {esDespacho ? "Enviar y agendar el diagnóstico" : "Enviar y agendar llamada"}
+      </button>
+      <small data-cap-msg>
+        {esDespacho
+          ? "Te llega el resumen a tu correo. Te contesto en menos de 48 horas hábiles."
+          : "Te llega el resumen a tu correo y de ahí agendamos la llamada."}
+      </small>
+    </div>
+  </form>
+  {calendario && (
+    <p class="cap-calendario" data-agenda hidden>
+      <a class="btn btn-primary" href={calendario} target="_blank" rel="noopener">
+        Agendar la llamada ahora
+      </a>
+    </p>
+  )}
+</FormCard>
 
 <style>
-  /*
-   * Sin medida propia: la tarjeta llena el contenedor que la monta, igual que
-   * LeadForm. Es el acuerdo con Israel (2026-09-07) y lo que hace que las dos
-   * tarjetas de formulario del sitio se lean como la misma pieza. Antes
-   * /despachos la capaba a 44rem sin centrarla y quedaba arrinconada.
-   */
-  .cap-card {
-    background: var(--color-surface-raised);
-    border: 1px solid var(--color-line);
-    border-radius: var(--radius-lg);
-    /* Sombra suave y no el offset duro, que era el acabado de la dirección B. */
-    box-shadow: 0 30px 60px -50px rgb(20 22 26 / 0.6);
-    overflow: hidden;
-  }
-  .cap-head {
-    padding: 0.8rem 1.8rem;
-    border-bottom: 1px solid var(--color-line);
-    background: var(--color-surface);
-  }
-  .cap-body {
-    padding: 2rem 1.8rem 2.2rem;
-  }
-  .cap-body h3 {
-    margin: 0 0 0.5rem;
-    font-family: var(--font-display);
-    font-size: clamp(1.6rem, 3vw, 2.1rem);
-    font-weight: 400;
-    line-height: 1.12;
-    letter-spacing: -0.01em;
-  }
-  .cap-intro {
-    margin: 0 0 1.4rem;
-    color: var(--color-ink-soft);
-    font-size: 0.95rem;
-    max-width: 58ch;
-  }
-  form {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 1rem 1.2rem;
-  }
-  @media (max-width: 700px) {
-    form {
-      grid-template-columns: 1fr;
-    }
-  }
-  .campo-full {
-    grid-column: 1 / -1;
-  }
-  label {
-    display: block;
-    font-family: var(--font-mono);
-    font-size: 0.68rem;
-    font-weight: 500;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: var(--color-ink-dim);
-    margin-bottom: 0.4rem;
-  }
-  input,
-  select,
-  textarea {
-    width: 100%;
-    padding: 0.75rem 0.9rem;
-    font-size: 0.95rem;
-    font-family: var(--font-body);
-    color: var(--color-ink);
-    background: var(--color-bg);
-    border: 1px solid var(--color-line);
-    border-radius: var(--radius-sm);
-    box-sizing: border-box;
-  }
-  input:focus,
-  select:focus,
-  textarea:focus {
-    border-color: var(--color-accent);
-    outline: none;
-  }
-  textarea {
-    resize: vertical;
-  }
-  .consentimiento label {
-    display: flex;
-    gap: 0.65rem;
-    align-items: flex-start;
-    cursor: pointer;
-    font-family: var(--font-body);
-    font-size: 0.85rem;
-    line-height: 1.5;
-    color: var(--color-ink-soft);
-    text-transform: none;
-    letter-spacing: 0;
-    margin: 0;
-  }
-  .consentimiento input {
-    width: auto;
-    margin: 0.15rem 0 0;
-    flex-shrink: 0;
-    accent-color: var(--color-accent);
-  }
-  .consentimiento b {
-    color: var(--color-ink);
-    font-weight: 700;
-  }
-  .cap-hp {
-    position: absolute;
-    left: -9999px;
-    height: 0;
-    width: 0;
-    opacity: 0;
-  }
-  .cap-envio {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    flex-wrap: wrap;
-  }
-  .cap-envio button {
-    cursor: pointer;
-    border: none;
-  }
-  .cap-envio small {
-    color: var(--color-ink-dim);
-    font-size: 0.8rem;
+  /* La entrada de este formulario es más larga: 38ch contra los 34 del otro. */
+  .form-envio small {
     max-width: 38ch;
   }
   .cap-calendario {
@@ -273,83 +148,38 @@ const calendario = calendarioDe("capacitacion");
     font-size: 0.9rem;
     color: var(--color-ink-soft);
   }
-  .cap-calendario a {
-    color: var(--color-accent);
-    font-weight: 700;
-  }
 </style>
 
 <script>
-  import { medir } from "../lib/medir";
+  import { montarLead } from "../lib/enviar-lead";
 
-  document.querySelectorAll<HTMLFormElement>("[data-cap]").forEach((form) => {
-    form.addEventListener("submit", async (e) => {
-      e.preventDefault();
-      const msg = form.querySelector<HTMLElement>("[data-cap-msg]");
-      // Vive fuera del <form>, así que se busca en la tarjeta completa.
-      const agenda = form.closest(".cap-card")?.querySelector<HTMLElement>("[data-agenda]");
-      const boton = form.querySelector<HTMLButtonElement>("button[type=submit]");
-      const data = new FormData(form);
-      if (boton) boton.disabled = true;
-      try {
-        const resp = await fetch("/api/lead", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            nombre: data.get("nombre"),
-            email: data.get("email"),
-            whatsapp: data.get("whatsapp"),
-            empresa: data.get("empresa"),
-            rol: data.get("rol"),
-            equipo: data.get("equipo"),
-            nivelIA: data.get("nivelIA"),
-            cuando: data.get("cuando"),
-            mensaje: data.get("mensaje"),
-            interes: "Capacitación",
-            newsletter: data.get("newsletter") === "si",
-            hp: data.get("hp"),
-            referrer: location.href,
-          }),
-        });
-        const body = await resp.json();
-        if (msg) {
-          if (body.ok) {
-            // El acuse va siempre; el correo de confirmación solo si pidió el
-            // boletín. Prometer una confirmación que no existe deja a la
-            // persona esperando un correo que nunca llega.
-            const boletin = body.newsletter
-              ? " Y para el boletín, confírmalo desde el correo que te acaba de llegar."
-              : "";
-            msg.textContent = agenda
-              ? `Recibido. Te mandé el resumen a tu correo.${boletin} Aparta tu horario aquí:`
-              : `Recibido. Te mandé el resumen a tu correo y te contacto para agendar.${boletin}`;
-          } else {
-            msg.textContent = body.error ?? "No pudimos registrarte. Inténtalo de nuevo.";
-          }
-        }
-        // El enlace para agendar se descubre al enviar, no antes. Al aparecer,
-        // el botón de enviar se retira: ya hizo su trabajo, y dejar dos botones
-        // primarios juntos compite por la atención e invita a reenviar.
-        if (agenda && body.ok) {
-          agenda.hidden = false;
-          if (boton) boton.hidden = true;
-        }
-        if (body.ok) {
-          /* El de mayor valor del sitio. El tamaño del equipo va porque es lo
-             que separa un despacho de un contador solo, y esa diferencia es la
-             que decide si vale la pena empujar /despachos. */
-          medir("diagnostico_enviado", {
-            modalidad: String(data.get("rol") ?? ""),
-            equipo: String(data.get("equipo") ?? ""),
-            cuando: String(data.get("cuando") ?? ""),
-          });
-          form.reset();
-        }
-      } catch {
-        if (msg) msg.textContent = "No pudimos registrarte. Inténtalo de nuevo.";
-      } finally {
-        if (boton) boton.disabled = false;
-      }
-    });
+  montarLead({
+    formulario: "[data-cap]",
+    mensaje: "[data-cap-msg]",
+    evento: "diagnostico_enviado",
+    carga: (d) => ({
+      nombre: d.get("nombre"),
+      email: d.get("email"),
+      whatsapp: d.get("whatsapp"),
+      empresa: d.get("empresa"),
+      rol: d.get("rol"),
+      equipo: d.get("equipo"),
+      nivelIA: d.get("nivelIA"),
+      cuando: d.get("cuando"),
+      mensaje: d.get("mensaje"),
+      interes: "Capacitación",
+    }),
+    /* El de mayor valor del sitio. El tamaño del equipo va porque es lo
+       que separa un despacho de un contador solo, y esa diferencia es la
+       que decide si vale la pena empujar /despachos. */
+    medida: (d) => ({
+      modalidad: String(d.get("rol") ?? ""),
+      equipo: String(d.get("equipo") ?? ""),
+      cuando: String(d.get("cuando") ?? ""),
+    }),
+    recibido: (boletin, conAgenda) =>
+      conAgenda
+        ? `Recibido. Te mandé el resumen a tu correo.${boletin} Aparta tu horario aquí:`
+        : `Recibido. Te mandé el resumen a tu correo y te contacto para agendar.${boletin}`,
   });
 </script>

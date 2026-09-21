@@ -5,6 +5,7 @@
  * POST a /api/lead → Sendy con campos personalizados.
  */
 
+import FormCard from "./FormCard.astro";
 import { calendarioDe, type PropositoCita } from "../lib/site";
 
 interface Props {
@@ -32,8 +33,6 @@ const {
   cita = "diagnostico",
 } = Astro.props;
 
-const Titulo = `h${nivel}` as "h2" | "h3";
-
 /**
  * El enlace para agendar solo aparece al enviar (decisión de Israel): es el
  * momento de mayor intención y ya calificó. Sin agenda configurada no se
@@ -51,262 +50,85 @@ const opcionesInteres = [
 ];
 ---
 
-<div class="lead-card" id="contacto">
-  <div class="lead-head">
-    <span class="folio">FOLIO <b>DIAG-01</b> · DIAGNÓSTICO</span>
-  </div>
-  <div class="lead-body">
-    <Titulo>{titulo}</Titulo>
-    <p class="lead-intro">{intro}</p>
-    <form method="post" action="/api/lead" data-lead>
-      <div class="campo">
-        <label for="lead-email">Tu correo *</label>
-        <input id="lead-email" type="email" name="email" required placeholder="tu@correo.com" autocomplete="email" />
-      </div>
-      <div class="campo">
-        <label for="lead-whatsapp">WhatsApp (opcional)</label>
-        <input id="lead-whatsapp" type="tel" name="whatsapp" placeholder="+52 " autocomplete="tel" />
-      </div>
-      <div class="campo">
-        <label for="lead-rol">¿Cuál es tu caso?</label>
-        <select id="lead-rol" name="rol">
-          <option value="Contador independiente">Soy contador independiente</option>
-          <option value="Despacho con equipo">Tengo un despacho con equipo</option>
-          <option value="Contabilidad propia">Llevo la contabilidad de mi propia empresa</option>
-          <option value="Colegio o asociación">Soy de un colegio o una asociación</option>
-        </select>
-      </div>
-      <div class="campo">
-        <label for="lead-interes">¿Qué estás buscando?</label>
-        <select id="lead-interes" name="interes">
-          {opcionesInteres.map((op) => (
-            <option value={op.value} selected={op.value === interesDefault}>{op.label}</option>
-          ))}
-        </select>
-      </div>
-      <div class="campo campo-full">
-        <label for="lead-mensaje">Cuéntame en una línea qué te está comiendo el tiempo (opcional)</label>
-        <textarea id="lead-mensaje" name="mensaje" rows="2" maxlength="500" placeholder="Ej. cada mes pierdo dos días armando el mismo reporte…"></textarea>
-      </div>
-      <div class="campo-full consentimiento">
-        <label>
-          <input type="checkbox" name="newsletter" value="si" />
-          <span>
-            Me uno al newsletter: una idea de IA fiscal a la semana, avisos del
-            live y de los talleres. (Opcional)
-          </span>
-        </label>
-      </div>
-      <input type="text" name="hp" tabindex="-1" autocomplete="off" aria-hidden="true" class="lead-hp" />
-      <div class="campo-full lead-envio">
-        <button type="submit" class="btn btn-primary">Quiero que me contactes</button>
-        <small data-lead-msg>Te llega el resumen a tu correo y te respondo personalmente.</small>
-      </div>
-    </form>
-    {calendario && (
-      <p class="lead-calendario" data-agenda hidden>
-        <a class="btn btn-primary" href={calendario} target="_blank" rel="noopener">
-          Agendar la llamada ahora
-        </a>
-      </p>
-    )}
-  </div>
-</div>
-
-<style>
-  /* Gemela de .cap-card: mismo acabado, y sin medida propia para que llene el
-     contenedor que la monta. El offset duro y el filete fuerte eran de la
-     dirección B; con F la sombra es suave y el radio sube. */
-  .lead-card {
-    background: var(--color-surface-raised);
-    border: 1px solid var(--color-line);
-    border-radius: var(--radius-lg);
-    box-shadow: 0 30px 60px -50px rgb(20 22 26 / 0.6);
-    overflow: hidden;
-  }
-  .lead-head {
-    padding: 0.8rem 1.8rem;
-    border-bottom: 1px solid var(--color-line);
-    background: var(--color-surface);
-  }
-  .lead-head .folio b {
-    color: var(--color-accent);
-  }
-  .lead-body {
-    padding: 2rem 1.8rem 2.2rem;
-  }
-  .lead-body h2,
-  .lead-body h3 {
-    margin: 0 0 0.5rem;
-    font-family: var(--font-display);
-    font-size: clamp(1.6rem, 3vw, 2.1rem);
-    font-weight: 400;
-    line-height: 1.12;
-    letter-spacing: -0.01em;
-  }
-  .lead-intro {
-    margin: 0 0 1.4rem;
-    color: var(--color-ink-soft);
-    font-size: 0.95rem;
-    max-width: 56ch;
-  }
-  form {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 1rem 1.2rem;
-  }
-  @media (max-width: 700px) {
-    form {
-      grid-template-columns: 1fr;
-    }
-  }
-  .campo-full {
-    grid-column: 1 / -1;
-  }
-  label {
-    display: block;
-    font-family: var(--font-mono);
-    font-size: 0.68rem;
-    font-weight: 500;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: var(--color-ink-dim);
-    margin-bottom: 0.4rem;
-  }
-  input,
-  select,
-  textarea {
-    width: 100%;
-    padding: 0.75rem 0.9rem;
-    font-size: 0.95rem;
-    font-family: var(--font-body);
-    color: var(--color-ink);
-    background: var(--color-bg);
-    border: 1px solid var(--color-line);
-    border-radius: var(--radius-sm);
-    box-sizing: border-box;
-  }
-  input:focus,
-  select:focus,
-  textarea:focus {
-    border-color: var(--color-accent);
-    outline: none;
-  }
-  textarea {
-    resize: vertical;
-  }
-  .consentimiento label {
-    display: flex;
-    gap: 0.65rem;
-    align-items: flex-start;
-    cursor: pointer;
-    font-family: var(--font-body);
-    font-size: 0.85rem;
-    line-height: 1.5;
-    color: var(--color-ink-soft);
-    text-transform: none;
-    letter-spacing: 0;
-    margin: 0;
-  }
-  .consentimiento input {
-    width: auto;
-    margin: 0.15rem 0 0;
-    flex-shrink: 0;
-    accent-color: var(--color-accent);
-  }
-  .consentimiento b {
-    color: var(--color-ink);
-    font-weight: 700;
-  }
-  .lead-hp {
-    position: absolute;
-    left: -9999px;
-    height: 0;
-    width: 0;
-    opacity: 0;
-  }
-  .lead-envio {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    flex-wrap: wrap;
-  }
-  .lead-envio button {
-    cursor: pointer;
-    border: none;
-  }
-  .lead-envio small {
-    color: var(--color-ink-dim);
-    font-size: 0.8rem;
-    max-width: 34ch;
-  }
-</style>
+<FormCard id="contacto" folio="DIAG-01" etiqueta="DIAGNÓSTICO" {titulo} {intro} {nivel}>
+  <form method="post" action="/api/lead" data-lead>
+    <div class="campo">
+      <label for="lead-email">Tu correo *</label>
+      <input id="lead-email" type="email" name="email" required placeholder="tu@correo.com" autocomplete="email" />
+    </div>
+    <div class="campo">
+      <label for="lead-whatsapp">WhatsApp (opcional)</label>
+      <input id="lead-whatsapp" type="tel" name="whatsapp" placeholder="+52 " autocomplete="tel" />
+    </div>
+    <div class="campo">
+      <label for="lead-rol">¿Cuál es tu caso?</label>
+      <select id="lead-rol" name="rol">
+        <option value="Contador independiente">Soy contador independiente</option>
+        <option value="Despacho con equipo">Tengo un despacho con equipo</option>
+        <option value="Contabilidad propia">Llevo la contabilidad de mi propia empresa</option>
+        <option value="Colegio o asociación">Soy de un colegio o una asociación</option>
+      </select>
+    </div>
+    <div class="campo">
+      <label for="lead-interes">¿Qué estás buscando?</label>
+      <select id="lead-interes" name="interes">
+        {opcionesInteres.map((op) => (
+          <option value={op.value} selected={op.value === interesDefault}>{op.label}</option>
+        ))}
+      </select>
+    </div>
+    <div class="campo campo-full">
+      <label for="lead-mensaje">Cuéntame en una línea qué te está comiendo el tiempo (opcional)</label>
+      <textarea id="lead-mensaje" name="mensaje" rows="2" maxlength="500" placeholder="Ej. cada mes pierdo dos días armando el mismo reporte…"></textarea>
+    </div>
+    <div class="campo-full consentimiento">
+      <label>
+        <input type="checkbox" name="newsletter" value="si" />
+        <span>
+          Me uno al newsletter: una idea de IA fiscal a la semana, avisos del
+          live y de los talleres. (Opcional)
+        </span>
+      </label>
+    </div>
+    <input type="text" name="hp" tabindex="-1" autocomplete="off" aria-hidden="true" class="form-hp" />
+    <div class="campo-full form-envio">
+      <button type="submit" class="btn btn-primary">Quiero que me contactes</button>
+      <small data-lead-msg>Te llega el resumen a tu correo y te respondo personalmente.</small>
+    </div>
+  </form>
+  {calendario && (
+    <p class="lead-calendario" data-agenda hidden>
+      <a class="btn btn-primary" href={calendario} target="_blank" rel="noopener">
+        Agendar la llamada ahora
+      </a>
+    </p>
+  )}
+</FormCard>
 
 <script>
-  import { medir } from "../lib/medir";
+  import { montarLead } from "../lib/enviar-lead";
 
-  document.querySelectorAll<HTMLFormElement>("[data-lead]").forEach((form) => {
-    form.addEventListener("submit", async (e) => {
-      e.preventDefault();
-      const msg = form.querySelector<HTMLElement>("[data-lead-msg]");
-      // Vive fuera del <form>, así que se busca en la tarjeta completa.
-      const agenda = form.closest(".lead-card")?.querySelector<HTMLElement>("[data-agenda]");
-      const boton = form.querySelector<HTMLButtonElement>("button[type=submit]");
-      const data = new FormData(form);
-      if (boton) boton.disabled = true;
-      try {
-        const resp = await fetch("/api/lead", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            email: data.get("email"),
-            whatsapp: data.get("whatsapp"),
-            rol: data.get("rol"),
-            interes: data.get("interes"),
-            mensaje: data.get("mensaje"),
-            newsletter: data.get("newsletter") === "si",
-            hp: data.get("hp"),
-            referrer: location.href,
-          }),
-        });
-        const body = await resp.json();
-        if (msg) {
-          if (body.ok) {
-            // El acuse va siempre; el correo de confirmación solo si pidió el
-            // boletín. Prometer una confirmación que no existe deja a la
-            // persona esperando un correo que nunca llega.
-            const boletin = body.newsletter
-              ? " Y para el boletín, confírmalo desde el correo que te acaba de llegar."
-              : "";
-            msg.textContent = agenda
-              ? `Recibido. Te mandé el resumen a tu correo y te respondo personalmente.${boletin} Si quieres adelantar, aparta tu horario aquí:`
-              : `Recibido. Te mandé el resumen a tu correo y te respondo personalmente.${boletin}`;
-          } else {
-            msg.textContent = body.error ?? "No pudimos registrarte. Inténtalo de nuevo.";
-          }
-        }
-        // El enlace para agendar se descubre al enviar, no antes. Al aparecer,
-        // el botón de enviar se retira: ya hizo su trabajo, y dejar dos botones
-        // primarios juntos compite por la atención e invita a reenviar.
-        if (agenda && body.ok) {
-          agenda.hidden = false;
-          if (boton) boton.hidden = true;
-        }
-        if (body.ok) {
-          /* Con qué llega la gente y desde qué perfil. Sin correo ni WhatsApp:
-             lo que decide algo es la categoría, no la persona. */
-          medir("lead_enviado", {
-            interes: String(data.get("interes") ?? ""),
-            rol: String(data.get("rol") ?? ""),
-            newsletter: data.get("newsletter") === "si",
-          });
-          form.reset();
-        }
-      } catch {
-        if (msg) msg.textContent = "No pudimos registrarte. Inténtalo de nuevo.";
-      } finally {
-        if (boton) boton.disabled = false;
-      }
-    });
+  montarLead({
+    formulario: "[data-lead]",
+    mensaje: "[data-lead-msg]",
+    evento: "lead_enviado",
+    carga: (d) => ({
+      email: d.get("email"),
+      whatsapp: d.get("whatsapp"),
+      rol: d.get("rol"),
+      interes: d.get("interes"),
+      mensaje: d.get("mensaje"),
+    }),
+    /* Con qué llega la gente y desde qué perfil. Sin correo ni WhatsApp:
+       lo que decide algo es la categoría, no la persona. */
+    medida: (d) => ({
+      interes: String(d.get("interes") ?? ""),
+      rol: String(d.get("rol") ?? ""),
+      newsletter: d.get("newsletter") === "si",
+    }),
+    recibido: (boletin, conAgenda) =>
+      conAgenda
+        ? `Recibido. Te mandé el resumen a tu correo y te respondo personalmente.${boletin} Si quieres adelantar, aparta tu horario aquí:`
+        : `Recibido. Te mandé el resumen a tu correo y te respondo personalmente.${boletin}`,
   });
 </script>

@@ -34,7 +34,7 @@ const totalCapitulos = PARTES.reduce((n, parte) => n + parte.piezas.length, 0);
   cta={CTA}
 >
   <main>
-    <section class="hero">
+    <section class="encabezado">
       <div class="container-default hero-grid">
         <div>
           <p class="folio">EBOOK · <b>{EDICION.nombre.toUpperCase()}</b> · {EDICION.paginas} PÁGINAS</p>
@@ -48,7 +48,7 @@ const totalCapitulos = PARTES.reduce((n, parte) => n + parte.piezas.length, 0);
           </p>
           <div class="hero-precio">
             <p class="precio"><b>{COMPRA.ebook.precioTexto}</b> <span>pago único · PDF</span></p>
-            <div class="hero-acciones">
+            <div class="acciones">
               <a class="btn btn-primary" href={COMPRA.ebook.url} rel="noopener">Comprar el libro</a>
               <a class="btn btn-ghost" href="#muestra">Leer 3 capítulos gratis</a>
             </div>
@@ -100,7 +100,7 @@ const totalCapitulos = PARTES.reduce((n, parte) => n + parte.piezas.length, 0);
         <div class="sec-head"><h2 class="folio">EL <b>TEMARIO</b> COMPLETO</h2></div>
         <div class="temario">
           {PARTES.map((parte) => (
-            <article class="parte" data-reveal>
+            <article class="parte ficha" data-reveal>
               <header class="parte-head">
                 <span class="parte-romano">{parte.romano}</span>
                 <div>
@@ -121,7 +121,7 @@ const totalCapitulos = PARTES.reduce((n, parte) => n + parte.piezas.length, 0);
               </ol>
             </article>
           ))}
-          <article class="parte" data-reveal>
+          <article class="parte ficha" data-reveal>
             <header class="parte-head">
               <span class="parte-romano">+</span>
               <div>
@@ -171,10 +171,10 @@ const totalCapitulos = PARTES.reduce((n, parte) => n + parte.piezas.length, 0);
     <section>
       <div class="container-default">
         <div class="sec-head"><h2 class="folio">CÓMO <b>CONSEGUIRLO</b></h2></div>
-        <article class="compra" data-reveal>
+        <article class="compra ficha ficha-dura" data-reveal>
           <p class="folio">EL LIBRO <b>COMPLETO</b> · PDF</p>
           <p class="precio"><b>{COMPRA.ebook.precioTexto}</b> <span>pago único, no suscripción</span></p>
-          <ul class="incluye">
+          <ul class="lista-check">
             {COMPRA.ebook.incluye.map((item) => (
               <li>{item}</li>
             ))}
@@ -219,12 +219,6 @@ const totalCapitulos = PARTES.reduce((n, parte) => n + parte.piezas.length, 0);
 </BaseLayout>
 
 <style>
-  section {
-    padding: 3.4rem 0;
-  }
-  .hero {
-    padding-top: 4.5rem;
-  }
   .hero-grid {
     display: grid;
     grid-template-columns: 1.25fr 0.75fr;
@@ -272,22 +266,6 @@ const totalCapitulos = PARTES.reduce((n, parte) => n + parte.piezas.length, 0);
   }
   .precio {
     margin: 0 0 1rem;
-    font-family: var(--font-mono);
-  }
-  .precio b {
-    font-size: 1.9rem;
-    font-weight: 700;
-    color: var(--color-accent);
-    letter-spacing: -0.02em;
-  }
-  .precio span {
-    color: var(--color-ink-dim);
-    font-size: 0.85rem;
-  }
-  .hero-acciones {
-    display: flex;
-    gap: 0.9rem;
-    flex-wrap: wrap;
   }
 
   .argumento p {
@@ -314,9 +292,7 @@ const totalCapitulos = PARTES.reduce((n, parte) => n + parte.piezas.length, 0);
     gap: 1.4rem;
   }
   .parte {
-    border: 1px solid var(--color-line-strong);
-    border-radius: var(--radius-md);
-    background: var(--color-surface-raised);
+    --ficha-borde: var(--color-line-strong);
     padding: 1.6rem 1.8rem 1.4rem;
   }
   .parte-head {
@@ -387,7 +363,7 @@ const totalCapitulos = PARTES.reduce((n, parte) => n + parte.piezas.length, 0);
     color: var(--color-terminal-ok);
   }
   .muestra-caja h2 {
-    color: #ffffff;
+    color: var(--color-terminal-titulo);
     margin: 0.9rem 0 0.9rem;
   }
   .muestra-texto {
@@ -398,61 +374,14 @@ const totalCapitulos = PARTES.reduce((n, parte) => n + parte.piezas.length, 0);
 
   .compra {
     max-width: 34rem;
-    border: 1px solid var(--color-line-strong);
-    border-radius: var(--radius-md);
-    background: var(--color-surface-raised);
-    box-shadow: 8px 8px 0 var(--color-accent-soft);
+    --ficha-offset: 8px;
     padding: 1.9rem 2rem;
   }
   .compra .precio {
     margin: 0.9rem 0 1.3rem;
   }
-  .incluye {
-    list-style: none;
-    padding: 0;
-    margin: 0 0 1.8rem;
-  }
-  .incluye li {
-    padding: 0.55rem 0 0.55rem 1.6rem;
-    position: relative;
-    color: var(--color-ink-soft);
-    border-bottom: 1px solid var(--color-line);
-    font-size: 0.94rem;
-  }
-  .incluye li::before {
-    content: "✓";
-    position: absolute;
-    left: 0;
-    font-family: var(--font-mono);
-    font-weight: 700;
-    color: var(--color-accent);
-  }
   .garantia {
     margin: 1.4rem 0 0;
   }
 
-  .autor {
-    display: grid;
-    grid-template-columns: 120px 1fr;
-    gap: 1.8rem;
-    align-items: start;
-  }
-  @media (max-width: 700px) {
-    .autor {
-      grid-template-columns: 1fr;
-    }
-  }
-  /* La foto trae su propio recorte circular sobre blanco. Con esquinas
-     cuadradas se veían dos bordes: el del círculo de la imagen y el del marco
-     CSS. Se recorta en círculo y se va el marco. */
-  .autor img {
-    border-radius: 50%;
-  }
-  .autor p {
-    margin: 0 0 0.9rem;
-    color: var(--color-ink-soft);
-  }
-  .autor p:last-child {
-    margin-bottom: 0;
-  }
 </style>

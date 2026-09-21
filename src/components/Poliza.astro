@@ -56,7 +56,7 @@ const {
 const dosColumnas = Boolean(columnaAbono);
 ---
 
-<div class:list={["poliza", { animada, doble: dosColumnas }]}>
+<div class:list={["poliza ficha ficha-dura", { animada, doble: dosColumnas }]}>
   <div class="poliza-head">
     <span class="folio">{folio} · {titulo}</span>
     {foto && (
@@ -96,10 +96,6 @@ const dosColumnas = Boolean(columnaAbono);
 
 <style>
   .poliza {
-    background: var(--color-surface-raised);
-    border: 1px solid var(--color-line-strong);
-    border-radius: var(--radius-md);
-    box-shadow: 6px 6px 0 var(--color-line);
     overflow: hidden;
   }
   .poliza-head {
