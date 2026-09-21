@@ -227,6 +227,26 @@ html.js-reveal .is-visible .reng > span {
   }
 }
 
+/*
+ * La ficha: la tarjeta de papel elevado del sitio. Sola es la plana (borde
+ * tenue); con `ficha-dura` lleva el borde fuerte y la sombra desplazada gris
+ * de la contabilidad (ver design/DESIGN.md, "Sombra desplazada"). Las
+ * variantes se piden con variables desde el <style> de quien la monta:
+ * `--ficha-borde` (el color del filete), `--ficha-offset` (el desplazamiento
+ * de la sombra, 6px por defecto) y `--ficha-sombra` (su color). El relleno
+ * SIEMPRE es local: no hay dos fichas con el mismo. Un fondo distinto (la
+ * terminal) también se pone local: el scoped le gana a la utilidad.
+ */
+@utility ficha {
+  background: var(--color-surface-raised);
+  border: 1px solid var(--ficha-borde, var(--color-line));
+  border-radius: var(--radius-md);
+}
+@utility ficha-dura {
+  --ficha-borde: var(--color-line-strong);
+  box-shadow: var(--ficha-offset, 6px) var(--ficha-offset, 6px) 0 var(--ficha-sombra, var(--color-line));
+}
+
 /* Doble raya de suma contable (bajo totales) */
 @utility doble-raya {
   border-top: 1.5px solid var(--color-line-strong);

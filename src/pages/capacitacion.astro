@@ -118,7 +118,7 @@ const jsonLd = graph(
               {edicion ? "Quiero mi lugar en esta edición" : "Avísame de la próxima edición"}
             </a>
           </div>
-          <div class="temario">
+          <div class="temario ficha ficha-dura">
             <p class="folio temario-titulo">TEMARIO · 8 HORAS</p>
             {TALLER.temario.map((bloque) => (
               <div class="temario-bloque">
@@ -155,7 +155,7 @@ const jsonLd = graph(
                 </p>
               )}
             </div>
-            <dl class="colab-datos">
+            <dl class="colab-datos ficha">
               <div>
                 <dt class="folio">FECHAS</dt>
                 <dd>{fechaDeEdicion(colaboracion)}</dd>
@@ -257,8 +257,6 @@ const jsonLd = graph(
   }
   .colab-datos {
     margin: 0;
-    background: var(--color-surface-raised);
-    border: 1px solid var(--color-line);
     border-radius: var(--radius-lg);
     padding: 1.6rem 1.5rem;
     display: grid;
@@ -384,10 +382,6 @@ const jsonLd = graph(
     color: var(--color-accent);
   }
   .temario {
-    background: var(--color-surface-raised);
-    border: 1px solid var(--color-line-strong);
-    border-radius: var(--radius-md);
-    box-shadow: 6px 6px 0 var(--color-line);
     padding: 1.6rem 1.8rem;
   }
   .temario-titulo {

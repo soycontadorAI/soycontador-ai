@@ -100,7 +100,7 @@ const totalCapitulos = PARTES.reduce((n, parte) => n + parte.piezas.length, 0);
         <div class="sec-head"><h2 class="folio">EL <b>TEMARIO</b> COMPLETO</h2></div>
         <div class="temario">
           {PARTES.map((parte) => (
-            <article class="parte" data-reveal>
+            <article class="parte ficha" data-reveal>
               <header class="parte-head">
                 <span class="parte-romano">{parte.romano}</span>
                 <div>
@@ -121,7 +121,7 @@ const totalCapitulos = PARTES.reduce((n, parte) => n + parte.piezas.length, 0);
               </ol>
             </article>
           ))}
-          <article class="parte" data-reveal>
+          <article class="parte ficha" data-reveal>
             <header class="parte-head">
               <span class="parte-romano">+</span>
               <div>
@@ -171,7 +171,7 @@ const totalCapitulos = PARTES.reduce((n, parte) => n + parte.piezas.length, 0);
     <section>
       <div class="container-default">
         <div class="sec-head"><h2 class="folio">CÓMO <b>CONSEGUIRLO</b></h2></div>
-        <article class="compra" data-reveal>
+        <article class="compra ficha ficha-dura" data-reveal>
           <p class="folio">EL LIBRO <b>COMPLETO</b> · PDF</p>
           <p class="precio"><b>{COMPRA.ebook.precioTexto}</b> <span>pago único, no suscripción</span></p>
           <ul class="incluye">
@@ -308,9 +308,7 @@ const totalCapitulos = PARTES.reduce((n, parte) => n + parte.piezas.length, 0);
     gap: 1.4rem;
   }
   .parte {
-    border: 1px solid var(--color-line-strong);
-    border-radius: var(--radius-md);
-    background: var(--color-surface-raised);
+    --ficha-borde: var(--color-line-strong);
     padding: 1.6rem 1.8rem 1.4rem;
   }
   .parte-head {
@@ -392,10 +390,10 @@ const totalCapitulos = PARTES.reduce((n, parte) => n + parte.piezas.length, 0);
 
   .compra {
     max-width: 34rem;
-    border: 1px solid var(--color-line-strong);
-    border-radius: var(--radius-md);
-    background: var(--color-surface-raised);
-    box-shadow: 8px 8px 0 var(--color-accent-soft);
+    --ficha-offset: 8px;
+    /* Verde tenue y no gris: es el error que DESIGN.md ya documenta. Se
+       preserva aquí para que este commit no cambie nada; se corrige aparte. */
+    --ficha-sombra: var(--color-accent-soft);
     padding: 1.9rem 2rem;
   }
   .compra .precio {

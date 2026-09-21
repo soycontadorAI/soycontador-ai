@@ -41,7 +41,7 @@ const jsonLd = graph(
     <section id="catalogo">
       <div class="container-default">
         <div class="sec-head"><h2 class="folio">EL <b>CATÁLOGO</b></h2></div>
-        <div class="lista">
+        <div class="lista ficha">
           {HERRAMIENTAS.map((h, i) => (
             <article class="fila" data-reveal>
               <span class="num">{String(i + 1).padStart(2, "0")}</span>
@@ -83,10 +83,8 @@ const jsonLd = graph(
 
 <style>
   .lista {
-    border: 1px solid var(--color-line-strong);
-    border-radius: var(--radius-md);
+    --ficha-borde: var(--color-line-strong);
     overflow: hidden;
-    background: var(--color-surface-raised);
   }
   .fila {
     display: grid;

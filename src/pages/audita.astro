@@ -177,7 +177,7 @@ const EXTRAS = [
         </div>
         <div class="extras">
           {EXTRAS.map((e, i) => (
-            <article data-reveal style={`--reveal-delay:${i * 0.08}s`}>
+            <article class="ficha" data-reveal style={`--reveal-delay:${i * 0.08}s`}>
               <h3>{e.titulo}</h3>
               <p>{e.texto}</p>
             </article>
@@ -379,9 +379,6 @@ const EXTRAS = [
     }
   }
   .extras article {
-    background: var(--color-surface-raised);
-    border: 1px solid var(--color-line);
-    border-radius: var(--radius-md);
     padding: 1.3rem;
   }
   .extras h3 {

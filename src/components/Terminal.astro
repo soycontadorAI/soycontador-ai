@@ -19,7 +19,7 @@ const { lineas, label = "Conversación de ejemplo entre un contador y Claude con
   Astro.props;
 ---
 
-<div class="terminal" role="img" aria-label={label}>
+<div class="terminal ficha ficha-dura" role="img" aria-label={label}>
   <div class="terminal-bar" aria-hidden="true">
     <i class="rojo"></i><i class="ambar"></i><i class="verde"></i>
   </div>
@@ -33,10 +33,7 @@ const { lineas, label = "Conversación de ejemplo entre un contador y Claude con
 <style>
   .terminal {
     background: var(--color-terminal-bg);
-    border-radius: var(--radius-md);
     overflow: hidden;
-    border: 1px solid var(--color-line-strong);
-    box-shadow: 6px 6px 0 var(--color-line);
     font-family: var(--font-mono);
     font-size: 0.8rem;
     line-height: 1.7;

@@ -95,7 +95,7 @@ const CTA: Enlace = urlAbierta
             )}
           </div>
         </div>
-        <aside class="entregables" aria-labelledby="entregables-titulo">
+        <aside class="entregables ficha ficha-dura" aria-labelledby="entregables-titulo">
           <p class="folio" id="entregables-titulo">CON QUÉ <b>SALES</b></p>
           <ol>
             {ENTREGABLES.map((e, i) => (
@@ -117,7 +117,7 @@ const CTA: Enlace = urlAbierta
         <div class="sec-head"><h2 class="folio">PARA <b>QUIÉN</b> ES</h2></div>
         <div class="perfiles">
           {PARA_QUIEN.map((p, i) => (
-            <article class="perfil" data-reveal style={`--reveal-delay: ${i * 0.08}s`}>
+            <article class="perfil ficha" data-reveal style={`--reveal-delay: ${i * 0.08}s`}>
               <h3>{p.titulo}</h3>
               <p>{p.texto}</p>
             </article>
@@ -189,7 +189,7 @@ const CTA: Enlace = urlAbierta
     <section id="apartar">
       <div class="container-default">
         <div class="sec-head"><h2 class="folio">CÓMO <b>APARTAR</b> TU LUGAR</h2></div>
-        <article class="compra" data-reveal>
+        <article class="compra ficha ficha-dura" data-reveal>
           <p class="folio">{fechaFolio.toUpperCase()} · <b>{EMPIEZA.horario.toUpperCase()}</b></p>
           <p class="precio"><b>{EMPIEZA.precioTexto}</b> <span>pago único, más tu cuenta de {EMPIEZA.herramienta.nombre}</span></p>
           <ul class="incluye">
@@ -349,10 +349,7 @@ const CTA: Enlace = urlAbierta
 
   /* Los tres entregables, en tarjeta: son el argumento entero */
   .entregables {
-    border: 1px solid var(--color-line-strong);
-    border-radius: var(--radius-md);
-    background: var(--color-surface-raised);
-    box-shadow: 10px 10px 0 var(--color-line);
+    --ficha-offset: 10px;
     padding: 1.6rem 1.8rem 1.2rem;
   }
   .entregables ol {
@@ -397,9 +394,7 @@ const CTA: Enlace = urlAbierta
     }
   }
   .perfil {
-    border: 1px solid var(--color-line-strong);
-    border-radius: var(--radius-md);
-    background: var(--color-surface-raised);
+    --ficha-borde: var(--color-line-strong);
     padding: 1.4rem 1.6rem;
   }
   .perfil h3 {
@@ -508,10 +503,7 @@ const CTA: Enlace = urlAbierta
 
   .compra {
     max-width: 34rem;
-    border: 1px solid var(--color-line-strong);
-    border-radius: var(--radius-md);
-    background: var(--color-surface-raised);
-    box-shadow: 8px 8px 0 var(--color-line);
+    --ficha-offset: 8px;
     padding: 1.9rem 2rem;
   }
   .compra .precio {

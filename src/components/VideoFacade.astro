@@ -26,7 +26,7 @@ interface Props {
 const { videoId, titulo, poster, aria, cinta } = Astro.props;
 ---
 
-<div class="video" data-video={videoId}>
+<div class="video ficha ficha-dura" data-video={videoId}>
   <button
     type="button"
     class="video-btn"
@@ -43,9 +43,6 @@ const { videoId, titulo, poster, aria, cinta } = Astro.props;
 <style>
   .video {
     position: relative;
-    border: 1px solid var(--color-line-strong);
-    border-radius: var(--radius-md);
-    box-shadow: 6px 6px 0 var(--color-line);
     overflow: hidden;
     background: var(--color-terminal-bg);
     aspect-ratio: 16 / 9;
