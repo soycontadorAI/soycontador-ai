@@ -155,76 +155,35 @@ const calendario = calendarioDe("capacitacion");
 </style>
 
 <script>
-  import { medir } from "../lib/medir";
+  import { montarLead } from "../lib/enviar-lead";
 
-  document.querySelectorAll<HTMLFormElement>("[data-cap]").forEach((form) => {
-    form.addEventListener("submit", async (e) => {
-      e.preventDefault();
-      const msg = form.querySelector<HTMLElement>("[data-cap-msg]");
-      // Vive fuera del <form>, así que se busca en la tarjeta completa.
-      const agenda = form.closest(".form-card")?.querySelector<HTMLElement>("[data-agenda]");
-      const boton = form.querySelector<HTMLButtonElement>("button[type=submit]");
-      const data = new FormData(form);
-      if (boton) boton.disabled = true;
-      try {
-        const resp = await fetch("/api/lead", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            nombre: data.get("nombre"),
-            email: data.get("email"),
-            whatsapp: data.get("whatsapp"),
-            empresa: data.get("empresa"),
-            rol: data.get("rol"),
-            equipo: data.get("equipo"),
-            nivelIA: data.get("nivelIA"),
-            cuando: data.get("cuando"),
-            mensaje: data.get("mensaje"),
-            interes: "Capacitación",
-            newsletter: data.get("newsletter") === "si",
-            hp: data.get("hp"),
-            referrer: location.href,
-          }),
-        });
-        const body = await resp.json();
-        if (msg) {
-          if (body.ok) {
-            // El acuse va siempre; el correo de confirmación solo si pidió el
-            // boletín. Prometer una confirmación que no existe deja a la
-            // persona esperando un correo que nunca llega.
-            const boletin = body.newsletter
-              ? " Y para el boletín, confírmalo desde el correo que te acaba de llegar."
-              : "";
-            msg.textContent = agenda
-              ? `Recibido. Te mandé el resumen a tu correo.${boletin} Aparta tu horario aquí:`
-              : `Recibido. Te mandé el resumen a tu correo y te contacto para agendar.${boletin}`;
-          } else {
-            msg.textContent = body.error ?? "No pudimos registrarte. Inténtalo de nuevo.";
-          }
-        }
-        // El enlace para agendar se descubre al enviar, no antes. Al aparecer,
-        // el botón de enviar se retira: ya hizo su trabajo, y dejar dos botones
-        // primarios juntos compite por la atención e invita a reenviar.
-        if (agenda && body.ok) {
-          agenda.hidden = false;
-          if (boton) boton.hidden = true;
-        }
-        if (body.ok) {
-          /* El de mayor valor del sitio. El tamaño del equipo va porque es lo
-             que separa un despacho de un contador solo, y esa diferencia es la
-             que decide si vale la pena empujar /despachos. */
-          medir("diagnostico_enviado", {
-            modalidad: String(data.get("rol") ?? ""),
-            equipo: String(data.get("equipo") ?? ""),
-            cuando: String(data.get("cuando") ?? ""),
-          });
-          form.reset();
-        }
-      } catch {
-        if (msg) msg.textContent = "No pudimos registrarte. Inténtalo de nuevo.";
-      } finally {
-        if (boton) boton.disabled = false;
-      }
-    });
+  montarLead({
+    formulario: "[data-cap]",
+    mensaje: "[data-cap-msg]",
+    evento: "diagnostico_enviado",
+    carga: (d) => ({
+      nombre: d.get("nombre"),
+      email: d.get("email"),
+      whatsapp: d.get("whatsapp"),
+      empresa: d.get("empresa"),
+      rol: d.get("rol"),
+      equipo: d.get("equipo"),
+      nivelIA: d.get("nivelIA"),
+      cuando: d.get("cuando"),
+      mensaje: d.get("mensaje"),
+      interes: "Capacitación",
+    }),
+    /* El de mayor valor del sitio. El tamaño del equipo va porque es lo
+       que separa un despacho de un contador solo, y esa diferencia es la
+       que decide si vale la pena empujar /despachos. */
+    medida: (d) => ({
+      modalidad: String(d.get("rol") ?? ""),
+      equipo: String(d.get("equipo") ?? ""),
+      cuando: String(d.get("cuando") ?? ""),
+    }),
+    recibido: (boletin, conAgenda) =>
+      conAgenda
+        ? `Recibido. Te mandé el resumen a tu correo.${boletin} Aparta tu horario aquí:`
+        : `Recibido. Te mandé el resumen a tu correo y te contacto para agendar.${boletin}`,
   });
 </script>

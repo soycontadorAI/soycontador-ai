@@ -106,70 +106,29 @@ const opcionesInteres = [
 </FormCard>
 
 <script>
-  import { medir } from "../lib/medir";
+  import { montarLead } from "../lib/enviar-lead";
 
-  document.querySelectorAll<HTMLFormElement>("[data-lead]").forEach((form) => {
-    form.addEventListener("submit", async (e) => {
-      e.preventDefault();
-      const msg = form.querySelector<HTMLElement>("[data-lead-msg]");
-      // Vive fuera del <form>, así que se busca en la tarjeta completa.
-      const agenda = form.closest(".form-card")?.querySelector<HTMLElement>("[data-agenda]");
-      const boton = form.querySelector<HTMLButtonElement>("button[type=submit]");
-      const data = new FormData(form);
-      if (boton) boton.disabled = true;
-      try {
-        const resp = await fetch("/api/lead", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            email: data.get("email"),
-            whatsapp: data.get("whatsapp"),
-            rol: data.get("rol"),
-            interes: data.get("interes"),
-            mensaje: data.get("mensaje"),
-            newsletter: data.get("newsletter") === "si",
-            hp: data.get("hp"),
-            referrer: location.href,
-          }),
-        });
-        const body = await resp.json();
-        if (msg) {
-          if (body.ok) {
-            // El acuse va siempre; el correo de confirmación solo si pidió el
-            // boletín. Prometer una confirmación que no existe deja a la
-            // persona esperando un correo que nunca llega.
-            const boletin = body.newsletter
-              ? " Y para el boletín, confírmalo desde el correo que te acaba de llegar."
-              : "";
-            msg.textContent = agenda
-              ? `Recibido. Te mandé el resumen a tu correo y te respondo personalmente.${boletin} Si quieres adelantar, aparta tu horario aquí:`
-              : `Recibido. Te mandé el resumen a tu correo y te respondo personalmente.${boletin}`;
-          } else {
-            msg.textContent = body.error ?? "No pudimos registrarte. Inténtalo de nuevo.";
-          }
-        }
-        // El enlace para agendar se descubre al enviar, no antes. Al aparecer,
-        // el botón de enviar se retira: ya hizo su trabajo, y dejar dos botones
-        // primarios juntos compite por la atención e invita a reenviar.
-        if (agenda && body.ok) {
-          agenda.hidden = false;
-          if (boton) boton.hidden = true;
-        }
-        if (body.ok) {
-          /* Con qué llega la gente y desde qué perfil. Sin correo ni WhatsApp:
-             lo que decide algo es la categoría, no la persona. */
-          medir("lead_enviado", {
-            interes: String(data.get("interes") ?? ""),
-            rol: String(data.get("rol") ?? ""),
-            newsletter: data.get("newsletter") === "si",
-          });
-          form.reset();
-        }
-      } catch {
-        if (msg) msg.textContent = "No pudimos registrarte. Inténtalo de nuevo.";
-      } finally {
-        if (boton) boton.disabled = false;
-      }
-    });
+  montarLead({
+    formulario: "[data-lead]",
+    mensaje: "[data-lead-msg]",
+    evento: "lead_enviado",
+    carga: (d) => ({
+      email: d.get("email"),
+      whatsapp: d.get("whatsapp"),
+      rol: d.get("rol"),
+      interes: d.get("interes"),
+      mensaje: d.get("mensaje"),
+    }),
+    /* Con qué llega la gente y desde qué perfil. Sin correo ni WhatsApp:
+       lo que decide algo es la categoría, no la persona. */
+    medida: (d) => ({
+      interes: String(d.get("interes") ?? ""),
+      rol: String(d.get("rol") ?? ""),
+      newsletter: d.get("newsletter") === "si",
+    }),
+    recibido: (boletin, conAgenda) =>
+      conAgenda
+        ? `Recibido. Te mandé el resumen a tu correo y te respondo personalmente.${boletin} Si quieres adelantar, aparta tu horario aquí:`
+        : `Recibido. Te mandé el resumen a tu correo y te respondo personalmente.${boletin}`,
   });
 </script>
