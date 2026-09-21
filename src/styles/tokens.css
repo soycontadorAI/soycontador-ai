@@ -66,6 +66,7 @@
   --color-terminal-folio: #8DA2C0;
   --color-terminal-texto: #AEBBD1;
   --color-terminal-raya: #2A3648;
+  --color-terminal-titulo: #FFFFFF;
   /* Semáforo de ventana macOS: lo usan Terminal.astro y FlujoConcentrado.astro */
   --color-semaforo-rojo: #FF5F57;
   --color-semaforo-ambar: #FEBC2E;
