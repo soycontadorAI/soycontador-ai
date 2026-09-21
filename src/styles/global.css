@@ -87,6 +87,20 @@ main [id] {
   scroll-margin-top: 4.5rem;
 }
 
+/*
+ * Ritmo de sección. Una página lo cambia con `main { --ritmo-seccion: … }` y
+ * NUNCA con `section { padding }` en su <style>: ese selector scoped sale
+ * como `section[data-astro-cid]` (0,1,1), le gana a `.encabezado` (0,1,0) y
+ * el encabezado de la página pierde su aire. La sección que necesita otro
+ * relleno lo declara con su propia clase, que gana por especificidad.
+ */
+main > section {
+  padding: var(--ritmo-seccion, 3.4rem) 0;
+}
+.encabezado {
+  padding-top: 4.5rem;
+}
+
 /* Encabezado de sección con folio y regla al margen */
 .sec-head {
   display: flex;

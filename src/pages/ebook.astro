@@ -34,7 +34,7 @@ const totalCapitulos = PARTES.reduce((n, parte) => n + parte.piezas.length, 0);
   cta={CTA}
 >
   <main>
-    <section class="hero">
+    <section class="encabezado">
       <div class="container-default hero-grid">
         <div>
           <p class="folio">EBOOK · <b>{EDICION.nombre.toUpperCase()}</b> · {EDICION.paginas} PÁGINAS</p>
@@ -219,12 +219,6 @@ const totalCapitulos = PARTES.reduce((n, parte) => n + parte.piezas.length, 0);
 </BaseLayout>
 
 <style>
-  section {
-    padding: 3.4rem 0;
-  }
-  .hero {
-    padding-top: 4.5rem;
-  }
   .hero-grid {
     display: grid;
     grid-template-columns: 1.25fr 0.75fr;
