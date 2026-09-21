@@ -347,6 +347,105 @@ html.js-reveal .is-visible .reng > span {
   flex-wrap: wrap;
 }
 
+/*
+ * Campos de los formularios de lead. Van acotados a .form-card (el cascarón
+ * de FormCard.astro) y viven aquí y no en el scoped de esa tarjeta porque el
+ * <form> llega por el slot con el cid del componente hijo, y un scoped no
+ * alcanza lo que no está en su propia plantilla. NewsletterForm no entra
+ * aquí: es otra pieza, pintada para banda oscura.
+ */
+.form-card form {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem 1.2rem;
+}
+@media (max-width: 700px) {
+  .form-card form {
+    grid-template-columns: 1fr;
+  }
+}
+.form-card .campo-full {
+  grid-column: 1 / -1;
+}
+.form-card label {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-ink-dim);
+  margin-bottom: 0.4rem;
+}
+.form-card input,
+.form-card select,
+.form-card textarea {
+  width: 100%;
+  padding: 0.75rem 0.9rem;
+  font-size: 0.95rem;
+  font-family: var(--font-body);
+  color: var(--color-ink);
+  background: var(--color-bg);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-sm);
+  box-sizing: border-box;
+}
+.form-card input:focus,
+.form-card select:focus,
+.form-card textarea:focus {
+  border-color: var(--color-accent);
+  outline: none;
+}
+.form-card textarea {
+  resize: vertical;
+}
+.form-card .consentimiento label {
+  display: flex;
+  gap: 0.65rem;
+  align-items: flex-start;
+  cursor: pointer;
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  line-height: 1.5;
+  color: var(--color-ink-soft);
+  text-transform: none;
+  letter-spacing: 0;
+  margin: 0;
+}
+.form-card .consentimiento input {
+  width: auto;
+  margin: 0.15rem 0 0;
+  flex-shrink: 0;
+  accent-color: var(--color-accent);
+}
+.form-card .consentimiento b {
+  color: var(--color-ink);
+  font-weight: 700;
+}
+/* El honeypot: fuera de pantalla, y con más peso que `.form-card input`. */
+.form-card .form-hp {
+  position: absolute;
+  left: -9999px;
+  height: 0;
+  width: 0;
+  opacity: 0;
+}
+.form-envio {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+.form-envio button {
+  cursor: pointer;
+  border: none;
+}
+.form-envio small {
+  color: var(--color-ink-dim);
+  font-size: 0.8rem;
+  max-width: 34ch;
+}
+
 /* Doble raya de suma contable (bajo totales) */
 @utility doble-raya {
   border-top: 1.5px solid var(--color-line-strong);
