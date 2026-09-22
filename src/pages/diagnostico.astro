@@ -1,0 +1,838 @@
+---
+/**
+ * /diagnostico · El diagnóstico corto: cinco preguntas, un semáforo y la llamada.
+ *
+ * Es la puerta que abre el carrusel "¿Qué hace la IA con tus datos?"
+ * (social-studio, deck 2026-09-22): comenta DATOS → el DM manda aquí. Igual
+ * que /audita y /recibos va DESNUDA: quien llega viene por una sola cosa.
+ *
+ * El orden es a propósito (decisión de Israel, 2026-09-21): primero el
+ * contacto, luego las preguntas, al final el semáforo y el botón de agendar.
+ * Contacto primero porque el resultado se manda por correo y ese correo ES el
+ * registro del lead (ver CLAUDE.md, "Formularios"): no hay base de datos.
+ * Una sola llamada a /api/lead, al terminar, con las respuestas resumidas en
+ * `mensaje`: así el acuse le llega al visitante con su semáforo y a Israel
+ * en copia oculta, sin inventar un endpoint ni un campo nuevo en Sendy.
+ *
+ * El semáforo mide UNA cosa: qué tan expuestos están los datos de sus
+ * clientes hoy (plan × qué suben). "Por dónde entra" sale de la quinta
+ * pregunta y es el primer flujo que le conviene. La página no vende: califica
+ * y agenda. Lo que se ofrece en la llamada vive en /despachos y /empieza.
+ *
+ * Ruteo del resultado: todos ven el botón de agendar (la llamada es el CTA).
+ * Quien está solo ve además el taller "Empieza aquí": para él la llamada es
+ * opcional y el taller es el camino corto. El dueño de despacho no ve el
+ * taller: su camino es la llamada y /despachos.
+ */
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { breadcrumbs, graph, personRef } from "../lib/schema";
+import { SITE, calendarioDe } from "../lib/site";
+
+/** "diagnostico" cae al calendario default mientras no tenga entrada propia
+    (la cita de 15 min). Es un cambio de datos en site.ts, no de esta página. */
+const calendario = calendarioDe("diagnostico");
+
+const diagnostico = {
+  "@type": "CreativeWork",
+  "@id": `${SITE.url}/diagnostico#diagnostico`,
+  name: "¿Puedes usar IA en tu despacho sin exponer a tus clientes? Diagnóstico en cinco preguntas",
+  description:
+    "Cinco preguntas y dos minutos: un semáforo de qué tan expuestos están los datos de tus clientes al usar IA, y el primer proceso que conviene automatizar en tu despacho.",
+  inLanguage: SITE.lang,
+  isAccessibleForFree: true,
+  author: personRef(),
+  publisher: personRef(),
+};
+
+const jsonLd = graph(
+  diagnostico,
+  breadcrumbs([
+    { name: "Inicio", path: "/" },
+    { name: "Diagnóstico: tus datos y la IA", path: "/diagnostico" },
+  ]),
+);
+
+/**
+ * Las preguntas viven aquí y no en el script para que el HTML salga
+ * renderizado (accesible, indexable, sin JS para leerlo). El script solo
+ * navega y califica. `valor` es lo que viaja a Sendy/correo; `clave` es lo
+ * que usa el semáforo.
+ */
+const PREGUNTAS = [
+  {
+    id: "rol",
+    campo: "Perfil",
+    pregunta: "¿Cómo trabajas hoy?",
+    opciones: [
+      { clave: "solo", valor: "Contador independiente", texto: "Por mi cuenta, solo o con un auxiliar." },
+      { clave: "dueno", valor: "Dueño o socio de despacho", texto: "Tengo despacho con equipo a mi cargo." },
+      { clave: "equipo", valor: "Colaborador", texto: "Trabajo en un despacho o en el área contable de una empresa." },
+    ],
+  },
+  {
+    id: "equipo",
+    campo: "Equipo",
+    pregunta: "¿Cuántas personas tocan la contabilidad de los clientes?",
+    opciones: [
+      { clave: "1", valor: "Solo yo", texto: "Solo yo." },
+      { clave: "2-5", valor: "2-5", texto: "De 2 a 5." },
+      { clave: "6-15", valor: "6-15", texto: "De 6 a 15." },
+      { clave: "16+", valor: "16+", texto: "Más de 15." },
+    ],
+  },
+  {
+    id: "plan",
+    campo: "Uso de IA hoy",
+    pregunta: "¿Con qué cuenta usan la IA?",
+    opciones: [
+      { clave: "ninguno", valor: "No la usamos", texto: "Todavía no la usamos para trabajo." },
+      { clave: "personal", valor: "Plan personal (Free, Pro, Max)", texto: "Plan personal: gratuito, Pro o Max, cada quien la suya." },
+      { clave: "trabajo", valor: "Plan de trabajo (Team, Enterprise) o API", texto: "Plan de trabajo: Team, Enterprise o por API." },
+      { clave: "nose", valor: "No sé qué plan es", texto: "No sé qué plan es." },
+    ],
+  },
+  {
+    id: "sube",
+    campo: "Qué sube",
+    pregunta: "¿Qué le han subido de los clientes?",
+    opciones: [
+      { clave: "nada", valor: "Nada de clientes", texto: "Nada: la usamos para redactar y consultar." },
+      { clave: "resumen", valor: "Resúmenes sin RFC ni nombres", texto: "Resúmenes o cifras, sin RFC ni nombres." },
+      { clave: "completo", valor: "Estados de cuenta o XML completos", texto: "Estados de cuenta, XML o expedientes completos." },
+      { clave: "nose", valor: "No sé qué ha subido el equipo", texto: "No sé qué ha subido el equipo." },
+    ],
+  },
+  {
+    id: "tiempo",
+    campo: "Dónde se va el tiempo",
+    pregunta: "¿Dónde se va más tiempo cada cierre?",
+    opciones: [
+      { clave: "conciliacion", valor: "Conciliación bancaria", texto: "Conciliación bancaria." },
+      { clave: "cfdi", valor: "Descarga y clasificación de CFDI", texto: "Descargar y clasificar CFDI." },
+      { clave: "papeles", valor: "Papeles de trabajo y declaraciones", texto: "Papeles de trabajo y declaraciones." },
+      { clave: "cliente", valor: "Contestar al cliente y requerimientos", texto: "Contestarle al cliente y a los requerimientos." },
+    ],
+  },
+] as const;
+
+const TECLAS = ["A", "B", "C", "D"];
+---
+
+<BaseLayout
+  title="¿Puedes usar IA en tu despacho sin exponer a tus clientes? Diagnóstico en 5 preguntas"
+  description="Cinco preguntas y dos minutos: un semáforo de qué tan expuestos están los datos de tus clientes al usar IA, el primer proceso que conviene automatizar, y 15 minutos con Israel si quieres aterrizarlo."
+  jsonLd={jsonLd}
+  desnudo
+>
+  <main>
+    <section class="hero">
+      <div class="container-narrow">
+        <p class="folio">DIAGNÓSTICO · <b>TUS DATOS Y LA IA</b></p>
+        <h1 class="titulo-xl">¿Puedes usar IA en tu despacho sin exponer a tus clientes?</h1>
+        <p class="intro-page">
+          Cinco preguntas, dos minutos. Te digo qué tan expuestos están los
+          datos de tus clientes hoy, por dónde te conviene empezar, y si vale
+          la pena que hablemos 15 minutos.
+        </p>
+      </div>
+    </section>
+
+    <section class="bloque">
+      <div class="container-narrow">
+        <div class="diag" data-diag>
+          <div class="diag-barra" aria-hidden="true"><span data-progreso style="width:0%"></span></div>
+
+          <!-- 0 · El contacto abre el cuestionario -->
+          <section class="etapa" data-etapa="contacto" aria-labelledby="diag-contacto-t">
+            <p class="kicker">ANTES DE EMPEZAR</p>
+            <h2 id="diag-contacto-t">¿A quién le mando el resultado?</h2>
+            <p class="ayuda">
+              El semáforo te llega al correo con el resumen de tus respuestas,
+              para que lo tengas cuando lo necesites.
+            </p>
+            <form data-contacto novalidate>
+              <div class="campos">
+                <div class="campo">
+                  <label for="d-nombre">Tu nombre *</label>
+                  <input id="d-nombre" type="text" name="nombre" required autocomplete="name" />
+                </div>
+                <div class="campo">
+                  <label for="d-email">Tu correo *</label>
+                  <input id="d-email" type="email" name="email" required placeholder="tu@correo.com" autocomplete="email" />
+                </div>
+                <div class="campo">
+                  <label for="d-whatsapp">WhatsApp (opcional)</label>
+                  <input id="d-whatsapp" type="tel" name="whatsapp" placeholder="+52 " autocomplete="tel" />
+                </div>
+              </div>
+              <div class="consentimiento">
+                <label>
+                  <input type="checkbox" name="newsletter" value="si" />
+                  <span>
+                    Me uno al newsletter: una idea de IA fiscal a la semana, avisos del
+                    live y de los talleres. <b>(Opcional)</b>
+                  </span>
+                </label>
+              </div>
+              <input type="text" name="hp" tabindex="-1" autocomplete="off" aria-hidden="true" class="hp" />
+              <div class="envio">
+                <button type="submit" class="btn btn-primary">Empezar el diagnóstico</button>
+                <small data-contacto-msg>Cinco preguntas. Una pantalla por pregunta.</small>
+              </div>
+            </form>
+          </section>
+
+          <!-- 1-5 · Una pregunta por pantalla -->
+          {
+            PREGUNTAS.map((p, i) => (
+              <section
+                class="etapa"
+                data-etapa="pregunta"
+                data-id={p.id}
+                data-campo={p.campo}
+                aria-labelledby={`diag-${p.id}-t`}
+                hidden
+              >
+                <p class="kicker">
+                  <span>{String(i + 1).padStart(2, "0")} / {String(PREGUNTAS.length).padStart(2, "0")}</span>
+                </p>
+                <h2 id={`diag-${p.id}-t`}>{p.pregunta}</h2>
+                <div class="opciones" role="group" aria-labelledby={`diag-${p.id}-t`}>
+                  {p.opciones.map((o, j) => (
+                    <button type="button" class="opcion" data-clave={o.clave} data-valor={o.valor}>
+                      <kbd>{TECLAS[j]}</kbd>
+                      <span>{o.texto}</span>
+                    </button>
+                  ))}
+                </div>
+                <p class="pie-etapa">
+                  <button type="button" class="atras" data-atras>← Atrás</button>
+                  <span class="tecla-ayuda">Teclea la letra o haz clic. Se avanza solo.</span>
+                </p>
+              </section>
+            ))
+          }
+
+          <!-- 6 · Enviando -->
+          <section class="etapa etapa-centrada" data-etapa="enviando" aria-live="polite" hidden>
+            <p class="kicker">UN MOMENTO</p>
+            <h2>Armando tu semáforo…</h2>
+          </section>
+
+          <!-- 7 · El resultado -->
+          <section class="etapa" data-etapa="resultado" aria-live="polite" hidden>
+            <p class="kicker">TU RESULTADO</p>
+            <div class="semaforo" data-semaforo>
+              <span class="luz" aria-hidden="true"></span>
+              <div>
+                <h2 data-titulo>…</h2>
+                <p class="veredicto" data-veredicto></p>
+              </div>
+            </div>
+            <div class="entra">
+              <p class="folio">POR DÓNDE <b>ENTRA</b></p>
+              <p data-entra></p>
+            </div>
+            <ul class="resumen" data-resumen></ul>
+            <div class="cierre">
+              <p class="cierre-texto" data-cierre></p>
+              {calendario ? (
+                <p class="acciones">
+                  <a class="btn btn-primary" href={calendario} target="_blank" rel="noopener" data-agendar>
+                    Agenda 15 minutos conmigo
+                  </a>
+                  <a class="btn btn-ghost" href="/empieza" data-empieza hidden>
+                    Ver el taller "Empieza aquí"
+                  </a>
+                </p>
+              ) : (
+                <p class="acciones">
+                  <a class="btn btn-primary" href="/despachos#diagnostico">Cuéntame de tu despacho</a>
+                </p>
+              )}
+              <small data-resultado-msg>Te mandé este resumen a tu correo.</small>
+            </div>
+          </section>
+
+          <!-- Error de envío: el resultado se muestra igual, pero se dice que no quedó registrado -->
+          <section class="etapa etapa-centrada" data-etapa="error" aria-live="assertive" hidden>
+            <p class="kicker">NO SE PUDO</p>
+            <h2>No pudimos registrar tus datos.</h2>
+            <p class="ayuda">
+              Escríbeme directo a <a href="mailto:hola@soycontador.ai">hola@soycontador.ai</a>
+              con "DATOS" en el asunto y te mando el diagnóstico a mano.
+            </p>
+            <p class="acciones"><button type="button" class="btn btn-ghost" data-reintentar>Intentar de nuevo</button></p>
+          </section>
+        </div>
+      </div>
+    </section>
+  </main>
+</BaseLayout>
+
+<style>
+  .hero {
+    padding: 4.5rem 0 1rem;
+  }
+  .intro-page {
+    max-width: 52ch;
+  }
+  .bloque {
+    padding: 2rem 0 4rem;
+  }
+
+  /* La tarjeta: misma pieza que los formularios del sitio (FormCapacitacion),
+     con una barra de avance arriba porque aquí hay varias pantallas. */
+  .diag {
+    position: relative;
+    background: var(--color-surface-raised);
+    border: 1px solid var(--color-line);
+    border-radius: var(--radius-lg);
+    box-shadow: 0 30px 60px -50px rgb(20 22 26 / 0.6);
+    overflow: hidden;
+    min-height: 26rem;
+  }
+  .diag-barra {
+    height: 4px;
+    background: var(--color-surface);
+  }
+  .diag-barra span {
+    display: block;
+    height: 100%;
+    background: var(--color-accent);
+    transition: width 0.35s ease;
+  }
+  .etapa {
+    padding: 2.2rem 1.8rem 2.4rem;
+    animation: entra 0.28s ease both;
+  }
+  .etapa-centrada {
+    text-align: center;
+    padding-block: 4rem;
+  }
+  @keyframes entra {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: none; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .etapa { animation: none; }
+    .diag-barra span { transition: none; }
+  }
+  .kicker {
+    margin: 0 0 0.6rem;
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--color-accent);
+  }
+  /* El título recibe el foco al cambiar de pantalla (para el lector de
+     pantalla); el anillo ahí no señala nada que se pueda operar. */
+  .etapa h2:focus { outline: none; }
+  .etapa h2 {
+    margin: 0 0 0.6rem;
+    font-family: var(--font-display);
+    font-size: clamp(1.7rem, 3.4vw, 2.4rem);
+    font-weight: 400;
+    line-height: 1.1;
+    letter-spacing: -0.01em;
+  }
+  .ayuda {
+    margin: 0 0 1.4rem;
+    color: var(--color-ink-soft);
+    font-size: 0.95rem;
+    max-width: 56ch;
+  }
+
+  /* Contacto */
+  .campos {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
+    gap: 1rem 1.2rem;
+  }
+  label {
+    display: block;
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--color-ink-dim);
+    margin-bottom: 0.4rem;
+  }
+  .campo input {
+    width: 100%;
+    padding: 0.75rem 0.9rem;
+    font: inherit;
+    font-size: 1rem;
+    color: var(--color-ink);
+    background: var(--color-bg);
+    border: 1px solid var(--color-line);
+    border-radius: var(--radius-sm);
+  }
+  .campo input:focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 1px;
+  }
+  .campo input[aria-invalid="true"] {
+    border-color: var(--color-semaforo-rojo);
+  }
+  .consentimiento {
+    margin-top: 1.1rem;
+  }
+  .consentimiento label {
+    display: flex;
+    gap: 0.65rem;
+    align-items: flex-start;
+    cursor: pointer;
+    font-family: var(--font-body);
+    font-size: 0.85rem;
+    line-height: 1.5;
+    letter-spacing: 0;
+    text-transform: none;
+    color: var(--color-ink-soft);
+  }
+  .consentimiento input {
+    width: auto;
+    margin: 0.15rem 0 0;
+    flex-shrink: 0;
+    accent-color: var(--color-accent);
+  }
+  .consentimiento b {
+    color: var(--color-ink);
+    font-weight: 700;
+  }
+  .hp {
+    position: absolute;
+    left: -9999px;
+    width: 1px;
+    height: 1px;
+    opacity: 0;
+  }
+  .envio {
+    margin-top: 1.4rem;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.6rem 1.2rem;
+  }
+  .envio small,
+  .cierre small {
+    color: var(--color-ink-dim);
+    font-size: 0.82rem;
+  }
+
+  /* Preguntas: una lista de botones grandes, con su letra a la izquierda. */
+  .opciones {
+    display: grid;
+    gap: 0.6rem;
+    margin: 1.2rem 0 1rem;
+  }
+  .opcion {
+    display: flex;
+    align-items: center;
+    gap: 0.9rem;
+    width: 100%;
+    padding: 0.85rem 1rem;
+    text-align: left;
+    font: inherit;
+    font-size: 1.02rem;
+    color: var(--color-ink);
+    background: var(--color-bg);
+    border: 1px solid var(--color-line);
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    transition: border-color 0.15s, background 0.15s, transform 0.15s;
+  }
+  .opcion:hover,
+  .opcion:focus-visible {
+    border-color: var(--color-line-strong);
+    outline: none;
+    transform: translateY(-1px);
+  }
+  .opcion[aria-pressed="true"] {
+    background: var(--color-accent-soft);
+    border-color: var(--color-accent);
+  }
+  .opcion kbd {
+    flex: none;
+    display: inline-grid;
+    place-items: center;
+    width: 1.8rem;
+    height: 1.8rem;
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--color-ink-dim);
+    background: var(--color-surface-raised);
+    border: 1px solid var(--color-line);
+    border-radius: var(--radius-sm);
+  }
+  .opcion[aria-pressed="true"] kbd {
+    color: var(--color-accent-contrast);
+    background: var(--color-accent);
+    border-color: var(--color-accent);
+  }
+  .pie-etapa {
+    margin: 0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 0.5rem 1rem;
+    align-items: center;
+  }
+  .atras {
+    font: inherit;
+    font-size: 0.88rem;
+    color: var(--color-ink-soft);
+    background: none;
+    border: 0;
+    padding: 0.2rem 0;
+    cursor: pointer;
+  }
+  .atras:hover { color: var(--color-ink); text-decoration: underline; }
+  .tecla-ayuda {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    color: var(--color-ink-dim);
+  }
+
+  /* Resultado */
+  .semaforo {
+    display: flex;
+    gap: 1.1rem;
+    align-items: flex-start;
+    margin-bottom: 1.6rem;
+  }
+  .semaforo .luz {
+    flex: none;
+    width: 3rem;
+    height: 3rem;
+    margin-top: 0.3rem;
+    border-radius: 50%;
+    background: var(--color-line);
+    box-shadow: inset 0 0 0 4px var(--color-surface-raised), 0 0 0 1px var(--color-line);
+  }
+  .semaforo[data-color="rojo"] .luz { background: var(--color-semaforo-rojo); }
+  .semaforo[data-color="ambar"] .luz { background: var(--color-semaforo-ambar); }
+  .semaforo[data-color="verde"] .luz { background: var(--color-semaforo-verde); }
+  .veredicto {
+    margin: 0;
+    color: var(--color-ink-soft);
+    max-width: 58ch;
+  }
+  .entra {
+    padding: 1.1rem 1.2rem;
+    background: var(--color-surface);
+    border-radius: var(--radius-md);
+    margin-bottom: 1.4rem;
+  }
+  .entra .folio { margin: 0 0 0.4rem; }
+  .entra p:last-child { margin: 0; max-width: 60ch; }
+  .resumen {
+    list-style: none;
+    margin: 0 0 1.6rem;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+  /* Los <li> los crea el script, así que no traen el atributo de scope de
+     Astro: hay que salir del scope para que la regla los alcance. */
+  .resumen :global(li) {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.02em;
+    color: var(--color-ink-soft);
+    padding: 0.35rem 0.7rem;
+    border: 1px solid var(--color-line);
+    border-radius: var(--radius-pill);
+  }
+  .resumen :global(b) { color: var(--color-ink); font-weight: 600; }
+  .cierre-texto {
+    margin: 0 0 1rem;
+    max-width: 58ch;
+  }
+  .acciones {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.7rem;
+    margin: 0 0 0.6rem;
+  }
+</style>
+
+<script>
+  import { medir } from "../lib/medir";
+
+  type Clave = string;
+  interface Respuesta { id: string; campo: string; clave: Clave; valor: string }
+
+  /**
+   * El semáforo mide la exposición de los datos de los clientes HOY, con dos
+   * variables: bajo qué plan entran (contrato o consumo) y qué entra. Es la
+   * misma lógica de las piezas 03 y 07 del carrusel: la cuenta primero, luego
+   * lo mínimo que la tarea necesita.
+   */
+  function semaforo(plan: Clave, sube: Clave): { color: "rojo" | "ambar" | "verde"; titulo: string; veredicto: string } {
+    if (plan === "trabajo") {
+      if (sube === "nose") {
+        return {
+          color: "ambar",
+          titulo: "Ámbar: el contrato cubre, el equipo no se sabe.",
+          veredicto:
+            "Con plan de trabajo o API, el proveedor no entrena con lo que suben: es contrato, no configuración. Lo que falta es saber qué está subiendo cada quien. Un criterio escrito de qué entra y qué no, y el semáforo se pone en verde.",
+        };
+      }
+      return {
+        color: "verde",
+        titulo: "Verde: tus datos entran con contrato.",
+        veredicto:
+          sube === "completo"
+            ? "Plan de trabajo o API: prohibido por contrato entrenar con tu contenido y retención corta. El riesgo de datos está resuelto. Lo que sigue es criterio y rendimiento: subir lo mínimo que la tarea necesita, y decidir qué proceso se automatiza primero."
+            : "Plan de trabajo o API, y criterio de qué subir. El riesgo de datos está resuelto; lo que sigue es rendimiento: qué proceso se automatiza primero y cómo lo opera el equipo.",
+      };
+    }
+    if (plan === "ninguno") {
+      return {
+        color: "ambar",
+        titulo: "Ámbar: sin riesgo, y también sin ventaja.",
+        veredicto:
+          "Todavía no le han metido nada de clientes, así que no hay exposición. Pero tampoco hay cierre más corto. La buena noticia: empiezas con la cuenta correcta desde el día uno, y eso es lo que a la mayoría le cuesta arreglar después.",
+      };
+    }
+    // Plan personal, o no se sabe cuál: lo que suben decide.
+    if (sube === "completo" || sube === "nose") {
+      return {
+        color: "rojo",
+        titulo: "Rojo: datos de clientes en una cuenta personal.",
+        veredicto:
+          "Estados de cuenta o XML completos entrando por un plan personal, probablemente con el interruptor encendido: se guardan hasta cinco años y no hay reversa. Hoy mismo: Cuenta → Privacidad → apaga \"Ayuda a mejorar nuestros modelos\". Esta semana: decidir entre plan de trabajo o cambiar qué se sube.",
+      };
+    }
+    if (sube === "resumen") {
+      return {
+        color: "ambar",
+        titulo: "Ámbar: buen criterio, cuenta equivocada.",
+        veredicto:
+          "Subir resúmenes sin RFC ni nombres es exactamente el criterio correcto. El hueco es la cuenta: en plan personal el interruptor decide, y borrar el chat no deshace un entrenamiento que ya pasó. Revisa el interruptor hoy; la cuenta de trabajo la vemos en la llamada.",
+      };
+    }
+    return {
+      color: "ambar",
+      titulo: "Ámbar: todavía no entra nada. Buen momento.",
+      veredicto:
+        "No has subido datos de clientes, y estás en plan personal. Antes de que entre el primer estado de cuenta: Cuenta → Privacidad → revisa el interruptor, y decide qué se sube y qué no. Es más fácil ahora que después.",
+    };
+  }
+
+  /** El primer flujo que conviene, según dónde se va el tiempo. */
+  const ENTRA: Record<Clave, string> = {
+    conciliacion:
+      "Por la conciliación bancaria. El estado de cuenta entra como fecha, concepto y monto, sin CLABE ni saldos, y la IA lo cruza contra tus pólizas. Es el flujo con más horas por cliente y el que menos datos necesita.",
+    cfdi:
+      "Por la descarga y clasificación de CFDI. El resumen del XML, no el XML: la IA clasifica por concepto y proveedor, y tú revisas excepciones en vez de todo el lote.",
+    papeles:
+      "Por los papeles de trabajo. Un proyecto por cliente, la plantilla probada con datos ficticios, y la IA arma el borrador con los datos reales dentro de la cuenta correcta.",
+    cliente:
+      "Por las respuestas al cliente y a los requerimientos. La IA redacta desde el expediente que ya tienes; tú revisas y firmas. Es donde más se nota el cambio hacia afuera.",
+  };
+
+  const raiz = document.querySelector<HTMLElement>("[data-diag]");
+  if (raiz) {
+    const etapas = Array.from(raiz.querySelectorAll<HTMLElement>("[data-etapa]"));
+    const preguntas = etapas.filter((e) => e.dataset.etapa === "pregunta");
+    const progreso = raiz.querySelector<HTMLElement>("[data-progreso]");
+    const formContacto = raiz.querySelector<HTMLFormElement>("[data-contacto]");
+    const respuestas: Respuesta[] = [];
+    let contacto: { nombre: string; email: string; whatsapp: string; newsletter: boolean; hp: string } | null = null;
+    let actual: HTMLElement | null = null;
+
+    function mostrar(etapa: HTMLElement, avance: number) {
+      etapas.forEach((e) => (e.hidden = e !== etapa));
+      actual = etapa;
+      if (progreso) progreso.style.width = `${Math.round(avance * 100)}%`;
+      // Enfocar el título: el lector de pantalla anuncia la pregunta nueva y
+      // el foco del teclado no se queda en un botón que ya no existe.
+      const titulo = etapa.querySelector<HTMLElement>("h2");
+      if (titulo) {
+        titulo.tabIndex = -1;
+        titulo.focus({ preventScroll: true });
+      }
+      raiz!.scrollIntoView({ block: "nearest", behavior: "smooth" });
+    }
+
+    const irAPregunta = (i: number) => mostrar(preguntas[i], (i + 1) / (preguntas.length + 2));
+
+    /* ── 0 · Contacto ── */
+    formContacto?.addEventListener("submit", (e) => {
+      e.preventDefault();
+      const data = new FormData(formContacto);
+      const nombre = String(data.get("nombre") ?? "").trim();
+      const email = String(data.get("email") ?? "").trim();
+      const msg = formContacto.querySelector<HTMLElement>("[data-contacto-msg]");
+      const inNombre = formContacto.querySelector<HTMLInputElement>("[name=nombre]");
+      const inEmail = formContacto.querySelector<HTMLInputElement>("[name=email]");
+      const emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email);
+      inNombre?.setAttribute("aria-invalid", String(!nombre));
+      inEmail?.setAttribute("aria-invalid", String(!emailOk));
+      if (!nombre || !emailOk) {
+        if (msg) msg.textContent = !nombre ? "Falta tu nombre." : "Revisa el correo: ahí te llega el resultado.";
+        (!nombre ? inNombre : inEmail)?.focus();
+        return;
+      }
+      contacto = {
+        nombre,
+        email,
+        whatsapp: String(data.get("whatsapp") ?? "").trim(),
+        newsletter: data.get("newsletter") === "si",
+        hp: String(data.get("hp") ?? ""),
+      };
+      respuestas.length = 0;
+      irAPregunta(0);
+    });
+
+    /* ── 1-5 · Preguntas ── */
+    preguntas.forEach((etapa, i) => {
+      const opciones = Array.from(etapa.querySelectorAll<HTMLButtonElement>(".opcion"));
+      const elegir = (boton: HTMLButtonElement) => {
+        opciones.forEach((o) => o.setAttribute("aria-pressed", String(o === boton)));
+        respuestas[i] = {
+          id: etapa.dataset.id ?? "",
+          campo: etapa.dataset.campo ?? "",
+          clave: boton.dataset.clave ?? "",
+          valor: boton.dataset.valor ?? "",
+        };
+        // Un respiro para que se vea la elección, como en Typeform: sin él la
+        // pantalla cambia antes de que el ojo registre qué se apretó.
+        window.setTimeout(() => {
+          if (i + 1 < preguntas.length) irAPregunta(i + 1);
+          else enviar();
+        }, 260);
+      };
+      opciones.forEach((o) => o.addEventListener("click", () => elegir(o)));
+      etapa.querySelector<HTMLButtonElement>("[data-atras]")?.addEventListener("click", () => {
+        if (i === 0) mostrar(etapas[0], 0);
+        else irAPregunta(i - 1);
+      });
+    });
+
+    // Teclado: A-D o 1-4 eligen; Backspace regresa. Solo cuando la etapa
+    // visible es una pregunta, para no pisar lo que se teclea en el contacto.
+    document.addEventListener("keydown", (e) => {
+      if (!actual || actual.dataset.etapa !== "pregunta") return;
+      if (e.metaKey || e.ctrlKey || e.altKey) return;
+      const opciones = Array.from(actual.querySelectorAll<HTMLButtonElement>(".opcion"));
+      const letra = e.key.toUpperCase();
+      const idx = "ABCD".indexOf(letra) >= 0 ? "ABCD".indexOf(letra) : "1234".indexOf(e.key);
+      if (idx >= 0 && idx < opciones.length) {
+        e.preventDefault();
+        opciones[idx].click();
+      } else if (e.key === "Backspace") {
+        e.preventDefault();
+        actual.querySelector<HTMLButtonElement>("[data-atras]")?.click();
+      }
+    });
+
+    /* ── 6-7 · Envío y resultado ── */
+    const de = (id: string) => respuestas.find((r) => r.id === id);
+
+    async function enviar() {
+      if (!contacto) return;
+      const enviando = etapas.find((e) => e.dataset.etapa === "enviando")!;
+      const resultado = etapas.find((e) => e.dataset.etapa === "resultado")!;
+      const error = etapas.find((e) => e.dataset.etapa === "error")!;
+      mostrar(enviando, 0.9);
+
+      const plan = de("plan")?.clave ?? "";
+      const sube = de("sube")?.clave ?? "";
+      const rol = de("rol");
+      const equipo = de("equipo");
+      const tiempo = de("tiempo")?.clave ?? "";
+      const s = semaforo(plan, sube);
+
+      /* Resumen legible para el acuse (Mensaje, máx. 500 en /api/lead). Los
+         campos que ya existen en Sendy (Rol, Equipo, NivelIA) van por su
+         carril; lo que no tiene campo viaja aquí. */
+      const solo = rol?.clave === "solo" || equipo?.clave === "1";
+      const mensaje = [
+        `Semáforo: ${s.color.toUpperCase()}`,
+        `Sube: ${de("sube")?.valor ?? ""}`,
+        `Tiempo: ${de("tiempo")?.valor ?? ""}`,
+        `Entra por: ${tiempo}`,
+        `Ruta: ${solo ? "taller Empieza aquí" : "programa de despacho"}`,
+      ].join(" · ");
+
+      let ok = false;
+      let newsletter = false;
+      try {
+        const resp = await fetch("/api/lead", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            nombre: contacto.nombre,
+            email: contacto.email,
+            whatsapp: contacto.whatsapp,
+            rol: rol?.valor,
+            equipo: equipo?.valor,
+            nivelIA: de("plan")?.valor,
+            interes: "Diagnóstico: datos y la IA",
+            mensaje,
+            newsletter: contacto.newsletter,
+            hp: contacto.hp,
+            referrer: location.href,
+          }),
+        });
+        const body = await resp.json();
+        ok = Boolean(body.ok);
+        newsletter = Boolean(body.newsletter);
+      } catch {
+        ok = false;
+      }
+
+      if (!ok) {
+        mostrar(error, 0.9);
+        return;
+      }
+
+      // Pintar el resultado.
+      const sem = resultado.querySelector<HTMLElement>("[data-semaforo]")!;
+      sem.dataset.color = s.color;
+      resultado.querySelector("[data-titulo]")!.textContent = s.titulo;
+      resultado.querySelector("[data-veredicto]")!.textContent = s.veredicto;
+      resultado.querySelector("[data-entra]")!.textContent = ENTRA[tiempo] ?? "";
+      const ul = resultado.querySelector<HTMLElement>("[data-resumen]")!;
+      ul.innerHTML = "";
+      respuestas.forEach((r) => {
+        const li = document.createElement("li");
+        const b = document.createElement("b");
+        b.textContent = `${r.campo}: `;
+        li.append(b, r.valor);
+        ul.append(li);
+      });
+
+      /* El cierre y el ruteo: la llamada es el CTA para todos; el taller solo
+         para quien está solo, que es para quien la llamada es opcional. */
+      const cierre = resultado.querySelector<HTMLElement>("[data-cierre]")!;
+      cierre.textContent = solo
+        ? "Si quieres aterrizar esto en tu operación, hablamos 15 minutos: vemos tu cuenta, tu primer flujo y qué te conviene. Y si prefieres arrancar por tu cuenta, el taller de 2 horas te deja el primer flujo corriendo."
+        : "El siguiente paso es una llamada de 15 minutos: con tus números vemos cuántas horas del cierre se van en esto y qué flujo conviene primero. Sin tarifa de lista y sin llamada de ventas: si no es para tu despacho, te lo digo ahí.";
+      const empieza = resultado.querySelector<HTMLElement>("[data-empieza]");
+      if (empieza) empieza.hidden = !solo;
+      const msg = resultado.querySelector<HTMLElement>("[data-resultado-msg]");
+      if (msg && newsletter) msg.textContent = "Te mandé este resumen a tu correo. Y para el boletín, confírmalo desde el correo que te acaba de llegar.";
+
+      mostrar(resultado, 1);
+
+      /* Solo categorías: el semáforo, el perfil y el tamaño. Nada personal. */
+      medir("diagnostico_datos", {
+        semaforo: s.color,
+        rol: rol?.clave,
+        equipo: equipo?.clave,
+        entra: tiempo,
+      });
+    }
+
+    raiz.querySelector<HTMLButtonElement>("[data-reintentar]")?.addEventListener("click", () => enviar());
+  }
+</script>

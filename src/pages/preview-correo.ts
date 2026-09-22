@@ -1,5 +1,6 @@
 import type { APIRoute } from "astro";
 import { htmlLead } from "../lib/correo-lead";
+import { calendarioDe } from "../lib/site";
 
 export const prerender = false;
 export const GET: APIRoute = () =>
@@ -8,7 +9,7 @@ export const GET: APIRoute = () =>
       nombre: "Mariana Ruiz",
       origen: "/soluciones",
       newsletter: false,
-      calendario: "https://calendar.app.google/6t1odpL5MRgM5hSu8",
+      calendario: calendarioDe("diagnostico"),
       resumen: [
         { campo: "Correo", valor: "mariana@despachoruiz.mx" },
         { campo: "Nombre", valor: "Mariana Ruiz" },
