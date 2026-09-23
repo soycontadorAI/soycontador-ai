@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="es-MX">
+<head>
+<meta charset="utf-8">
+<meta name="lienzo" content="1280x720">
+<meta name="salida" content="design/salidas/miniatura-jueves-10-alta.png">
+<title>miniatura-jueves-10-alta</title>
+<style>
+/* ============================================================
+   Miniatura del Jueves #10, VARIANTE DE ALTA TENSIÓN (1280x720).
+   `node design/og/render.mjs miniatura-jueves-10-alta`.
+
+   Convive con `miniatura-jueves-10.html`, que es la editorial. No sustituye:
+   son dos apuestas distintas para el mismo video y conviene probarlas.
+
+   ── Por qué se sale del sistema de diseño, a propósito ──
+   "Editorial cinético" es la identidad del SITIO, donde alguien ya llegó. La
+   miniatura compite en un feed contra decenas de estímulos y su único trabajo
+   es ganar el clic. Por eso aquí manda el contraste: fondo casi negro, sans
+   en caja alta al máximo peso y el verde de la marca como único color.
+
+   Lo que SÍ se conserva de la identidad, y es lo que evita que parezca de
+   otro canal: el verde `#3DD68C` es el plumón de la marca, y el bloque verde
+   con la palabra encima es ese mismo plumón llevado al extremo.
+
+   ── Las marcas ajenas ──
+   Van SOLO como palabra, sin sus logotipos. Dos razones. Una: el reference
+   que trajo Israel tenía el logotipo de OpenAI pegado a la palabra "CLAUDE",
+   que es de Anthropic, y reproducir un logo equivocado es peor que no poner
+   ninguno. Dos: nombrar un producto del que se habla es uso legítimo;
+   reproducir su logotipo como adorno ya es otra cosa. A 8% de opacidad son
+   contexto, no reclamo de marca.
+
+   Si se quieren los logotipos de verdad, el hueco está listo: ver
+   `marcas/README.md`, que dice de dónde bajarlos y cómo conectarlos. No los
+   dibujo de memoria a propósito: un logo mal dibujado es peor que ninguno.
+
+   Verificada a 210px, que es el ancho real en el feed.
+   ============================================================ */
+@font-face {
+  font-family: "Space Grotesk"; font-weight: 100 900; font-display: block;
+  src: url("../../node_modules/@fontsource-variable/space-grotesk/files/space-grotesk-latin-wght-normal.woff2") format("woff2");
+}
+:root {
+  --fondo: #0E1113;
+  --fondo-alto: #191D20;
+  --verde: #3DD68C;
+  --verde-hondo: #0A7B45;
+  --hueso: #FFFFFF;
+  --fantasma: rgba(255, 255, 255, 0.075);
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  position: relative;
+  width: 1280px; height: 720px; overflow: hidden;
+  background: radial-gradient(120% 140% at 18% 12%, var(--fondo-alto) 0%, var(--fondo) 62%);
+  font-family: "Space Grotesk", sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── Las esquirlas ──
+   Ojo con los desbordes: `bottom` o `right` negativos SÍ cuentan como
+   contenido fuera de la caja y el guardarraíl del render los rechaza (pasó
+   con -30px abajo). Para que una esquirla se salga del cuadro, se recorta
+   con clip-path, no se empuja con coordenadas negativas hacia abajo o a la
+   derecha. Hacia arriba y a la izquierda sí se puede. ──────────────────────────────────────────────────────────
+   Geometría, no textura: tres polígonos que hacen de "estallido" detrás de la
+   figura y le dan profundidad al lado derecho sin robarle contraste al texto.
+   Se quedan del lado del retrato a propósito. */
+.esquirla { position: absolute; background: var(--verde); }
+.e1 { top: -40px;  left: 640px; width: 200px; height: 230px; clip-path: polygon(40% 0, 100% 18%, 62% 100%, 0 52%); opacity: .95; }
+.e2 { top: 300px;  left: 560px; width: 120px; height: 150px; clip-path: polygon(0 0, 100% 34%, 44% 100%); opacity: .55; }
+.e3 { bottom: 0; left: 700px; width: 240px; height: 210px; clip-path: polygon(22% 0, 100% 40%, 70% 100%, 0 86%); opacity: .8; }
+.e4 { top: 140px; left: 880px; width: 90px; height: 110px; clip-path: polygon(0 20%, 100% 0, 66% 100%); opacity: .45; }
+
+/* ── Las marcas ajenas, de fondo ───────────────────────────────────────────
+   Solo la palabra, sin logotipo. Son contexto: dicen de qué herramientas
+   habla el video sin competir con el gancho. */
+.marca-ia {
+  position: absolute; z-index: 0;
+  font-weight: 700; letter-spacing: -0.02em;
+  color: var(--fantasma);
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+.m-claude  { top: 42px;  left: 52px;  font-size: 96px; }
+.m-chatgpt { bottom: 40px; left: 52px; font-size: 96px; }
+/* Dos marcas, no tres: la tercera encimaba con el candado y a 210px todo
+   eso se vuelve una mancha. El reference también traía dos. */
+
+/* ── El gancho ─────────────────────────────────────────────────────────────
+   Dos renglones y cuatro palabras. Es lo único que tiene que sobrevivir el
+   escalado a 210px. */
+.gancho {
+  position: absolute; z-index: 2;
+  left: 56px; top: 178px;
+}
+.linea-1 {
+  display: block;
+  font-size: 152px; font-weight: 700; line-height: 0.88;
+  letter-spacing: -0.045em;
+  color: var(--verde);
+  text-transform: uppercase;
+}
+/* El bloque verde con la palabra encima: el plumón de la marca, llevado al
+   extremo que pide un feed. */
+.linea-2 {
+  display: inline-block;
+  margin-top: 16px;
+  padding: 6px 30px 16px;
+  background: var(--verde);
+  color: #0E1113;
+  font-size: 128px; font-weight: 700; line-height: 0.9;
+  letter-spacing: -0.04em;
+  text-transform: uppercase;
+}
+
+/* El candado. SVG propio, no un icono de banco: dos trazos y un cuerpo. */
+.candado {
+  position: absolute; z-index: 2;
+  left: 436px; top: 330px;
+  width: 168px; height: 168px;
+  color: var(--verde);
+}
+
+/* ── El retrato ────────────────────────────────────────────────────────────
+   Con contorno blanco, que es lo que lo despega del fondo oscuro. Son ocho
+   sombras duras del mismo color (el mismo truco que `figura-sticker` en
+   social-studio), más una difusa para asentarlo. */
+.retrato {
+  position: absolute; z-index: 3;
+  /* 530px es el máximo que cabe: el recorte mide 900x1205, así que a 530 de
+     ancho da 710 de alto y entra en los 720 del lienzo. Más ancho y el
+     guardarraíl del render lo rechaza, que es justo lo que hizo la primera
+     vez (se salía 30px de alto). */
+  right: 0; bottom: 0;
+  width: 530px; height: auto; display: block;
+  filter:
+    drop-shadow(7px 0 0 #fff) drop-shadow(-7px 0 0 #fff)
+    drop-shadow(0 7px 0 #fff) drop-shadow(0 -7px 0 #fff)
+    drop-shadow(5px 5px 0 #fff) drop-shadow(-5px -5px 0 #fff)
+    drop-shadow(5px -5px 0 #fff) drop-shadow(-5px 5px 0 #fff)
+    drop-shadow(0 18px 34px rgba(0, 0, 0, 0.55));
+}
+</style>
+</head>
+<body>
+  <span class="marca-ia m-claude">Claude</span>
+  <span class="marca-ia m-chatgpt">ChatGPT</span>
+
+  <div class="esquirla e1"></div>
+  <div class="esquirla e2"></div>
+  <div class="esquirla e3"></div>
+  <div class="esquirla e4"></div>
+
+  <div class="gancho">
+    <span class="linea-1">No subas</span>
+    <span class="linea-2">esto</span>
+  </div>
+
+  <svg class="candado" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+       stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+    <path d="M3 7.5A1.5 1.5 0 0 1 4.5 6h4.2a1.5 1.5 0 0 0 1.06-.44l.98-.98A1.5 1.5 0 0 1 11.8 4h2.7A1.5 1.5 0 0 1 16 5.5V7"/>
+    <rect x="3" y="7.5" width="18" height="12.5" rx="1.8" fill="currentColor" stroke="none" opacity=".18"/>
+    <rect x="3" y="7.5" width="18" height="12.5" rx="1.8"/>
+    <rect x="9.4" y="13.2" width="5.2" height="4.4" rx="1"/>
+    <path d="M10.6 13.2v-1.3a1.4 1.4 0 0 1 2.8 0v1.3"/>
+  </svg>
+
+  <img class="retrato" src="../../public/assets/israel-duda.webp" alt="">
+</body>
+</html>
