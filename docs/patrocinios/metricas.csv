@@ -1,0 +1,26 @@
+fecha_foto,fuente,ambito,metrica,periodo,valor,nota
+2026-09-20,youtube,canal,suscriptores,total,129,Dato de Israel al 2026-09-20
+2026-09-20,youtube,canal,horas_visualizacion,28d,230,Dato de Israel al 2026-09-20; vistas y horas en aumento
+2026-09-04,encuesta,lista:general,respuestas,total,60,Encuesta de agosto vía Tally; ver docs/jueves/encuesta-2026-08.md
+2026-09-04,encuesta,lista:general,dolor_tareas_operativas_pct,total,68,41 de 60
+2026-09-04,encuesta,lista:general,nivel_cero_o_aficionado_pct,total,70,42 de 60
+2026-09-04,encuesta,lista:general,freno_precision_pct,total,33,20 de 60
+2026-09-04,encuesta,lista:general,freno_confidencialidad_pct,total,37,22 de 60
+2026-09-04,encuesta,lista:general,freno_habilidad_pct,total,30,18 de 60
+2026-09-04,encuesta,lista:general,pidieron_calculos_fiscales,total,7,Grupo "cálculos y calculadoras" de la pregunta abierta
+2026-09-04,encuesta,lista:general,pidieron_fundamento,total,7,Grupo "prompts fundamentados"
+2026-09-20,sendy,lista:general,activos,total,16,Lista 39 soycontador.ai - Newsletter; 18 en total
+2026-09-20,sendy,lista:live,activos,total,1,Lista 41 soycontador.ai - Jueves de ContadorIA
+2026-09-20,sendy,lista:ebook,activos,total,3,Lista 40
+2026-09-20,sendy,lista:flujos,activos,total,1,Lista 42
+2026-09-20,sendy,lista:encuesta-ago-2026,activos,total,74,Lista 44: los que dieron clic a la encuesta de agosto
+2026-09-20,sendy,lista:newsletter-blog-contadores,activos,total,2901,Lista 31 de TodoConta; la lista grande de contadores
+2026-09-20,sendy,lista:substack,activos,total,2283,Lista 19 de TodoConta; puede traslaparse con la 31
+2026-09-20,sendy,lista:todoconta-proyecto,activos,total,273,Lista 10
+2026-09-20,sendy,lista:cfdi,activos,total,260,Lista 2
+2026-09-20,sendy,lista:usuarios-app,activos,total,166,Lista 37
+2026-09-20,sendy,lista:abacus,activos,total,112,Lista 34
+2026-09-20,sendy,campana:230,destinatarios,total,3384,"Aviso del jueves 17-sep (Hoy a las 11: el SAT te da 5 días...), enviado a las listas de TodoConta; Sendy dedupe por envío"
+2026-09-20,sendy,campana:230,aperturas_aprox,total,1372,Conteo de IDs en la columna opens; aproximado. 40.5 % sobre destinatarios
+2026-09-20,sendy,campana:231,destinatarios,total,14,"Aviso El XML perfecto ya no te salva, lista de la marca nueva"
+2026-09-20,sendy,campana:231,aperturas_aprox,total,9,Aproximado

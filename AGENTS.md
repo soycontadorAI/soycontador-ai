@@ -138,6 +138,21 @@ La metodología es la de Eloisa Wolf. La oferta de despachos ya está
 productizada en `todoconta-apps/docs/taller-ia-despachos.md`: no se redefine
 aquí.
 
+## Cabecera: el menú es de cada página (decisión Israel 2026-09-20)
+
+`BaseLayout` no trae menú por defecto. Cada página le pasa `nav` (sus propias
+anclas, máximo cuatro: van sin envolver y bajo 880px se esconden) y `cta`
+(el botón de cabecera), tipados como `Enlace` de `lib/site.ts`. Sin `nav` ni
+`cta` queda solo el logotipo, que es lo correcto en `/contacto` (la página ES
+el botón) y en las transaccionales (`/gracias`, `/dentro`, `/404`,
+`/privacidad`). `desnudo` sigue siendo la landing de captación: además de
+anular menú y botón, recorta el pie.
+
+Criterio del botón: en una landing apunta al formulario o al checkout de ESA
+página, nunca a `/contacto`. Las páginas sin formulario propio usan
+`CTA_DIAGNOSTICO`. La cabecera vive en `components/Nav.astro` y el pie en
+`components/Pie.astro`; `.site-links` es global porque lo usan los dos.
+
 ## Accesibilidad
 
 Las 11 páginas están en **100 de accesibilidad, buenas prácticas y SEO** en

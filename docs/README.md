@@ -10,6 +10,7 @@ salir nunca (ver abajo).
 | [`avatar.md`](avatar.md) | Los dos avatares de soycontador.ai (A en la home, B en `/despachos`), cada uno completo: sus dolores, sus objeciones y las palabras que teclean. Se lee solo. |
 | [`arquitectura-de-marca.md`](arquitectura-de-marca.md) | Qué propiedad sirve a qué avatar (sitio, Instagram, LinkedIn, YouTube) y por qué no se pisan. |
 | [`linkedin/`](linkedin/playbook.md) | LinkedIn como superficie del Avatar B: los tres pilares, el ritmo de tres por semana colgado del live, la humanización que falta y hasta dónde llega la polémica. El lineamiento de origen está al lado. |
+| [`patrocinios/`](patrocinios/README.md) | Cómo se vende una serie de Jueves de ContadorIA a una marca (modelo product-first): hoja ejecutiva, prospectos, playbook de venta y métricas. Trae el fee y los contactos: interno. |
 
 ## De dónde vienen
 
@@ -35,6 +36,7 @@ oferta.
 | Taller in-company, $28,000-32,000 MXN por 8 h | **Interno.** Cotización tras diagnóstico. |
 | Ancla de $3,500-4,000 MXN/hora | **Interno.** Es piso de cotización, nunca tarifa publicada. |
 | Club de Automatización Fiscal | **Interno.** Cierra por aplicación. |
+| Fee de patrocinio por serie de Jueves de ContadorIA | **Interno.** Solo en `patrocinios/hoja-ejecutiva-noviembre.md`; la versión compartible no trae cifras. Se conversa en llamada. |
 
 La regla completa está en `CLAUDE.md` de la raíz y no se relaja porque un
 documento sea interno: el riesgo es que una cifra interna se copie de aquí a
