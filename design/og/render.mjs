@@ -5,6 +5,13 @@
  *   node design/og/render.mjs              # todas
  *   node design/og/render.mjs despachos    # solo og-despachos.html
  *
+ * Cada plantilla declara su propio lienzo y su destino en dos meta, porque no
+ * todas son Open Graph: el banner de LinkedIn mide 1584x396 y no se sirve
+ * desde el sitio, se sube a mano.
+ *
+ *   <meta name="lienzo" content="1200x630">
+ *   <meta name="salida" content="public/og-despachos.png">
+ *
  * Por qué existe: hasta ahora los OG se renderizaban a mano y el archivo
  * quedaba en `public/` sin nada que lo reprodujera. El resultado fue que
  * `/despachos` sirvió durante semanas el OG del Avatar A, porque nadie tenía
@@ -15,7 +22,7 @@
  * ruta relativa. Con `setContent` no hay documento base y esas rutas no
  * resuelven: saldría la imagen con las fuentes de respaldo y sin retrato.
  */
-import { readdirSync, writeFileSync } from "node:fs";
+import { mkdirSync, readFileSync, readdirSync, writeFileSync } from "node:fs";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
 import puppeteer from "puppeteer";
@@ -23,21 +30,27 @@ import puppeteer from "puppeteer";
 const aqui = dirname(fileURLToPath(import.meta.url));
 const RAIZ = resolve(aqui, "..", "..");
 
-/** Medida de Open Graph. Facebook, LinkedIn y X sirven todos esta caja. */
-const ANCHO = 1200;
-const ALTO = 630;
+/** Medida por defecto: Open Graph. Facebook, LinkedIn y X sirven esta caja.
+    Una plantilla la cambia con <meta name="lienzo" content="AxB">. */
+const LIENZO_POR_DEFECTO = { ancho: 1200, alto: 630 };
+
+/** Lee los meta de la plantilla sin montar un parser: son dos etiquetas. */
+function leerMeta(html, nombre) {
+  const m = html.match(new RegExp(`<meta\\s+name="${nombre}"\\s+content="([^"]+)"`, "i"));
+  return m ? m[1] : null;
+}
 
 const pedidas = process.argv.slice(2).filter((a) => !a.startsWith("--"));
 
 const plantillas = readdirSync(aqui)
-  .filter((f) => f.startsWith("og-") && f.endsWith(".html"))
-  .filter((f) => !pedidas.length || pedidas.includes(f.replace(/^og-|\.html$/g, "")));
+  .filter((f) => f.endsWith(".html"))
+  .filter((f) => !pedidas.length || pedidas.includes(f.replace(/\.html$/, "")));
 
 if (!plantillas.length) {
   console.error(
     pedidas.length
-      ? `\n  No hay plantilla para: ${pedidas.join(", ")}\n  Se esperaba design/og/og-<nombre>.html\n`
-      : "\n  No hay plantillas og-*.html en design/og/\n",
+      ? `\n  No hay plantilla para: ${pedidas.join(", ")}\n  Se esperaba design/og/<nombre>.html\n`
+      : "\n  No hay plantillas .html en design/og/\n",
   );
   process.exit(1);
 }
@@ -45,10 +58,19 @@ if (!plantillas.length) {
 const navegador = await puppeteer.launch({ headless: true });
 
 for (const plantilla of plantillas) {
-  const nombre = plantilla.replace(/^og-|\.html$/g, "");
+  const nombre = plantilla.replace(/\.html$/, "");
+  const fuente = resolve(aqui, plantilla);
+  const html = readFileSync(fuente, "utf8");
+
+  const lienzo = leerMeta(html, "lienzo");
+  const [ANCHO, ALTO] = lienzo
+    ? lienzo.split("x").map(Number)
+    : [LIENZO_POR_DEFECTO.ancho, LIENZO_POR_DEFECTO.alto];
+  const salida = leerMeta(html, "salida") ?? `public/${nombre}.png`;
+
   const pagina = await navegador.newPage();
   await pagina.setViewport({ width: ANCHO, height: ALTO, deviceScaleFactor: 1 });
-  await pagina.goto(pathToFileURL(resolve(aqui, plantilla)).href, {
+  await pagina.goto(pathToFileURL(fuente).href, {
     waitUntil: "networkidle0",
     timeout: 60_000,
   });
@@ -76,9 +98,10 @@ for (const plantilla of plantillas) {
   }
 
   const bytes = await pagina.screenshot({ type: "png" });
-  const destino = resolve(RAIZ, "public", `og-${nombre}.png`);
+  const destino = resolve(RAIZ, salida);
+  mkdirSync(dirname(destino), { recursive: true });
   writeFileSync(destino, bytes);
-  console.log(`  ✓ public/og-${nombre}.png  (${(bytes.length / 1024).toFixed(0)} KB)`);
+  console.log(`  ✓ ${salida}  ${ANCHO}x${ALTO}  (${(bytes.length / 1024).toFixed(0)} KB)`);
   await pagina.close();
 }
 
