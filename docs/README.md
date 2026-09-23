@@ -9,6 +9,7 @@ salir nunca (ver abajo).
 |---|---|
 | [`avatar.md`](avatar.md) | Los dos avatares de soycontador.ai (A en la home, B en `/despachos`), cada uno completo: sus dolores, sus objeciones y las palabras que teclean. Se lee solo. |
 | [`arquitectura-de-marca.md`](arquitectura-de-marca.md) | Qué propiedad sirve a qué avatar (sitio, Instagram, LinkedIn, YouTube) y por qué no se pisan. |
+| [`youtube/`](youtube/canal.md) | El canal `@soycontadorAI` como superficie de la marca personal: nombre, descripción, los cinco enlaces y el banner. Registra lo que se quedó en la etapa de TodoConta al cambiar de dueño. |
 | [`linkedin/`](linkedin/playbook.md) | LinkedIn como superficie del Avatar B: los tres pilares, el ritmo de tres por semana colgado del live, la humanización que falta y hasta dónde llega la polémica. El lineamiento de origen está al lado. |
 | [`patrocinios/`](patrocinios/README.md) | Cómo se vende una serie de Jueves de ContadorIA a una marca (modelo product-first): hoja ejecutiva, prospectos, playbook de venta y métricas. Trae el fee y los contactos: interno. |
 
