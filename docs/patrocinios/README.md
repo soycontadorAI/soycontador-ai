@@ -64,11 +64,17 @@ viejo, así que durante un rato el sitio y la hoja mandaban a calendarios
 distintos y nadie se enteró. Es el riesgo de hardcodear un dato de la entidad
 en un documento.
 
-**Pendiente relacionado:** la hoja ofrece "una llamada de 30 minutos", pero ese
-enlace agenda 15 con 5 de colchón (decisión del 2026-09-21, para las llamadas
-de diagnóstico). O la hoja dice 15, o la venta de patrocinio necesita su propia
-entrada en el mapa. El mapa ya soporta lo segundo sin refactor:
-`calendarioDe("cotizacion")` tomaría esa entrada sola.
+**La duración, resuelta (decisión de Israel, 2026-09-22).** La hoja ofrecía una
+llamada de 30 minutos y el enlace agenda 15. Se ajusta la hoja a **15**, que es
+lo que de verdad se aparta. El guion de venta sigue siendo de 30 minutos y
+encaja porque hay **15 de colchón** hasta la siguiente cita: una llamada que lo
+amerite se extiende sin empalmar.
+
+Es holgura real, no una promesa. **Se acaba el día que la agenda se llene**, y
+ese día el patrocinio necesita su propia entrada de 30 minutos en
+`CALENDARIOS`. El mapa ya lo soporta sin refactor: `calendarioDe("cotizacion")`
+la tomaría sola. Los detalles operativos están en `playbook-venta.md`, en la
+sección de la llamada de descubrimiento.
 
 ## Bitácora
 

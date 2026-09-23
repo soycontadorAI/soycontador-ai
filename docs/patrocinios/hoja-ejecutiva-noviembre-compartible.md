@@ -103,7 +103,7 @@ números que va a recibir el patrocinador de noviembre.
 
 ## Siguiente paso
 
-El precio y la categoría exclusiva se conversan en una llamada de 30 minutos.
+El precio y la categoría exclusiva se conversan en una llamada de 15 minutos.
 
 Israel Castro
 Contador público y desarrollador de software

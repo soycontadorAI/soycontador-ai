@@ -196,9 +196,11 @@ export const NAV_PAGINAS = [
 export type PropositoCita = "diagnostico" | "cotizacion" | "capacitacion";
 
 const CALENDARIOS: Partial<Record<PropositoCita, string>> & { default: string | null } = {
-  /** "Llamada con Israel Castro", 15 min con 5 de colchón, con Meet. Programación
-      de citas de Workspace. Todas las llamadas de diagnóstico duran lo mismo
-      (decisión de Israel 2026-09-21; guion en docs/llamada-diagnostico.md). */
+  /** "Llamada con Israel Castro", 15 min con 15 de colchón, con Meet. Programación
+      de citas de Workspace. Todas las llamadas duran lo mismo (decisión de
+      Israel 2026-09-21; guion en docs/llamada-diagnostico.md). El colchón es
+      lo que permite extender una llamada que lo amerite sin empalmar con la
+      siguiente; deja de ser cierto el día que la agenda se llene. */
   default: "https://calendar.app.google/LoP7NXbqineYAJNd6",
 };
 

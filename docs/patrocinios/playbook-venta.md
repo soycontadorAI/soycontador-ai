@@ -100,10 +100,24 @@ Cada contacto se anota en `prospectos.csv`: `estado`, `fecha_ultimo_contacto`
 y `siguiente_paso` con fecha. Si no hay siguiente paso con fecha, el prospecto
 está muerto y se marca `descartado` con el motivo en `notas`.
 
-## 3. Llamada de descubrimiento (30 minutos)
+## 3. Llamada de descubrimiento (30 minutos de guion, 15 de cita)
 
 Objetivo: saber si hay presupuesto, quién lo aprueba y en cuánto tiempo.
 Israel habla el 30 %; la marca, el 70 %.
+
+**Ojo con el reloj.** El guion de abajo suma 30 minutos (3 + 15 + 7 + 5), pero
+la hoja compartible ofrece una llamada de 15 y el enlace agenda 15, que es la
+cita única de `CALENDARIOS.default`. Encaja hoy porque hay 15 minutos de
+colchón hasta la siguiente, así que la llamada puede correr a 30 sin empalmar.
+
+Dos cosas que eso obliga:
+
+- **Pedir la extensión, no tomarla.** El prospecto apartó 15 minutos y puede
+  tener algo después. Cerca del minuto 12: "esto da para quince más, ¿los
+  tienes o lo seguimos por correo?".
+- **Deja de funcionar cuando la agenda se llene.** Ese día el patrocinio
+  necesita su propia entrada de 30 minutos en `CALENDARIOS`, y el mapa ya lo
+  soporta sin refactor: `calendarioDe("cotizacion")` la tomaría sola.
 
 1. **Contexto (3 min).** Quién soy, qué es el programa, por qué esta serie y
    por qué esta marca. Sin vender todavía.
