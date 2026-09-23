@@ -177,10 +177,36 @@ suyo: `/despachos` estuvo semanas sirviendo el default, o sea mostrándole al
 socio de despacho un mensaje que no era para él. Una página de B que no pase
 `image` a `BaseLayout` repite el error en silencio.
 
-| Plantilla | Avatar | La usa |
-|---|---|---|
-| `og-default.html` | A | Todo lo que no pase `image` |
-| `og-despachos.html` | B | `/despachos` |
+| Plantilla | Lienzo | Avatar | La usa |
+|---|---|---|---|
+| `og-default.html` | 1200×630 | A | Todo lo que no pase `image` |
+| `og-despachos.html` | 1200×630 | B | `/despachos` |
+| `banner-linkedin.html` | 1584×396 | B | El perfil de LinkedIn (se sube a mano) |
+
+**Cada plantilla declara su lienzo y su destino**, porque ya no todas son Open
+Graph:
+
+```html
+<meta name="lienzo" content="1584x396">
+<meta name="salida" content="design/salidas/banner-linkedin.png">
+```
+
+Lo que no sirve el sitio no sale a `public/`: el banner de LinkedIn se sube a
+mano al perfil, así que su destino es `design/salidas/`.
+
+### El banner de LinkedIn
+
+Dos cosas que no son evidentes y que hay que respetar al editarlo:
+
+- **El cuarto izquierdo se queda vacío.** Ahí cae la foto de perfil, y el
+  recorte cambia entre escritorio y móvil. La columna está declarada en el
+  grid (`.hueco-foto`) justamente para que nadie la rellene "porque se ve
+  vacía". Revisar en el teléfono antes de darlo por bueno: la columna de
+  folios de la derecha es lo primero que se pierde.
+- **Los folios van en versalitas por CSS, así que "Jueves de ContadorIA" no
+  cabe ahí**: en mayúsculas sale "CONTADORIA", que mata el juego de palabras
+  y se lee como "contaduría" mal escrita. Por eso ese renglón nombra la clase
+  y no el programa.
 
 La composición es la de la sección de la vuelta: **el retrato recortado
 (`public/assets/israel-cruzado.webp`, con transparencia) aterriza en el canto

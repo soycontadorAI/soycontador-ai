@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="es-MX">
+<head>
+<meta charset="utf-8">
+<meta name="lienzo" content="1584x396">
+<meta name="salida" content="design/salidas/banner-linkedin.png">
+<title>banner-linkedin</title>
+<style>
+/* ============================================================
+   Banner de LinkedIn (1584x396). Se renderiza con
+   `node design/og/render.mjs banner-linkedin`.
+
+   NO sale a public/: no lo sirve el sitio, se sube a mano al perfil.
+   Por eso su destino es design/salidas/.
+
+   Le habla al Avatar B (dueño o socio de despacho de 5 a 50, 45 a 65
+   años), que es de quien es LinkedIn según docs/arquitectura-de-marca.md.
+   El copy no se inventó: es el H1 de /despachos y su remate.
+
+   ── Las zonas que LinkedIn se come ──
+   La foto de perfil cae sobre la esquina INFERIOR IZQUIERDA y el recorte
+   cambia entre escritorio y móvil. Por eso:
+     · El cuarto izquierdo se deja vacío.
+     · Nada importante en la franja de abajo.
+     · La columna de folios de la derecha es lo primero que se pierde en
+       móvil, así que ahí no va nada que no esté también en otro lado.
+   Revisar SIEMPRE en el teléfono antes de darlo por bueno.
+   ============================================================ */
+@font-face {
+  font-family: "Instrument Serif";
+  font-style: normal; font-weight: 400; font-display: block;
+  src: url("../../node_modules/@fontsource/instrument-serif/files/instrument-serif-latin-400-normal.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Space Grotesk"; font-weight: 100 900; font-display: block;
+  src: url("../../node_modules/@fontsource-variable/space-grotesk/files/space-grotesk-latin-wght-normal.woff2") format("woff2");
+}
+@font-face {
+  font-family: "JetBrains Mono"; font-weight: 100 800; font-display: block;
+  src: url("../../node_modules/@fontsource-variable/jetbrains-mono/files/jetbrains-mono-latin-wght-normal.woff2") format("woff2");
+}
+:root {
+  --bg: #FBFAF7;
+  --ink: #14161A;
+  --ink-soft: #454A54;
+  --ink-dim: #666B75;
+  --accent: #0A7B45;
+  --marker: #3DD68C;
+  --line: #E3E0D8;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  width: 1584px; height: 396px; overflow: hidden;
+  background: var(--bg); color: var(--ink);
+  font-family: "Space Grotesk", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  /* Tres columnas: el hueco de la foto, la frase, y los folios. */
+  display: grid;
+  grid-template-columns: 372px 1fr auto;
+  align-items: center;
+  gap: 48px;
+  padding: 0 64px 0 0;
+}
+
+/* La columna vacía existe a propósito: es donde cae el avatar. Va declarada
+   y no implícita, para que nadie la rellene "porque se ve vacía". */
+.hueco-foto { height: 100%; }
+
+.frase {
+  font-family: "Instrument Serif", serif; font-weight: 400;
+  font-size: 50px; line-height: 1.1; letter-spacing: -0.015em;
+  color: var(--ink);
+}
+/* El plumón, con la calibración del sitio: 0.22em de despegue, porque
+   Instrument Serif deja hueco bajo la línea base y sin eso se lee tachado. */
+.frase b {
+  font-weight: 400;
+  background-image: linear-gradient(
+    to top,
+    transparent 0.22em,
+    var(--marker) 0.22em,
+    var(--marker) 0.72em,
+    transparent 0.72em
+  );
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+}
+.frase .pie {
+  display: block;
+  margin-top: 18px;
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 17px; font-weight: 500; letter-spacing: 0;
+  color: var(--ink-soft);
+}
+
+/* Los folios: los datos duros y el dominio. Mono en versalitas, el mismo
+   recurso con el que abre cada sección del sitio. Son lo único que viaja
+   sin traducir si alguien ve el perfil en inglés. */
+.folios {
+  border-left: 1px solid var(--line);
+  padding-left: 30px;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 14px; line-height: 2.05;
+  letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--ink-dim); white-space: nowrap;
+}
+.folios .dominio {
+  display: block; margin-top: 12px;
+  color: var(--accent); font-weight: 700; letter-spacing: 0.06em;
+}
+</style>
+</head>
+<body>
+  <div class="hueco-foto"></div>
+
+  <p class="frase">
+    Tu equipo entrega más rápido<br>
+    <b>sin que contrates a nadie más.</b>
+    <span class="pie">Capacitación en IA para despachos contables. Contador público y desarrollador.</span>
+  </p>
+
+  <div class="folios">
+    <!--
+      Ojo: los folios van en versalitas por CSS, y "Jueves de ContadorIA"
+      en mayúsculas sale "CONTADORIA", que mata el juego de palabras y se
+      lee como "contaduría" mal escrita. Por eso aquí se nombra la clase,
+      no el programa.
+    -->
+    15 años en la profesión<br>
+    +$20M en saldos a favor<br>
+    Clase en vivo cada jueves
+    <span class="dominio">soycontador.ai/despachos</span>
+  </div>
+</body>
+</html>
