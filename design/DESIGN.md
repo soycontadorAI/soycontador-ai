@@ -170,6 +170,45 @@ relativa. Trae el mismo guardarraíl que los generadores de guías: si el
 contenido se sale de la caja, falla en vez de escribir un OG con el texto
 amputado.
 
+**El retrato dice de qué avatar es la página, no quién la comparte.** La
+sudadera es el registro del **Avatar A** y el saco el del **B** (ver el
+guardarropa `saco-marino` en el banco de poses de
+`todoconta-apps/apps/social-templates`). `/audita` es la guía gratis del
+contador individual, así que va de sudadera aunque se destaque en LinkedIn:
+la tarjeta describe a quién sirve la página. Y dentro del saco la pose
+tampoco es indistinta: `/despachos` usa `present-saco` y `/diagnostico` usa
+`invita-saco`, porque esa página pide dar un paso y los brazos cruzados leen
+como autoridad en vez de como invitación.
+
+**Sin folio en la esquina derecha.** Las tarjetas lo traían (`Capacitación in
+company`, `Guía gratis · PDF`) y se quitó el 2026-09-23: repetía lo que ya dice
+el titular y obligaba a bajar el retrato de 434 a 404px para no chocar con él.
+Sin folio, el retrato vuelve al tamaño de `og-default`.
+
+**Una pose por tarjeta, aunque compartan prenda.** `/despachos` y
+`/diagnostico` viven juntas en Destacados de LinkedIn: con la misma pose se
+leen como la misma tarjeta repetida. `/despachos` usa `present-saco` (explica
+el programa) y `/diagnostico` usa `arms-saco`, porque su H1 es una pregunta
+que interpela y los brazos cruzados acompañan eso mejor.
+
+**La pose "apoyado" necesita una mesa, y su altura se mide.** En `/audita` el
+retrato tiene las manos plantadas sobre una superficie que el recorte no trae,
+así que descansan sobre el aire. La plantilla dibuja `.mesa`: una banda del
+`surface` de la marca con su filete, **detrás** de la figura. No es un mueble,
+es geometría.
+
+Y por ir detrás, su altura no se elige, se mide. Con ese retrato a 434px de
+ancho, las piernas terminan a 39px del borde inferior y los dedos llegan a 4px.
+Con una banda de 48px las piernas asomaban **debajo** del tablero y la figura
+flotaba sobre la mesa en vez de estar detrás de ella. A 38px el pantalón
+termina justo sobre el filete y las manos quedan apoyadas encima. **Al cambiar
+el retrato hay que volver a medir**, porque el número depende del recorte:
+
+```python
+# el último píxel opaco de las manos (los tercios) y de las piernas (el centro)
+a = Image.open("public/assets/<retrato>").convert("RGBA").split()[3]
+```
+
 **Un OG por avatar, no uno por sitio.** `og-default.html` le habla al
 **Avatar A** (la objeción de "esto es para los más jóvenes"), así que sirve
 para la home y las páginas de A. Las páginas del **Avatar B** necesitan el
@@ -181,6 +220,8 @@ socio de despacho un mensaje que no era para él. Una página de B que no pase
 |---|---|---|---|
 | `og-default.html` | 1200×630 | A | Todo lo que no pase `image` |
 | `og-despachos.html` | 1200×630 | B | `/despachos` |
+| `og-audita.html` | 1200×630 | A | `/audita` |
+| `og-diagnostico.html` | 1200×630 | B | `/diagnostico` |
 | `banner-linkedin.html` | 1584×396 | B | El perfil de LinkedIn (se sube a mano) |
 | `banner-youtube.html` | 2560×1440 | A | El canal de YouTube (se sube a mano) |
 

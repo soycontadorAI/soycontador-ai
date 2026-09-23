@@ -3,21 +3,20 @@
 <head>
 <meta charset="utf-8">
 <meta name="lienzo" content="1200x630">
-<meta name="salida" content="public/og-despachos.png">
-<title>og-despachos</title>
+<meta name="salida" content="public/og-audita.png">
+<title>og-audita</title>
 <style>
 /* ============================================================
-   Open Graph de /despachos (1200x630). Se renderiza con
-   `node design/og/render.mjs despachos` y se escribe en
-   public/og-despachos.png.
+   Open Graph de /audita (1200x630). Se renderiza con
+   `node design/og/render.mjs og-audita` y se escribe en public/og-audita.png.
 
-   Hermano de og-default.html, con una diferencia que es toda la razón
-   de que exista: og-default le habla al **Avatar A** (la objeción de
-   "esto es para los más jóvenes"), y /despachos le habla al **Avatar B**,
-   que compra por margen y no por miedo. Servir el default aquí le
-   mostraba al socio de despacho un mensaje que no es para él.
+   /audita es del **Avatar A**: el contador que lleva su propia chamba y
+   baja la guía gratis. Por eso el retrato es el de la sudadera y NO el del
+   saco, que es el registro del Avatar B (LinkedIn y despachos). Se destaca
+   en LinkedIn igual, y está bien: la tarjeta describe a quién sirve la
+   página, no a quién la comparte.
 
-   El copy NO se inventó: es el H1 de la página y su remate.
+   El copy NO se inventó: es el H1 de la página y sus cinco capas.
    ============================================================ */
 @font-face {
   font-family: "Instrument Serif";
@@ -40,8 +39,33 @@
   --accent: #0A7B45;
   --marker: #3DD68C;
   --line: #E3E0D8;
+  --surface: #F3F1EB;
 }
 * { margin: 0; padding: 0; box-sizing: border-box; }
+
+/*
+  La mesa. Existe por una razón concreta: el retrato es la pose "apoyado", con
+  las manos plantadas sobre una superficie que en el recorte no existe, así que
+  sin esto las manos descansan sobre el aire. Es una banda del papel de la
+  marca con su filete, no un mueble dibujado: la geometría basta para que la
+  figura se apoye en algo.
+
+  Va DETRÁS del retrato, así que su ALTURA es crítica y está medida, no
+  elegida: con este retrato a 434px de ancho, las piernas terminan a 39px del
+  borde inferior y los dedos llegan a 4px. Si la banda es más alta que 39,
+  las piernas asoman DEBAJO del tablero y la figura flota sobre la mesa en
+  vez de estar detrás de ella (pasó con 48px). Con 38 el pantalón termina
+  justo sobre el filete y las manos quedan bien apoyadas encima.
+
+  Al cambiar el retrato hay que volver a medir: el número depende del recorte.
+*/
+.mesa {
+  position: absolute;
+  left: 0; right: 0; bottom: 0;
+  height: 38px;
+  background: var(--surface);
+  border-top: 1px solid var(--line);
+}
 body {
   position: relative;
   width: 1200px; height: 630px; overflow: hidden;
@@ -114,7 +138,7 @@ body {
 
 /* Pie: el remate de la página, que es el argumento de la venta. */
 .pie {
-  position: relative; z-index: 1;
+  position: relative; z-index: 2;
   font-size: 21px; font-weight: 500; line-height: 1.4;
   color: var(--ink-soft);
   /* Hasta donde empieza el retrato (1200 - 40 de margen - 434 de ancho),
@@ -152,16 +176,17 @@ body {
       imagen de tamaño único, así que no hay nada que dejarle al flujo.
     -->
     <p class="titular">
-      Tu equipo entrega más rápido<br>
-      <b>sin que contrates a nadie más.</b>
+      5 prompts para auditar<br>
+      <b>tus XMLs con Claude.</b>
     </p>
   </div>
 
-  <img class="retrato" src="../../public/assets/israel-saco.webp" alt="">
+  <div class="mesa"></div>
+  <img class="retrato" src="../../public/assets/israel-apoyado-hoodie.webp" alt="">
 
   <p class="pie">
-    Lo caro no es capacitar. Es el año que viene igual que este.
-    <span class="dato">8 horas en sesiones de 2 · 4 a 6 flujos · método escrito</span>
+    Lo que revisa el SAT hoy no es que el XML esté bien formado.
+    <span class="dato">Anexo 20 · materialidad · semáforo de riesgo · 69-B y REPSE</span>
   </p>
 </body>
 </html>
