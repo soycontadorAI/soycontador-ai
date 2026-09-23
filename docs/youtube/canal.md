@@ -5,6 +5,13 @@
 escrito que su estilo se alinea a soycontador.ai "a partir de las siguientes
 ediciones". Este documento es esa alineación: qué dice el canal y a qué enlaza.
 
+**Es un canal nuevo, no el heredado.** El de `@todoconta` (hoy **Cuentas
+Claras**, +4,000 subs) resultó tener un avatar de trámites y burocracia, no de
+contadores, así que el programa se abrió en un canal propio: 129 suscriptores
+y 111 videos. La historia completa está en
+[`../arquitectura-de-marca.md`](../arquitectura-de-marca.md). Se mide como lo
+que es, un canal nuevo, y renombrarlo no cuesta nada.
+
 **Avatar A**, como toda la superficie de YouTube: contador individual o de
 despacho de 1 a 3, de 45 a 65 años, que compra por miedo a quedarse atrás. Al
 socio de despacho se le cierra en LinkedIn, no aquí.
@@ -129,5 +136,7 @@ Dos cosas que no se pueden aflojar al editarlo:
 - Subir el banner y pegar nombre, descripción y los cinco enlaces.
 - El avatar del canal sigue siendo la foto de la sudadera. Para Avatar A está
   bien y no urge; el saco es el registro de B (LinkedIn y despachos).
-- Recrear el canal institucional de TodoConta, que es lo que libera a este de
-  tener que hablar de software.
+- Crear el canal de TodoConta, que es lo que libera a este de tener que hablar
+  de software. El handle `@TodoConta` ya se liberó justo para eso.
+- Decidir qué se hace con **Cuentas Claras**: son 4,000 personas alrededor de
+  trámites y burocracia, que no es el avatar de ninguna de las dos marcas.
