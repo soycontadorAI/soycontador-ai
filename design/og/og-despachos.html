@@ -94,16 +94,21 @@ body {
   que en la sección de la vuelta del sitio. El borde de la imagen ES el
   suelo; sin ese apoyo la figura flota.
 
-  PARA CAMBIAR DE RETRATO se toca este src y nada más. El guardarropa del
-  banco de poses (todoconta-apps/apps/social-templates) hoy tiene polo
-  verde, camisa de puntos, camisa azul y camisa clara. No hay saco: para
-  eso hay que agregar la entrada al catálogo CAMISAS y generarla.
+  PARA CAMBIAR DE RETRATO se toca este src y nada más. Los retratos salen
+  del banco de poses (todoconta-apps/apps/social-templates, catálogo en
+  src/assets/brand/poses.json).
+
+  Aquí va `present-saco`: saco marino sin corbata, que es el registro B2B,
+  y la palma abierta apunta a la izquierda del cuadro. Con el retrato a la
+  derecha, eso deja la mano señalando el titular. La alternativa es
+  `arms-saco` (brazos cruzados, misma prenda): lee como autoridad en vez de
+  como invitación, y para esta página se prefirió la segunda.
 */
 .retrato {
   position: absolute;
   right: 48px;
   bottom: 0;
-  width: 392px;
+  width: 404px;
   height: auto;
   display: block;
 }
@@ -154,7 +159,7 @@ body {
     </p>
   </div>
 
-  <img class="retrato" src="../../public/assets/israel-apoyado.webp" alt="">
+  <img class="retrato" src="../../public/assets/israel-saco.webp" alt="">
 
   <p class="pie">
     Lo caro no es capacitar. Es el año que viene igual que este.
