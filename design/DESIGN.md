@@ -182,6 +182,7 @@ socio de despacho un mensaje que no era para él. Una página de B que no pase
 | `og-default.html` | 1200×630 | A | Todo lo que no pase `image` |
 | `og-despachos.html` | 1200×630 | B | `/despachos` |
 | `banner-linkedin.html` | 1584×396 | B | El perfil de LinkedIn (se sube a mano) |
+| `banner-youtube.html` | 2560×1440 | A | El canal de YouTube (se sube a mano) |
 
 **Cada plantilla declara su lienzo y su destino**, porque ya no todas son Open
 Graph:
@@ -193,6 +194,18 @@ Graph:
 
 Lo que no sirve el sitio no sale a `public/`: el banner de LinkedIn se sube a
 mano al perfil, así que su destino es `design/salidas/`.
+
+### El banner de YouTube
+
+La caja segura es **1546×423 centrada** en los 2560×1440 del archivo: YouTube
+recorta distinto en TV, escritorio, tableta y teléfono, y ese rectángulo es lo
+único que se ve en todos. Fuera de ahí no va nada. En la plantilla es
+`.seguro`, con 44px de respiro interno, porque a ras del borde el primer
+render cortaba la J de "Jueves".
+
+Aquí "ContadorIA" sí va en caja alta y baja, así que el juego de palabras
+sobrevive y lleva el plumón encima. En los folios del banner de LinkedIn no
+cabe, por lo de abajo.
 
 ### El banner de LinkedIn
 
