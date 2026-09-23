@@ -1,0 +1,170 @@
+<!doctype html>
+<html lang="es-MX">
+<head>
+<meta charset="utf-8">
+<meta name="lienzo" content="1200x630">
+<meta name="salida" content="public/og-audita.png">
+<title>og-audita</title>
+<style>
+/* ============================================================
+   Open Graph de /audita (1200x630). Se renderiza con
+   `node design/og/render.mjs og-audita` y se escribe en public/og-audita.png.
+
+   /audita es del **Avatar A**: el contador que lleva su propia chamba y
+   baja la guía gratis. Por eso el retrato es el de la sudadera y NO el del
+   saco, que es el registro del Avatar B (LinkedIn y despachos). Se destaca
+   en LinkedIn igual, y está bien: la tarjeta describe a quién sirve la
+   página, no a quién la comparte.
+
+   El copy NO se inventó: es el H1 de la página y sus cinco capas.
+   ============================================================ */
+@font-face {
+  font-family: "Instrument Serif";
+  font-style: normal; font-weight: 400; font-display: block;
+  src: url("../../node_modules/@fontsource/instrument-serif/files/instrument-serif-latin-400-normal.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Space Grotesk"; font-weight: 100 900; font-display: block;
+  src: url("../../node_modules/@fontsource-variable/space-grotesk/files/space-grotesk-latin-wght-normal.woff2") format("woff2");
+}
+@font-face {
+  font-family: "JetBrains Mono"; font-weight: 100 800; font-display: block;
+  src: url("../../node_modules/@fontsource-variable/jetbrains-mono/files/jetbrains-mono-latin-wght-normal.woff2") format("woff2");
+}
+:root {
+  --bg: #FBFAF7;
+  --ink: #14161A;
+  --ink-soft: #454A54;
+  --ink-dim: #666B75;
+  --accent: #0A7B45;
+  --marker: #3DD68C;
+  --line: #E3E0D8;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  position: relative;
+  width: 1200px; height: 630px; overflow: hidden;
+  background: var(--bg); color: var(--ink);
+  font-family: "Space Grotesk", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  display: grid; grid-template-rows: auto 1fr auto;
+  padding: 58px 64px 56px;
+}
+
+/* Cabecera: el logotipo del sitio a dos renglones, más el folio que dice
+   a quién le habla esta tarjeta. */
+.cab { display: flex; align-items: flex-start; justify-content: space-between; }
+.logo { display: flex; align-items: center; gap: 14px; }
+.logo svg { width: 46px; height: 32px; color: var(--ink); }
+.wordmark { line-height: 1; }
+.wordmark .nombre { display: block; font-weight: 700; font-size: 27px; letter-spacing: -0.035em; }
+.wordmark .tld { display: block; font-family: "JetBrains Mono", monospace; font-weight: 700; font-size: 17px; color: var(--accent); margin-top: 2px; }
+.folio {
+  font-family: "JetBrains Mono", monospace; font-size: 13px;
+  letter-spacing: 0.18em; color: var(--ink-dim); padding-top: 9px;
+  text-transform: uppercase;
+}
+
+/* Cuerpo: el H1 de la página, tal cual. La caja se corta antes del retrato
+   para que el texto nunca le caiga encima. */
+.cuerpo { display: grid; align-content: center; max-width: 700px; }
+.titular {
+  position: relative; z-index: 1;
+  font-family: "Instrument Serif", serif; font-weight: 400;
+  font-size: 60px; line-height: 1.08; letter-spacing: -0.015em;
+}
+/* El plumón, con la misma calibración que en el sitio: la banda se despega
+   0.22em del fondo de la caja porque Instrument Serif deja hueco bajo la
+   línea base y si no, se lee como tachado. */
+.titular b {
+  font-weight: 400;
+  background-image: linear-gradient(
+    to top,
+    transparent 0.22em,
+    var(--marker) 0.22em,
+    var(--marker) 0.72em,
+    transparent 0.72em
+  );
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+}
+
+/*
+  El retrato es un recorte con transparencia, así que NO va en un círculo
+  sobre el papel: aterriza en el canto inferior, igual que en og-default y
+  que en la sección de la vuelta del sitio. El borde de la imagen ES el
+  suelo; sin ese apoyo la figura flota.
+
+  PARA CAMBIAR DE RETRATO se toca este src y nada más. Los retratos salen
+  del banco de poses (todoconta-apps/apps/social-templates, catálogo en
+  src/assets/brand/poses.json).
+
+  Aquí va `present-saco`: saco marino sin corbata, que es el registro B2B,
+  y la palma abierta apunta a la izquierda del cuadro. Con el retrato a la
+  derecha, eso deja la mano señalando el titular. La alternativa es
+  `arms-saco` (brazos cruzados, misma prenda): lee como autoridad en vez de
+  como invitación, y para esta página se prefirió la segunda.
+*/
+.retrato {
+  position: absolute;
+  right: 48px;
+  bottom: 0;
+  width: 404px;
+  height: auto;
+  display: block;
+}
+
+/* Pie: el remate de la página, que es el argumento de la venta. */
+.pie {
+  position: relative; z-index: 1;
+  font-size: 21px; font-weight: 500; line-height: 1.4;
+  color: var(--ink-soft);
+  /* Hasta donde empieza el retrato (1200 - 48 de margen - 392 de ancho),
+     menos un respiro. Con 640 el renglón mono se partía en dos. */
+  max-width: 700px;
+}
+.pie .dato {
+  display: block; margin-top: 10px;
+  font-family: "JetBrains Mono", monospace; font-size: 15px;
+  letter-spacing: 0.06em; color: var(--ink-dim);
+}
+</style>
+</head>
+<body>
+  <div class="cab">
+    <div class="logo">
+      <svg viewBox="5 18 86 60" fill="none" aria-hidden="true">
+        <rect x="12" y="25" width="72" height="5" fill="currentColor"></rect>
+        <rect x="45.5" y="25" width="5" height="46" fill="currentColor"></rect>
+        <rect x="16" y="39" width="24" height="7" fill="currentColor"></rect>
+        <rect x="16" y="52" width="17" height="7" fill="currentColor"></rect>
+        <rect x="56" y="39" width="24" height="7" fill="#0A7B45"></rect>
+        <rect x="56" y="52" width="17" height="7" fill="#0A7B45"></rect>
+      </svg>
+      <span class="wordmark">
+        <span class="nombre">soycontador</span>
+        <span class="tld">.ai</span>
+      </span>
+    </div>
+    <span class="folio">Guía gratis · PDF</span>
+  </div>
+
+  <div class="cuerpo">
+    <!--
+      El H1 literal de /despachos. Los cortes de renglón van FIJOS: es una
+      imagen de tamaño único, así que no hay nada que dejarle al flujo.
+    -->
+    <p class="titular">
+      5 prompts para auditar<br>
+      <b>tus XMLs con Claude.</b>
+    </p>
+  </div>
+
+  <img class="retrato" src="../../public/assets/israel-apoyado-hoodie.webp" alt="">
+
+  <p class="pie">
+    Lo que revisa el SAT hoy no es que el XML esté bien formado.
+    <span class="dato">Anexo 20 · materialidad · semáforo de riesgo · 69-B y REPSE</span>
+  </p>
+</body>
+</html>
