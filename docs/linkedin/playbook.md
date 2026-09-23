@@ -133,6 +133,40 @@ frente a terceros, y es una de sus cinco objeciones.
 
 ---
 
+## Toda pieza se hace en las dos direcciones
+
+Decisión de Israel, 2026-09-22. Un tema se produce para A **y** para B, salvo
+que genuinamente no le aplique a uno de los dos, y entonces se dice por qué.
+
+No contradice la regla de un avatar por superficie: la refuerza. Lo que está
+prohibido es publicar la pieza de A en la superficie de B, que es exactamente
+lo que se evita teniendo las dos.
+
+**El argumento es de costo.** Lo caro es la investigación, no el copy. El
+carrusel "¿Qué hace la IA con tus datos?" pidió verificar la documentación de
+Anthropic renglón por renglón; una vez hecho eso, el deck de B salió el mismo
+día y usa la misma evidencia.
+
+**Y no es traducir.** Del par que ya existe:
+
+| | Avatar A (Instagram) | Avatar B (LinkedIn) |
+|---|---|---|
+| El gancho | ¿Qué hace la IA con tus datos? | Tu equipo ya usa IA. ¿Con la cuenta de quién? |
+| El dolor | Me da miedo exponer a mis clientes | Mi gente mueve datos y yo respondo |
+| El interruptor | Un dato que saber | La decisión de compra (cuenta de trabajo) |
+| El cierre | Revisa tus contratos | Política escrita del despacho |
+| El CTA | Comenta DATOS (ManyChat) | `soycontador.ai/diagnostico` |
+| Piezas | 15 | 11 |
+
+**El CTA nunca se porta.** "Comenta PALABRA" es mecánica de ManyChat y en
+LinkedIn no existe. Aquí el cierre es el enlace, en el texto del post o en el
+primer comentario.
+
+**El formato tampoco.** LinkedIn sube un documento PDF, no piezas sueltas. En
+`social-studio` eso es el formato `li-documento`: mismo lienzo de 1080×1350,
+pero exporta el PDF y cambia la firma (`soycontador.ai`, no el handle de
+Instagram) y el retrato (saco, no sudadera).
+
 ## Ritmo
 
 Tres posts a la semana, que es el piso que recomienda el lineamiento. **No tres
