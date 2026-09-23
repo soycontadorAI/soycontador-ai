@@ -12,6 +12,8 @@ interface Props {
   title?: string;
   description?: string;
   image?: string;
+  publicado?: string;
+  actualizado?: string;
   type?: "website" | "article" | "profile";
   noindex?: boolean;
   /** Grafo JSON-LD ya armado con graph(...) de lib/schema.ts */
@@ -28,7 +30,7 @@ interface Props {
   desnudo?: boolean;
 }
 
-const { title, description, image, type, noindex, jsonLd, nav, cta, desnudo = false } = Astro.props;
+const { title, description, image, type, noindex, publicado, actualizado, jsonLd, nav, cta, desnudo = false } = Astro.props;
 ---
 
 <!doctype html>
@@ -42,7 +44,7 @@ const { title, description, image, type, noindex, jsonLd, nav, cta, desnudo = fa
     <link rel="manifest" href="/site.webmanifest" />
     <meta name="theme-color" content="#0D1420" />
     <link rel="sitemap" href="/sitemap-index.xml" />
-    <SEO {title} {description} {image} {type} {noindex} />
+    <SEO {title} {description} {image} {type} {noindex} {publicado} {actualizado} />
     {jsonLd && <JsonLd data={jsonLd} />}
     <meta name="generator" content={Astro.generator} />
     <Analytics />
