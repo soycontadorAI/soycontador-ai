@@ -14,6 +14,7 @@
     "ebook:muestra": "node ebook/generar-muestra.mjs",
     "guia:flujos": "node guias/flujos-hibridos/generar.mjs",
     "guia:prompts": "node guias/prompts-xml/generar.mjs",
+    "og": "node design/og/render.mjs",
     "preview": "astro preview"
   },
   "dependencies": {
