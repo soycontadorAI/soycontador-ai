@@ -141,11 +141,17 @@ copy y las objeciones, y es lo que está abajo.
 
 ### Quién es
 
-Dueño o socio de un despacho contable mexicano de **5 a 50 personas**. Entre 38
-y 60 años. Contador de carrera, no administrador: llegó a dueño porque era buen
+Dueño o socio de un despacho contable mexicano de **5 a 50 personas**, de **45 a
+65 años**. Contador de carrera, no administrador: llegó a dueño porque era buen
 técnico, y hoy dedica más tiempo a vender y a apagar fuegos que a lo contable.
 Firma él. Cobra iguala mensual por cliente, casi siempre por debajo de lo que
 vale, y lleva años sin poder subirla.
+
+El rango de edad era 38 a 60 hasta el **2026-09-22**, cuando Israel lo alineó
+con el de A. El 2026-09-15 se había movido el de A (de 30-50 a 45-65) y aquí
+no se propagó, así que B quedó ocho días arrancando más joven que el
+independiente. No cuadraba: llegar a dueño de un despacho de cinco a cincuenta
+personas toma más años de carrera, no menos.
 
 Tiene entre 30 y 200 clientes recurrentes, la mayoría personas morales de
 régimen general y algunos RESICO. Su equipo es de auxiliares y contadores junior
