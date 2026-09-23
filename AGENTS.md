@@ -128,6 +128,12 @@ nada de ahí a una página sin revisar la tabla de precios de este archivo.
   bio, un enlace, destacados como menú y las stories fijas de "Empieza
   aquí"). El lineamiento de origen está al lado.
 
+- `docs/linkedin/playbook.md`: LinkedIn es del **Avatar B**, y ahí están sus
+  tres pilares, el ritmo de tres posts por semana colgado del live, y dos
+  reglas que no se relajan: la humanización se ancla a los pilares (no es "qué
+  desayuné") y la polémica llega hasta el oficio y el negocio, **nunca al
+  criterio fiscal**. El lineamiento de origen está al lado.
+
 La metodología es la de Eloisa Wolf. La oferta de despachos ya está
 productizada en `todoconta-apps/docs/taller-ia-despachos.md`: no se redefine
 aquí.
