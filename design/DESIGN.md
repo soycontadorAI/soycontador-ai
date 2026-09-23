@@ -191,11 +191,23 @@ leen como la misma tarjeta repetida. `/despachos` usa `present-saco` (explica
 el programa) y `/diagnostico` usa `arms-saco`, porque su H1 es una pregunta
 que interpela y los brazos cruzados acompañan eso mejor.
 
-**La pose "apoyado" necesita una mesa.** En `/audita` el retrato tiene las
-manos plantadas sobre una superficie que el recorte no trae, así que descansan
-sobre el aire. La plantilla dibuja `.mesa`: una banda del `surface` de la marca
-con su filete, detrás de la figura y con el borde a la altura de las manos. No
-es un mueble, es geometría, y con eso la figura se apoya en algo.
+**La pose "apoyado" necesita una mesa, y su altura se mide.** En `/audita` el
+retrato tiene las manos plantadas sobre una superficie que el recorte no trae,
+así que descansan sobre el aire. La plantilla dibuja `.mesa`: una banda del
+`surface` de la marca con su filete, **detrás** de la figura. No es un mueble,
+es geometría.
+
+Y por ir detrás, su altura no se elige, se mide. Con ese retrato a 434px de
+ancho, las piernas terminan a 39px del borde inferior y los dedos llegan a 4px.
+Con una banda de 48px las piernas asomaban **debajo** del tablero y la figura
+flotaba sobre la mesa en vez de estar detrás de ella. A 38px el pantalón
+termina justo sobre el filete y las manos quedan apoyadas encima. **Al cambiar
+el retrato hay que volver a medir**, porque el número depende del recorte:
+
+```python
+# el último píxel opaco de las manos (los tercios) y de las piernas (el centro)
+a = Image.open("public/assets/<retrato>").convert("RGBA").split()[3]
+```
 
 **Un OG por avatar, no uno por sitio.** `og-default.html` le habla al
 **Avatar A** (la objeción de "esto es para los más jóvenes"), así que sirve

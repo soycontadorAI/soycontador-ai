@@ -50,13 +50,19 @@
   marca con su filete, no un mueble dibujado: la geometría basta para que la
   figura se apoye en algo.
 
-  Va DETRÁS del retrato (z-index 0 contra el 1 del texto) y su borde superior
-  cae a la altura de las manos.
+  Va DETRÁS del retrato, así que su ALTURA es crítica y está medida, no
+  elegida: con este retrato a 434px de ancho, las piernas terminan a 39px del
+  borde inferior y los dedos llegan a 4px. Si la banda es más alta que 39,
+  las piernas asoman DEBAJO del tablero y la figura flota sobre la mesa en
+  vez de estar detrás de ella (pasó con 48px). Con 38 el pantalón termina
+  justo sobre el filete y las manos quedan bien apoyadas encima.
+
+  Al cambiar el retrato hay que volver a medir: el número depende del recorte.
 */
 .mesa {
   position: absolute;
   left: 0; right: 0; bottom: 0;
-  height: 48px;
+  height: 38px;
   background: var(--surface);
   border-top: 1px solid var(--line);
 }
