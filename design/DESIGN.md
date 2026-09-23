@@ -180,6 +180,23 @@ tampoco es indistinta: `/despachos` usa `present-saco` y `/diagnostico` usa
 `invita-saco`, porque esa página pide dar un paso y los brazos cruzados leen
 como autoridad en vez de como invitación.
 
+**Sin folio en la esquina derecha.** Las tarjetas lo traían (`Capacitación in
+company`, `Guía gratis · PDF`) y se quitó el 2026-09-23: repetía lo que ya dice
+el titular y obligaba a bajar el retrato de 434 a 404px para no chocar con él.
+Sin folio, el retrato vuelve al tamaño de `og-default`.
+
+**Una pose por tarjeta, aunque compartan prenda.** `/despachos` y
+`/diagnostico` viven juntas en Destacados de LinkedIn: con la misma pose se
+leen como la misma tarjeta repetida. `/despachos` usa `present-saco` (explica
+el programa) y `/diagnostico` usa `arms-saco`, porque su H1 es una pregunta
+que interpela y los brazos cruzados acompañan eso mejor.
+
+**La pose "apoyado" necesita una mesa.** En `/audita` el retrato tiene las
+manos plantadas sobre una superficie que el recorte no trae, así que descansan
+sobre el aire. La plantilla dibuja `.mesa`: una banda del `surface` de la marca
+con su filete, detrás de la figura y con el borde a la altura de las manos. No
+es un mueble, es geometría, y con eso la figura se apoya en algo.
+
 **Un OG por avatar, no uno por sitio.** `og-default.html` le habla al
 **Avatar A** (la objeción de "esto es para los más jóvenes"), así que sirve
 para la home y las páginas de A. Las páginas del **Avatar B** necesitan el

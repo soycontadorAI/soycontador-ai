@@ -11,9 +11,11 @@
    `node design/og/render.mjs og-diagnostico` y se escribe en
    public/og-diagnostico.png.
 
-   La pose es `invita-saco` y no `arms-saco`, a propósito: esta página pide
-   dar un paso, y los brazos cruzados leen como autoridad en vez de como
-   invitación. Es la misma prenda, otra energía.
+   La pose es `arms-saco` y NO la misma de /despachos, a propósito: las dos
+   tarjetas viven juntas en Destacados de LinkedIn, y con la misma pose se
+   leen como la misma tarjeta repetida. Además el H1 de esta página es una
+   pregunta que interpela, y los brazos cruzados acompañan eso mejor que
+   una invitación cálida.
 
    El copy NO se inventó: es el H1 de la página y su meta description.
    ============================================================ */
@@ -50,23 +52,20 @@ body {
   padding: 58px 64px 56px;
 }
 
-/* Cabecera: el logotipo del sitio a dos renglones, más el folio que dice
-   a quién le habla esta tarjeta. */
-.cab { display: flex; align-items: flex-start; justify-content: space-between; }
+/* Cabecera: solo el logotipo, a dos renglones.
+   El folio de la esquina derecha se quitó (2026-09-23): repetía lo que ya
+   dice el titular y le robaba alto al retrato, que tenía que bajar a 404px
+   para no chocar con él. Sin folio vuelve a los 434px de og-default. */
+.cab { display: flex; align-items: flex-start; }
 .logo { display: flex; align-items: center; gap: 14px; }
 .logo svg { width: 46px; height: 32px; color: var(--ink); }
 .wordmark { line-height: 1; }
 .wordmark .nombre { display: block; font-weight: 700; font-size: 27px; letter-spacing: -0.035em; }
 .wordmark .tld { display: block; font-family: "JetBrains Mono", monospace; font-weight: 700; font-size: 17px; color: var(--accent); margin-top: 2px; }
-.folio {
-  font-family: "JetBrains Mono", monospace; font-size: 13px;
-  letter-spacing: 0.18em; color: var(--ink-dim); padding-top: 9px;
-  text-transform: uppercase;
-}
 
 /* Cuerpo: el H1 de la página, tal cual. La caja se corta antes del retrato
    para que el texto nunca le caiga encima. */
-.cuerpo { display: grid; align-content: center; max-width: 700px; }
+.cuerpo { display: grid; align-content: center; max-width: 660px; }
 .titular {
   position: relative; z-index: 1;
   font-family: "Instrument Serif", serif; font-weight: 400;
@@ -106,9 +105,9 @@ body {
 */
 .retrato {
   position: absolute;
-  right: 48px;
+  right: 40px;
   bottom: 0;
-  width: 404px;
+  width: 434px;
   height: auto;
   display: block;
 }
@@ -118,9 +117,9 @@ body {
   position: relative; z-index: 1;
   font-size: 21px; font-weight: 500; line-height: 1.4;
   color: var(--ink-soft);
-  /* Hasta donde empieza el retrato (1200 - 48 de margen - 392 de ancho),
+  /* Hasta donde empieza el retrato (1200 - 40 de margen - 434 de ancho),
      menos un respiro. Con 640 el renglón mono se partía en dos. */
-  max-width: 700px;
+  max-width: 660px;
 }
 .pie .dato {
   display: block; margin-top: 10px;
@@ -145,7 +144,6 @@ body {
         <span class="tld">.ai</span>
       </span>
     </div>
-    <span class="folio">Diagnóstico · 5 preguntas</span>
   </div>
 
   <div class="cuerpo">
@@ -159,7 +157,7 @@ body {
     </p>
   </div>
 
-  <img class="retrato" src="../../public/assets/israel-saco-invita.webp" alt="">
+  <img class="retrato" src="../../public/assets/israel-saco-brazos.webp" alt="">
 
   <p class="pie">
     Dos minutos, y sabes qué tan expuesto está tu despacho.
