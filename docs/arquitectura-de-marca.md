@@ -12,7 +12,7 @@ cara al frente:
 - **TodoConta**, el software, con un canal institucional de YouTube por
   recrear (ver "El canal de YouTube cambió de dueño", abajo).
 - **soycontador.ai**, con `@soycontador.ai` en Instagram (empezado de cero) y
-  el canal de YouTube `@soycontadorAI` (heredado con su audiencia).
+  el canal de YouTube `@soycontadorAI` (nuevo, no heredó audiencia: ver abajo).
 
 Mismo tema, misma cara, mismo avatar de descubrimiento. **Si nadie escribe quién
 es dueño de qué, el contenido se va a producir dos veces y las dos propiedades
@@ -75,12 +75,35 @@ apagar el canal que estaba haciendo bien su trabajo.
 
 ## El canal de YouTube cambió de dueño (decisión de Israel, 2026-09-15)
 
-El canal que nació como `@todoconta` (con el Jueves de ContadorIA y toda la
-audiencia acumulada) **pasó a la marca personal** y hoy es
-`https://www.youtube.com/@soycontadorAI`. La razón: aprovechar la atracción y
-el contenido ya creado para darle impulso a la marca personal, en armonía con
-el Instagram. El estilo del canal (colores, fuentes, plantillas) se alinea a
-la identidad de soycontador.ai a partir de las siguientes ediciones.
+**Corregido el 2026-09-23 por Israel.** Esta sección decía que el canal de
+`@todoconta` "pasó a la marca personal, heredado con su audiencia". No fue
+eso, y la diferencia importa: el canal de la marca personal **no heredó
+nada**, empieza casi de cero.
+
+La historia real, en tres canales:
+
+| Canal | Qué es | Audiencia |
+|---|---|---|
+| **Cuentas Claras** | El canal original de `@todoconta`, **renombrado**. Su avatar, el que le asignó el algoritmo de YouTube, resultó ser gente que busca trámites y burocracia, no contadores | **+4,000 subs** |
+| **`@soycontadorAI`** | Canal **nuevo**, abierto para el programa de contadores. Nació con el handle `@TodoConta` y se le cambió para liberarlo | **129 subs**, 111 videos |
+| **TodoConta** | **Todavía no existe.** Se crea cuando esté definido lo demás, y será solo del software: features, novedades, demos | 0 |
+
+Por eso se liberó el handle `@TodoConta`: para que lo tome el canal del
+software cuando se cree, y no se quede pegado al de la marca personal.
+
+El estilo del canal (colores, fuentes, plantillas) se alinea a la identidad
+de soycontador.ai a partir de las siguientes ediciones; el nombre y los
+enlaces están en [`../youtube/canal.md`](../youtube/canal.md).
+
+**Consecuencia práctica:** el canal de la marca personal se mide como lo que
+es, un canal nuevo. Compararlo contra los 4,000 de Cuentas Claras es la misma
+trampa que medir Instagram con leads de despacho. Y renombrarlo es gratis:
+con 129 suscriptores no hay equidad de marca que perder.
+
+**Cuentas Claras no tiene dueño en este documento.** Son 4,000 personas
+reunidas alrededor de trámites y burocracia, que no es el avatar de ninguna
+de las dos marcas de aquí. Mientras no se decida qué hace con él, es un
+activo parado, no una tercera propiedad de esta arquitectura.
 
 Sobre el handle: Israel quería `@soycontador.ai`, idéntico al de Instagram,
 pero está tomado (posiblemente en el periodo de liberación de ~14 días). Si se

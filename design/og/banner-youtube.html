@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="es-MX">
+<head>
+<meta charset="utf-8">
+<meta name="lienzo" content="2560x1440">
+<meta name="salida" content="design/salidas/banner-youtube.png">
+<title>banner-youtube</title>
+<style>
+/* ============================================================
+   Banner del canal de YouTube (2560x1440). Se renderiza con
+   `node design/og/render.mjs banner-youtube`.
+
+   NO sale a public/: se sube a mano al canal. Por eso design/salidas/.
+
+   ── Por qué existe ──
+   El canal pasó de @todoconta a la marca personal el 2026-09-15, y
+   arquitectura-de-marca.md dice que su estilo se alinea a soycontador.ai
+   "a partir de las siguientes ediciones". El banner se había quedado en la
+   identidad de TodoConta (navy, azul, cian, logotipo "TodoConta."), que es
+   de la otra marca. Este lo trae a Editorial cinético.
+
+   El copy NO se reescribió: es el mismo del banner anterior, que ya estaba
+   validado. Lo que cambia es la identidad, no el mensaje.
+
+   ── La caja segura ──
+   YouTube recorta distinto en TV, escritorio, tableta y teléfono. Lo único
+   que se ve en TODOS es un rectángulo de 1546x423 centrado. Aquí eso es
+   `.seguro`, y FUERA de esa caja no va nada: ni una palabra, ni el dominio.
+   Lo de afuera es papel y nada más, a propósito.
+
+   Sin retrato, por la misma razón que el banner de LinkedIn: el avatar del
+   canal ya trae su cara a dos centímetros, y repetirla compite consigo
+   misma. Además un retrato aquí se recorta distinto en cada dispositivo.
+   ============================================================ */
+@font-face {
+  font-family: "Instrument Serif";
+  font-style: normal; font-weight: 400; font-display: block;
+  src: url("../../node_modules/@fontsource/instrument-serif/files/instrument-serif-latin-400-normal.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Space Grotesk"; font-weight: 100 900; font-display: block;
+  src: url("../../node_modules/@fontsource-variable/space-grotesk/files/space-grotesk-latin-wght-normal.woff2") format("woff2");
+}
+@font-face {
+  font-family: "JetBrains Mono"; font-weight: 100 800; font-display: block;
+  src: url("../../node_modules/@fontsource-variable/jetbrains-mono/files/jetbrains-mono-latin-wght-normal.woff2") format("woff2");
+}
+:root {
+  --bg: #FBFAF7;
+  --ink: #14161A;
+  --ink-soft: #454A54;
+  --ink-dim: #666B75;
+  --accent: #0A7B45;
+  --marker: #3DD68C;
+  --line: #E3E0D8;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  width: 2560px; height: 1440px; overflow: hidden;
+  background: var(--bg); color: var(--ink);
+  font-family: "Space Grotesk", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  display: grid; place-items: center;
+}
+
+/* La caja segura, a escala real. Nada de contenido se sale de aquí. */
+.seguro {
+  width: 1546px; height: 423px;
+  display: flex; flex-direction: column; justify-content: center;
+  gap: 22px;
+  /* Respiro DENTRO de la caja segura. A ras del borde, cualquier redondeo
+     del recorte de YouTube se come la primera letra: en la primera prueba
+     cortaba la J de "Jueves". */
+  padding: 0 44px;
+}
+
+.cintillo {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 22px; font-weight: 500;
+  letter-spacing: 0.2em; text-transform: uppercase;
+  color: var(--ink-dim);
+}
+.cintillo b { color: var(--accent); font-weight: 700; }
+
+.titulo {
+  font-family: "Instrument Serif", serif; font-weight: 400;
+  font-size: 102px; line-height: 0.98; letter-spacing: -0.02em;
+}
+/* El plumón sobre "ContadorIA": el juego de palabras es el nombre del
+   programa, así que se subraya justo ahí. Calibración del sitio: 0.22em de
+   despegue, o sobre la serif se lee como tachado. */
+.titulo b {
+  font-weight: 400;
+  background-image: linear-gradient(
+    to top,
+    transparent 0.22em,
+    var(--marker) 0.22em,
+    var(--marker) 0.72em,
+    transparent 0.72em
+  );
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+}
+
+.promesa {
+  font-size: 30px; font-weight: 500; line-height: 1.35;
+  color: var(--ink-soft); max-width: 1120px;
+}
+
+.firma {
+  display: flex; align-items: center; gap: 16px;
+  padding-top: 12px; border-top: 1px solid var(--line);
+  font-family: "JetBrains Mono", monospace;
+  font-size: 20px; letter-spacing: 0.1em;
+  color: var(--ink-dim);
+}
+.firma svg { width: 40px; height: 28px; color: var(--ink); }
+.firma .dominio { color: var(--accent); font-weight: 700; letter-spacing: 0.04em; }
+</style>
+</head>
+<body>
+  <div class="seguro">
+    <p class="cintillo">En vivo · Jueves 11 am · <b>Centro de México</b></p>
+
+    <h1 class="titulo">Jueves de <b>ContadorIA</b></h1>
+
+    <p class="promesa">
+      IA aplicada a tu despacho. Úsala y constrúyela, sin saber programar.
+    </p>
+
+    <p class="firma">
+      <svg viewBox="5 18 86 60" fill="none" aria-hidden="true">
+        <rect x="12" y="25" width="72" height="5" fill="currentColor"></rect>
+        <rect x="45.5" y="25" width="5" height="46" fill="currentColor"></rect>
+        <rect x="16" y="39" width="24" height="7" fill="currentColor"></rect>
+        <rect x="16" y="52" width="17" height="7" fill="currentColor"></rect>
+        <rect x="56" y="39" width="24" height="7" fill="#0A7B45"></rect>
+        <rect x="56" y="52" width="17" height="7" fill="#0A7B45"></rect>
+      </svg>
+      Israel Castro · Contador público y desarrollador
+      <span class="dominio">soycontador.ai</span>
+    </p>
+  </div>
+</body>
+</html>
