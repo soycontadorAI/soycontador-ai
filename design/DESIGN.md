@@ -154,11 +154,33 @@ asiento por los cuatro lados.
 
 ## La imagen de Open Graph
 
-`public/og-default.png` (1200×630) NO se edita a mano: se genera desde
-`design/og/og-default.html` con puppeteer, y esa plantilla carga las fuentes
-del `node_modules` del proyecto, así que la imagen usa exactamente las mismas
-que el sitio. Para regenerarla, se renderiza esa página a 1200×630 y se
-escribe encima del PNG.
+Los OG (1200×630) NO se editan a mano: se generan desde las plantillas
+`design/og/og-<nombre>.html` con puppeteer, y esas plantillas cargan las
+fuentes del `node_modules` del proyecto, así que la imagen usa exactamente las
+mismas que el sitio.
+
+```bash
+pnpm og              # todas las plantillas
+pnpm og despachos    # solo og-despachos.html → public/og-despachos.png
+```
+
+El script (`design/og/render.mjs`) carga con `goto file://` y no con
+`setContent`, porque las plantillas referencian fuentes y retratos por ruta
+relativa. Trae el mismo guardarraíl que los generadores de guías: si el
+contenido se sale de la caja, falla en vez de escribir un OG con el texto
+amputado.
+
+**Un OG por avatar, no uno por sitio.** `og-default.html` le habla al
+**Avatar A** (la objeción de "esto es para los más jóvenes"), así que sirve
+para la home y las páginas de A. Las páginas del **Avatar B** necesitan el
+suyo: `/despachos` estuvo semanas sirviendo el default, o sea mostrándole al
+socio de despacho un mensaje que no era para él. Una página de B que no pase
+`image` a `BaseLayout` repite el error en silencio.
+
+| Plantilla | Avatar | La usa |
+|---|---|---|
+| `og-default.html` | A | Todo lo que no pase `image` |
+| `og-despachos.html` | B | `/despachos` |
 
 La composición es la de la sección de la vuelta: **el retrato recortado
 (`public/assets/israel-cruzado.webp`, con transparencia) aterriza en el canto
