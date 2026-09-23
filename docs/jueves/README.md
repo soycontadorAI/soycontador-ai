@@ -23,6 +23,7 @@ futuros, invitados por confirmar y vistas: nada de eso es para la audiencia.
 | `deck` | Ruta al `.mdx` en presenter. |
 | `cta` | A qué remata la pieza (curso, taller, lista). |
 | `notas` | Lo que no cabe en las otras. Clips derivados, dudas, cambios de título. |
+| `patrocinador` | Marca que patrocina la serie, una por serie. Vacío si no hay (octubre 2026 va vacío a propósito: es el caso de estudio). Se llena **al firmar, no al negociar**. El pipeline vive en `../patrocinios/prospectos.csv`. |
 
 Las vistas son una foto del **2026-09-19**. Cuando se actualicen, cambiar esta
 fecha y no mezclar fotos de días distintos en la misma columna.
