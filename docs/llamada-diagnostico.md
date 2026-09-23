@@ -72,9 +72,17 @@ evento no puede garantizar nada a 90 días porque tú ya no estás ahí.
 ## Agenda
 
 Todas las llamadas de diagnóstico duran **15 minutos** (decisión de Israel,
-2026-09-21). Hoy `CALENDARIOS.default` en `src/lib/site.ts` apunta a la cita
-de 30 minutos, y de ahí se sirven `/diagnostico`, `LeadForm` (home, contacto,
-soluciones, club), `FormCapacitacion` (capacitación, despachos) y el correo
-de acuse de `/api/lead`. Al crear la cita de 15 en Google Calendar, se cambia
-**ese único enlace** y los seis lugares lo toman solos. No hace falta una
-entrada `diagnostico` aparte mientras todas duren lo mismo.
+2026-09-21), **con 15 de colchón** hasta la siguiente.
+
+Ya está hecho: la cita de 15 existe en Google Calendar y `CALENDARIOS.default`
+en `src/lib/site.ts` apunta a ella. De ahí se sirven `/diagnostico`, `LeadForm`
+(home, contacto, soluciones, club), `FormCapacitacion` (capacitación,
+despachos) y el correo de acuse de `/api/lead`: los seis lugares toman ese
+único enlace. No hace falta una entrada `diagnostico` aparte mientras todas
+duren lo mismo.
+
+**Qué hace el colchón.** Una llamada que lo amerite se puede extender hasta
+unos 30 minutos sin empalmar con la siguiente. Es holgura real, no una promesa:
+**se acaba el día que la agenda se llene**. Cuando eso pase, lo que se agenda y
+lo que dura tienen que volver a coincidir, y ahí es cuando conviene partir
+`CALENDARIOS` por propósito.
