@@ -109,4 +109,4 @@ Israel Castro
 Contador público y desarrollador de software
 hola@soycontador.ai
 https://www.linkedin.com/in/soycontadorAI
-Agenda: https://calendar.app.google/6t1odpL5MRgM5hSu8
+Agenda: https://calendar.app.google/LoP7NXbqineYAJNd6

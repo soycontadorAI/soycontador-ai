@@ -52,6 +52,24 @@ Fuera de esta carpeta: `docs/jueves/episodios.csv` lleva la columna
 `patrocinador` (se llena al firmar, no al negociar) y `docs/README.md`
 registra el fee como dato interno.
 
+## El enlace de agenda no se escribe aquí
+
+La hoja compartible cierra con un enlace de Google Calendar. **Su fuente única
+es `CALENDARIOS.default` en `src/lib/site.ts`**, que es donde vive la decisión
+de "una sola agenda para todo" (2026-08-31). Al cambiar la agenda hay que
+traerlo de ahí, no editarlo a mano.
+
+Ya pasó una vez: la hoja se editó al enlace nuevo y `site.ts` se quedó con el
+viejo, así que durante un rato el sitio y la hoja mandaban a calendarios
+distintos y nadie se enteró. Es el riesgo de hardcodear un dato de la entidad
+en un documento.
+
+**Pendiente relacionado:** la hoja ofrece "una llamada de 30 minutos", pero ese
+enlace agenda 15 con 5 de colchón (decisión del 2026-09-21, para las llamadas
+de diagnóstico). O la hoja dice 15, o la venta de patrocinio necesita su propia
+entrada en el mapa. El mapa ya soporta lo segundo sin refactor:
+`calendarioDe("cotizacion")` tomaría esa entrada sola.
+
 ## Bitácora
 
 - **2026-09-20.** Israel decide: la primera serie que se vende es la de
