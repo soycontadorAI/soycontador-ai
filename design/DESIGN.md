@@ -155,16 +155,16 @@ asiento por los cuatro lados.
 ## La imagen de Open Graph
 
 Los OG (1200×630) NO se editan a mano: se generan desde las plantillas
-`design/og/og-<nombre>.html` con puppeteer, y esas plantillas cargan las
+`design/piezas/og-<nombre>.html` con puppeteer, y esas plantillas cargan las
 fuentes del `node_modules` del proyecto, así que la imagen usa exactamente las
 mismas que el sitio.
 
 ```bash
-pnpm og              # todas las plantillas
-pnpm og despachos    # solo og-despachos.html → public/og-despachos.png
+pnpm piezas              # todas las plantillas
+pnpm piezas despachos    # solo og-despachos.html → public/og-despachos.png
 ```
 
-El script (`design/og/render.mjs`) carga con `goto file://` y no con
+El script (`design/piezas/render.mjs`) carga con `goto file://` y no con
 `setContent`, porque las plantillas referencian fuentes y retratos por ruta
 relativa. Trae el mismo guardarraíl que los generadores de guías: si el
 contenido se sale de la caja, falla en vez de escribir un OG con el texto
@@ -224,9 +224,37 @@ socio de despacho un mensaje que no era para él. Una página de B que no pase
 | `og-diagnostico.html` | 1200×630 | B | `/diagnostico` |
 | `banner-linkedin.html` | 1584×396 | B | El perfil de LinkedIn (se sube a mano) |
 | `banner-youtube.html` | 2560×1440 | A | El canal de YouTube (se sube a mano) |
-| `miniatura-jueves-10.html` | 1280×720 | A | La miniatura del live #10 (se sube a mano) |
+| `miniatura-jueves-10-alta.html` | 1280×720 | A | La miniatura del live #10 (se sube a mano) |
 
-**Cada plantilla declara su lienzo y su destino**, porque ya no todas son Open
+### La nomenclatura
+
+El **prefijo** dice qué es la pieza y el meta `salida` dice a dónde va:
+
+| Prefijo | Ejemplo | Sale a |
+|---|---|---|
+| `og-<pagina>` | `og-despachos.html` | `public/`, lo sirve el sitio |
+| `banner-<superficie>` | `banner-linkedin.html` | `design/salidas/`, se sube a mano |
+| `miniatura-<serie>-<n>` | `miniatura-jueves-10-alta.html` | `design/salidas/`, se sube a mano |
+
+Lo que el sitio sirve sale a `public/`. Lo que se sube a mano a una plataforma
+sale a `design/salidas/`, que no se publica.
+
+La carpeta se llamaba `design/og/` y guardaba las tres cosas, así que el
+nombre mentía. Es `design/piezas/` desde el 2026-09-24, y el comando es
+`pnpm piezas`.
+
+### Cuándo NO usar esto
+
+**Las miniaturas semanales se hacen en Canva**, y está bien. Cambian cada
+episodio y ahí la iteración rápida vale más que la exactitud al píxel.
+
+Este sistema rinde en lo que se hace **una vez** y tiene que ser exacto al
+sistema de diseño: las tarjetas de Open Graph y los banners de perfil, que se
+ponen y no se vuelven a tocar en meses. `miniatura-jueves-10-alta.html` queda
+como ejemplo trabajado y como plantilla de arranque si algún día conviene
+automatizarlas, no como obligación semanal.
+
+**Cada plantilla declara su lienzo y su destino**, porque no todas son Open
 Graph:
 
 ```html

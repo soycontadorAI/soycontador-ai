@@ -112,7 +112,7 @@ handle de YouTube se libera y cambia, se toca ahí y no aquí.
 
 ## Banner
 
-`design/og/banner-youtube.html`, se renderiza con `pnpm og banner-youtube` y
+`design/piezas/banner-youtube.html`, se renderiza con `pnpm piezas banner-youtube` y
 sale a `design/salidas/banner-youtube.png`.
 
 **El copy no se reescribió**: es el mismo del banner anterior, que ya estaba

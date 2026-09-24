@@ -257,7 +257,7 @@ valor y no es contigo.
 - Definir el avatar del perfil en inglés. Mientras tanto, el arreglo provisional
   es pegar ahí el titular y el Acerca de en español, para no mostrar copy viejo.
 - Producir el banner. Concepto "El asiento" decidido, hermano de
-  `design/og/og-default.html`, a 1584 × 396.
+  `design/piezas/og-default.html`, a 1584 × 396.
 - Pedir tres recomendaciones (un colega que usó las herramientas, alguien de
   Sofía, y José de Jesús Pérez Lara).
 - Abrir el newsletter de LinkedIn con el boletín que ya se escribe.

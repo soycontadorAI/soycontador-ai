@@ -15,7 +15,7 @@
     "patrocinios:hoja": "node docs/patrocinios/generar-hoja.mjs",
     "guia:flujos": "node guias/flujos-hibridos/generar.mjs",
     "guia:prompts": "node guias/prompts-xml/generar.mjs",
-    "og": "node design/og/render.mjs",
+    "piezas": "node design/piezas/render.mjs",
     "preview": "astro preview"
   },
   "dependencies": {
