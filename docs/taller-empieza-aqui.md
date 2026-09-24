@@ -1,6 +1,6 @@
 # Taller "Empieza aquí": Claude para contadores en 2 horas
 
-Producto nuevo, definido el 2026-09-20 (todas las decisiones tomadas; falta construir la página y producir el material). Sale de la pregunta abierta de la
+Producto nuevo, definido el 2026-09-20. `/empieza` y `src/lib/empieza.ts` ya están hechos (PR #14); falta pegar el `PRODUCT_ID` de nas.io y producir el material. Sale de la pregunta abierta de la
 encuesta de agosto (`jueves/encuesta-2026-08.md`): "si diseñáramos un taller
 práctico de 2 horas, ¿sobre qué te urge que sea?". 14 de 60 pidieron "las
 bases", 27 dijeron que ChatGPT les contesta como blog, y 15 no la usan. Ese
