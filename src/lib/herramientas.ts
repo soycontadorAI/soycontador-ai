@@ -7,6 +7,13 @@
  * así que su promesa es "canal controlado, sin pegar datos en chats públicos".
  */
 
+/*
+ * Cada herramienta apunta a SU página, no a la home de TodoConta. Las tres
+ * llevaban la raíz, así que quien leía la ficha de Abacus y hacía clic
+ * aterrizaba en la portada y tenía que volver a buscarlo. Verificadas el
+ * 2026-09-23: /abacus y /mcp responden 200; /descarga-masiva y /listas-negras
+ * todavía no existen, y por eso TodoConta se queda en la raíz.
+ */
 export interface Herramienta {
   nombre: string;
   descripcion: string;
@@ -26,14 +33,14 @@ export const HERRAMIENTAS: Herramienta[] = [
     nombre: "Conexión MCP con el SAT",
     descripcion:
       "El puente entre tu asistente de IA y tus CFDI: conectas Claude (para quien fue diseñado) a tu cuenta de TodoConta y le pides cálculos, conciliaciones y reportes en lenguaje natural. Un canal controlado para trabajo fiscal, en lugar de copiar y pegar datos de clientes en un chat público.",
-    url: "https://todoconta.com",
+    url: "https://todoconta.com/mcp",
     estado: "disponible",
   },
   {
     nombre: "Abacus",
     descripcion:
       "Asistente fiscal mexicano por WhatsApp y Telegram: resuelve dudas de SAT, CFDI e impuestos en el chat donde ya trabajas.",
-    url: "https://todoconta.com",
-    estado: "beta",
+    url: "https://todoconta.com/abacus",
+    estado: "disponible",
   },
 ];
