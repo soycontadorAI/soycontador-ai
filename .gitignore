@@ -29,3 +29,6 @@ pnpm-debug.log*
 .idea/
 .vercel
 .env*
+
+# PDF de la hoja de patrocinios: se rehace con pnpm patrocinios:hoja
+docs/patrocinios/salida/

@@ -12,6 +12,7 @@
     "ebook": "pnpm ebook:libro && pnpm ebook:muestra",
     "ebook:libro": "node ebook/generar-libro.mjs",
     "ebook:muestra": "node ebook/generar-muestra.mjs",
+    "patrocinios:hoja": "node docs/patrocinios/generar-hoja.mjs",
     "guia:flujos": "node guias/flujos-hibridos/generar.mjs",
     "guia:prompts": "node guias/prompts-xml/generar.mjs",
     "og": "node design/og/render.mjs",
