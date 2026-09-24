@@ -56,7 +56,7 @@ escribe a él.
 >
 > Cada jueves a las 11 hago un live para contadores de carrera (45 a 65 años, con despacho propio) sobre cómo usar IA en trabajo fiscal de México. En noviembre van cuatro episodios con una regla: cada cálculo tiene que citar el artículo que lo sustenta. [Tema que posee la marca: por ejemplo, "dos de los cuatro son de nómina e IMSS" o "el tema de la serie es el fundamento legal, que es lo que ustedes venden"].
 >
-> Busco un solo patrocinador para la serie, con exclusividad de categoría. ¿Te va una llamada de 20 minutos esta semana o la próxima? Aquí mi agenda: [enlace].
+> Busco un solo patrocinador para la serie, con exclusividad de categoría. ¿Te va una llamada de 15 minutos esta semana o la próxima? Aquí mi agenda: [enlace].
 
 **Día 4, mensaje 2 (si no contestó):**
 
@@ -86,7 +86,7 @@ Cuerpo del primero (bajo 120 palabras, un solo enlace):
 >
 > En noviembre lanzo "Cálculos que se fundamentan solos": cuatro episodios donde cada cálculo (declaración mensual, ajuste anual, cuotas IMSS) tiene que citar el artículo que lo sustenta. [Una línea del tema que posee la marca].
 >
-> Busco un solo patrocinador para la serie, con exclusividad de categoría. ¿Me das 20 minutos esta semana o la próxima? Agenda: [enlace].
+> Busco un solo patrocinador para la serie, con exclusividad de categoría. ¿Me das 15 minutos esta semana o la próxima? Agenda: [enlace].
 >
 > Israel Castro
 > Contador público y desarrollador de software

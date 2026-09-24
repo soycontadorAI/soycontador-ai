@@ -47,6 +47,8 @@ de prospectos y los contactos. Astro solo sirve `src/pages/` y `public/`.
 | `playbook-venta.md` | Calendario hacia atrás, secuencias de contacto con plantillas, llamada de descubrimiento, propuesta, objeciones, contrato, entrega por episodio, informe y renovación. |
 | `metricas-youtube.md` | Qué exportar de YouTube, Instagram, Sendy y GA4, cómo argumenta cada dato y cómo se guarda. |
 | `metricas.csv` | Las fotos de métricas, fechadas, en formato largo. |
+| `mensajes-ola-1.md` | Los mensajes de la primera ola, uno por marca y listos para pegar, con el tema que cada marca posee ya escrito. |
+| `generar-hoja.mjs` | Genera el PDF de la compartible (`pnpm patrocinios:hoja`) con la identidad del sitio. Sale a `salida/`, fuera de git. Si quedan placeholders, el archivo se llama `-borrador.pdf` y no se manda. Se niega a generar la interna. |
 
 Fuera de esta carpeta: `docs/jueves/episodios.csv` lleva la columna
 `patrocinador` (se llena al firmar, no al negociar) y `docs/README.md`

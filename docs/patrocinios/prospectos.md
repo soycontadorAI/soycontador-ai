@@ -111,6 +111,24 @@ Diez marcas, en orden de fit por velocidad. Las dos últimas van para enero
 desde el primer mensaje. Nadie sale de aquí sin `fecha_verificacion` en el
 CSV.
 
+**Contactos confirmados el 2026-09-23** (segunda pasada; "verificado"
+significa que la URL de LinkedIn aparece indexada con nombre y empresa, no
+que se abrió el perfil, porque LinkedIn bloquea la lectura automática). Lo
+que cambió respecto a la tabla de abajo, que se conserva por el argumento:
+
+| Marca | A quién de verdad | Correo |
+|---|---|---|
+| Worky | **Mariana Calleja Martínez**, Partner Manager. La cuenta "Aguilar y Reyes" es compartida y sus posts son de 2023; Carlos de León es DG de maquila, no marketing. | mariana.calleja@worky.mx (publicado en worky.mx/distribuidores-y-aliados) |
+| Tax Editores | **Diego Perezchavez**, CEO y DG de Tax Holding (LinkedIn `dpchstudio`, posts de sept-2026). Secundario: Carlos A. Corona Rabía, Director de Libros, Leyes y Revistas. | contactanos-tax@tax.com.mx |
+| Nomilinea | **Marily Martínez**, Marketing Manager de Software SICOSS / Nomilinea (LinkedIn publicado en la página de la compañía). Luis Martínez existe pero no tiene LinkedIn. DG: Andrés Alberto Durán. | contacto@sicoss.com.mx |
+| Runa HR | **Caleb Zúñiga Marroquín**, Channel Manager; sus posts son de 2022-2023, vigencia sin confirmar. | Formulario runahr.com/mx/distribuidores |
+| IDC Online | **María Ayala**, Gerente Comercial de IDC: es el contacto de patrocinio del Media Kit 2025. | maria.ayala@idconline.mx, 55 8066 3458 |
+| Fiscalia.com | Gustavo Leal Cueva, confirmado al frente (firma artículos del 4, 11 y 22 de sept-2026). LinkedIn `glealc`. | contacto@fiscalia.com |
+| Crol ERP | Avelino Castro Valencia, DG. Sin marketing ni alianzas con nombre. | contacto@crol.mx |
+| Factorial | Ernesto Blanco Sierra, Strategy y Partnerships LATAM, sigue en 2026; su agenda HubSpot está incrustada en factorial.mx/partnerships. | Sin correo público |
+| CONTPAQi | Brian Nishizaki Simón, confirmado con el cargo el 18-sep-2026. Marketing: María Ramírez, Directora de Desarrollo de Mercado. | Sin correo público |
+| **Alegra** | **Sin a quién escribirle hoy**: el country manager salió (Víctor Moreno está en Sesame) y la vacante de Channel Partnerships Manager México se cerró hace unas semanas: el nombramiento está por salir. Se revisa la página de LinkedIn de la empresa cada semana; alterno, Jorge Soto (CEO). | partners.alegra.com/quiero-ser-partner como puerta lateral |
+
 | # | Marca | Rúbrica | Por qué | A quién |
 |---|---|---|---|---|
 | 1 | **Fiscalia.com** | 8 | Su producto es la biblioteca de leyes y tesis: el fundamento es su tema. Sin IA propia, sin cursos de IA. Empresa chica que decide su fundador. | Gustavo Leal Cueva, fundador y director ejecutivo; contacto@fiscalia.com |
