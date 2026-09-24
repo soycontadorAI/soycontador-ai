@@ -1,9 +1,22 @@
 /**
- * render.mjs — convierte las plantillas de `design/og/*.html` en los PNG de
- * Open Graph que viven en `public/`.
+ * render.mjs — convierte las plantillas de `design/piezas/*.html` en PNG.
  *
- *   node design/og/render.mjs              # todas
- *   node design/og/render.mjs despachos    # solo og-despachos.html
+ * ── La nomenclatura ──
+ * El PREFIJO del archivo dice qué es la pieza, y el meta `salida` dice a dónde
+ * va. La regla práctica:
+ *
+ *   og-<pagina>.html          → public/og-<pagina>.png      (lo sirve el sitio)
+ *   banner-<superficie>.html  → design/salidas/             (se sube a mano)
+ *   miniatura-<serie>-<n>.html → design/salidas/            (se sube a mano)
+ *
+ * Lo que el sitio sirve sale a `public/`. Lo que se sube a mano a una
+ * plataforma sale a `design/salidas/`, que no se publica.
+ *
+ * La carpeta se llamaba `og/` y guardaba las tres cosas, así que el nombre
+ * mentía. Se renombró a `piezas/` el 2026-09-24.
+ *
+ *   node design/piezas/render.mjs              # todas
+ *   node design/piezas/render.mjs despachos    # solo og-despachos.html
  *
  * Cada plantilla declara su propio lienzo y su destino en dos meta, porque no
  * todas son Open Graph: el banner de LinkedIn mide 1584x396 y no se sirve
@@ -49,8 +62,8 @@ const plantillas = readdirSync(aqui)
 if (!plantillas.length) {
   console.error(
     pedidas.length
-      ? `\n  No hay plantilla para: ${pedidas.join(", ")}\n  Se esperaba design/og/<nombre>.html\n`
-      : "\n  No hay plantillas .html en design/og/\n",
+      ? `\n  No hay plantilla para: ${pedidas.join(", ")}\n  Se esperaba design/piezas/<nombre>.html\n`
+      : "\n  No hay plantillas .html en design/piezas/\n",
   );
   process.exit(1);
 }
