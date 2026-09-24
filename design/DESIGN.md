@@ -224,6 +224,7 @@ socio de despacho un mensaje que no era para él. Una página de B que no pase
 | `og-diagnostico.html` | 1200×630 | B | `/diagnostico` |
 | `banner-linkedin.html` | 1584×396 | B | El perfil de LinkedIn (se sube a mano) |
 | `banner-youtube.html` | 2560×1440 | A | El canal de YouTube (se sube a mano) |
+| `miniatura-jueves-10.html` | 1280×720 | A | La miniatura del live #10 (se sube a mano) |
 
 **Cada plantilla declara su lienzo y su destino**, porque ya no todas son Open
 Graph:
@@ -235,6 +236,23 @@ Graph:
 
 Lo que no sirve el sitio no sale a `public/`: el banner de LinkedIn se sube a
 mano al perfil, así que su destino es `design/salidas/`.
+
+### Las miniaturas del Jueves
+
+Dos reglas que deciden si funcionan, y las dos se olvidan:
+
+- **El gancho NO repite el título.** El título dice de qué va el video; la
+  miniatura da el dato que abre la curiosidad. En el #10 el título pregunta
+  "¿Qué hace la IA con tus datos?" y la miniatura contesta con otra cosa:
+  "5 años o 30 días". Repetir el título desperdicia la mitad del espacio.
+- **Se verifica a 210px**, que es el ancho real en el feed. Por eso el gancho
+  son dos renglones de cifras enormes: lo que a tamaño completo parece grande,
+  a 210px desaparece. El remate y el folio no se leen ahí, y está bien; sirven
+  a quien sí se detuvo.
+
+```python
+Image.open("design/salidas/<miniatura>.png").resize((210, 118))
+```
 
 ### El banner de YouTube
 

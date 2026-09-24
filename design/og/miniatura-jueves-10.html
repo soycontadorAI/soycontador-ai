@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="es-MX">
+<head>
+<meta charset="utf-8">
+<meta name="lienzo" content="1280x720">
+<meta name="salida" content="design/salidas/miniatura-jueves-10.png">
+<title>miniatura-jueves-10</title>
+<style>
+/* ============================================================
+   Miniatura de YouTube del Jueves de ContadorIA #10 (1280x720).
+   `node design/og/render.mjs miniatura-jueves-10`.
+
+   NO sale a public/: se sube a mano al video. Por eso design/salidas/.
+
+   Es la primera miniatura con la identidad de soycontador.ai, como pide
+   docs/jueves/episodios.csv para este episodio ("primer jueves como marca
+   personal: deck con el DS de soycontador.ai").
+
+   ── Las dos reglas de miniatura que ya costaron ──
+   1. EL GANCHO NO REPITE EL TÍTULO. El título dice de qué va ("¿Qué hace la
+      IA con tus datos?"); la miniatura nombra el MIEDO que el video desarma.
+      Repetir el título desperdicia la mitad del espacio.
+
+      El signo de interrogación no es adorno: es lo que separa esto de un
+      anzuelo. El video contesta que no, y le dedica una sección entera ("lo
+      que la gente teme no pasa así"). Si el gancho AFIRMARA el robo en vez de
+      preguntarlo, prometería algo que el contenido no entrega.
+   2. SE VERIFICA A 210px, que es como se ve en el feed. Por eso el gancho va
+      en caja alta, enorme y en dos renglones: lo que a tamaño completo parece
+      grande, a 210px desaparece.
+
+   Retrato: `israel-duda` (sudadera), que es el registro del Avatar A, a
+   quien sirve YouTube. Es el mismo del carrusel de este tema.
+   ============================================================ */
+@font-face {
+  font-family: "Instrument Serif";
+  font-style: normal; font-weight: 400; font-display: block;
+  src: url("../../node_modules/@fontsource/instrument-serif/files/instrument-serif-latin-400-normal.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Space Grotesk"; font-weight: 100 900; font-display: block;
+  src: url("../../node_modules/@fontsource-variable/space-grotesk/files/space-grotesk-latin-wght-normal.woff2") format("woff2");
+}
+@font-face {
+  font-family: "JetBrains Mono"; font-weight: 100 800; font-display: block;
+  src: url("../../node_modules/@fontsource-variable/jetbrains-mono/files/jetbrains-mono-latin-wght-normal.woff2") format("woff2");
+}
+:root {
+  --bg: #FBFAF7;
+  --surface: #F3F1EB;
+  --ink: #14161A;
+  --ink-soft: #454A54;
+  --ink-dim: #666B75;
+  --accent: #0A7B45;
+  --marker: #3DD68C;
+  --line: #E3E0D8;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  position: relative;
+  width: 1280px; height: 720px; overflow: hidden;
+  background: var(--bg); color: var(--ink);
+  font-family: "Space Grotesk", sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+.texto {
+  position: absolute; z-index: 1;
+  left: 64px; top: 96px; width: 700px;
+}
+
+.folio {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 23px; font-weight: 700;
+  letter-spacing: 0.16em; text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 26px;
+}
+
+/* El gancho. Enorme a propósito: es lo único que tiene que sobrevivir el
+   escalado a 210px de ancho del feed. */
+.gancho {
+  font-family: "Instrument Serif", serif; font-weight: 400;
+  font-size: 124px; line-height: 0.92; letter-spacing: -0.02em;
+}
+.gancho b {
+  font-weight: 400;
+  background-image: linear-gradient(
+    to top,
+    transparent 0.22em,
+    var(--marker) 0.22em,
+    var(--marker) 0.74em,
+    transparent 0.74em
+  );
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+}
+
+/* El remate: lo que acota la promesa del gancho. A 210px no se lee, y está
+   bien: ahí ya hizo su trabajo el gancho. Sirve al que sí se detiene. */
+.remate {
+  margin-top: 30px;
+  font-size: 27px; font-weight: 500; line-height: 1.32;
+  color: var(--ink-soft);
+  max-width: 660px;
+}
+.remate .marca-sitio {
+  display: block; margin-top: 18px;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 19px; font-weight: 700; letter-spacing: 0.06em;
+  color: var(--accent);
+}
+
+/*
+  El retrato aterriza en el canto inferior derecho: el borde es el suelo,
+  igual que en las tarjetas de Open Graph. Va detrás del texto, pero la
+  columna de texto mide 700px y el retrato empieza en 780, así que no se
+  tocan a ningún tamaño.
+*/
+.retrato {
+  position: absolute; z-index: 0;
+  right: 24px; bottom: 0;
+  width: 470px; height: auto; display: block;
+}
+</style>
+</head>
+<body>
+  <div class="texto">
+    <p class="folio">Tus datos y la IA</p>
+
+    <!-- Cortes fijos: es una imagen de tamaño único, no hay nada que
+         dejarle al flujo. -->
+    <p class="gancho">
+      ¿ROBO<br>
+      <b>DE DATOS?</b>
+    </p>
+
+    <p class="remate">
+      Qué pasa cuando subes archivos de tus clientes, y cuál es el daño real.
+      No es el que te imaginas.
+      <span class="marca-sitio">Jueves de ContadorIA · 11 am</span>
+    </p>
+  </div>
+
+  <img class="retrato" src="../../public/assets/israel-duda.webp" alt="">
+</body>
+</html>
