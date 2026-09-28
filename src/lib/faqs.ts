@@ -87,7 +87,7 @@ export const FAQ_CLUB: FaqItem[] = [
   {
     pregunta: "¿Qué es el Club de Automatización Fiscal?",
     respuesta:
-      "Es una membresía anual para despachos que quieren automatizar su operación fiscal con acompañamiento. Combina software (TodoConta con conexión MCP), un bootcamp de implementación en vivo cada mes y soporte humano cuando el equipo se atora.",
+      "Es una membresía anual para despachos que quieren automatizar su operación fiscal con acompañamiento. Combina TodoConta completo con conexión MCP, una clase privada cada mes y soporte directo conmigo cuando te atoras.",
   },
   {
     pregunta: "¿Por qué la entrada es por aplicación?",
@@ -97,7 +97,7 @@ export const FAQ_CLUB: FaqItem[] = [
   {
     pregunta: "¿Esto es un curso de IA?",
     respuesta:
-      "No. Los cursos te dan videos; el Club te deja procesos automatizados operando en tu despacho. Cada bootcamp mensual termina con algo funcionando, y si te atoras entre sesiones, el soporte lo destraba contigo.",
+      "No. Los cursos te dan videos; el Club te deja procesos automatizados operando en tu despacho. Cada clase mensual termina con algo funcionando, y si te atoras entre clases, lo destrabamos juntos.",
   },
 ];
 

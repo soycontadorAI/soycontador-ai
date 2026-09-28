@@ -98,22 +98,22 @@ export const CLUB = {
   nombre: "Club de Automatización Fiscal",
   siglas: "CAF",
   descripcion:
-    "Membresía anual con lugares limitados para despachos que quieren automatizar su operación fiscal: software (TodoConta con conexión MCP), un bootcamp de implementación en vivo cada mes y soporte humano cuando el equipo se atora. La entrada es por aplicación.",
+    "Membresía anual con lugares limitados para despachos que quieren automatizar su operación fiscal: TodoConta completo con conexión MCP, una clase privada cada mes y soporte directo conmigo cuando te atoras. La entrada es por aplicación.",
   pilares: [
     {
-      titulo: "Software listo para usar",
+      titulo: "Una clase privada cada mes",
       texto:
-        "TodoConta multi-RFC: descarga masiva de CFDI, constancias, opinión 32-D, listas negras y nómina. Con conexión MCP para pedirle a Claude cálculos, conciliaciones y reportes en lenguaje natural.",
+        "Una sesión en vivo de 2 horas, exclusiva para los miembros. No son videos grabados: automatizamos un proceso real de tu despacho en la clase y sales con algo funcionando.",
     },
     {
-      titulo: "Bootcamp mensual de implementación",
+      titulo: "TodoConta completo",
       texto:
-        "Una sesión en vivo de 2 horas cada mes. No son videos grabados: automatizamos un proceso real de tu despacho en la sesión y sales con algo funcionando.",
+        "Todas sus funciones y multi-RFC: descarga masiva de CFDI, constancias, opinión 32-D, listas negras y nómina. Incluye las funciones de IA y la conexión MCP para pedirle a Claude cálculos, conciliaciones y reportes en lenguaje natural.",
     },
     {
-      titulo: "Soporte humano cuando te atoras",
+      titulo: "Soporte directo conmigo",
       texto:
-        "¿Un prompt no sale? ¿La base local marca error? No estás solo: nuestro equipo revisa contigo hasta que quede.",
+        "¿Un prompt no sale? ¿La base local marca error? Lo revisamos juntos, tú y yo, hasta que quede. Cuando crezca el equipo, también con mis colaboradores.",
     },
   ],
 } as const;
