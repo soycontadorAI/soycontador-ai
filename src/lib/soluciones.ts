@@ -25,19 +25,25 @@ export const SOLUCIONES: Solucion[] = [
     descripcion:
       "Revisión de tus flujos operativos con ojos de contador y de ingeniero: dónde se pierde tiempo, qué se puede automatizar primero y qué requiere criterio humano.",
   },
+  {
+    titulo: "Software o página web a la medida",
+    descripcion:
+      "Una herramienta hecha para cómo trabaja tu despacho, o su página web, construida por alguien que entiende de contabilidad.",
+  },
 ];
 
 /**
  * Caso real (verificado en el repo excel_templates/cortes_gasolineras):
  * cortes diarios de 2 gasolineras, un Excel por sucursal con una hoja por día
- * del mes (hasta 31), consolidado a mano en 6-7 horas cada mes. Hoy un script
+ * del mes (hasta 31), consolidado a mano en 7 a 8 horas cada mes (Israel lo
+ * corrigió el 2026-09-28, al grabar la story de Soluciones; antes decía 6 a 7). Hoy un script
  * en Python (pandas + openpyxl) detecta los archivos, tolera que cada sucursal
  * acomode sus tablas distinto, y entrega un concentrado de 4 hojas (resumen
  * diario, clientes, vales y gastos) en segundos.
  */
 export const CASO_GASOLINERA = {
   contexto: "Cortes diarios de 2 estaciones de gasolina",
-  antes: "6 a 7 horas de captura al mes, repartidas en 1 a 3 días",
+  antes: "7 a 8 horas de captura al mes, repartidas en 1 a 3 días",
   despues: "Un script en Python lo concentra en segundos",
   detalle:
     "Un Excel por sucursal con una hoja por cada día del mes (hasta 31 hojas). El script encuentra las tablas aunque cada sucursal las acomode diferente y entrega un consolidado mensual de 4 hojas: resumen diario, clientes, vales y gastos.",

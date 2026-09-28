@@ -78,7 +78,7 @@ const PAGINAS: Array<{ ruta: string; titulo: string; que: string }> = [
   {
     ruta: "/club",
     titulo: "Club de Automatización Fiscal",
-    que: "membresía anual con software, bootcamp mensual y soporte humano (entrada por aplicación)",
+    que: "membresía anual con TodoConta completo, una clase privada cada mes y soporte directo con Israel (entrada por aplicación)",
   },
   {
     ruta: "/ebook",

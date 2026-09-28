@@ -227,10 +227,10 @@ export const ORGANIZACIONES = {
 export const EMPRESARIAL = {
   nombre: "Capacitación empresarial",
   descripcion:
-    "Para tu empresa o despacho completo: sesiones grupales de 1 a 2 horas por día, adaptadas a tu operación real y al nivel de tu equipo. Este programa solo se cotiza por llamada: primero me cuentas cómo opera tu equipo en el formulario y después agendamos.",
+    "Para el área contable de tu empresa o tu despacho completo: sesiones grupales de 1 a 2 horas por día, adaptadas a tu operación contable y fiscal y al nivel de tu equipo. Este programa solo se cotiza por llamada: primero me cuentas cómo opera tu equipo en el formulario y después agendamos.",
   puntos: [
     "Sesiones grupales de 1-2 horas por día, sin frenar la operación",
-    "Sobre los procesos reales de tu empresa, no ejemplos genéricos",
-    "Plan de adopción por rol: quién automatiza qué",
+    "Sobre tus procesos contables y fiscales reales, no ejemplos genéricos",
+    "Plan de adopción del área contable y fiscal: qué se automatiza primero y quién lo lleva",
   ],
 } as const;
