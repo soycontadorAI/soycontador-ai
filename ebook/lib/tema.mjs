@@ -166,6 +166,21 @@ export function logotipo({ tinta = C.ink, verde = C.accent, tam = 15 } = {}) {
 </span>`;
 }
 
+/**
+ * Logotipo "Contrapartida" (elegido el 2026-10-01, ver src/components/Nav.astro): el nombre dentro
+ * de la cuenta T; la raya cubre todo y el asta separa el cargo (soycontador) del abono (.ai, verde).
+ * Estilos en línea para no depender de la hoja de cada PDF. Las piezas viejas siguen con logotipo()
+ * hasta que se regeneren a propósito.
+ */
+export function contrapartida({ tinta = C.ink, verde = C.accent, tam = 15 } = {}) {
+  const raya = "max(1.5pt, 0.15em)";
+  return `<span style="position:relative;display:inline-flex;align-items:baseline;gap:0.3em;padding:calc(${raya} + 0.24em) 0.14em 0;font-family:${F.body};font-weight:700;font-size:${tam}pt;line-height:1;white-space:nowrap;color:${tinta}">` +
+    `<span style="position:absolute;left:0;right:0;top:0;height:${raya};background:${tinta}"></span>` +
+    `<span style="letter-spacing:-0.035em">soycontador</span>` +
+    `<span style="align-self:stretch;flex:none;width:${raya};background:${tinta};margin-top:-0.24em;margin-bottom:-0.22em"></span>` +
+    `<span style="font-family:${F.mono};font-size:0.92em;letter-spacing:-0.02em;color:${verde}">.ai</span></span>`;
+}
+
 // ---------------------------------------------------------------------------
 // Hoja de estilo
 // ---------------------------------------------------------------------------

@@ -1,0 +1,534 @@
+---
+/**
+ * /sitio · La ENTREGA del regalo "SITIO": cómo rehice la página de mi despacho
+ * (S & I Castro Consultores) con Claude Code, con el prompt exacto, el prompt
+ * del efecto de la firma y los 11 tips.
+ *
+ * Mismo circuito que /recibos (decisión de Israel, 2026-10-01): reel en IG →
+ * comenta SITIO → el DM pide el correo → entra a la lista `sitio` de Sendy →
+ * el correo de confirmación trae el enlace a ESTA página (confirm_url apunta
+ * aquí) y el de bienvenida trae el PDF adjunto. La página es abierta y sin
+ * muro: la exclusividad no es el contenido, es que te llegue al correo.
+ *
+ * Diferencia con /recibos: aquí la banda del correo SÍ va a la lista `sitio`,
+ * porque lo que promete es el PDF (que solo llega por correo), no el enlace a
+ * esta página.
+ *
+ * El cierre vende el servicio ("¿Prefieres que lo haga yo?"): LeadForm con el
+ * interés "Mejorar mi sitio web", acuse por SES y la agenda de 15 minutos.
+ *
+ * El prompt y los tips salen de src/lib/sitio-prompt.md vía src/lib/sitio.mjs,
+ * igual que el PDF de guias/sitio-despacho/: una sola fuente.
+ *
+ * El clip del hilo pesa 160 KB y se carga hasta que se acerca a la pantalla;
+ * con movimiento reducido no corre solo: queda el póster y los controles.
+ *
+ * Imágenes ya optimizadas en public/assets (avif + webp a 640/960/1440), como
+ * el resto del sitio: el proyecto no instala sharp y agregarlo toca la
+ * configuración de pnpm que ya tumbó dos deploys (ver AGENTS.md). Salen de las
+ * capturas completas en sicastro-video-antes-despues/.
+ *
+ * Va DESNUDA, como /audita, /flujos y /recibos: quien llega viene por una sola
+ * cosa.
+ */
+import BaseLayout from "../layouts/BaseLayout.astro";
+import LeadForm from "../components/LeadForm.astro";
+import NewsletterForm from "../components/NewsletterForm.astro";
+import MD from "../lib/sitio-prompt.md?raw";
+import { partes } from "../lib/sitio.mjs";
+import { breadcrumbs, graph, personRef } from "../lib/schema";
+import { SITE } from "../lib/site";
+
+const { prompt, firma, tips } = partes(MD);
+
+const OG = "/assets/sitio-og.jpg";
+const POSTER = "/assets/sitio-hilo-poster.webp";
+
+/** srcset de una captura: mismas tres anchuras en avif y webp. */
+const juego = (nombre: string, ext: "avif" | "webp") =>
+  [640, 960, 1440].map((w) => `/assets/sitio-${nombre}-${w}.${ext} ${w}w`).join(", ");
+const TAMANOS = "(min-width: 1100px) 34rem, (min-width: 760px) 46vw, 100vw";
+
+const guia = {
+  "@type": "CreativeWork",
+  "@id": `${SITE.url}/sitio#guia`,
+  name: "Rediseña el sitio de tu despacho con IA: el prompt y los 11 tips",
+  description:
+    "El prompt exacto para pedirle a Claude Code que rediseñe el sitio de un despacho contable, el prompt del efecto de la firma y 11 tips, con el antes y el después del sitio de S & I Castro Consultores.",
+  inLanguage: SITE.lang,
+  isAccessibleForFree: true,
+  image: `${SITE.url}${OG}`,
+  author: personRef(),
+  publisher: personRef(),
+};
+
+const jsonLd = graph(
+  guia,
+  breadcrumbs([
+    { name: "Inicio", path: "/" },
+    { name: "Rediseña tu sitio", path: "/sitio" },
+  ]),
+);
+
+const dos = (n: number) => String(n).padStart(2, "0");
+---
+
+<BaseLayout
+  title="Rediseña el sitio de tu despacho con IA (el prompt y 11 tips)"
+  description="Cómo rehice la página de mi despacho contable con Claude Code: el antes y el después, el prompt exacto para copiar, el del efecto de la firma y 11 tips para que hagas lo mismo con la tuya."
+  image={OG}
+  jsonLd={jsonLd}
+  desnudo
+>
+  <main>
+    <section class="hero">
+      <div class="container-narrow">
+        <p class="folio">EL ANTES, EL DESPUÉS + <b>EL PROMPT</b></p>
+        <h1 class="titulo-xl">Me dio pena mandar la página de mi despacho. Así la rehice.</h1>
+        <p class="intro-page">
+          Hace unos días alguien me pidió la página de mi despacho y me dio pena
+          mandarla. Tengo la de mi app y la de mi capacitación, pero la del
+          despacho tenía un recuadro que decía "placeholder" donde iba una foto,
+          cifras que nadie verificó y testimonios de gente que no existe. Nada
+          que ver con la imagen que quiero dar.
+        </p>
+        <p class="intro-page">
+          La rehice con Claude Code. Aquí están el antes y el después, el prompt
+          exacto con el que arranqué y los 11 tips para que hagas lo mismo con
+          la tuya.
+        </p>
+        <p class="saltos">
+          <a href="#prompt">Ir al prompt</a>
+          <a href="#tips">Ver los 11 tips</a>
+        </p>
+      </div>
+    </section>
+
+    <section class="bloque">
+      <div class="container-default">
+        <div class="sec-head"><h2 class="folio">EL <b>ANTES</b> Y EL <b>DESPUÉS</b></h2></div>
+        <div class="comparar">
+          <figure>
+            <div class="marco">
+              <picture>
+                <source type="image/avif" srcset={juego("antes", "avif")} sizes={TAMANOS} />
+                <img
+                  src="/assets/sitio-antes-960.webp"
+                  srcset={juego("antes", "webp")}
+                  sizes={TAMANOS}
+                  width="1440"
+                  height="900"
+                  alt="La portada anterior del despacho: el titular '¿Cansado de las sorpresas del SAT?' y, a la derecha, un recuadro gris con un maletín y la leyenda 'Placeholder para imagen'."
+                  decoding="async"
+                />
+              </picture>
+            </div>
+            <figcaption>
+              <b>Antes.</b> El recuadro gris de la derecha decía "Placeholder para
+              imagen", y así estuvo publicado.
+            </figcaption>
+          </figure>
+          <figure>
+            <div class="marco">
+              <picture>
+                <source type="image/avif" srcset={juego("despues", "avif")} sizes={TAMANOS} />
+                <img
+                  src="/assets/sitio-despues-960.webp"
+                  srcset={juego("despues", "webp")}
+                  sizes={TAMANOS}
+                  width="1440"
+                  height="900"
+                  alt="La portada nueva: una S y una I grandes con un ampersand azul en medio, los nombres de Salomón e Israel Castro y el titular 'Dos generaciones de criterio fiscal al servicio de tu negocio.'"
+                  decoding="async"
+                />
+              </picture>
+            </div>
+            <figcaption>
+              <b>Después.</b> S &amp; I son Salomón e Israel, padre e hijo. El
+              ampersand se traza en tinta al cargar.
+            </figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <section class="bloque">
+      <div class="container-narrow">
+        <div class="sec-head"><h2 class="folio">EL <b>DETALLE</b></h2></div>
+        <div class="clip-marco">
+          <video
+            class="clip"
+            data-clip
+            muted
+            loop
+            playsinline
+            preload="none"
+            poster={POSTER}
+            width="960"
+            height="600"
+            aria-label="Al bajar por la página, una línea de tinta azul cruza hacia el centro y dibuja el ampersand entre la S de Salomón y la I de Israel."
+          >
+            <source data-src="/assets/sitio-hilo.mp4" type="video/mp4" />
+          </video>
+        </div>
+        <p class="pie">
+          Una línea de tinta va firmando la página mientras bajas. Al llegar a la
+          sección del despacho dibuja el ampersand entre Salomón e Israel. Es el
+          único movimiento protagonista del sitio: todo lo demás se queda quieto.
+        </p>
+        <p class="proceso">
+          No fue un prompt mágico. Primero le pedí que revisara el sitio y
+          respaldara el blog; luego, tres propuestas de diseño para comparar.
+          Elegí la que cuenta nuestra historia. El prompt de abajo arranca justo
+          ese proceso.
+        </p>
+      </div>
+    </section>
+
+    <section class="banda">
+      <div class="container-narrow">
+        <p class="folio">EN PDF · <b>AL CORREO</b></p>
+        <h2 class="banda-titulo">Llévatelo en PDF</h2>
+        <p class="banda-texto">
+          El prompt, el de la firma y los 11 tips en un PDF, para tenerlo abierto
+          mientras trabajas con Claude Code. Te llega en cuanto confirmes tu
+          correo.
+        </p>
+        <div class="banda-form">
+          <NewsletterForm
+            lista="sitio"
+            boton="Mándame el PDF"
+            exito="Listo. Confirma tu correo y te mando el PDF."
+            nota="Te llega al correo, junto con una idea de IA fiscal cada semana. Te das de baja con un clic."
+          />
+        </div>
+      </div>
+    </section>
+
+    <section class="bloque" id="prompt">
+      <div class="container-narrow">
+        <div class="sec-head"><h2 class="folio">EL PROMPT <b>COMPLETO</b></h2></div>
+        <p class="nota">
+          Abre Claude Code en la carpeta del proyecto de tu sitio (o en una
+          carpeta vacía si vas a empezar de cero) y pega esto, cambiando lo que
+          va entre corchetes. Antes de diseñar nada va a revisar, respaldar y
+          preguntarte: contéstale.
+        </p>
+        <div class="prompt-caja">
+          <button class="btn-copiar" type="button" data-copiar aria-live="polite">Copiar el prompt</button>
+          <pre class="prompt" tabindex="0"><code data-prompt>{prompt}</code></pre>
+        </div>
+      </div>
+    </section>
+
+    <section class="bloque" id="firma">
+      <div class="container-narrow">
+        <div class="sec-head"><h2 class="folio">EL EFECTO DE <b>LA FIRMA</b></h2></div>
+        <p class="nota">
+          Cuando ya elegiste la dirección de diseño, pídele el detalle que hace
+          que el sitio se sienta hecho a mano. Lleva los nombres técnicos tal
+          cual, para que lo construya a la primera.
+        </p>
+        <div class="prompt-caja">
+          <button class="btn-copiar" type="button" data-copiar aria-live="polite">Copiar el prompt</button>
+          <pre class="prompt" tabindex="0"><code data-prompt>{firma}</code></pre>
+        </div>
+      </div>
+    </section>
+
+    <section class="bloque" id="tips">
+      <div class="container-narrow">
+        <div class="sec-head"><h2 class="folio">LOS 11 <b>TIPS</b></h2></div>
+        <ol class="tips">
+          {
+            tips.map((t) => (
+              <li>
+                <span class="tip-num">{dos(t.n)}</span>
+                <div>
+                  <h3>{t.titulo}</h3>
+                  <p>{t.texto}</p>
+                </div>
+              </li>
+            ))
+          }
+        </ol>
+        <p class="firma-autor">
+          Soy Israel Castro, contador público y desarrollador de software. El
+          despacho es de mi papá y mío; el sitio lo rehice dirigiendo a Claude
+          Code, con el mismo método que enseño aquí.
+        </p>
+      </div>
+    </section>
+
+    <section class="bloque atajo" id="lo-hago-yo">
+      <div class="container-narrow">
+        <div class="sec-head"><h2 class="folio">EL <b>ATAJO</b></h2></div>
+        <LeadForm
+          titulo="¿Prefieres que lo haga yo?"
+          intro="Déjame tu correo y el enlace de tu sitio. Lo reviso contigo en una llamada de 15 minutos y te digo qué cambiaría primero. Si con el prompt y los tips te alcanza, te lo digo y ahí la dejamos."
+          interesDefault="Mejorar mi sitio web"
+          mensajeEtiqueta="El enlace de tu sitio actual (opcional)"
+          mensajeEjemplo="Ej. www.tudespacho.com.mx"
+        />
+      </div>
+    </section>
+  </main>
+</BaseLayout>
+
+<script>
+  // Copiar cada prompt al portapapeles. Sin clipboard (http, navegador viejo)
+  // los botones no aparecen y queda el camino de siempre: seleccionar y copiar.
+  document.querySelectorAll<HTMLElement>(".prompt-caja").forEach((caja) => {
+    const boton = caja.querySelector<HTMLButtonElement>("[data-copiar]");
+    const codigo = caja.querySelector<HTMLElement>("[data-prompt]");
+    if (!boton || !codigo) return;
+    if (!navigator.clipboard) {
+      boton.hidden = true;
+      return;
+    }
+    const original = boton.textContent;
+    boton.addEventListener("click", async () => {
+      try {
+        await navigator.clipboard.writeText(codigo.textContent ?? "");
+        boton.textContent = "Copiado";
+        boton.dataset.estado = "ok";
+      } catch {
+        boton.textContent = "No se pudo copiar: selecciónalo";
+      }
+      setTimeout(() => {
+        boton.textContent = original;
+        delete boton.dataset.estado;
+      }, 2200);
+    });
+  });
+
+  // El clip se pide hasta que está por entrar a la pantalla. Con movimiento
+  // reducido no corre solo: se queda el póster y aparecen los controles.
+  const clip = document.querySelector<HTMLVideoElement>("[data-clip]");
+  if (clip) {
+    const quieto = matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const cargar = () => {
+      clip.querySelectorAll<HTMLSourceElement>("source[data-src]").forEach((s) => {
+        s.src = s.dataset.src ?? "";
+        s.removeAttribute("data-src");
+      });
+      clip.load();
+      if (quieto) clip.controls = true;
+      else clip.play().catch(() => (clip.controls = true));
+    };
+    if ("IntersectionObserver" in window) {
+      const io = new IntersectionObserver(
+        (entradas) => {
+          if (entradas.some((e) => e.isIntersecting)) {
+            io.disconnect();
+            cargar();
+          }
+        },
+        { rootMargin: "300px 0px" },
+      );
+      io.observe(clip);
+    } else {
+      cargar();
+    }
+  }
+</script>
+
+<style>
+  .hero {
+    padding: 4.5rem 0 1rem;
+  }
+  .saltos {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem 1.6rem;
+    margin: 1.6rem 0 0;
+    font-size: 0.95rem;
+    font-weight: 600;
+  }
+  .bloque {
+    padding: 2.6rem 0;
+  }
+
+  /* El antes y el después: lado a lado en pantalla ancha, uno sobre otro en
+     el celular. Mismo marco que la terminal del sitio. */
+  .comparar {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1.6rem;
+  }
+  @media (max-width: 760px) {
+    .comparar {
+      grid-template-columns: 1fr;
+    }
+  }
+  .comparar figure {
+    margin: 0;
+  }
+  .marco,
+  .clip-marco {
+    border: 1px solid var(--color-line-strong);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    background: var(--color-surface);
+  }
+  .marco img,
+  .clip {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+  .comparar figcaption,
+  .pie {
+    margin: 0.9rem 0 0;
+    color: var(--color-ink-soft);
+    font-size: 0.92rem;
+    max-width: 56ch;
+  }
+  .comparar figcaption b {
+    color: var(--color-ink);
+  }
+  .proceso {
+    margin: 2.2rem 0 0;
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-size: clamp(1.35rem, 2.6vw, 1.7rem);
+    line-height: 1.3;
+    letter-spacing: -0.005em;
+    max-width: 36ch;
+  }
+
+  /* El correo, sin muro: banda oscura como en /flujos porque el campo de
+     NewsletterForm está pintado para fondo de terminal. */
+  .banda {
+    background: var(--color-line-strong);
+    padding: 3.6rem 0 4rem;
+    margin: 1.6rem 0;
+  }
+  .banda .folio {
+    color: #8da2c0;
+  }
+  .banda .folio b {
+    color: var(--color-terminal-ok);
+  }
+  .banda-titulo {
+    color: #ffffff;
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-size: clamp(1.8rem, 4vw, 2.6rem);
+    line-height: 1.08;
+    letter-spacing: -0.01em;
+    margin: 0.9rem 0 0;
+  }
+  .banda-texto {
+    margin: 1rem 0 0;
+    max-width: 48ch;
+    color: #aebbd1;
+  }
+  .banda-form {
+    margin-top: 1.8rem;
+    max-width: 34rem;
+  }
+
+  .nota {
+    margin: 0 0 1.2rem;
+    color: var(--color-ink-soft);
+    font-size: 0.95rem;
+    max-width: 56ch;
+  }
+  .prompt-caja {
+    position: relative;
+  }
+  .btn-copiar {
+    position: absolute;
+    top: 0.8rem;
+    right: 0.8rem;
+    z-index: 1;
+    font-family: var(--font-mono);
+    font-size: 0.74rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--color-terminal-ink);
+    background: var(--color-terminal-bg);
+    border: 1px solid var(--color-terminal-ink);
+    border-radius: var(--radius-pill);
+    padding: 0.45rem 0.9rem;
+    cursor: pointer;
+  }
+  .btn-copiar:hover,
+  .btn-copiar:focus-visible {
+    color: var(--color-terminal-bg);
+    background: var(--color-terminal-ink);
+  }
+  .btn-copiar[data-estado="ok"] {
+    color: var(--color-terminal-bg);
+    background: var(--color-terminal-ok);
+    border-color: var(--color-terminal-ok);
+  }
+  /* La misma familia visual que la terminal del sitio: fondo oscuro, mono,
+     esquinas del sistema. Sin semáforo: esto es un documento, no una ventana. */
+  .prompt {
+    margin: 0;
+    background: var(--color-terminal-bg);
+    border: 1px solid var(--color-line-strong);
+    border-radius: var(--radius-md);
+    padding: 3.2rem 1.6rem 1.4rem;
+    overflow-x: auto;
+    font-family: var(--font-mono);
+    font-size: 0.82rem;
+    line-height: 1.65;
+    color: var(--color-terminal-ink);
+    white-space: pre-wrap;
+    max-height: 34rem;
+    overflow-y: auto;
+  }
+
+  /* Los tips, con el patrón de lista numerada de /audita, /flujos y /recibos. */
+  .tips {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    border-top: 1px solid var(--color-line);
+  }
+  .tips li {
+    display: grid;
+    grid-template-columns: 3.4rem 1fr;
+    gap: 1rem;
+    padding: 1.3rem 0;
+    border-bottom: 1px solid var(--color-line);
+  }
+  .tip-num {
+    font-family: var(--font-mono);
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--color-ink-dim);
+  }
+  .tips h3 {
+    margin: 0 0 0.35rem;
+    font-size: 1.08rem;
+    font-weight: 700;
+    letter-spacing: -0.015em;
+  }
+  .tips p {
+    margin: 0;
+    color: var(--color-ink-soft);
+    font-size: 0.95rem;
+    max-width: 60ch;
+  }
+  @media (max-width: 560px) {
+    .tips li {
+      grid-template-columns: 1fr;
+      gap: 0.3rem;
+    }
+  }
+  .firma-autor {
+    margin: 2rem 0 0;
+    color: var(--color-ink-soft);
+    font-size: 0.95rem;
+    max-width: 56ch;
+  }
+
+  .atajo {
+    padding-bottom: 4.5rem;
+  }
+</style>

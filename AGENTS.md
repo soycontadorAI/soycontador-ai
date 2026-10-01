@@ -190,6 +190,7 @@ le queda a medias a las dos:
 | `ebook` (40) | La muestra del libro | `/ebook` |
 | `flujos` (42) | La guía de los 3 flujos híbridos | `/flujos` |
 | `recibos` (43) | El enlace a la entrega XML→PDF (GIF + prompt) | solo el DM de IG |
+| `sitio` (id por confirmar) | El prompt y los 11 tips para rediseñar el sitio del despacho (PDF adjunto) | DM de IG (comenta SITIO) y `/sitio` |
 
 `recibos` es distinta en dos cosas (simplificación de Israel, 2026-09-15).
 Uno: su ÚNICA alta viene del DM de Instagram (comenta RECIBOS → el DM pide
@@ -202,12 +203,13 @@ entrega (GIF + prompt + CTA al curso), abierta y sin muro: la exclusividad
 no es el contenido, es que te llegue al correo. Su autoresponder entrega el
 ENLACE, no un adjunto.
 
-Las cinco son **doble opt-in** y todas tienen su correo de bienvenida
-colgado como autoresponder. En tres de ellas ese correo entrega un archivo
-adjunto; en `live` no entrega nada, porque esa lista no promete descarga: su
-llamado a la acción es suscribirse al canal y activar la campanita, que es lo
-que de verdad avisa cuando el live ya empezó. El correo del aviso llega, pero
-llega el mismo día.
+Las seis son **doble opt-in** y todas tienen su correo de bienvenida
+colgado como autoresponder. En cuatro de ellas ese correo entrega un archivo
+adjunto (en `sitio`, el PDF de `guias/sitio-despacho/`); en `live` no
+entrega nada, porque esa lista no promete descarga: su llamado a la acción
+es suscribirse al canal y activar la campanita, que es lo que de verdad
+avisa cuando el live ya empezó. El correo del aviso llega, pero llega el
+mismo día.
 
 `live` estuvo un tiempo sin autoresponder: quien confirmaba aterrizaba en
 `/dentro` y no volvía a saber de nosotros hasta el jueves siguiente, que es

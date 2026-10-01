@@ -1,0 +1,139 @@
+<!--
+  Cuerpo de la guía "Rediseña el sitio de tu despacho con IA". Sin estilos: la
+  hoja se importa de ../prompts-xml/estilos.mjs, como en flujos-hibridos.
+  Los marcadores PROMPT, FIRMA y TIPS:a-b (comentarios HTML más abajo) los llena
+  generar.mjs con src/lib/sitio-prompt.md, la misma fuente que la página /sitio.
+-->
+
+<!-- ══════════════ PORTADA ══════════════ -->
+<div class="page cover">
+  <div>
+    <div class="brand"><span>marca</span></div>
+  </div>
+  <div>
+    <div class="kicker">Guía práctica para contadores</div>
+    <h1>Rediseña el sitio<br>de tu despacho <em>con IA</em></h1>
+    <p class="sub">Cómo rehice la página de mi despacho con Claude Code: el prompt exacto con el que arranqué, el del efecto que hace que el sitio se sienta hecho a mano y los 11 tips que me hubiera gustado saber antes.</p>
+    <div class="capas">
+      <div><strong>01.</strong> El prompt para arrancar en Claude Code</div>
+      <div><strong>02.</strong> El prompt del efecto de la firma</div>
+      <div><strong>03.</strong> Los 11 tips</div>
+    </div>
+  </div>
+  <div class="foot">
+    <div>Israel Castro · <strong>soycontador<span class="verde">.ai</span></strong></div>
+    <div>Edición octubre 2026 · Claude Code</div>
+  </div>
+</div>
+
+<!-- ══════════════ LA HISTORIA ══════════════ -->
+<div class="page">
+  <div class="section-tag">Por qué existe esta guía</div>
+  <h2>Me dio pena mandar la página de mi despacho</h2>
+  <p class="lead">Hace unos días alguien me pidió la página de mi despacho y me dio pena mandarla. Tengo la de mi app y la de mi capacitación bien cuidadas, pero la del despacho era otra cosa.</p>
+
+  <p>Tenía un recuadro que decía <strong>"placeholder"</strong> justo donde iba una foto. Tenía cifras que nadie verificó ("500+ clientes", "0 multas") y testimonios de gente que no existe, porque venían con la plantilla. Nada que ver con la imagen que quiero dar, y nada que ver con lo que de verdad hace el despacho que fundamos mi papá y yo.</p>
+
+  <p>La rehice con Claude Code. Pero no con un prompt mágico: con un proceso. Primero le pedí que revisara el sitio y respaldara el blog; luego, tres propuestas de diseño para comparar lado a lado. Elegí la que cuenta nuestra historia: <strong>S &amp; I, Salomón e Israel, padre e hijo</strong>. De ahí salió un ampersand que se dibuja en tinta y una línea que va firmando la página mientras bajas.</p>
+
+  <h3>Lo que te llevas en esta guía</h3>
+  <p>El prompt exacto con el que arranqué, listo para copiar. El prompt del efecto de la firma, con los nombres técnicos tal cual para que Claude Code lo construya a la primera. Y los 11 tips: lo que haría distinto si empezara hoy.</p>
+
+  <div class="box ai">
+    <div class="box-title">Antes de empezar</div>
+    <ul style="margin-bottom:2px">
+      <li><strong>Necesitas Claude Code.</strong> Es la herramienta de Claude que trabaja directo sobre una carpeta de tu computadora: lee tu proyecto, escribe archivos y te pregunta antes de decidir por ti.</li>
+      <li><strong>Trabaja sobre una copia.</strong> Si tu sitio ya existe, abre Claude Code en una copia del proyecto o pídele que trabaje en una rama aparte. Lo publicado no se toca hasta que tú lo apruebes.</li>
+      <li><strong>Contéstale.</strong> El prompt está hecho para que te pregunte: a quién le hablas, qué vendes, si publicas precios. Esas respuestas son las que hacen que el sitio sea tuyo y no una plantilla más.</li>
+    </ul>
+  </div>
+  <div class="footer-line"><span>Rediseña el sitio de tu despacho con IA</span><span>soycontador.ai</span></div>
+</div>
+
+<!-- ══════════════ EL PROMPT ══════════════ -->
+<div class="page">
+  <div class="section-tag">El prompt</div>
+  <h2>Para arrancar en Claude Code</h2>
+  <p class="lead">Ábrelo en la carpeta del proyecto de tu sitio (o en una carpeta vacía si vas a empezar de cero) y pega esto, cambiando lo que va entre corchetes.</p>
+
+  <div class="prompt">
+    <div class="prompt-label">Copiar y pegar</div>
+<pre><!-- PROMPT --></pre>
+  </div>
+
+  <p class="nota-chica">Fíjate en el orden: primero revisa, respalda y pregunta; hasta después diseña. Si le pides el diseño de entrada, te llena el sitio con lo primero que se le ocurre.</p>
+
+  <div class="box">
+    <div class="box-title">Qué esperar</div>
+    <p style="margin:0">Una lista de lo que sirve, lo que está roto y lo inventado; una carpeta con tu blog respaldado; unas cuantas preguntas, y después tres mockups en HTML que puedes abrir en el navegador para elegir.</p>
+  </div>
+  <div class="footer-line"><span>Rediseña el sitio de tu despacho con IA</span><span>soycontador.ai</span></div>
+</div>
+
+<!-- ══════════════ LA FIRMA ══════════════ -->
+<div class="page">
+  <div class="section-tag">El efecto de la firma</div>
+  <h2>El detalle que hace que se sienta hecho a mano</h2>
+  <p class="lead">Cuando ya elegiste la dirección de diseño, pídele esto. Es lo que hace que la gente diga "wow" al bajar por tu página.</p>
+
+  <div class="prompt">
+    <div class="prompt-label">Copiar y pegar</div>
+<pre><!-- FIRMA --></pre>
+  </div>
+
+  <div class="box ai">
+    <div class="box-title">Los términos, en cristiano</div>
+    <ul style="margin-bottom:2px">
+      <li><strong>SVG y stroke-dashoffset.</strong> El dibujo es una línea vectorial. Se "esconde" y se va mostrando de a poco, como tinta que avanza.</li>
+      <li><strong>GSAP ScrollTrigger.</strong> La librería que amarra ese avance al scroll: bajas y la línea avanza; subes y retrocede.</li>
+      <li><strong>gsap.quickTo.</strong> Suaviza el avance para que la pluma no brinque cuando bajas rápido.</li>
+      <li><strong>getBoundingClientRect.</strong> Mide dónde quedó cada título y cada tarjeta, para que la línea los rodee sin pasar encima del texto.</li>
+      <li><strong>prefers-reduced-motion.</strong> El ajuste del teléfono de quien pide menos movimiento: a esa persona la línea le aparece ya dibujada.</li>
+    </ul>
+  </div>
+  <div class="footer-line"><span>Rediseña el sitio de tu despacho con IA</span><span>soycontador.ai</span></div>
+</div>
+
+<!-- ══════════════ TIPS 1 A 6 ══════════════ -->
+<div class="page">
+  <div class="section-tag">Los 11 tips</div>
+  <h2>Agrega esto, haz esto, pídelo así</h2>
+  <p class="lead">Lo que aprendí rehaciendo el sitio del despacho. Cada uno cabe en una línea de tu conversación con Claude Code.</p>
+  <ol class="tips">
+<!-- TIPS:1-6 -->
+  </ol>
+  <div class="footer-line"><span>Rediseña el sitio de tu despacho con IA</span><span>soycontador.ai</span></div>
+</div>
+
+<!-- ══════════════ TIPS 7 A 11 ══════════════ -->
+<div class="page">
+  <div class="section-tag">Los 11 tips</div>
+  <h2>Y los que separan un sitio bonito de uno serio</h2>
+  <ol class="tips" start="7">
+<!-- TIPS:7-11 -->
+  </ol>
+  <div class="footer-line"><span>Rediseña el sitio de tu despacho con IA</span><span>soycontador.ai</span></div>
+</div>
+
+<!-- ══════════════ CIERRE ══════════════ -->
+<div class="page">
+  <div class="section-tag">Para cerrar</div>
+  <h2>¿Prefieres que lo haga yo?</h2>
+  <p class="lead">Con esta guía puedes hacerlo tú. Si prefieres no meterte, también está la otra opción: lo hago yo por ti.</p>
+
+  <p>Agenda una llamada de 15 minutos. Reviso contigo tu sitio actual y te digo qué cambiaría primero. Si con el prompt y los tips te alcanza, te lo digo y ahí la dejamos.</p>
+
+  <p class="cta">Agenda en <span class="link">soycontador.ai/sitio</span><br>al final de la página, en "¿Prefieres que lo haga yo?"</p>
+
+  <div class="box ai">
+    <div class="box-title">Sigue aquí</div>
+    <ul style="margin-bottom:2px">
+      <li><strong>Cada semana</strong> te mando algo de IA aplicada a lo fiscal y contable. Cosas probadas en mi despacho, no teoría.</li>
+      <li><strong>Jueves de ContadorIA</strong>, en vivo los jueves a las once de la mañana, hora del centro de México, en el canal de YouTube.</li>
+      <li><strong>El antes y el después en video</strong> está en Instagram, en @soycontador.ai.</li>
+    </ul>
+  </div>
+
+  <p class="cta">Israel Castro · contador público y desarrollador de software<br><span class="link">soycontador.ai</span></p>
+  <div class="footer-line"><span>Rediseña el sitio de tu despacho con IA</span><span>soycontador.ai</span></div>
+</div>

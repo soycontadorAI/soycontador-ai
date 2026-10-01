@@ -22,6 +22,9 @@ interface Props {
   interesDefault?: string;
   /** Con qué agenda se ofrece la cita al enviar. Hoy todas caen en la misma. */
   cita?: PropositoCita;
+  /** Etiqueta y ejemplo del campo libre (en /sitio se pide el enlace del sitio). */
+  mensajeEtiqueta?: string;
+  mensajeEjemplo?: string;
 }
 
 const {
@@ -30,6 +33,8 @@ const {
   intro = "Déjame tu correo (y tu WhatsApp si prefieres que te escriba por ahí), cuéntame qué te está comiendo el tiempo y te contacto. No es una llamada de ventas disfrazada: si lo tuyo se resuelve con algo gratuito, te lo digo y ahí la dejamos.",
   interesDefault,
   cita = "diagnostico",
+  mensajeEtiqueta = "Cuéntame en una línea qué te está comiendo el tiempo (opcional)",
+  mensajeEjemplo = "Ej. cada mes pierdo dos días armando el mismo reporte…",
 } = Astro.props;
 
 const Titulo = `h${nivel}` as "h2" | "h3";
@@ -47,6 +52,7 @@ const opcionesInteres = [
   { value: "Capacitación para mí", label: "Capacitación para mí" },
   { value: "Taller para mi equipo", label: "Un taller para mi equipo" },
   { value: "Club de Automatización Fiscal", label: "Entrar al Club de Automatización Fiscal" },
+  { value: "Mejorar mi sitio web", label: "Que mejores el sitio de mi despacho" },
   { value: "Explorando", label: "Todavía no sé, quiero entender qué se puede" },
 ];
 ---
@@ -85,8 +91,8 @@ const opcionesInteres = [
         </select>
       </div>
       <div class="campo campo-full">
-        <label for="lead-mensaje">Cuéntame en una línea qué te está comiendo el tiempo (opcional)</label>
-        <textarea id="lead-mensaje" name="mensaje" rows="2" maxlength="500" placeholder="Ej. cada mes pierdo dos días armando el mismo reporte…"></textarea>
+        <label for="lead-mensaje">{mensajeEtiqueta}</label>
+        <textarea id="lead-mensaje" name="mensaje" rows="2" maxlength="500" placeholder={mensajeEjemplo}></textarea>
       </div>
       <div class="campo-full consentimiento">
         <label>
