@@ -1,0 +1,284 @@
+---
+/**
+ * Hojas: la pila de mundos de la home (dirección G de la ronda 3, elegida
+ * por Israel el 2026-10-01; ver design/MUNDOS.md y design/DESIGN.md).
+ *
+ * El libro mayor se hojea. Cada mundo (un `main > .mundo` con data-mundo) es
+ * una hoja: la nueva sube desde abajo con las esquinas de arriba redondas y
+ * al asentarse se aplanan; la de abajo no se va, se queda fija y se hunde, y
+ * lo que asoma alrededor es la mesa, que es de noche. Al final la última hoja
+ * se levanta y debajo está el pie.
+ *
+ * No trae marcado: se monta una vez en la página que tenga los mundos. Sin
+ * JavaScript o con prefers-reduced-motion no pasa nada de esto (todo cuelga
+ * de html.hojas-vivo) y la página es la de siempre con sus mundos pintados.
+ * Lo único que corre siempre es que la cabecera y el color del navegador
+ * sigan al mundo: eso es color, no movimiento.
+ *
+ * Sin librerías, a propósito: un solo bucle por cuadro que primero lee todos
+ * los rects y luego escribe, y solo escribe lo que cambió.
+ */
+---
+
+<style is:global>
+  html.hojas-vivo main {
+    position: relative;
+    z-index: 1;
+    /* La mesa: solo se ve alrededor de una hoja que se hunde. */
+    background: var(--noche-bg);
+    /* El pie vive debajo de la pila; este margen es el hueco que deja la
+       última hoja al levantarse. */
+    margin-bottom: var(--alto-pie, 0px);
+  }
+
+  html.hojas-vivo main > .mundo {
+    position: sticky;
+    top: var(--tope, 0px);
+    /* clip y no hidden: hidden crearía un contenedor de scroll y apagaría
+       las capas fijas de adentro (la escena, el video del testimonio). */
+    overflow: clip;
+    --r-llega: calc((1 - var(--asentar, 1)) * 28px);
+    --r-hunde: calc(var(--hundir, 0) * 26px);
+    border-top-left-radius: max(var(--r-llega), var(--r-hunde));
+    border-top-right-radius: max(var(--r-llega), var(--r-hunde));
+    border-bottom-left-radius: var(--r-hunde);
+    border-bottom-right-radius: var(--r-hunde);
+  }
+
+  /* La sombra de la hoja que llega cae sobre la de abajo. Es fija: solo se
+     ve cuando hay algo debajo, y repintar una sombra grande en cada cuadro
+     es justo lo que no se hace. */
+  html.hojas-vivo main > .mundo + .mundo {
+    box-shadow: 0 -34px 70px -34px color-mix(in oklab, var(--noche-bg) 70%, transparent);
+  }
+  /* Una hoja de noche sobre la mesa de noche no tendría orilla: el filete de
+     arriba se la dibuja, como el canto de una hoja. */
+  html.hojas-vivo main > .mundo + .mundo[data-mundo="noche"] {
+    box-shadow:
+      inset 0 1px 0 var(--noche-line),
+      0 -34px 70px -34px color-mix(in oklab, var(--noche-bg) 70%, transparent);
+  }
+  /* La última no se hunde: se levanta para dejar ver el pie. Sus esquinas de
+     abajo se redondean y su sombra cae sobre la noche del pie. */
+  html.hojas-vivo main > .mundo:last-child {
+    border-bottom-left-radius: calc(var(--levantar, 0) * 26px);
+    border-bottom-right-radius: calc(var(--levantar, 0) * 26px);
+    box-shadow:
+      0 -34px 70px -34px color-mix(in oklab, var(--noche-bg) 70%, transparent),
+      0 36px 60px -30px color-mix(in oklab, var(--noche-bg) calc(var(--levantar, 0) * 90%), transparent);
+  }
+
+  /* La hoja que se hunde se apaga con una capa ENCIMA, no bajando la
+     opacidad de su texto (ver "Accesibilidad" en AGENTS.md). El velo entra
+     tarde: a medio gesto el papel sigue siendo papel y no un gris sucio, y a
+     tope la hoja ya quedó tapada. */
+  html.hojas-vivo main > .mundo::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 4;
+    pointer-events: none;
+    background: var(--noche-bg);
+    opacity: var(--velo, 0);
+  }
+
+  /* El contenido de la hoja que llega se queda 32 px atrás del papel, como
+     si el papel lo arrastrara. La portada no: es la primera hoja. */
+  html.hojas-vivo main > .mundo > section:first-child > .container-default,
+  html.hojas-vivo main > .mundo > section:first-child > .container-narrow {
+    translate: 0 calc((1 - var(--asentar, 1)) * 32px);
+  }
+  html.hojas-vivo main > .mundo:first-child > section:first-child > .container-default {
+    translate: none;
+  }
+
+  /* El pie: fijo abajo, debajo de la pila. */
+  html.hojas-vivo .site-footer {
+    position: fixed;
+    inset: auto 0 0;
+    z-index: 0;
+    margin: 0;
+  }
+
+  /* El plumón lo pasas tú: la banda avanza con el scroll mientras el renglón
+     cruza la zona de lectura, en vez de pintarse con un temporizador. El del
+     titular de la portada no lleva data-trazo: está sobre el pliegue y se
+     pinta al cargar, como siempre. */
+  html.hojas-vivo.js-reveal main .hl[data-trazo] {
+    transition: none;
+    background-size: calc(var(--trazo, 0) * 100%) 100%;
+  }
+
+  @media (max-width: 760px) {
+    html.hojas-vivo main > .mundo {
+      --r-llega: calc((1 - var(--asentar, 1)) * 22px);
+      --r-hunde: calc(var(--hundir, 0) * 20px);
+    }
+  }
+</style>
+
+<script>
+  const quieto = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const raiz = document.documentElement;
+  const main = document.querySelector("main");
+  const cabecera = document.querySelector<HTMLElement>(".site-header");
+  const pie = document.querySelector<HTMLElement>(".site-footer");
+  const meta = document.querySelector<HTMLMetaElement>('meta[name="theme-color"]');
+  const hojas = main ? [...main.querySelectorAll<HTMLElement>(":scope > .mundo")] : [];
+  /* Lo que decide el mundo bajo la cabecera: las hojas y las islas (una
+     sección pintada con el otro mundo, como la guía), en orden del documento.
+     Se recorre del final al principio porque las hojas se enciman y una isla
+     va después de la hoja que la contiene. */
+  const mundos = main ? [...main.querySelectorAll<HTMLElement>(".mundo[data-mundo], section[data-mundo]")] : [];
+
+  const limita = (v: number) => Math.min(1, Math.max(0, v));
+  /* La curva de la marca (--ease-f) resuelta por bisección, para la escala
+     de la hoja que se hunde. */
+  function curva(t: number) {
+    const bx = (s: number) => 3 * 0.16 * s * (1 - s) ** 2 + 3 * 0.28 * s * s * (1 - s) + s ** 3;
+    const by = (s: number) => 3 * 0.84 * s * (1 - s) ** 2 + 3 * 1 * s * s * (1 - s) + s ** 3;
+    let lo = 0;
+    let hi = 1;
+    let s = t;
+    for (let i = 0; i < 18; i++) {
+      s = (lo + hi) / 2;
+      if (bx(s) < t) lo = s;
+      else hi = s;
+    }
+    return by(s);
+  }
+
+  /* Los colores del navegador salen de los tokens, no de un hex escrito aquí. */
+  const tokens = getComputedStyle(raiz);
+  const COLOR: Record<string, string> = {
+    dia: tokens.getPropertyValue("--dia-bg").trim(),
+    noche: tokens.getPropertyValue("--noche-bg").trim(),
+  };
+
+  const vivo = !quieto && !!main && hojas.length > 1;
+  if (vivo) raiz.classList.add("hojas-vivo");
+
+  /* ---------- Dónde se fija cada hoja ----------
+     Una hoja más baja que la ventana se fija bajo la cabecera. Una más alta se
+     fija cuando su borde de abajo toca el de la ventana: así se lee completa
+     antes de que la siguiente empiece a taparla. */
+  const topes: number[] = [];
+  let altoPie = 0;
+  function mide() {
+    if (!vivo || !main) return;
+    const vh = innerHeight;
+    const alto = cabecera ? cabecera.offsetHeight : 0;
+    hojas.forEach((h, i) => {
+      const t = h.offsetHeight <= vh - alto ? alto : vh - h.offsetHeight;
+      topes[i] = t;
+      h.style.setProperty("--tope", `${t}px`);
+    });
+    altoPie = pie ? pie.offsetHeight : 0;
+    main.style.setProperty("--alto-pie", `${altoPie}px`);
+    pide();
+  }
+
+  /* ---------- El plumón que pasas tú ---------- */
+  const marcas = vivo && main ? [...main.querySelectorAll<HTMLElement>(".hl")].filter((el) => !el.closest(".portada-titulo")) : [];
+  marcas.forEach((el) => el.setAttribute("data-trazo", ""));
+
+  const antes = hojas.map(() => ({ asentar: -1, hundir: -1, oculta: false }));
+  const trazos = marcas.map(() => -1);
+  let levantarAntes = -1;
+  let mundoCabecera = "";
+  const ESCALA = 0.055;
+
+  function cuadro() {
+    pedido = false;
+    const vh = innerHeight;
+
+    // Lecturas: todo primero.
+    const yCabecera = cabecera ? cabecera.offsetHeight / 2 : 0;
+    let mundo = "dia";
+    for (let i = mundos.length - 1; i >= 0; i--) {
+      const r = mundos[i].getBoundingClientRect();
+      if (r.top <= yCabecera && r.bottom > yCabecera) {
+        mundo = mundos[i].dataset.mundo ?? "dia";
+        break;
+      }
+    }
+    const rects = vivo ? hojas.map((h) => h.getBoundingClientRect()) : [];
+    const finMain = vivo && main ? main.getBoundingClientRect().bottom : 0;
+    const centros = marcas.map((el) => {
+      const r = el.getBoundingClientRect();
+      return r.top + r.height / 2;
+    });
+
+    // La cabecera y el navegador siguen al mundo que tienen debajo.
+    if (mundo !== mundoCabecera) {
+      mundoCabecera = mundo;
+      if (cabecera) cabecera.dataset.mundo = mundo;
+      if (meta && COLOR[mundo]) meta.content = COLOR[mundo];
+    }
+    if (!vivo) return;
+
+    // La pila.
+    hojas.forEach((h, i) => {
+      const asentar = i === 0 ? 1 : limita((vh - rects[i].top) / vh);
+      const sig = rects[i + 1];
+      const hundir = sig ? limita((vh - sig.top) / vh) : 0;
+      const a = antes[i];
+      if (Math.abs(asentar - a.asentar) > 0.0005) {
+        h.style.setProperty("--asentar", asentar.toFixed(4));
+        a.asentar = asentar;
+      }
+      if (Math.abs(hundir - a.hundir) > 0.0005) {
+        h.style.setProperty("--hundir", hundir.toFixed(4));
+        h.style.setProperty("--velo", (hundir ** 1.8 * 0.55).toFixed(4));
+        if (hundir > 0) {
+          // Mientras se hunde está fija en su tope: el centro de lo que se ve
+          // de ella queda a media ventana (una hoja puede medir 3,000 px).
+          h.style.transformOrigin = `50% ${vh / 2 - topes[i]}px`;
+          h.style.transform = `scale(${1 - ESCALA * curva(hundir)})`;
+          h.style.willChange = "transform";
+        } else {
+          h.style.transform = "";
+          h.style.willChange = "";
+        }
+        a.hundir = hundir;
+      }
+      // Una hoja tapada por completo no se pinta: debajo de una hoja que se
+      // hunde debe asomar la mesa, no las hojas de antes.
+      const oculta = hundir >= 1 && !!sig && sig.top <= 0.5;
+      if (oculta !== a.oculta) {
+        h.style.visibility = oculta ? "hidden" : "";
+        a.oculta = oculta;
+      }
+    });
+
+    // La última hoja se levanta.
+    const levantar = altoPie ? limita((vh - finMain) / Math.min(altoPie, vh * 0.35)) : 0;
+    if (Math.abs(levantar - levantarAntes) > 0.002) {
+      hojas[hojas.length - 1].style.setProperty("--levantar", levantar.toFixed(3));
+      levantarAntes = levantar;
+    }
+
+    // El plumón avanza mientras el centro del renglón va del 80% al 50% de la
+    // ventana. Lineal a propósito: la banda sigue al dedo, no a un reloj.
+    centros.forEach((centro, i) => {
+      const t = limita((vh * 0.8 - centro) / (vh * 0.3));
+      if (Math.abs(t - trazos[i]) > 0.002) {
+        marcas[i].style.setProperty("--trazo", t.toFixed(3));
+        trazos[i] = t;
+      }
+    });
+  }
+
+  let pedido = false;
+  function pide() {
+    if (pedido) return;
+    pedido = true;
+    requestAnimationFrame(cuadro);
+  }
+
+  addEventListener("scroll", pide, { passive: true });
+  addEventListener("resize", mide);
+  if (main) new ResizeObserver(mide).observe(main);
+  mide();
+  pide();
+</script>

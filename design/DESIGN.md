@@ -1,5 +1,5 @@
 ---
-version: 2.0.0
+version: 2.1.0
 name: Editorial cinético
 description: >
   Identidad de soycontador.ai desde el 2026-09-07. El sitio como reportaje de
@@ -109,9 +109,29 @@ es la contrapartida que completa la partida doble.**
 | `assets/isotipo-oscuro.svg` | Isotipo para fondo oscuro (`#E8EDF5` + `#3DD68C`) |
 | `og-default.png` | Open Graph, con logotipo completo |
 
-**Logotipo**: dos líneas, siempre. `soycontador` en Space Grotesk 700 con
-tracking -0.035em, y `.ai` en JetBrains Mono 700 en verde. El logotipo **no**
-usa la serif: es la marca, no un titular.
+**Logotipo "Contrapartida"** (desde el 2026-10-01; elegido entre tres en
+`design/mockups/logos/`, ver `MUNDOS.md` §8). El nombre vive **dentro** de la
+cuenta T, en un solo renglón: la raya de la T cubre todo el logotipo y el asta
+lo parte en dos. Del lado del cargo, `soycontador` en Space Grotesk 700 con
+tracking -0.035em, en tinta; del lado del abono, `.ai` en JetBrains Mono 700,
+en verde. Ya no es un ícono al lado de un texto: es una sola figura, y dice la
+tesis sin una palabra (la IA es la contrapartida que completa la partida
+doble). Sustituye al de dos líneas (`soycontador` con el `.ai` colgando
+debajo), que Israel sentía como "el nombre de la página tal cual".
+
+- Vive en `Nav.astro` (`.logo-cuenta`). La raya y el asta tienen el grueso del
+  trazo de la letra en 700 (`max(2px, 0.15em)`); la raya sobresale del texto
+  por los dos lados y el asta baja más que las letras, como en el isotipo.
+- Solo usa `--color-ink` y `--color-accent`: en un mundo de noche se vuelve
+  claro con el abono en #3DD68C sin una regla más.
+- Entra una vez por sesión (la raya se traza, el asta baja, el cargo sube y el
+  abono llega al último; `html.logo-visto` lo apaga en la segunda página).
+- Mide 160 px en la cabecera y 146 en un teléfono de 390, junto al botón.
+- Los cuatro renglones de cargo y abono siguen en **el isotipo**, que es el
+  favicon y el ícono. Pendiente: las plantillas de Open Graph y los banners
+  todavía traen el logotipo de dos líneas.
+
+El logotipo **no** usa la serif: es la marca, no un titular.
 
 **Reglas de uso**: mínimo 24px de alto para el isotipo completo; sobre fondo
 oscuro va la variante clara con verde `#3DD68C`; el abono verde nunca cambia
@@ -133,13 +153,22 @@ asiento por los cuatro lados.
   cerrado es el argumento del bloque y no se toca.
   `Pila.astro` quedó sin montar; se conserva en el repositorio por si algún
   día se necesita el patrón apilado.
-- **La galería de las puertas** (`.pista`): las seis ofertas se recorren de
-  lado, con arrastre, snap, teclado y un empujón de 22px la primera vez que
-  entra en pantalla. **No se fija**, y la razón es de contenido: la escena es
-  una narración y esto es un menú. Fijarlo obligaría a pasar por las seis, que
-  es lo contrario de lo que dice su propio titular.
-- **El plumón** (`.hl`): el marcador verde se traza al entrar. Ver la sección
-  de calibración más abajo, que es donde se equivoca uno.
+- **Las hojas** (`Hojas.astro`, desde el 2026-10-01): la home es una pila de
+  mundos. Cada acto es una hoja que sube desde abajo y se asienta sobre la
+  anterior, que se queda fija y se hunde sobre una mesa de noche; al final la
+  última se levanta y debajo está el pie. Ver la sección "Mundos".
+- **El catálogo de cuentas** (`.catalogo`, desde el 2026-10-01): las seis
+  ofertas como seis renglones numerados, todo a la vista, y una regla de
+  lectura que enciende el renglón que cruza la línea de lectura. Sustituyó a la
+  galería de lado (`.pista`), que dejaba ver tres puertas y media en escritorio
+  y una en celular: la 5 y la 6 casi nadie las veía. Se eligió entre tres
+  formas (catálogo, puertas y plana, `MUNDOS.md` §9) por ser la más legible
+  para el lector de 45 a 65. **No se fija**, por lo mismo que no se fijaba la
+  galería: es un menú, y fijarlo obligaría a pasar por las seis.
+- **El plumón** (`.hl`): el marcador verde se traza al entrar; en la home lo
+  pasa el lector con el scroll (avanza mientras el renglón cruza la zona de
+  lectura). Ver la sección de calibración más abajo, que es donde se equivoca
+  uno.
 - **La figura** (`.figura` + `.pie-figura`): la terminal no flota, va encajada
   con pie de foto, como una captura dentro de un reportaje.
 - **La cuenta T** (`.bandos-par`): la raya de arriba se dibuja de lado a lado
@@ -361,6 +390,37 @@ declarar él. **Al tocar un `.hl`, mirar el render y no el código**: el
 síntoma de una mala calibración es que la banda se lee como tachado o como
 subrayado, y en el editor se ve idéntico.
 
+## Mundos: día y noche (2026-10-01)
+
+La home se lee en actos, y **cada cambio de acto es un cambio de mundo**. El
+porqué, la auditoría y las direcciones descartadas están en `MUNDOS.md`.
+
+- **Hay dos mundos y no más.** El día es el papel, con los tokens de siempre.
+  La noche es la terminal extendida a una sección completa: sin hex nuevos, y
+  lo que la familia terminal no traía (tarjeta, filete y tinta tenue sobre
+  oscuro) se deriva de sus tokens con `color-mix` en `tokens.css`, con el
+  contraste medido. Un tercer mundo (un verde a pantalla completa, por
+  ejemplo) rompería la regla de que el verde de acción nunca es relleno.
+- **Se pide con `data-mundo="dia|noche"`** en cualquier contenedor, y todo lo
+  de adentro se recolorea sin tocar un componente. Los colores semánticos están
+  registrados con `@property`, así que un cambio de mundo se puede interpolar.
+- **Un cambio de mundo por acto, no por sección**: cuatro o cinco por página
+  como máximo. El mapa de la home es día (portada), noche (escena), día (la
+  vuelta, quién soy, testimonios), noche (las seis puertas) y día (asiento de
+  cierre, preguntas, partida doble y cierre). Si cada sección cambiara, ningún
+  cambio se sentiría.
+- **Una isla no es una hoja.** La banda de la guía es noche dentro del día
+  (`data-mundo` en la sección): dos hojas seguidas de 480 px se sentían como
+  parpadeo. La terminal y el video son islas igual.
+- **En la noche, la acción se lee en `terminal-ok`** con el texto del botón en
+  `terminal-bg`. El #0A7B45 no va sobre la noche (3.46:1).
+- **El plumón se luce en papel.** Sobre la noche tiene que ir al 40% para que
+  la tinta clara se lea encima, y pierde el brillo. Por eso el asiento de
+  cierre pasó al día (decisión de Israel, 2026-10-01).
+- **La cabecera y el color del navegador siguen al mundo** que tienen debajo.
+- **Con reducir movimiento, los mundos se pintan estáticos** por sección: el
+  color no es movimiento, la transición sí.
+
 ## Reglas de movimiento
 
 1. **Nada dura más de 620ms.** Un asiento se registra, no se pasea. Una
@@ -376,6 +436,11 @@ subrayado, y en el editor se ve idéntico.
    `html.js-reveal` y la escena fija se vuelve una sección normal.
 6. **Nada que siga al cursor en pantallas táctiles.**
 7. **Una sola curva**: `--ease-f`, `cubic-bezier(0.16, 0.84, 0.28, 1)`.
+8. **Lo amarrado al scroll no tiene duración ni usa `--ease-f`**: sigue al
+   dedo, lineal (el plumón, la regla de lectura) o con la curva de su gesto
+   (la escala de la hoja que se hunde). La curva de salida rápida, puesta
+   sobre un gesto de scroll, hace que todo pase en los primeros píxeles. Lo
+   disparado por tiempo sigue las reglas 1 y 7.
 
 ## Botones
 
@@ -393,9 +458,10 @@ una fila flex. Descontarlo del padding no sirve, porque el navegador dibuja
   nunca es decorativo de relleno.
 - Cifras y datos duros SIEMPRE en mono.
 - Los componentes consumen tokens semánticos de `src/styles/tokens.css`;
-  prohibido el hex crudo en componentes. (Quedan algunos en las bandas
-  oscuras, heredados; son colores de la familia terminal y deben migrar a sus
-  tokens cuando se toque esa sección.)
+  prohibido el hex crudo en componentes. (La banda de la guía ya migró al
+  volverse isla de noche, 2026-10-01. Quedan algunos en `NewsletterForm.astro`,
+  heredados de cuando esa banda era el único oscuro; son colores de la familia
+  terminal y deben migrar cuando se toque ese componente.)
 - **Fondo liso.** Hubo un rayado horizontal cada 32px en B y se retiró
   (decisión de Israel, 2026-08-31). No reintroducir la textura.
 - El ancho de lectura manda sobre la retícula: con el contenedor en 74rem, una

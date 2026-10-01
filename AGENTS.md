@@ -281,6 +281,11 @@ copy propio; jamás copiar párrafos del blog o landing de TodoConta.
   La tabla de valores está en `design/DESIGN.md`.
 - Es una marca hermana de TodoConta pero NO comparte su identidad (nada de Inter + azul
   #0B5FFF + cian #06B6D4), ni la de sicastro-v2 (Geist + Fraunces).
+- **Mundos** (ronda 3, 2026-10-01): la home alterna día (papel) y noche (la terminal) por
+  actos, como hojas que se enciman (`Hojas.astro`). Un mundo se pide con
+  `data-mundo="dia|noche"` y los tokens se remapean solos; la noche no tiene hex nuevos.
+  Reglas en la sección "Mundos" de `design/DESIGN.md`; auditoría y alternativas en
+  `design/MUNDOS.md`. El logotipo es "Contrapartida" (el nombre dentro de la cuenta T).
 
 ## Entidad (SEO/AEO)
 

@@ -1,6 +1,7 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import FaqBlock from "../components/FaqBlock.astro";
+import Hojas from "../components/Hojas.astro";
 import LeadForm from "../components/LeadForm.astro";
 import NewsletterForm from "../components/NewsletterForm.astro";
 import Terminal from "../components/Terminal.astro";
@@ -21,7 +22,6 @@ const jsonLd = graph(
 const asientos = [
   {
     num: "01",
-    icono: "ph:chalkboard-teacher-light",
     titulo: "Capacitación en IA",
     texto:
       "Ocho horas en vivo y en grupo chico, para que te dé tiempo de atorarte y preguntar. Sales con tu primer proceso automatizado funcionando, no con apuntes. Es la misma forma de trabajar con la que un solo diagnóstico destapó más de $11 millones en saldos a favor que llevaban años ahí.",
@@ -30,7 +30,6 @@ const asientos = [
   },
   {
     num: "02",
-    icono: "ph:magic-wand-light",
     titulo: "¿Prefieres que yo lo haga?",
     texto:
       "Me traes el proceso que odias y te lo quito. El concentrado mensual de un cliente tomaba siete horas de captura. Hoy corre solo mientras desayunas.",
@@ -39,7 +38,6 @@ const asientos = [
   },
   {
     num: "03",
-    icono: "ph:plugs-connected-light",
     titulo: "Herramientas que ya funcionan",
     texto:
       "TodoConta: descarga masiva de CFDI, constancias y opinión 32-D en un clic. Más la conexión con Claude para trabajar tus XML por un canal controlado, sin pegarlos en un chat público.",
@@ -48,7 +46,6 @@ const asientos = [
   },
   {
     num: "04",
-    icono: "ph:book-open-light",
     titulo: `Ebook: ${EBOOK.titulo}`,
     /* El objetivo del libro no se enuncia como conocimiento ("entender la
        IA") sino como temporada: abril es el único dolor del contador que
@@ -59,7 +56,6 @@ const asientos = [
   },
   {
     num: "05",
-    icono: "ph:broadcast-light",
     titulo: "Jueves de ContadorIA",
     texto:
       "Cada jueves a las 11:00 del centro. Un problema real de un despacho real, resuelto en pantalla, sin cortes y sin que me salga a la primera. Gratis.",
@@ -68,7 +64,6 @@ const asientos = [
   },
   {
     num: "06",
-    icono: "ph:users-three-light",
     titulo: "Club de Automatización Fiscal",
     texto:
       "Membresía anual con lugares contados. TodoConta completo, una clase privada cada mes, y yo contestándote cuando te atoras a las 11 de la noche de un día 16. No entra cualquiera y no es barato.",
@@ -99,420 +94,423 @@ const lineasTerminal = [
 ];
 ---
 
-<BaseLayout jsonLd={jsonLd} nav={NAV_HOME} cta={CTA_DIAGNOSTICO}>
+<BaseLayout jsonLd={jsonLd} nav={NAV_HOME} cta={CTA_DIAGNOSTICO} mundoPie="noche">
   <main>
-    <!--
-      La portada de F: solo tipografía y aire. La pila de tarjetas que vivía
-      aquí no se perdió, se desdobló en la escena de abajo, donde el lector la
-      recorre en vez de mirarla quieta.
-    -->
-    <section class="portada">
-      <div class="container-default" id="portada">
-        <p class="kicker"><span aria-hidden="true"></span>IA para contadores de carrera</p>
-        <h1 class="portada-titulo">
-          <span class="reng" style="--reng-delay: 0.12s"><span>La IA cierra</span></span>
-          <span class="reng" style="--reng-delay: 0.24s"><span>las fáciles.</span></span>
-          <span class="reng" style="--reng-delay: 0.36s"><span><em>Las difíciles</em></span></span>
-          <span class="reng" style="--reng-delay: 0.48s"><span>las cobras <b class="hl">tú</b>.</span></span>
-        </h1>
-        <div class="portada-pie">
-          <p class="hero-sub">
-            Descargar, validar y capturar ya se resuelve solo. Lo que no se
-            resuelve solo es saber cuándo un número miente, y eso se paga con
-            años. Esa es la parte que se cobra.
-          </p>
-          <div>
-            <div class="hero-actions">
-              {/* El secundario es la salida sin compromiso, y por eso baja al
-                  menú en vez de mandar al live: quien todavía no quiere hablar
-                  necesita ver el rango completo, no una sola puerta. La cifra
-                  sale del arreglo para que el copy no pueda quedar mintiendo si
-                  mañana entra o sale un asiento. */}
-              <a class="btn btn-primary" href="#contacto">Platiquemos de tu caso</a>
-              <a class="btn btn-ghost" href="#ofertas">Las {asientos.length} formas de empezar</a>
-            </div>
-            <p class="hero-micro">
-              Sin costo. Me cuentas en qué se te va la vida y yo te digo si tengo cómo resolverlo.
+    {/*
+      Los mundos (design/MUNDOS.md): la página se lee en actos y cada cambio de
+      acto es un cambio de mundo, día (el papel) o noche (la terminal), según
+      tokens.css. Cada envoltura es una hoja del libro mayor y Hojas.astro las
+      apila al bajar. Un mundo por acto, no por sección: si cambiara en cada
+      sección, ninguno se sentiría.
+    */}
+    {/* Acto 1 · la promesa */}
+    <div class="mundo" data-mundo="dia">
+      {/*
+        La portada de F: solo tipografía y aire. La pila de tarjetas que vivía
+        aquí no se perdió, se desdobló en la escena de abajo, donde el lector la
+        recorre en vez de mirarla quieta.
+      */}
+      <section class="portada">
+        <div class="container-default" id="portada">
+          <p class="kicker"><span aria-hidden="true"></span>IA para contadores de carrera</p>
+          <h1 class="portada-titulo">
+            <span class="reng" style="--reng-delay: 0.12s"><span>La IA cierra</span></span>
+            <span class="reng" style="--reng-delay: 0.24s"><span>las fáciles.</span></span>
+            <span class="reng" style="--reng-delay: 0.36s"><span><em>Las difíciles</em></span></span>
+            <span class="reng" style="--reng-delay: 0.48s"><span>las cobras <b class="hl">tú</b>.</span></span>
+          </h1>
+          <div class="portada-pie">
+            <p class="hero-sub">
+              Descargar, validar y capturar ya se resuelve solo. Lo que no se
+              resuelve solo es saber cuándo un número miente, y eso se paga con
+              años. Esa es la parte que se cobra.
             </p>
+            <div>
+              <div class="hero-actions">
+                {/* El secundario es la salida sin compromiso, y por eso baja al
+                    menú en vez de mandar al live: quien todavía no quiere hablar
+                    necesita ver el rango completo, no una sola puerta. La cifra
+                    sale del arreglo para que el copy no pueda quedar mintiendo si
+                    mañana entra o sale un asiento. */}
+                <a class="btn btn-primary" href="#contacto">Platiquemos de tu caso</a>
+                <a class="btn btn-ghost" href="#ofertas">Las {asientos.length} formas de empezar</a>
+              </div>
+              <p class="hero-micro">
+                Sin costo. Me cuentas en qué se te va la vida y yo te digo si tengo cómo resolverlo.
+              </p>
+            </div>
           </div>
         </div>
-      </div>
-      <span class="baja" aria-hidden="true"><i></i>Baja</span>
-    </section>
+        <span class="baja" aria-hidden="true"><i></i>Baja</span>
+      </section>
+    </div>
 
-    <!--
-      La escena fija: la sección se queda pegada y el scroll enciende los
-      renglones uno por uno. El lector no ve una animación, la ejecuta. El
-      orden importa (tres los cierra la máquina, el cuarto no), y por eso
-      aquí sí se justifica fijar: es una narración con remate, no un menú.
-    -->
-    <section class="escena" id="escena">
-      <div class="escena-fija">
-        <div class="container-default escena-grid">
-          <div class="escena-texto">
-            <p class="folio">UNA MAÑANA <b>CUALQUIERA</b></p>
-            <h2 class="escena-titulo">Lo que pasó antes de tu primer café</h2>
-            <p class="escena-apunte">
-              Tres renglones los cerró la máquina. El cuarto no, y por eso el
-              cuarto es el que se cobra.
-            </p>
-            <p class="escena-cuenta">ASIENTO <b id="cuenta-escena">01</b> DE 04</p>
-            <div class="escena-prueba">
-              <span class="caras">
-                <img src="/assets/contadora-1.webp" alt="" aria-hidden="true" width="34" height="34" loading="lazy" decoding="async" />
-                <img src="/assets/contador-2.webp" alt="" aria-hidden="true" width="34" height="34" loading="lazy" decoding="async" />
-                <img src="/assets/contadora-3.webp" alt="" aria-hidden="true" width="34" height="34" loading="lazy" decoding="async" />
-                <b>+45</b>
-              </span>
-              <span class="folio">Contadores que ya capacité.</span>
+    {/* La máquina, de madrugada */}
+    <div class="mundo" data-mundo="noche">
+      {/*
+        La escena fija: la sección se queda pegada y el scroll enciende los
+        renglones uno por uno. El lector no ve una animación, la ejecuta. El
+        orden importa (tres los cierra la máquina, el cuarto no), y por eso
+        aquí sí se justifica fijar: es una narración con remate, no un menú.
+      */}
+      <section class="escena" id="escena">
+        <div class="escena-fija">
+          <div class="container-default escena-grid">
+            <div class="escena-texto">
+              <p class="folio">UNA MAÑANA <b>CUALQUIERA</b></p>
+              <h2 class="escena-titulo">Lo que pasó antes de tu primer café</h2>
+              <p class="escena-apunte">
+                Tres renglones los cerró la máquina. El cuarto no, y por eso el
+                cuarto es el que se cobra.
+              </p>
+              <p class="escena-cuenta">ASIENTO <b id="cuenta-escena">01</b> DE 04</p>
+              <div class="escena-prueba">
+                <span class="caras">
+                  <img src="/assets/contadora-1.webp" alt="" aria-hidden="true" width="34" height="34" loading="lazy" decoding="async" />
+                  <img src="/assets/contador-2.webp" alt="" aria-hidden="true" width="34" height="34" loading="lazy" decoding="async" />
+                  <img src="/assets/contadora-3.webp" alt="" aria-hidden="true" width="34" height="34" loading="lazy" decoding="async" />
+                  <b>+45</b>
+                </span>
+                <span class="folio">Contadores que ya capacité.</span>
+              </div>
             </div>
+            <ol class="renglones" id="renglones">
+              {mañana.map((t) => (
+                <li class:list={["renglon", t.quien]}>
+                  <span class="marca">
+                    <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8.5 6.2 11.8 13 4.6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  </span>
+                  <span>
+                    <h3>{t.titulo}</h3>
+                    <p>{t.pie}</p>
+                  </span>
+                  <span class="dato">{t.dato}</span>
+                </li>
+              ))}
+            </ol>
           </div>
-          <ol class="renglones" id="renglones">
-            {mañana.map((t) => (
-              <li class:list={["renglon", t.quien]}>
-                <span class="marca">
-                  <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8.5 6.2 11.8 13 4.6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                </span>
-                <span>
-                  <h3>{t.titulo}</h3>
-                  <p>{t.pie}</p>
-                </span>
-                <span class="dato">{t.dato}</span>
+        </div>
+      </section>
+    </div>
+
+    {/* Acto 2 · la persona */}
+    <div class="mundo" data-mundo="dia">
+      {/*
+        El puente entre el titular y las secciones. Antes esto era la nota al pie
+        completa, con la historia de la contadora de 46 años. La historia larga se
+        fue, pero sin ella el titular se queda como afirmación sin respaldo: aquí
+        queda la vuelta que la cerraba, que es la tesis del proyecto en tres
+        frases. Termina en "de eso me encargo yo" y en seguida entra "quién te
+        está hablando", que es exactamente la pregunta que deja abierta.
+      */}
+      <section class="vuelta">
+        <div class="container-default vuelta-grid">
+          <div data-reveal>
+            <blockquote>
+              "Esto de la IA es para los más jóvenes, ya nacieron con el chip."
+            </blockquote>
+
+            <p class="vuelta-giro">De hecho, es al revés.</p>
+            <p class="vuelta-texto">
+              La IA es la herramienta más fácil de usar que se ha inventado. Se le
+              habla en español y no hay que cursar una carrera, así que ahí la
+              barrera es pareja para todos.
+            </p>
+            <p class="vuelta-texto">
+              Lo que no es parejo es lo demás: nadie sale de la facultad sabiendo
+              lidiar con la presión de que el cliente te mande todo a última hora,
+              ni sabiendo leerle la cara al empresario que esconde esos otros
+              ingresos.
+            </p>
+            <p class="vuelta-texto">
+              A ti la parte fácil te llega encima de la parte difícil, que ya
+              llevas años pagando. Quien debería estar preocupado no eres tú. Lo
+              que te falta es método, no juventud.
+            </p>
+            <p class="vuelta-remate">Y de eso <span class="hl">me encargo yo</span>.</p>
+          </div>
+          {/* Decorativo: aria-hidden y alt vacío porque no dice nada que el texto
+              no diga ya. Es la cara de quien está hablando, no información. */}
+          <img
+            class="vuelta-retrato"
+            src="/assets/israel-cruzado.webp"
+            alt=""
+            aria-hidden="true"
+            width="720"
+            height="961"
+            loading="lazy"
+            decoding="async"
+          />
+        </div>
+      </section>
+
+      <section id="quien">
+        <div class="container-default">
+          <div class="sec-head"><h2 class="folio">CUENTA <b>01</b> · QUIÉN TE ESTÁ HABLANDO</h2></div>
+          <div class="bio-grid">
+            <div class="bio" data-reveal>
+              <p class="lede">Soy contador público. Y desarrollador de software.</p>
+              <p>
+                Empecé capturando pólizas y peleándome con el portal del SAT, igual que
+                tú. Catorce años de fiscal. Cierres, revisiones, clientes que te mandan
+                todo un día antes del vencimiento.
+              </p>
+              <p>
+                En algún punto me dio curiosidad el otro lado y me puse a estudiar
+                programación. Terminé trabajando como desarrollador en una startup. Hoy
+                estoy de regreso en el despacho, automatizando todo lo que se repite.
+              </p>
+              <p>
+                Y aquí está la parte que importa para ti: <strong>hoy no escribo
+                código. Dirijo a la IA para que lo escriba, y sé leerlo para saber
+                si está bien.</strong>
+              </p>
+              <p>
+                Esa es la habilidad que te quiero pasar. No la de programar. La de saber
+                nombrar el problema. <span class="hl">Tu experiencia contable</span> más esa habilidad no la
+                alcanza ningún recién egresado, por mucho chip que traiga.
+              </p>
+              <div class="chips">
+                <span class="chip"><b>14</b> años de fiscal</span>
+                <span class="chip">TodoConta · SaaS <b>2026</b></span>
+                <span class="chip">MCP <b>SAT</b></span>
+                <span class="chip">Live semanal · <b>jueves 11:00</b></span>
+              </div>
+              <p class="mas"><a href="/sobre-mi">Toda la historia →</a></p>
+            </div>
+            {/*
+              La terminal deja de flotar al lado del texto y se vuelve figura de
+              revista: encajada, con pie. En una página de papel una pantalla no
+              flota, va con su explicación debajo, y eso de paso justifica que
+              el único bloque oscuro no rompa la hoja.
+            */}
+            <figure class="figura" data-reveal style="--reveal-delay: .12s">
+              <Terminal lineas={lineasTerminal} />
+              {/*
+                Este pie hace un trabajo concreto: desarmar la objeción número
+                uno del avatar A, que es "la IA se inventa cosas". Por eso nombra
+                a ChatGPT en vez de hablar de "la IA" en abstracto: la mala
+                experiencia que el lector tuvo tiene nombre, y negarla en
+                genérico no la desactiva.
+              */}
+              <figcaption class="pie-figura">
+                <b>FIG. 1</b> · Así se pide. No es ChatGPT inventando datos ni
+                sacándose respuestas de la manga para salir del paso. Es un canal
+                controlado conectado a tus XML donde la máquina calcula, procesa el
+                volumen y tú firmas con tu criterio contable.
+              </figcaption>
+            </figure>
+          </div>
+        </div>
+      </section>
+
+      {/*
+        La prueba va después de "quién te está hablando" y antes del menú: primero
+        quién habla, luego que a un colega ya le funcionó, y hasta entonces qué se
+        puede comprar. Cada testimonio es un artículo completo (la objeción, la
+        cita, lo que cambió, la firma) y sale de lib/testimonios.ts: para sumar el
+        siguiente se agrega ahí y se sube su carátula, la página no se toca. Con
+        varios se apilan y el video alterna de lado.
+
+        El nombre, el despacho y la ciudad van completos y con enlace a su sitio.
+        Es lo que separa un testimonio de una cita inventada, y de paso le manda
+        clientes de su zona al colega que dio la cara.
+      */}
+      <section id="testimonios">
+        <div class="container-default">
+          <div class="sec-head"><h2 class="folio">CUENTA <b>02</b> · QUIÉN YA DIO EL PASO</h2></div>
+          <p class="testimonios-lede" data-reveal>
+            No me creas a mí. Estos son colegas que tomaron la capacitación, con
+            nombre, despacho y ciudad.
+          </p>
+          {
+            TESTIMONIOS.map((t) => (
+              <article class="testimonio" id={`testimonio-${t.slug}`}>
+                <div class="testimonio-video" data-reveal>
+                  <VideoFacade
+                    videoId={t.videoId}
+                    titulo={t.titulo}
+                    poster={t.poster}
+                    aria={`Reproducir el testimonio de ${t.nombre}: ${t.titulo}`}
+                    cinta={`${t.nombre.split(" ")[0]} · ${t.duracionTexto}`}
+                  />
+                </div>
+                <div class="testimonio-texto" data-reveal style="--reveal-delay: .12s">
+                  <p class="testimonio-antes">"{t.antes}"</p>
+                  <blockquote class="testimonio-cita">{t.cita}</blockquote>
+                  <p class="folio testimonio-folio">LO QUE <b>CAMBIÓ</b> EN SU DESPACHO</p>
+                  <ol class="testimonio-logros">
+                    {t.logros.map((logro, n) => (
+                      <li>
+                        <span class="testimonio-num">{String(n + 1).padStart(2, "0")}</span>
+                        <span>{logro}</span>
+                      </li>
+                    ))}
+                  </ol>
+                  <p class="testimonio-remate">"{t.remate}"</p>
+                  <footer class="testimonio-firma">
+                    <p class="testimonio-nombre">{t.nombre}</p>
+                    <p class="folio testimonio-despacho">{t.despacho} · {t.ciudad}</p>
+                    <p class="testimonio-perfil">
+                      {t.perfil} Si por allá buscas un contador que ya trabaja con IA, <a href={t.sitio} rel="noopener">aquí está su despacho →</a>
+                    </p>
+                    {t.whatsapp && (
+                      <p class="testimonio-contacto">
+                        <a href={`https://wa.me/${t.whatsapp}`} rel="noopener">
+                          <Icon name="ph:whatsapp-logo-light" aria-hidden="true" />
+                          WhatsApp: +{t.whatsapp.slice(0, 2)} {t.whatsapp.slice(2, 5)} {t.whatsapp.slice(5, 8)} {t.whatsapp.slice(8)}
+                        </a>
+                      </p>
+                    )}
+                  </footer>
+                </div>
+              </article>
+            ))
+          }
+        </div>
+      </section>
+    </div>
+
+    {/* Acto 3 · el escaparate */}
+    <div class="mundo" data-mundo="noche">
+      {/*
+        Las seis puertas como CATÁLOGO DE CUENTAS (ronda 3, design/MUNDOS.md §9):
+        seis renglones numerados, todo a la vista. Sustituye al carrusel, que en
+        escritorio dejaba ver tres puertas y media y en celular una: la 5 y la 6
+        (Jueves y el Club, que es la más cara) casi nadie las veía. Es lista
+        ordenada porque lo es, y cada renglón es un solo enlace grande: la
+        medición sigue leyendo su h3 y su .num en el clic. Al bajar, una regla de
+        lectura enciende el renglón que cruza la línea de lectura (ver el script).
+      */}
+      <section id="ofertas">
+        <div class="container-default">
+          <div class="sec-head"><h2 class="folio">CUENTA <b>03</b> · QUÉ ENCUENTRAS AQUÍ</h2></div>
+          <p class="galeria-titulo" data-reveal>
+            Seis puertas. <em>Ninguna te obliga a la siguiente.</em>
+          </p>
+          <p class="folio catalogo-guia" data-reveal>ELIGE TU CAMINO</p>
+          <ol class="catalogo" id="catalogo">
+            {asientos.map((a) => (
+              <li>
+                <a class="puerta" href={a.href}>
+                  <span class="num">{a.num}</span>
+                  <h3>{a.titulo}</h3>
+                  <p>{a.texto}</p>
+                  <span class="go">{a.cta}</span>
+                </a>
               </li>
             ))}
           </ol>
         </div>
-      </div>
-    </section>
+      </section>
+    </div>
 
-    <!--
-      El puente entre el titular y las secciones. Antes esto era la nota al pie
-      completa, con la historia de la contadora de 46 años. La historia larga se
-      fue, pero sin ella el titular se queda como afirmación sin respaldo: aquí
-      queda la vuelta que la cerraba, que es la tesis del proyecto en tres
-      frases. Termina en "de eso me encargo yo" y en seguida entra "quién te
-      está hablando", que es exactamente la pregunta que deja abierta.
-    -->
-    <section class="vuelta">
-      <div class="container-default vuelta-grid">
-        <div data-reveal>
+    {/* Acto 4 · la decisión (la guía es una isla de noche, no una hoja) */}
+    <div class="mundo" data-mundo="dia">
+      <section class="cita">
+        <div class="container-default" data-reveal>
+          <span class="folio">ASIENTO DE CIERRE</span>
           <blockquote>
-            "Esto de la IA es para los más jóvenes, ya nacieron con el chip."
+            Nadie contrata veinte años de criterio en un recién egresado.<br />
+            Y lo que no tiene sustituto, <span class="hl">no se regatea</span>.
           </blockquote>
-
-          <p class="vuelta-giro">De hecho, es al revés.</p>
-          <p class="vuelta-texto">
-            La IA es la herramienta más fácil de usar que se ha inventado. Se le
-            habla en español y no hay que cursar una carrera, así que ahí la
-            barrera es pareja para todos.
-          </p>
-          <p class="vuelta-texto">
-            Lo que no es parejo es lo demás: nadie sale de la facultad sabiendo
-            lidiar con la presión de que el cliente te mande todo a última hora,
-            ni sabiendo leerle la cara al empresario que esconde esos otros
-            ingresos.
-          </p>
-          <p class="vuelta-texto">
-            A ti la parte fácil te llega encima de la parte difícil, que ya
-            llevas años pagando. Quien debería estar preocupado no eres tú. Lo
-            que te falta es método, no juventud.
-          </p>
-          <p class="vuelta-remate">Y de eso <span class="hl">me encargo yo</span>.</p>
         </div>
-        {/* Decorativo: aria-hidden y alt vacío porque no dice nada que el texto
-            no diga ya. Es la cara de quien está hablando, no información. */}
-        <img
-          class="vuelta-retrato"
-          src="/assets/israel-cruzado.webp"
-          alt=""
-          aria-hidden="true"
-          width="720"
-          height="961"
-          loading="lazy"
-          decoding="async"
-        />
-      </div>
-    </section>
+      </section>
 
-    <section id="quien">
-      <div class="container-default">
-        <div class="sec-head"><h2 class="folio">CUENTA <b>01</b> · QUIÉN TE ESTÁ HABLANDO</h2></div>
-        <div class="bio-grid">
-          <div class="bio" data-reveal>
-            <p class="lede">Soy contador público. Y desarrollador de software.</p>
-            <p>
-              Empecé capturando pólizas y peleándome con el portal del SAT, igual que
-              tú. Catorce años de fiscal. Cierres, revisiones, clientes que te mandan
-              todo un día antes del vencimiento.
+      {/*
+        El campo de correo va arriba, al lado de la promesa, y el detalle de las
+        cinco capas baja a una tira. Antes el correo quedaba al final de una lista
+        de cinco viñetas: quien ya había decidido tenía que leerlas todas para
+        encontrar dónde dejarlo.
+      */}
+      <section class="guia" data-mundo="noche">
+        <div class="container-default guia-inner">
+          <div>
+            <p class="folio guia-folio">DESCARGA <b>GRATUITA</b></p>
+            <h2 class="guia-titulo">5 prompts para auditar tus XMLs con Claude</h2>
+            <p class="guia-texto">
+              No salieron de un blog gringo. Salieron del sistema de auditoría
+              preventiva que corre en mi despacho. Los copias, los pegas y los
+              usas hoy mismo.
             </p>
-            <p>
-              En algún punto me dio curiosidad el otro lado y me puse a estudiar
-              programación. Terminé trabajando como desarrollador en una startup. Hoy
-              estoy de regreso en el despacho, automatizando todo lo que se repite.
-            </p>
-            <p>
-              Y aquí está la parte que importa para ti: <strong>hoy no escribo
-              código. Dirijo a la IA para que lo escriba, y sé leerlo para saber
-              si está bien.</strong>
-            </p>
-            <p>
-              Esa es la habilidad que te quiero pasar. No la de programar. La de saber
-              nombrar el problema. <span class="hl">Tu experiencia contable</span> más esa habilidad no la
-              alcanza ningún recién egresado, por mucho chip que traiga.
-            </p>
-            <div class="chips">
-              <span class="chip"><b>14</b> años de fiscal</span>
-              <span class="chip">TodoConta · SaaS <b>2026</b></span>
-              <span class="chip">MCP <b>SAT</b></span>
-              <span class="chip">Live semanal · <b>jueves 11:00</b></span>
+          </div>
+          <div class="guia-form">
+            {/* Lo del boletín se dice AQUÍ y no en un párrafo aparte: el aviso de
+                a qué te estás dando de alta tiene que estar donde se da el
+                correo, no tres párrafos antes. */}
+            <NewsletterForm
+              boton="Mándame los prompts"
+              nota="Te los mando al correo, junto con una idea de IA fiscal cada semana. Te das de baja con un clic."
+            />
+          </div>
+        </div>
+        <div class="container-default">
+          <ul class="capas-tira" data-reveal>
+            <li><b>01</b> Validación formal del lote (Anexo 20)</li>
+            <li><b>02</b> Materialidad de operaciones</li>
+            <li><b>03</b> Scoring de riesgo con semáforo, al estilo del SAT</li>
+            <li><b>04</b> Blindaje de proveedores (69-B y REPSE)</li>
+            <li><b>05</b> El reporte ejecutivo que sí puedes cobrar</li>
+          </ul>
+        </div>
+      </section>
+
+      <section id="faq">
+        <div class="container-narrow">
+          <div class="sec-head"><h2 class="folio">CUENTA <b>04</b> · PREGUNTAS DIRECTAS</h2></div>
+          <FaqBlock items={FAQ_HOME} />
+        </div>
+      </section>
+
+      <section class="bandos">
+        <div class="container-narrow">
+          <div class="sec-head"><h2 class="folio">LA <b>PARTIDA DOBLE</b></h2></div>
+          <div class="bandos-cuerpo" data-reveal>
+            <p class="bandos-entrada">Hay dos despachos con los mismos años encima.</p>
+            <div class="bandos-par">
+              <article class="bando bando-a">
+                <p class="folio">DESPACHO <b>A</b></p>
+                <p>
+                  Se siguen bajando los XMLs de uno en uno. Ahí saben que hay
+                  herramientas, pero no ha habido tiempo de ver cuáles. Cada año
+                  cobran lo mismo, cada año cuesta un poco más, y cada tanto se pierde
+                  un cliente que se fue con alguien "más moderno". No es que sepan
+                  menos. Es que hacen manual lo que ya se resuelve solo.
+                </p>
+              </article>
+              <article class="bando bando-b">
+                <p class="folio">DESPACHO <b>B</b></p>
+                <p>
+                  Dedicaron unas semanas a aprender a pedirle cosas a la máquina. Ahora
+                  entregan en la mañana lo que antes tomaba dos días, cobran por el
+                  criterio y no por las horas, y sus clientes ya no saben cómo operar
+                  sin ellos.
+                </p>
+              </article>
             </div>
-            <p class="mas"><a href="/sobre-mi">Toda la historia →</a></p>
+            <p class="bandos-remate">
+              Mismos años. Mismo conocimiento fiscal.
+              Lo que cambió fue <span class="hl">una decisión</span>, y no fue difícil.
+            </p>
+            <p class="bandos-filtro">
+              Si crees que la IA es una moda pasajera, no me hagas caso y
+              espérate. Si buscas resolverlo todo con un prompt mientras tú no
+              haces nada, tampoco es aquí. Esto multiplica lo que ya sabes hacer. Si no
+              sabes hacer nada, no hay qué multiplicar.
+            </p>
           </div>
-          {/*
-            La terminal deja de flotar al lado del texto y se vuelve figura de
-            revista: encajada, con pie. En una página de papel una pantalla no
-            flota, va con su explicación debajo, y eso de paso justifica que
-            el único bloque oscuro no rompa la hoja.
-          */}
-          <figure class="figura" data-reveal style="--reveal-delay: .12s">
-            <Terminal lineas={lineasTerminal} />
-            {/*
-              Este pie hace un trabajo concreto: desarmar la objeción número
-              uno del avatar A, que es "la IA se inventa cosas". Por eso nombra
-              a ChatGPT en vez de hablar de "la IA" en abstracto: la mala
-              experiencia que el lector tuvo tiene nombre, y negarla en
-              genérico no la desactiva.
-            */}
-            <figcaption class="pie-figura">
-              <b>FIG. 1</b> · Así se pide. No es ChatGPT inventando datos ni
-              sacándose respuestas de la manga para salir del paso. Es un canal
-              controlado conectado a tus XML donde la máquina calcula, procesa el
-              volumen y tú firmas con tu criterio contable.
-            </figcaption>
-          </figure>
         </div>
-      </div>
-    </section>
+      </section>
 
-    <!--
-      La prueba va después de "quién te está hablando" y antes del menú: primero
-      quién habla, luego que a un colega ya le funcionó, y hasta entonces qué se
-      puede comprar. Cada testimonio es un artículo completo (la objeción, la
-      cita, lo que cambió, la firma) y sale de lib/testimonios.ts: para sumar el
-      siguiente se agrega ahí y se sube su carátula, la página no se toca. Con
-      varios se apilan y el video alterna de lado.
-
-      El nombre, el despacho y la ciudad van completos y con enlace a su sitio.
-      Es lo que separa un testimonio de una cita inventada, y de paso le manda
-      clientes de su zona al colega que dio la cara.
-    -->
-    <section id="testimonios">
-      <div class="container-default">
-        <div class="sec-head"><h2 class="folio">CUENTA <b>02</b> · QUIÉN YA DIO EL PASO</h2></div>
-        <p class="testimonios-lede" data-reveal>
-          No me creas a mí. Estos son colegas que tomaron la capacitación, con
-          nombre, despacho y ciudad.
-        </p>
-        {
-          TESTIMONIOS.map((t) => (
-            <article class="testimonio" id={`testimonio-${t.slug}`}>
-              <div class="testimonio-video" data-reveal>
-                <VideoFacade
-                  videoId={t.videoId}
-                  titulo={t.titulo}
-                  poster={t.poster}
-                  aria={`Reproducir el testimonio de ${t.nombre}: ${t.titulo}`}
-                  cinta={`${t.nombre.split(" ")[0]} · ${t.duracionTexto}`}
-                />
-              </div>
-              <div class="testimonio-texto" data-reveal style="--reveal-delay: .12s">
-                <p class="testimonio-antes">"{t.antes}"</p>
-                <blockquote class="testimonio-cita">{t.cita}</blockquote>
-                <p class="folio testimonio-folio">LO QUE <b>CAMBIÓ</b> EN SU DESPACHO</p>
-                <ol class="testimonio-logros">
-                  {t.logros.map((logro, n) => (
-                    <li>
-                      <span class="testimonio-num">{String(n + 1).padStart(2, "0")}</span>
-                      <span>{logro}</span>
-                    </li>
-                  ))}
-                </ol>
-                <p class="testimonio-remate">"{t.remate}"</p>
-                <footer class="testimonio-firma">
-                  <p class="testimonio-nombre">{t.nombre}</p>
-                  <p class="folio testimonio-despacho">{t.despacho} · {t.ciudad}</p>
-                  <p class="testimonio-perfil">
-                    {t.perfil} Si por allá buscas un contador que ya trabaja con IA, <a href={t.sitio} rel="noopener">aquí está su despacho →</a>
-                  </p>
-                  {t.whatsapp && (
-                    <p class="testimonio-contacto">
-                      <a href={`https://wa.me/${t.whatsapp}`} rel="noopener">
-                        <Icon name="ph:whatsapp-logo-light" aria-hidden="true" />
-                        WhatsApp: +{t.whatsapp.slice(0, 2)} {t.whatsapp.slice(2, 5)} {t.whatsapp.slice(5, 8)} {t.whatsapp.slice(8)}
-                      </a>
-                    </p>
-                  )}
-                </footer>
-              </div>
-            </article>
-          ))
-        }
-      </div>
-    </section>
-
-    <!--
-      Las seis puertas se recorren de lado y NO se fijan como la escena de
-      arriba. La diferencia importa: la escena es una narración con orden y
-      remate, y esto es un menú. Fijarlo obligaría a pasar por las seis, que
-      es justo lo contrario de lo que dice el titular de la sección.
-    -->
-    <section id="ofertas">
-      <div class="container-default">
-        <div class="sec-head"><h2 class="folio">CUENTA <b>03</b> · QUÉ ENCUENTRAS AQUÍ</h2></div>
-        <p class="galeria-titulo" data-reveal>
-          Seis puertas. <em>Ninguna te obliga a la siguiente.</em>
-        </p>
-        {/*
-          "Elige tu camino" y no "arrastra de lado": lo primero dice qué ganas
-          y lo segundo solo describe el gesto. El verbo del gesto cambia según
-          con qué se navegue (se desliza con el dedo, se arrastra con el
-          mouse), así que lo pone el CSS y no el marcado.
-
-          El contador de posición existe porque en móvil solo se ve una
-          tarjeta: sin él, las últimas del carrusel no es que estén escondidas,
-          es que el lector no sabe que existen. Con "01 / 06" sabe cuántas
-          faltan y que la última no es la que tiene enfrente.
-        */}
-        <div class="pista-guia" id="guia-pista" data-reveal>
-          <span class="folio pista-etiqueta">ELIGE TU CAMINO <span class="gesto" aria-hidden="true"></span></span>
-          <span class="pista-barra" id="barra-caja"><i id="barra-pista"></i></span>
-          <span class="folio pista-cuenta" id="pista-cuenta" aria-hidden="true">01 / {String(asientos.length).padStart(2, "0")}</span>
-          <span class="punta" aria-hidden="true">
-            <svg viewBox="0 0 16 16" fill="none"><path d="M3 8h9m0 0L8.4 4.4M12 8l-3.6 3.6" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          </span>
+      <section class="cierre">
+        <div class="container-default" data-reveal>
+          <LeadForm />
         </div>
-      </div>
-      <div class="galeria-carril" id="carril">
-        {/* Región desplazable y enfocable: el teclado tiene que poder
-            recorrerla, no solo el mouse. */}
-        <div class="pista" id="pista" tabindex="0" role="region" aria-label={`Las ${asientos.length} formas de empezar. Se recorre de lado.`}>
-          {asientos.map((a) => (
-            <a class="puerta" href={a.href}>
-              <span class="num">{a.num}</span>
-              <h3>{a.titulo}</h3>
-              <p>{a.texto}</p>
-              <span class="go">{a.cta}</span>
-              {/* Marca de agua: aria-hidden porque no aporta información que
-                  el título no dé ya, y pointer-events none para que nunca se
-                  interponga al clic. */}
-              <span class="ilustra" aria-hidden="true"><Icon name={a.icono} /></span>
-            </a>
-          ))}
-        </div>
-      </div>
-    </section>
-
-    <section class="cita">
-      <div class="container-default" data-reveal>
-        <span class="folio">ASIENTO DE CIERRE</span>
-        <blockquote>
-          Nadie contrata veinte años de criterio en un recién egresado.<br />
-          Y lo que no tiene sustituto, <span class="hl">no se regatea</span>.
-        </blockquote>
-      </div>
-    </section>
-
-    <!--
-      El campo de correo va arriba, al lado de la promesa, y el detalle de las
-      cinco capas baja a una tira. Antes el correo quedaba al final de una lista
-      de cinco viñetas: quien ya había decidido tenía que leerlas todas para
-      encontrar dónde dejarlo.
-    -->
-    <section class="guia">
-      <div class="container-default guia-inner">
-        <div>
-          <p class="folio guia-folio">DESCARGA <b>GRATUITA</b></p>
-          <h2 class="guia-titulo">5 prompts para auditar tus XMLs con Claude</h2>
-          <p class="guia-texto">
-            No salieron de un blog gringo. Salieron del sistema de auditoría
-            preventiva que corre en mi despacho. Los copias, los pegas y los
-            usas hoy mismo.
-          </p>
-        </div>
-        <div class="guia-form">
-          {/* Lo del boletín se dice AQUÍ y no en un párrafo aparte: el aviso de
-              a qué te estás dando de alta tiene que estar donde se da el
-              correo, no tres párrafos antes. */}
-          <NewsletterForm
-            boton="Mándame los prompts"
-            nota="Te los mando al correo, junto con una idea de IA fiscal cada semana. Te das de baja con un clic."
-          />
-        </div>
-      </div>
-      <div class="container-default">
-        <ul class="capas-tira" data-reveal>
-          <li><b>01</b> Validación formal del lote (Anexo 20)</li>
-          <li><b>02</b> Materialidad de operaciones</li>
-          <li><b>03</b> Scoring de riesgo con semáforo, al estilo del SAT</li>
-          <li><b>04</b> Blindaje de proveedores (69-B y REPSE)</li>
-          <li><b>05</b> El reporte ejecutivo que sí puedes cobrar</li>
-        </ul>
-      </div>
-    </section>
-
-    <section id="faq">
-      <div class="container-narrow">
-        <div class="sec-head"><h2 class="folio">CUENTA <b>04</b> · PREGUNTAS DIRECTAS</h2></div>
-        <FaqBlock items={FAQ_HOME} />
-      </div>
-    </section>
-
-    <section class="bandos">
-      <div class="container-narrow">
-        <div class="sec-head"><h2 class="folio">LA <b>PARTIDA DOBLE</b></h2></div>
-        <div class="bandos-cuerpo" data-reveal>
-          <p class="bandos-entrada">Hay dos despachos con los mismos años encima.</p>
-          <div class="bandos-par">
-            <article class="bando bando-a">
-              <p class="folio">DESPACHO <b>A</b></p>
-              <p>
-                Se siguen bajando los XMLs de uno en uno. Ahí saben que hay
-                herramientas, pero no ha habido tiempo de ver cuáles. Cada año
-                cobran lo mismo, cada año cuesta un poco más, y cada tanto se pierde
-                un cliente que se fue con alguien "más moderno". No es que sepan
-                menos. Es que hacen manual lo que ya se resuelve solo.
-              </p>
-            </article>
-            <article class="bando bando-b">
-              <p class="folio">DESPACHO <b>B</b></p>
-              <p>
-                Dedicaron unas semanas a aprender a pedirle cosas a la máquina. Ahora
-                entregan en la mañana lo que antes tomaba dos días, cobran por el
-                criterio y no por las horas, y sus clientes ya no saben cómo operar
-                sin ellos.
-              </p>
-            </article>
-          </div>
-          <p class="bandos-remate">
-            Mismos años. Mismo conocimiento fiscal.
-            Lo que cambió fue <span class="hl">una decisión</span>, y no fue difícil.
-          </p>
-          <p class="bandos-filtro">
-            Si crees que la IA es una moda pasajera, no me hagas caso y
-            espérate. Si buscas resolverlo todo con un prompt mientras tú no
-            haces nada, tampoco es aquí. Esto multiplica lo que ya sabes hacer. Si no
-            sabes hacer nada, no hay qué multiplicar.
-          </p>
-        </div>
-      </div>
-    </section>
-
-    <section class="cierre">
-      <div class="container-default" data-reveal>
-        <LeadForm />
-      </div>
-    </section>
+      </section>
+    </div>
   </main>
+
+  <Hojas />
 
   <script>
     const quieto = matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -559,106 +557,44 @@ const lineasTerminal = [
       }
     }
 
-    /* ---------- La galería de las seis puertas ---------- */
-    const pista = document.getElementById("pista");
-    const carril = document.getElementById("carril");
-    const barra = document.getElementById("barra-pista");
-    const barraCaja = document.getElementById("barra-caja");
-    const guiaPista = document.getElementById("guia-pista");
-    const cuentaPista = document.getElementById("pista-cuenta");
-
-    if (pista && carril && barra && barraCaja && guiaPista) {
-      const puertas = pista.querySelectorAll(".puerta");
-      const total = String(puertas.length).padStart(2, "0");
-
-      pista.addEventListener(
+    /* ---------- El catálogo: la regla de lectura ----------
+       Se enciende el renglón que cruza la línea de lectura (42% de la
+       ventana), como quien recorre el libro mayor con una regla. Es el gesto
+       de la escena sin fijar nada: el lector baja y el catálogo lo acompaña.
+       Con menos movimiento no hay regla; los renglones responden al mouse. */
+    const catalogo = document.getElementById("catalogo");
+    if (catalogo && !quieto) {
+      const filas = [...catalogo.querySelectorAll(".puerta")];
+      let encendida: Element | null = null;
+      const regla = () => {
+        const linea = innerHeight * 0.42;
+        let toca: Element | null = null;
+        for (const fila of filas) {
+          const r = fila.getBoundingClientRect();
+          if (r.top <= linea && r.bottom > linea) {
+            toca = fila;
+            break;
+          }
+        }
+        if (toca === encendida) return;
+        encendida?.classList.remove("en-lectura");
+        toca?.classList.add("en-lectura");
+        encendida = toca;
+      };
+      let pedidoRegla = false;
+      addEventListener(
         "scroll",
         () => {
-          const max = pista.scrollWidth - pista.clientWidth;
-          const p = max > 0 ? pista.scrollLeft / max : 0;
-          barra.style.width = p * 100 + "%";
-
-          /* Qué tarjeta manda: la primera que arranca DENTRO del carril, no la
-             primera que asoma. Con el borde derecho la cuenta se quedaba en 01
-             hasta el final, porque en escritorio la primera tarjeta sigue
-             asomando 90px cuando ya vas en la última. Se mide contra el DOM y
-             no dividiendo el scroll entre un ancho supuesto, porque las
-             tarjetas cambian de ancho con el viewport. */
-          if (cuentaPista && puertas.length) {
-            const izq = pista.getBoundingClientRect().left;
-            let i = puertas.length - 1;
-            for (let n = 0; n < puertas.length; n++) {
-              if (puertas[n].getBoundingClientRect().left >= izq - 24) {
-                i = n;
-                break;
-              }
-            }
-            cuentaPista.textContent = `${String(i + 1).padStart(2, "0")} / ${total}`;
-          }
-          /* En cuanto se mueve, la barra deja de ser señal y pasa a ser avance. */
-          if (pista.scrollLeft > 4) {
-            barraCaja.classList.add("movida");
-            guiaPista.classList.add("movida");
-          }
-          carril.classList.toggle("al-final", p > 0.98);
+          if (pedidoRegla) return;
+          pedidoRegla = true;
+          requestAnimationFrame(() => {
+            regla();
+            pedidoRegla = false;
+          });
         },
         { passive: true },
       );
-
-      /* Arrastre con el mouse. En táctil no hace falta: el gesto es nativo. */
-      let abajo = false;
-      let x0 = 0;
-      let s0 = 0;
-      pista.addEventListener("pointerdown", (e) => {
-        if (e.pointerType !== "mouse") return;
-        abajo = true;
-        x0 = e.clientX;
-        s0 = pista.scrollLeft;
-        pista.classList.add("arrastrando");
-      });
-      addEventListener("pointerup", () => {
-        abajo = false;
-        pista.classList.remove("arrastrando");
-      });
-      pista.addEventListener("pointermove", (e) => {
-        if (abajo) pista.scrollLeft = s0 - (e.clientX - x0);
-      });
-
-      /* Teclado: la región es enfocable, así que las flechas tienen que moverla. */
-      pista.addEventListener("keydown", (e) => {
-        const puerta = pista.querySelector(".puerta");
-        if (!puerta) return;
-        const paso = puerta.getBoundingClientRect().width + 19;
-        if (e.key === "ArrowRight") {
-          pista.scrollBy({ left: paso, behavior: "smooth" });
-          e.preventDefault();
-        }
-        if (e.key === "ArrowLeft") {
-          pista.scrollBy({ left: -paso, behavior: "smooth" });
-          e.preventDefault();
-        }
-      });
-
-      /* El empujón: la primera vez que la galería entra en pantalla el carril
-         se asoma 22px y regresa. Es la forma más corta de decir "esto se
-         mueve" sin quitarle el control a nadie, y por eso pasa UNA vez. */
-      if (!quieto) {
-        const ioEmpuje = new IntersectionObserver(
-          (entries) => {
-            for (const entry of entries) {
-              if (!entry.isIntersecting) continue;
-              ioEmpuje.disconnect();
-              setTimeout(() => {
-                if (pista.scrollLeft > 4) return;
-                pista.scrollTo({ left: 22, behavior: "smooth" });
-                setTimeout(() => pista.scrollTo({ left: 0, behavior: "smooth" }), 420);
-              }, 500);
-            }
-          },
-          { threshold: 0.5 },
-        );
-        ioEmpuje.observe(pista);
-      }
+      regla();
     }
   </script>
 </BaseLayout>
@@ -1008,6 +944,26 @@ const lineasTerminal = [
     color: var(--color-ink);
     background: var(--color-bg);
   }
+  /* La escena vive en la hoja de noche: lo que pasó antes de tu primer café
+     pasó de madrugada. Lo que cerró la máquina se enciende con el verde de la
+     terminal, y el cuarto renglón, el tuyo, es la única hoja de papel en la
+     oscuridad: toma los colores del día que tokens.css capturó en la raíz. Es
+     el argumento del bloque dicho con luz. */
+  .mundo[data-mundo="noche"] .renglon.activo.ia {
+    border-color: color-mix(in oklab, var(--color-accent) 42%, var(--color-line));
+    box-shadow: 0 22px 50px -32px color-mix(in oklab, var(--color-accent) 70%, transparent);
+  }
+  .mundo[data-mundo="noche"] .renglon.tu.activo {
+    --color-bg: var(--dia-bg);
+    --color-surface: var(--dia-surface);
+    --color-surface-raised: var(--dia-surface-raised);
+    --color-line: var(--dia-line);
+    --color-line-strong: var(--dia-line-strong);
+    --color-ink: var(--dia-ink);
+    --color-ink-soft: var(--dia-ink-soft);
+    --color-ink-dim: var(--dia-ink-dim);
+    box-shadow: 0 26px 60px -26px rgb(20 22 26 / 0.65);
+  }
   @media (max-width: 980px) {
     .escena {
       height: 280vh;
@@ -1271,7 +1227,7 @@ const lineasTerminal = [
     }
   }
 
-  /* La galería de las seis puertas */
+  /* Las seis puertas: el catálogo de cuentas */
   .galeria-titulo {
     font-family: var(--font-display);
     font-weight: 400;
@@ -1285,232 +1241,113 @@ const lineasTerminal = [
     font-style: italic;
   }
 
-  .pista-guia {
-    display: flex;
-    align-items: center;
-    gap: 0.8rem;
-    margin-top: 1.6rem;
+  /* "ELIGE TU CAMINO" encabeza el catálogo como el rótulo de una tabla. */
+  .catalogo-guia {
+    margin: 1.8rem 0 0.9rem;
+  }
+  .catalogo {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    border-bottom: 1px solid var(--color-line);
   }
   /*
-     La misma barra hace dos trabajos: mientras nadie la ha movido es la SEÑAL
-     (un segmento que viaja a la derecha, hermano de la línea de "Baja"), y en
-     cuanto el lector arrastra se convierte en el avance real. Dos elementos
-     distintos para lo mismo serían ruido.
-  */
-  .pista-barra {
-    position: relative;
-    flex: 1;
-    max-width: 14rem;
-    height: 2px;
-    background: var(--color-line);
-    border-radius: 99px;
-    overflow: hidden;
-  }
-  .pista-barra i {
-    display: block;
-    height: 100%;
-    width: 0;
-    background: var(--color-accent);
-    border-radius: 99px;
-    transition: width 0.2s linear;
-  }
-  .pista-barra::after {
-    content: "";
-    position: absolute;
-    inset: 0 auto 0 0;
-    width: 2.6rem;
-    border-radius: 99px;
-    background: linear-gradient(90deg, transparent, var(--color-accent));
-    animation: viaja 2.4s var(--ease-f) infinite;
-  }
-  .pista-barra.movida::after {
-    display: none;
-  }
-  @keyframes viaja {
-    0% {
-      transform: translateX(-2.6rem);
-      opacity: 0;
-    }
-    35% {
-      opacity: 1;
-    }
-    100% {
-      transform: translateX(14rem);
-      opacity: 0;
-    }
-  }
-  /* El verbo del gesto lo pone el CSS: con dedo se desliza, con mouse se
-     arrastra. Decirle "arrastra" a quien trae un celular es pedirle algo que
-     no va a hacer. */
-  .pista-etiqueta .gesto::after {
-    content: " (DESLIZA)";
-  }
-  @media (pointer: fine) {
-    .pista-etiqueta .gesto::after {
-      content: " (ARRASTRA)";
-    }
-  }
-  .pista-cuenta {
-    font-variant-numeric: tabular-nums;
-    white-space: nowrap;
-    color: var(--color-ink);
-  }
-  .pista-guia .punta {
-    display: grid;
-    place-items: center;
-    color: var(--color-ink-dim);
-  }
-  .pista-guia .punta svg {
-    width: 13px;
-    height: 13px;
-  }
-  .pista-guia.movida .punta {
-    opacity: 0.35;
-  }
-  @media (prefers-reduced-motion: reduce) {
-    .pista-barra::after {
-      animation: none;
-      opacity: 0.6;
-    }
-  }
-
-  /* La orilla derecha se desvanece: dice "hay más" sin dibujar nada. */
-  .galeria-carril {
-    position: relative;
-    margin-top: 0.8rem;
-  }
-  .galeria-carril::after {
-    content: "";
-    position: absolute;
-    top: 0;
-    bottom: 2rem;
-    right: 0;
-    width: 5rem;
-    pointer-events: none;
-    background: linear-gradient(90deg, transparent, var(--color-bg));
-    transition: opacity 0.3s;
-  }
-  .galeria-carril.al-final::after {
-    opacity: 0;
-  }
-
-  .pista {
-    display: grid;
-    grid-auto-flow: column;
-    grid-auto-columns: minmax(19rem, 21rem);
-    gap: 1.2rem;
-    overflow-x: auto;
-    scroll-snap-type: x mandatory;
-    /* Sin esto el snap alinea la primera tarjeta con la orilla del contenedor
-       y se come el padding: las tarjetas arrancaban 24px a la izquierda del
-       margen del texto. */
-    scroll-padding-inline-start: 1.5rem;
-    padding: 0.6rem 1.5rem 2rem;
-    margin-inline: calc(50% - var(--container-default) / 2);
-    scrollbar-width: none;
-    cursor: grab;
-  }
-  .pista::-webkit-scrollbar {
-    display: none;
-  }
-  @media (max-width: 76rem) {
-    .pista {
-      margin-inline: 0;
-    }
-  }
-  .pista.arrastrando {
-    cursor: grabbing;
-    scroll-snap-type: none;
-  }
-  .pista:focus-visible {
-    outline: 2px solid var(--color-accent);
-    outline-offset: 4px;
-    border-radius: var(--radius-sm);
-  }
-
+   * Cada renglón es UN enlace: número, nombre, texto y acción en cuatro
+   * columnas, como un catálogo de cuentas. Todo a la vista y sin gesto que
+   * descubrir, que es lo que pide el lector de 45 a 65 (decisión de Israel,
+   * 2026-10-01: "la opción más legible para mi avatar"). Vive en la hoja de
+   * noche del escaparate, así que estos tokens ya llegan en su versión clara.
+   */
   .puerta {
-    position: relative;
-    overflow: hidden;
-    scroll-snap-align: start;
-    background: var(--color-surface-raised);
-    border: 1px solid var(--color-line);
-    border-radius: var(--radius-lg);
-    padding: 1.7rem 1.5rem 1.5rem;
+    display: grid;
+    grid-template-columns: 4.6rem minmax(12rem, 0.95fr) minmax(0, 1.55fr) 9.5rem;
+    grid-template-areas: "num titulo texto ir";
+    align-items: baseline;
+    column-gap: 2.2rem;
+    padding: 1.75rem 1.2rem 1.85rem;
+    border-top: 1px solid var(--color-line);
     text-decoration: none;
     color: inherit;
-    display: grid;
-    align-content: start;
-    gap: 0.55rem;
     transition:
-      transform 0.3s var(--ease-f),
-      box-shadow 0.3s var(--ease-f),
-      border-color 0.3s;
-  }
-  .puerta:hover {
-    transform: translateY(-6px);
-    box-shadow: 0 26px 50px -30px rgb(20 22 26 / 0.55);
-    border-color: color-mix(in oklab, var(--color-line) 55%, var(--color-ink-dim));
+      background 0.45s var(--ease-f),
+      border-color 0.45s var(--ease-f);
   }
   .puerta .num {
+    grid-area: num;
     font-family: var(--font-mono);
-    font-size: 0.72rem;
-    letter-spacing: 0.12em;
-    color: var(--color-accent);
+    font-size: 0.82rem;
+    letter-spacing: 0.16em;
+    color: var(--color-ink-dim);
+    transition: color 0.45s var(--ease-f);
   }
   .puerta h3 {
+    grid-area: titulo;
     font-family: var(--font-display);
     font-weight: 400;
-    font-size: 1.6rem;
-    line-height: 1.1;
+    font-size: clamp(1.45rem, 2.3vw, 1.95rem);
+    line-height: 1.08;
     letter-spacing: -0.005em;
     margin: 0;
+    text-wrap: balance;
   }
   .puerta p {
-    font-size: 0.88rem;
-    color: var(--color-ink-soft);
+    grid-area: texto;
     margin: 0;
+    max-width: 60ch;
+    font-size: 0.94rem;
+    line-height: 1.62;
+    color: var(--color-ink-soft);
   }
   .puerta .go {
-    display: inline-block;
-    margin-top: 0.6rem;
+    grid-area: ir;
+    justify-self: end;
+    white-space: nowrap;
     font-family: var(--font-mono);
     font-size: 0.76rem;
     color: var(--color-accent);
     transition: transform 0.25s var(--ease-f);
-    position: relative;
-    z-index: 1;
   }
-  .puerta:hover .go {
+  /* El renglón encendido: la regla de lectura, el mouse o el teclado. El
+     número pasa de la tinta tenue al verde de acción (es un enlace: aquí el
+     verde es acción) y la flecha avanza. */
+  .puerta:is(.en-lectura, :hover, :focus-visible) {
+    background: var(--color-surface-raised);
+  }
+  .puerta:is(.en-lectura, :hover, :focus-visible) .num {
+    color: var(--color-accent);
+  }
+  .puerta:is(.en-lectura, :hover) .go {
     transform: translateX(6px);
   }
-  /* Marca de agua en tinta al 7%, nunca en verde: el verde marca acción y
-     aquí sería decoración. Recortada por la tarjeta para que lea como fondo. */
-  .puerta .ilustra {
-    position: absolute;
-    right: -1.4rem;
-    bottom: -1.4rem;
-    width: 8rem;
-    height: 8rem;
-    pointer-events: none;
-    opacity: 0;
-    color: var(--color-ink);
-    transform: translateY(0.8rem) rotate(-6deg);
-    transition:
-      opacity 0.35s ease,
-      transform 0.45s var(--ease-f);
+  .puerta:focus-visible {
+    outline-offset: -2px;
   }
-  .puerta .ilustra :global(svg) {
-    width: 100%;
-    height: 100%;
-    display: block;
+  /* Sin filete encima del renglón que sigue al encendido: se lee como una
+     banda de luz, no como una caja. */
+  .catalogo li:has(> .puerta:is(.en-lectura, :hover)) + li > .puerta {
+    border-top-color: transparent;
   }
-  .puerta:hover .ilustra {
-    opacity: 0.07;
-    transform: translateY(0) rotate(-6deg);
+  @media (max-width: 860px) {
+    .puerta {
+      grid-template-columns: 2.6rem minmax(0, 1fr);
+      grid-template-areas:
+        "num titulo"
+        ". texto"
+        ". ir";
+      row-gap: 0.55rem;
+      column-gap: 0.6rem;
+      padding: 1.35rem 0.6rem 1.45rem;
+    }
+    .puerta .go {
+      justify-self: start;
+      margin-top: 0.2rem;
+    }
   }
-  @media (hover: none) {
-    .puerta .ilustra {
-      display: none;
+  @media (prefers-reduced-motion: reduce) {
+    .puerta,
+    .puerta .num,
+    .puerta .go {
+      transition: none;
     }
   }
 
@@ -1534,8 +1371,13 @@ const lineasTerminal = [
   }
 
   /* Lead magnet */
+  /* La guía es una isla de noche dentro del día (data-mundo="noche" en la
+     sección): toma el azul de la terminal y no el negro neutro (#14161A) que
+     traía, que era un segundo oscuro junto al de la terminal. Con eso sus
+     colores pasan a tokens: eran seis hex crudos de la familia terminal que
+     DESIGN.md ya marcaba como deuda. */
   .guia {
-    background: var(--color-line-strong);
+    background: var(--color-bg);
   }
   .guia-inner {
     display: grid;
@@ -1549,17 +1391,19 @@ const lineasTerminal = [
     }
   }
   .guia .guia-folio {
-    color: #8da2c0;
+    color: var(--color-ink-dim);
   }
   .guia .guia-folio b {
-    color: var(--color-terminal-ok);
+    color: var(--color-accent);
   }
+  /* balance: "Claude" caía solo en el segundo renglón. */
   .guia .guia-titulo {
-    color: #ffffff;
+    color: var(--color-ink);
     margin: 0.8rem 0;
+    text-wrap: balance;
   }
   .guia-texto {
-    color: #aebbd1;
+    color: var(--color-ink-soft);
     max-width: 46ch;
     margin: 0;
   }
@@ -1588,21 +1432,21 @@ const lineasTerminal = [
     left: 0;
     right: 0;
     height: 1px;
-    background: #2a3648;
+    background: var(--color-line);
     transform-origin: left;
   }
   .capas-tira li {
     padding: 0 1.2rem 0 0;
     font-size: 0.82rem;
     line-height: 1.45;
-    color: #9fb0c9;
+    color: var(--color-ink-soft);
   }
   .capas-tira b {
     display: block;
     margin-bottom: 0.35rem;
     font-family: var(--font-mono);
     font-size: 0.75rem;
-    color: var(--color-terminal-ok);
+    color: var(--color-accent);
   }
   /* En celular cinco columnas no caben, y apiladas hacen una torre de cinco
      renglones sueltos. Dos columnas: se siguen contando y ocupan la mitad. */

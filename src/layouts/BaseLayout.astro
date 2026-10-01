@@ -28,9 +28,11 @@ interface Props {
    * redes, aunque la página pase nav o cta.
    */
   desnudo?: boolean;
+  /** El mundo del pie (ver tokens.css). Solo la home lo usa. */
+  mundoPie?: "dia" | "noche";
 }
 
-const { title, description, image, type, noindex, publicado, actualizado, jsonLd, nav, cta, desnudo = false } = Astro.props;
+const { title, description, image, type, noindex, publicado, actualizado, jsonLd, nav, cta, desnudo = false, mundoPie } = Astro.props;
 ---
 
 <!doctype html>
@@ -42,7 +44,18 @@ const { title, description, image, type, noindex, publicado, actualizado, jsonLd
     <link rel="icon" type="image/x-icon" href="/favicon.ico" sizes="16x16 32x32 48x48" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <link rel="manifest" href="/site.webmanifest" />
-    <meta name="theme-color" content="#0D1420" />
+    {/* El color del navegador es el del papel: en azul marino, la barra del
+        sistema quedaba oscura sobre un sitio claro. En la home lo cambia el
+        script de las hojas según el mundo que esté arriba. */}
+    <meta name="theme-color" content="#FBFAF7" />
+    {/* La entrada del logotipo corre una vez por sesión. Va aquí, antes de
+        pintar, para que en la segunda página no alcance a moverse. */}
+    <script is:inline>
+      try {
+        if (sessionStorage.getItem("logo-visto")) document.documentElement.classList.add("logo-visto");
+        else sessionStorage.setItem("logo-visto", "1");
+      } catch (e) {}
+    </script>
     <link rel="sitemap" href="/sitemap-index.xml" />
     <SEO {title} {description} {image} {type} {noindex} {publicado} {actualizado} />
     {jsonLd && <JsonLd data={jsonLd} />}
@@ -72,6 +85,6 @@ const { title, description, image, type, noindex, publicado, actualizado, jsonLd
       document.querySelectorAll("[data-reveal]").forEach((el) => io.observe(el));
     </script>
 
-    <Pie desnudo={desnudo} />
+    <Pie desnudo={desnudo} mundo={mundoPie} />
   </body>
 </html>
