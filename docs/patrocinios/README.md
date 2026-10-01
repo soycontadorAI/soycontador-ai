@@ -89,3 +89,32 @@ sección de la llamada de descubrimiento.
   Corporativos (CONTPAQi, Thomson Reuters, IDC) se contactan en la misma ola
   apuntando a enero. Datos del canal al día: 129 suscriptores, 230 horas de
   visualización en 28 días.
+- **2026-09-30.** Octubre ya no corre vacío: lo presenta **Certera**
+  (certera.fiscalistas.ai), la app de monitoreo fiscal de Pepe (José de Jesús
+  Pérez Lara), en la que Israel va a mitad en ventas y hace distribución y
+  correcciones técnicas. Es el **piloto** del paquete de noviembre, no una
+  venta: sin fee, y por eso no rompe «solo pago fijo», que aplica a marcas
+  ajenas. Se entrega exactamente lo que promete la hoja (logo en portada y
+  cierre, mención de apertura y cierre, segmento de 60 s sin demo, línea en
+  el entregable) para medirlo y llevar números reales a la venta de
+  noviembre. **Al aire se dice que Certera es de Pepe y de Israel** (decisión
+  de Israel): un patrocinio propio presentado como ajeno le quita
+  credibilidad al paquete que se vende después. La oferta al público es el
+  piloto gratis de Certera (10 lugares, 1 RFC, 90 días, $0) por el alias
+  soycontador.ai/certera, que falta crear. No choca con la exclusión de
+  descarga masiva: Certera monitorea notificaciones y cancelaciones, no
+  descarga ni audita CFDI.
+- **2026-09-30 (más tarde).** `soycontador.ai/certera` ya existe en
+  `astro.config.mjs` (falta desplegar): 302 a
+  `certera.fiscalistas.ai/plataforma` con
+  `utm_source=soycontador&utm_medium=youtube&utm_campaign=jueves-octubre-2026&utm_content=qr-alias`.
+  **Las UTM solas no miden nada todavía**: la página de Certera no trae
+  analítica, y la solicitud es un `mailto:` a pepe@fiscalistas.ai, que no
+  carga la UTM. Para que el piloto se pueda contar (que es el punto del caso de
+  estudio), Pepe tiene que hacer una de dos cosas: activar analítica en la
+  página, o que el `mailto` agregue «Vengo de: Jueves de ContadorIA» cuando la
+  URL trae `utm_source=soycontador`. Lo segundo es lo más barato y cuenta
+  solicitudes, no visitas. Además, la página dice que el piloto es «para 10
+  clientes de Mesa Privada y Miembros PRO» y que quedan 6 (dato del 13-sep):
+  confirmar con Pepe que se abre a la audiencia del canal antes del live.
+
