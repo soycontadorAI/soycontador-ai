@@ -1,0 +1,189 @@
+/*
+ * I · Jornada: cambia la luz, no el lugar.
+ *
+ * El mundo lo lleva el <body> y TODO el lienzo lo hereda a la vez: fondo,
+ * tinta, tarjetas, filetes, cabecera y el color del navegador. Las secciones
+ * solo marcan su zona (data-zona) y ninguna se pinta a sí misma: no hay
+ * costuras ni aberturas, se apagan o se prenden las luces del despacho.
+ *
+ * La transición de los colores registrados (0.5 s, --ease-f) ya la declara
+ * comun.css sobre body[data-mundo]; aquí solo va lo propio de la jornada.
+ */
+
+/* ---------- La cabecera sigue a la página, no a sí misma ----------
+   El motor le pone su data-mundo (que también decide el theme-color). Aquí
+   hereda los tokens del body y NO los anima por su cuenta: si los animara,
+   iría medio paso detrás de la página durante cada cambio de luz. */
+html.jornada-global .site-header[data-mundo] {
+  --color-bg: inherit;
+  --color-surface: inherit;
+  --color-surface-raised: inherit;
+  --color-line: inherit;
+  --color-line-strong: inherit;
+  --color-ink: inherit;
+  --color-ink-soft: inherit;
+  --color-ink-dim: inherit;
+  --color-accent: inherit;
+  --color-accent-hover: inherit;
+  --color-accent-contrast: inherit;
+  --color-accent-soft: inherit;
+  --color-marker: inherit;
+  transition: none;
+}
+
+/* ---------- Cómo cambia la luz ----------
+   Si fondo y tinta se interpolan juntos, a la mitad los dos son el mismo
+   gris y la página entera se vuelve niebla un instante. Aquí el fondo, las
+   superficies y los filetes se funden (0.5 s, --ease-f) y la TINTA brinca de
+   un golpe justo cuando el fondo cruza el punto en que las dos tintas leen
+   igual (≈3.9:1, a los 55 ms con esta curva). Así el texto nunca baja de ese
+   contraste durante el cambio, en ninguno de los dos sentidos. */
+html.jornada-global body[data-mundo] {
+  transition-property:
+    --color-bg, --color-surface, --color-surface-raised, --color-line, --color-accent-soft, --color-marker,
+    --color-ink, --color-ink-soft, --color-ink-dim, --color-line-strong, --color-accent, --color-accent-hover,
+    --color-accent-contrast;
+  transition-duration: 0.5s, 0.5s, 0.5s, 0.5s, 0.5s, 0.5s, 0s, 0s, 0s, 0s, 0s, 0s, 0s;
+  transition-delay: 0s, 0s, 0s, 0s, 0s, 0s, 55ms, 55ms, 55ms, 55ms, 55ms, 55ms, 55ms;
+  transition-timing-function: var(--ease-f);
+}
+/* El cruce no es simétrico: el fondo se interpola en sRGB y la luminancia no
+   avanza igual al oscurecer que al aclarar. Medido cuadro por cuadro con las
+   transiciones congeladas: al apagarse la luz el punto parejo llega a los
+   ~70 ms (a los 55 ms la tinta clara quedaba en 1.5:1 sobre un fondo todavía
+   claro); al prenderse llega a los ~50 ms. La transición usa los valores del
+   estado de llegada, así que basta con ponerle a la noche su propio brinco. */
+html.jornada-global body[data-mundo="noche"] {
+  transition-delay: 0s, 0s, 0s, 0s, 0s, 0s, 70ms, 70ms, 70ms, 70ms, 70ms, 70ms, 70ms;
+}
+
+/* Primer cuadro y recargas a media página: la luz se pone, no se anima. */
+html.jornada-quieta body,
+html.jornada-quieta .site-header {
+  transition: none !important;
+}
+
+/* Mientras cambia la luz, el color lo manda SOLO el body. Varios componentes
+   traen su propia transición de fondo o de color (los renglones de la escena,
+   0.45 s; las preguntas, 0.25 s): heredando tokens que ya se están
+   interpolando, cada cuadro les reinicia la transición y se quedan medio
+   paso atrás. Se veía: tarjetas grises fantasma sobre la noche ya hecha.
+   Durante esa media vuelta solo siguen corriendo las de movimiento. */
+html.cambiando-luz body * {
+  transition-property: transform, translate, scale, rotate, opacity !important;
+}
+
+/* ---------- La banda de la guía ----------
+   Era el único oscuro con fondo propio (#14161A, un negro neutro distinto del
+   azul de la terminal). Aquí toma la noche FIJA de la terminal: de noche se
+   funde con la página, de día sigue siendo la banda oscura que era, y como
+   no depende de los tokens que se interpolan, nunca destella al cambiar la
+   luz (con line-strong habría pasado por blanco). */
+html[data-direccion="jornada"] .guia {
+  background: var(--color-terminal-bg);
+}
+
+/* ---------- Madrugada ----------
+   La noche se aclara con cada renglón que cierra la máquina: el segundo la
+   levanta un poco y el tercero es la hora azul. El cuarto (el tuyo) ya no es
+   noche: amanece la página entera. La tinta tenue sube con el fondo para no
+   perder el AA (medido: 4.8:1 en el peor caso, la tarjeta encendida). */
+body[data-mundo="noche"][data-hora="1"] {
+  --color-bg: color-mix(in oklab, var(--color-terminal-dim) 12%, var(--noche-bg));
+  --color-surface: color-mix(in oklab, var(--color-terminal-dim) 12%, var(--noche-surface));
+  --color-surface-raised: color-mix(in oklab, var(--color-terminal-dim) 12%, var(--noche-surface-raised));
+  --color-line: color-mix(in oklab, var(--color-terminal-dim) 12%, var(--noche-line));
+  --color-ink-dim: color-mix(in oklab, var(--color-terminal-ink) 72%, var(--color-terminal-dim));
+}
+body[data-mundo="noche"][data-hora="2"] {
+  --color-bg: color-mix(in oklab, var(--color-terminal-dim) 24%, var(--noche-bg));
+  --color-surface: color-mix(in oklab, var(--color-terminal-dim) 24%, var(--noche-surface));
+  --color-surface-raised: color-mix(in oklab, var(--color-terminal-dim) 24%, var(--noche-surface-raised));
+  --color-line: color-mix(in oklab, var(--color-terminal-dim) 24%, var(--noche-line));
+  --color-ink-dim: color-mix(in oklab, var(--color-terminal-ink) 84%, var(--color-terminal-dim));
+}
+
+/* ---------- La cifra que cuenta ----------
+   Cifras tabulares y el ancho final reservado: al contar, el resto del
+   renglón no baila. La familia no cambia (es el h3 del renglón). */
+.jornada-cifra {
+  display: inline-block;
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+/* ---------- La cabeza de página ----------
+   El folio de la sección en la que vas, en el margen izquierdo y de canto,
+   leído de abajo arriba como el lomo de un libro. Repite un folio que ya
+   existe (por eso va aria-hidden) y se centra en el margen, no en la orilla. */
+.cabeza-pagina {
+  position: fixed;
+  z-index: 4;
+  top: 50%;
+  left: calc((100vw - var(--container-default)) / 4);
+  translate: -50% -50%;
+  display: grid;
+  pointer-events: none;
+}
+.cabeza-renglon {
+  grid-area: 1 / 1;
+  display: block;
+}
+.cabeza-texto {
+  display: block;
+  writing-mode: vertical-rl;
+  rotate: 180deg;
+  white-space: nowrap;
+  font-family: var(--font-mono);
+  font-size: 0.64rem;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--color-ink-dim);
+}
+.cabeza-texto b {
+  color: var(--color-accent);
+  font-weight: 700;
+}
+/* La raya que la ancla, la misma del kicker de la portada. */
+.cabeza-texto::before {
+  content: "";
+  display: inline-block;
+  inline-size: 2.4rem;
+  block-size: 1px;
+  margin-inline-end: 0.9rem;
+  vertical-align: middle;
+  background: currentColor;
+}
+/* Entra desde abajo y la anterior se va por arriba: es la lectura de la
+   página, que sube. */
+.cabeza-renglon.entra {
+  animation: cabeza-entra 0.42s var(--ease-f) both;
+}
+.cabeza-renglon.sale {
+  animation: cabeza-sale 0.32s var(--ease-f) both;
+}
+@keyframes cabeza-entra {
+  from {
+    translate: 0 1.1rem;
+    opacity: 0;
+  }
+}
+@keyframes cabeza-sale {
+  to {
+    translate: 0 -1.1rem;
+    opacity: 0;
+  }
+}
+/* Solo donde hay margen de verdad: bajo 1280 px se comería el texto. */
+@media (max-width: 1279.98px) {
+  .cabeza-pagina {
+    display: none;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .cabeza-renglon.entra,
+  .cabeza-renglon.sale {
+    animation: none;
+  }
+}

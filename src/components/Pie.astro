@@ -9,14 +9,17 @@ import { FOOTER_LINKS, NAV_PAGINAS } from "../lib/site";
 
 interface Props {
   desnudo?: boolean;
+  /** El mundo del pie (ver tokens.css). La home lo pone de noche: es la
+      mesa que queda debajo de la pila de hojas. */
+  mundo?: "dia" | "noche";
 }
 
-const { desnudo = false } = Astro.props;
+const { desnudo = false, mundo } = Astro.props;
 const year = new Date().getFullYear();
 const pieLinks = desnudo ? FOOTER_LINKS.filter((l) => !l.href.startsWith("http")) : FOOTER_LINKS;
 ---
 
-<footer class:list={["site-footer", { "site-footer-desnudo": desnudo }]}>
+<footer class:list={["site-footer", { "site-footer-desnudo": desnudo }]} data-mundo={mundo}>
   <div class="container-default">
     {!desnudo && (
       <nav class="site-foot-paginas" aria-label="Páginas del sitio">
@@ -50,6 +53,12 @@ const pieLinks = desnudo ? FOOTER_LINKS.filter((l) => !l.href.startsWith("http")
     background: var(--color-surface-raised);
     border-top: 1.5px solid var(--color-line-strong);
     margin-top: 4rem;
+  }
+  /* De noche toma el fondo del mundo y no la tarjeta, y el filete de arriba
+     baja a filete normal: el claro de la tinta sobre la noche gritaba. */
+  .site-footer[data-mundo="noche"] {
+    background: var(--color-bg);
+    border-top-color: var(--color-line);
   }
   /* En una landing la última sección es la banda del correo: el respiro de
      4rem metía una franja clara entre esa banda y el pie. */

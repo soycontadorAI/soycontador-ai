@@ -1,0 +1,445 @@
+/*
+ * "Qué encuentras aquí": tres formas de mostrar las seis puertas (2026-10-01).
+ *
+ * Las tres usan el MISMO marcado de hoy (a.puerta con .num, h3, p, .go y
+ * .ilustra), así que el copy no cambia y la medición tampoco: Analytics sigue
+ * leyendo el h3 y el .num de la puerta en cada clic. Solo cambia la forma, y
+ * se elige con #ofertas[data-variante]. Sin el atributo, queda el carrusel.
+ *
+ * Lo común: desaparece todo lo que solo existía para el carrusel (la barra de
+ * avance, el contador, la flecha, el "(ARRASTRA)" y el desvanecido de la
+ * orilla) y las puertas vuelven a la retícula del contenedor. "ELIGE TU
+ * CAMINO" se queda: sigue siendo cierto.
+ */
+
+#ofertas[data-variante] .galeria-carril::after,
+#ofertas[data-variante] .pista-barra,
+#ofertas[data-variante] .pista-cuenta,
+#ofertas[data-variante] .punta,
+#ofertas[data-variante] .gesto {
+  display: none;
+}
+#ofertas[data-variante] .galeria-carril .pista {
+  display: grid;
+  grid-auto-flow: row;
+  grid-auto-columns: auto;
+  gap: 0;
+  overflow: visible;
+  scroll-snap-type: none;
+  cursor: auto;
+  max-width: var(--container-default);
+  margin: 0 auto;
+  padding: 0.4rem 1.5rem 0.6rem;
+}
+#ofertas[data-variante] .puerta {
+  scroll-snap-align: none;
+  overflow: visible;
+}
+/* Una fila o una celda no brinca al pasar el mouse: brinca la flecha. */
+#ofertas[data-variante] .puerta:hover {
+  transform: none;
+  box-shadow: none;
+}
+
+/* ===================================================================
+   1 · CATÁLOGO: el catálogo de cuentas.
+   Seis renglones numerados, todo a la vista, como el catálogo que un
+   contador lee todos los días. Al bajar, una REGLA DE LECTURA enciende el
+   renglón que cruza la línea de lectura, como quien recorre el libro con
+   una regla. Es el mismo gesto de la escena (renglones que se encienden),
+   ahora sin fijar nada.
+   =================================================================== */
+#ofertas[data-variante="catalogo"] .puerta {
+  grid-template-columns: 4.6rem minmax(12rem, 0.95fr) minmax(0, 1.55fr) 9.5rem;
+  grid-template-areas: "num titulo texto ir";
+  align-items: baseline;
+  align-content: center;
+  column-gap: 2.2rem;
+  row-gap: 0;
+  padding: 1.75rem 1.2rem 1.85rem;
+  background: transparent;
+  border: 0;
+  border-top: 1px solid var(--color-line);
+  border-radius: 0;
+  transition:
+    background 0.45s var(--ease-f),
+    border-color 0.45s var(--ease-f);
+}
+#ofertas[data-variante="catalogo"] .puerta:last-child {
+  border-bottom: 1px solid var(--color-line);
+}
+#ofertas[data-variante="catalogo"] .num {
+  grid-area: num;
+  font-size: 0.82rem;
+  letter-spacing: 0.16em;
+  color: var(--color-ink-dim);
+  transition: color 0.45s var(--ease-f);
+}
+#ofertas[data-variante="catalogo"] .puerta h3 {
+  grid-area: titulo;
+  font-size: clamp(1.45rem, 2.3vw, 1.95rem);
+  line-height: 1.08;
+  text-wrap: balance;
+}
+#ofertas[data-variante="catalogo"] .puerta p {
+  grid-area: texto;
+  font-size: 0.94rem;
+  line-height: 1.62;
+  max-width: 60ch;
+}
+#ofertas[data-variante="catalogo"] .puerta .go {
+  grid-area: ir;
+  justify-self: end;
+  margin: 0;
+  white-space: nowrap;
+}
+#ofertas[data-variante="catalogo"] .puerta .ilustra {
+  display: none;
+}
+/* El renglón encendido: la regla de lectura o el mouse. El número pasa de la
+   tinta tenue al verde de acción (es un enlace: el verde aquí es acción). */
+#ofertas[data-variante="catalogo"] .puerta:is(.en-lectura, :hover, :focus-visible) {
+  background: var(--color-surface-raised);
+}
+#ofertas[data-variante="catalogo"] .puerta:is(.en-lectura, :hover, :focus-visible) .num {
+  color: var(--color-accent);
+}
+#ofertas[data-variante="catalogo"] .puerta.en-lectura .go {
+  transform: translateX(6px);
+}
+#ofertas[data-variante="catalogo"] .puerta.en-lectura + .puerta,
+#ofertas[data-variante="catalogo"] .puerta:hover + .puerta {
+  border-top-color: transparent;
+}
+@media (max-width: 860px) {
+  #ofertas[data-variante="catalogo"] .puerta {
+    grid-template-columns: 2.6rem minmax(0, 1fr);
+    grid-template-areas:
+      "num titulo"
+      ". texto"
+      ". ir";
+    row-gap: 0.55rem;
+    column-gap: 0.6rem;
+    padding: 1.35rem 0.6rem 1.45rem;
+  }
+  #ofertas[data-variante="catalogo"] .puerta .go {
+    justify-self: start;
+    margin-top: 0.2rem;
+  }
+}
+
+/* ===================================================================
+   2 · PUERTAS: seis puertas de verdad.
+   El titular ya dice "puertas": aquí se ven seis, una junto a otra, y la
+   que señalas se abre con luz, como una puerta abierta en un pasillo de
+   noche. Cerradas muestran su número y su nombre en el canto, de abajo hacia
+   arriba como el lomo de un libro; abierta, todo. Las seis se ven a la vez
+   y ninguna obliga a la siguiente. En celular se apilan y se abren con el
+   pulgar (la primera tocada abre, la segunda entra).
+   =================================================================== */
+@media (min-width: 900px) {
+  #ofertas[data-variante="puertas"] .galeria-carril .pista {
+    display: flex;
+    gap: 0.75rem;
+    height: clamp(31rem, 64vh, 37rem);
+    padding-top: 0.8rem;
+  }
+  #ofertas[data-variante="puertas"] .puerta {
+    flex: 1 1 0;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.7rem;
+    padding: 1.5rem 1.35rem 1.4rem;
+    overflow: hidden;
+    background: var(--color-surface);
+    border: 1px solid var(--color-line);
+    border-radius: var(--radius-lg);
+    transition:
+      flex-grow 0.55s var(--ease-f),
+      background 0.45s var(--ease-f),
+      border-color 0.45s var(--ease-f),
+      box-shadow 0.45s var(--ease-f);
+  }
+  #ofertas[data-variante="puertas"] .puerta.abierta {
+    flex-grow: 4.4;
+    background: var(--color-surface-raised);
+    border-color: color-mix(in oklab, var(--color-accent) 45%, var(--color-line));
+    box-shadow: 0 46px 90px -56px color-mix(in oklab, var(--color-accent) 70%, transparent);
+  }
+  #ofertas[data-variante="puertas"] .puerta:not(.abierta):hover {
+    border-color: color-mix(in oklab, var(--color-line) 50%, var(--color-ink-dim));
+  }
+  /* El ícono deja de ser marca de agua escondida: es la placa de la puerta. */
+  #ofertas[data-variante="puertas"] .puerta .ilustra {
+    position: static;
+    display: block;
+    order: 1;
+    width: 2.3rem;
+    height: 2.3rem;
+    flex: none;
+    opacity: 1;
+    transform: none;
+    color: var(--color-ink-dim);
+    transition: color 0.45s var(--ease-f);
+  }
+  #ofertas[data-variante="puertas"] .puerta.abierta .ilustra {
+    color: var(--color-ink-soft);
+  }
+  #ofertas[data-variante="puertas"] .num {
+    order: 0;
+  }
+  /* Cerrada: el nombre en el canto, abajo, leído de abajo hacia arriba. */
+  #ofertas[data-variante="puertas"] .puerta h3 {
+    order: 2;
+    margin-top: auto;
+    writing-mode: vertical-rl;
+    transform: rotate(180deg);
+    align-self: flex-start;
+    font-size: clamp(1.45rem, 2vw, 1.85rem);
+    line-height: 1.05;
+    white-space: nowrap;
+    max-height: 100%;
+  }
+  #ofertas[data-variante="puertas"] .puerta.abierta h3 {
+    writing-mode: horizontal-tb;
+    transform: none;
+    white-space: normal;
+    margin-top: 0.4rem;
+    max-width: 18ch;
+    text-wrap: balance;
+    animation: puerta-titulo 0.5s var(--ease-f) both;
+  }
+  #ofertas[data-variante="puertas"] .puerta.cerrandose h3 {
+    animation: puerta-titulo 0.42s var(--ease-f) both;
+  }
+  #ofertas[data-variante="puertas"] .puerta p,
+  #ofertas[data-variante="puertas"] .puerta .go {
+    order: 3;
+    opacity: 0;
+    translate: 0 14px;
+    transition:
+      opacity 0.2s ease,
+      translate 0.2s ease;
+  }
+  /* El párrafo mide YA lo que medirá con la puerta abierta: así no se vuelve
+     a partir en cada cuadro mientras la puerta crece (se ve feo); la puerta
+     lo destapa armado. La cuenta es la del flex: el ancho del contenedor menos
+     los cinco huecos, menos el relleno y el filete de las seis puertas,
+     repartido 4.4 a 1 entre la abierta y cada cerrada. */
+  #ofertas[data-variante="puertas"] .puerta p {
+    font-size: 0.93rem;
+    line-height: 1.6;
+    flex: none;
+    width: calc((min(100vw, 74rem) - 3rem - 3.75rem - 6 * (2.7rem + 2px)) * 4.4 / 9.4);
+    max-width: none;
+  }
+  #ofertas[data-variante="puertas"] .puerta .go {
+    order: 4;
+    margin-top: auto;
+  }
+  /* El texto entra cuando la puerta ya casi abrió: desde abajo, como todo. */
+  #ofertas[data-variante="puertas"] .puerta.abierta p,
+  #ofertas[data-variante="puertas"] .puerta.abierta .go {
+    opacity: 1;
+    translate: none;
+    transition:
+      opacity 0.42s var(--ease-f) 0.16s,
+      translate 0.42s var(--ease-f) 0.16s;
+  }
+}
+@keyframes puerta-titulo {
+  from {
+    opacity: 0;
+    translate: 0 10px;
+  }
+}
+@media (max-width: 899px) {
+  #ofertas[data-variante="puertas"] .galeria-carril .pista {
+    gap: 0.6rem;
+  }
+  #ofertas[data-variante="puertas"] .puerta {
+    grid-template-columns: 2.6rem minmax(0, 1fr) 1.2rem;
+    grid-template-areas:
+      "num titulo cruz"
+      ". texto texto"
+      ". ir ir";
+    grid-template-rows: auto 0fr 0fr;
+    align-items: center;
+    column-gap: 0.6rem;
+    row-gap: 0;
+    padding: 1.05rem 1rem;
+    background: var(--color-surface);
+    border: 1px solid var(--color-line);
+    border-radius: var(--radius-md);
+    transition:
+      grid-template-rows 0.42s var(--ease-f),
+      row-gap 0.42s var(--ease-f),
+      background 0.42s var(--ease-f),
+      border-color 0.42s var(--ease-f);
+  }
+  #ofertas[data-variante="puertas"] .puerta.abierta {
+    grid-template-rows: auto 1fr auto;
+    row-gap: 0.6rem;
+    background: var(--color-surface-raised);
+    border-color: color-mix(in oklab, var(--color-accent) 45%, var(--color-line));
+  }
+  #ofertas[data-variante="puertas"] .num {
+    grid-area: num;
+  }
+  #ofertas[data-variante="puertas"] .puerta h3 {
+    grid-area: titulo;
+    font-size: 1.3rem;
+  }
+  /* stretch y no el center de la fila: centrado, el párrafo conservaba su
+     alto y se desbordaba fuera de su fila de 0 (medido: 114 px en una fila de
+     0). Estirado, mide lo que mide la fila y la puerta lo recorta. */
+  #ofertas[data-variante="puertas"] .puerta p,
+  #ofertas[data-variante="puertas"] .puerta .go {
+    align-self: stretch;
+    min-height: 0;
+    overflow: hidden;
+  }
+  #ofertas[data-variante="puertas"] .puerta p {
+    grid-area: texto;
+  }
+  #ofertas[data-variante="puertas"] .puerta .go {
+    grid-area: ir;
+    margin: 0;
+  }
+  #ofertas[data-variante="puertas"] .puerta .ilustra {
+    display: none;
+  }
+  /* La cruz, la misma del acordeón de preguntas. */
+  #ofertas[data-variante="puertas"] .puerta::after {
+    content: "";
+    grid-area: cruz;
+    justify-self: end;
+    width: 14px;
+    height: 14px;
+    background:
+      linear-gradient(var(--color-accent), var(--color-accent)) center / 100% 2px no-repeat,
+      linear-gradient(var(--color-accent), var(--color-accent)) center / 2px 100% no-repeat;
+    transition: transform 0.35s var(--ease-f);
+  }
+  #ofertas[data-variante="puertas"] .puerta.abierta::after {
+    transform: rotate(45deg);
+  }
+}
+
+/* ===================================================================
+   3 · PLANA: la plana de revista.
+   El índice de secciones de una revista: tres por dos, sin tarjetas, con
+   filetes finos entre celdas, y cada puerta con su ícono a la vista (hoy es
+   una marca de agua que solo aparece al pasar el mouse). Se escanea de un
+   vistazo. Al entrar, las celdas suben en cascada amarradas al scroll.
+   =================================================================== */
+#ofertas[data-variante="plana"] .galeria-carril .pista {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  padding-top: 0;
+}
+/* Los filetes van en las celdas y no en la caja de la retícula: la caja trae
+   el relleno del contenedor y el filete sobresalía 24 px por lado. Arriba de
+   todas, y abajo solo la última fila, para que entre filas quede uno solo. */
+#ofertas[data-variante="plana"] .puerta {
+  border-top: 1px solid var(--color-line) !important;
+}
+#ofertas[data-variante="plana"] .puerta:nth-last-child(-n + 3) {
+  border-bottom: 1px solid var(--color-line) !important;
+}
+#ofertas[data-variante="plana"] .puerta {
+  grid-template-rows: auto auto auto 1fr auto;
+  align-content: stretch;
+  gap: 0.7rem;
+  padding: 2.1rem 2rem 2.2rem;
+  background: transparent;
+  border: 0;
+  border-radius: 0;
+  translate: 0 calc(var(--subir, 0) * 56px);
+  transition: background 0.45s var(--ease-f);
+}
+#ofertas[data-variante="plana"] .puerta:not(:nth-child(3n + 1)) {
+  border-left: 1px solid var(--color-line);
+}
+#ofertas[data-variante="plana"] .puerta:is(:hover, :focus-visible) {
+  background: var(--color-surface-raised);
+}
+#ofertas[data-variante="plana"] .puerta .ilustra {
+  position: static;
+  display: block;
+  order: -1;
+  width: 2.6rem;
+  height: 2.6rem;
+  margin-bottom: 0.5rem;
+  opacity: 1;
+  transform: none;
+  color: var(--color-ink-soft);
+  transition: translate 0.45s var(--ease-f);
+}
+#ofertas[data-variante="plana"] .puerta:is(:hover, :focus-visible) .ilustra {
+  translate: 0 -4px;
+}
+#ofertas[data-variante="plana"] .puerta h3 {
+  font-size: clamp(1.5rem, 2.2vw, 1.85rem);
+  line-height: 1.08;
+  text-wrap: balance;
+}
+#ofertas[data-variante="plana"] .puerta p {
+  font-size: 0.92rem;
+  line-height: 1.62;
+}
+#ofertas[data-variante="plana"] .puerta .go {
+  align-self: end;
+  margin-top: 0.4rem;
+}
+@media (max-width: 980px) and (min-width: 641px) {
+  #ofertas[data-variante="plana"] .galeria-carril .pista {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  #ofertas[data-variante="plana"] .puerta:not(:nth-child(3n + 1)) {
+    border-left: 0;
+  }
+  #ofertas[data-variante="plana"] .puerta:nth-child(2n) {
+    border-left: 1px solid var(--color-line);
+  }
+  #ofertas[data-variante="plana"] .puerta:nth-last-child(3) {
+    border-bottom: 0 !important;
+  }
+}
+@media (max-width: 640px) {
+  #ofertas[data-variante="plana"] .galeria-carril .pista {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  #ofertas[data-variante="plana"] .puerta {
+    grid-template-columns: 2.6rem minmax(0, 1fr);
+    grid-template-rows: none;
+    column-gap: 0.9rem;
+    row-gap: 0.5rem;
+    padding: 1.6rem 0.4rem 1.7rem;
+    border-left: 0 !important;
+  }
+  #ofertas[data-variante="plana"] .puerta:not(:last-child) {
+    border-bottom: 0 !important;
+  }
+  #ofertas[data-variante="plana"] .puerta .ilustra {
+    grid-row: 1 / span 4;
+    width: 2.2rem;
+    height: 2.2rem;
+    margin: 0.1rem 0 0;
+  }
+  #ofertas[data-variante="plana"] .puerta > :not(.ilustra) {
+    grid-column: 2;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #ofertas[data-variante] .puerta,
+  #ofertas[data-variante] .puerta *,
+  #ofertas[data-variante] .puerta::after {
+    transition: none !important;
+    animation: none !important;
+  }
+  #ofertas[data-variante="plana"] .puerta {
+    translate: none;
+  }
+}

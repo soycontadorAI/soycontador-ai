@@ -1,0 +1,870 @@
+<!doctype html>
+<html lang="es-MX">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Logotipo · tres alternativas</title>
+<style>
+/* Las mismas fuentes que el sitio, del node_modules del proyecto (como las
+   plantillas de design/piezas). Si una no carga, la tarjeta de verificación
+   de cada alternativa lo dice. */
+@font-face {
+  font-family: "Space Grotesk Variable"; font-style: normal; font-display: block; font-weight: 300 700;
+  src: url("../../../node_modules/@fontsource-variable/space-grotesk/files/space-grotesk-latin-wght-normal.woff2") format("woff2-variations");
+}
+@font-face {
+  font-family: "JetBrains Mono Variable"; font-style: normal; font-display: block; font-weight: 100 800;
+  src: url("../../../node_modules/@fontsource-variable/jetbrains-mono/files/jetbrains-mono-latin-wght-normal.woff2") format("woff2-variations");
+}
+@font-face {
+  font-family: "Instrument Serif"; font-style: normal; font-display: block; font-weight: 400;
+  src: url("../../../node_modules/@fontsource/instrument-serif/files/instrument-serif-latin-400-normal.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Instrument Serif"; font-style: italic; font-display: block; font-weight: 400;
+  src: url("../../../node_modules/@fontsource/instrument-serif/files/instrument-serif-latin-400-italic.woff2") format("woff2");
+}
+
+/* Copia de src/styles/tokens.css (mismos nombres, mismos valores). */
+:root {
+  --color-bg: #FBFAF7;
+  --color-surface: #F3F1EB;
+  --color-surface-raised: #FFFFFF;
+  --color-line: #E3E0D8;
+  --color-line-strong: #14161A;
+  --color-ink: #14161A;
+  --color-ink-soft: #454A54;
+  --color-ink-dim: #666B75;
+  --color-accent: #0A7B45;
+  --color-accent-hover: #066035;
+  --color-accent-contrast: #FFFFFF;
+  --color-accent-soft: #E4F4EB;
+  --color-terminal-bg: #0D1420;
+  --color-terminal-chrome: #141D2E;
+  --color-terminal-ink: #9FB0C9;
+  --color-terminal-bright: #E8EDF5;
+  --color-terminal-dim: #5A6B85;
+  --color-terminal-ok: #3DD68C;
+  --color-marker: #3DD68C;
+  --font-display: "Instrument Serif", Georgia, serif;
+  --font-body: "Space Grotesk Variable", -apple-system, sans-serif;
+  --font-mono: "JetBrains Mono Variable", ui-monospace, monospace;
+  --radius-sm: 6px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-pill: 999px;
+  --ease-f: cubic-bezier(0.16, 0.84, 0.28, 1);
+}
+
+/* El mundo noche: la familia terminal hace de tinta y papel, y el verde de
+   acción pasa a terminal-ok porque #0A7B45 no se lee sobre oscuro (regla de
+   DESIGN.md, la misma que ya usa la banda de la guía). */
+.noche {
+  --color-bg: var(--color-terminal-bg);
+  --color-surface: var(--color-terminal-chrome);
+  --color-surface-raised: var(--color-terminal-bg);
+  --color-line: var(--color-terminal-chrome);
+  --color-line-strong: var(--color-terminal-bright);
+  --color-ink: var(--color-terminal-bright);
+  --color-ink-soft: var(--color-terminal-ink);
+  --color-ink-dim: var(--color-terminal-ink);
+  --color-accent: var(--color-terminal-ok);
+  --color-accent-hover: var(--color-terminal-ok);
+  --color-accent-contrast: var(--color-terminal-bg);
+}
+
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  background: var(--color-bg);
+  color: var(--color-ink);
+  font-family: var(--font-body);
+  font-size: 1.02rem;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+.pagina { max-width: 1280px; margin: 0 auto; padding: 0 1.5rem 6rem; }
+
+.folio {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--color-ink-dim);
+  margin: 0;
+}
+.folio b { color: var(--color-accent); font-weight: 700; }
+
+/* ---------- Portada del comparador ---------- */
+.intro { padding: 4.5rem 0 1rem; max-width: 60rem; }
+.intro h1 {
+  font-family: var(--font-display); font-weight: 400;
+  font-size: clamp(2.6rem, 6vw, 4.4rem); line-height: 1.02; letter-spacing: -0.02em;
+  margin: 1.2rem 0 0;
+}
+.intro .lede { font-size: 1.15rem; color: var(--color-ink-soft); max-width: 52ch; margin: 1.4rem 0 0; }
+.intro .como { font-size: 0.9rem; color: var(--color-ink-dim); max-width: 64ch; margin: 1.2rem 0 0; }
+
+/* ---------- Secciones ---------- */
+.alt {
+  margin-top: 4.5rem;
+  padding-top: 2.6rem;
+  border-top: 1.5px solid var(--color-line-strong);
+}
+.alt-head {
+  display: grid;
+  grid-template-columns: minmax(16rem, 0.8fr) 1.2fr;
+  gap: 1.5rem 3.5rem;
+  align-items: start;
+}
+@media (max-width: 860px) { .alt-head { grid-template-columns: 1fr; } }
+.alt h2 {
+  font-family: var(--font-display); font-weight: 400;
+  font-size: clamp(2.2rem, 4.6vw, 3.4rem); line-height: 1.02; letter-spacing: -0.015em;
+  margin: 0.8rem 0 0;
+}
+.alt-concepto p { margin: 0 0 1rem; color: var(--color-ink-soft); max-width: 62ch; }
+.alt-concepto .queja {
+  margin-top: 1.3rem;
+  padding-left: 0.9rem;
+  border-left: 2px solid var(--color-marker);
+  color: var(--color-ink);
+}
+.alt-concepto .queja b { font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--color-ink-dim); display: block; margin-bottom: 0.2rem; font-weight: 500; }
+
+.bloque { margin-top: 2.4rem; }
+.bloque > .folio { margin-bottom: 0.8rem; }
+.marco {
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  background: var(--color-bg);
+}
+.marco.noche { border-color: var(--color-terminal-chrome); background: var(--color-bg); }
+.marco + .marco { margin-top: 0.9rem; }
+.movil-par .marco + .marco { margin-top: 0; }
+
+/* ---------- La cabecera, fiel a Nav.astro ---------- */
+.cab { background: var(--color-surface-raised); border-bottom: 1px solid var(--color-line); }
+.cab-nav {
+  max-width: 74rem; margin: 0 auto; padding: 1rem 1.5rem;
+  display: flex; align-items: center; justify-content: space-between; gap: 1rem;
+}
+.cab-logo { display: inline-flex; align-items: center; gap: 0.6rem; text-decoration: none; color: var(--color-ink); }
+.cab-links { display: flex; gap: 1.5rem; list-style: none; margin: 0; padding: 0; white-space: nowrap; }
+.cab-links a { text-decoration: none; font-size: 0.88rem; font-weight: 500; color: var(--color-ink-soft); }
+.cab-cta {
+  font-weight: 700; font-size: 0.85rem; text-decoration: none; white-space: nowrap;
+  color: var(--color-accent-contrast); background: var(--color-accent);
+  padding: 0.55rem 1.1rem; border-radius: var(--radius-pill);
+}
+.cab-pagina { height: 64px; background: var(--color-bg); }
+.movil-par { display: flex; gap: 1.2rem; flex-wrap: wrap; }
+.movil { width: 390px; flex: none; }
+.movil .cab-links { display: none; }
+.movil .cab-cta { font-size: 0.78rem; padding: 0.5rem 0.9rem; }
+.movil .cab-pagina { height: 40px; }
+
+/* El logotipo actual, copiado de Nav.astro */
+.actual-iso { height: 1.7rem; width: auto; flex: none; }
+.actual-wm { display: flex; flex-direction: column; line-height: 0.94; }
+.actual-wm .n { font-size: 1.05rem; font-weight: 700; letter-spacing: -0.035em; }
+.actual-wm .t { font-family: var(--font-mono); font-size: 0.82rem; font-weight: 700; letter-spacing: -0.02em; color: var(--color-accent); }
+
+/* ---------- Medidas calculadas sobre el render ---------- */
+.medidas {
+  display: flex; flex-wrap: wrap; gap: 0.4rem 0.5rem;
+  list-style: none; margin: 0.8rem 0 0; padding: 0;
+}
+.medidas li {
+  font-family: var(--font-mono); font-size: 0.7rem; font-weight: 500;
+  padding: 0.3rem 0.65rem; border: 1px solid var(--color-line); border-radius: var(--radius-pill);
+  background: var(--color-surface-raised); color: var(--color-ink-soft);
+}
+.medidas li b { color: var(--color-ink); font-weight: 700; }
+.medidas li.ok b { color: var(--color-accent); }
+.medidas li.mal { border-color: var(--color-ink); color: var(--color-ink); }
+
+/* ---------- Escalera ---------- */
+.escalera {
+  display: grid; gap: 1.6rem;
+  padding: 2rem 1.8rem;
+}
+.escalera .grande { display: flex; align-items: flex-end; gap: 1rem; flex-wrap: wrap; }
+.escalera .chicos { display: flex; align-items: flex-end; gap: 3rem; flex-wrap: wrap; }
+.peldano { display: grid; justify-items: start; gap: 0.6rem; }
+.peldano .folio { font-size: 0.62rem; }
+
+/* ---------- Íconos ---------- */
+.iconos { display: flex; align-items: flex-end; gap: 2.4rem; flex-wrap: wrap; padding: 2rem 1.8rem; }
+.ico { display: grid; justify-items: start; gap: 0.6rem; }
+.ico-180 { width: 180px; height: 180px; border-radius: 40px; overflow: hidden; }
+.ico-180 svg, .ico-32 svg, .tab svg { width: 100%; height: 100%; display: block; }
+.ico-32 { width: 32px; height: 32px; }
+.tabs { display: grid; gap: 0.5rem; }
+.tab {
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  padding: 0.45rem 0.8rem; border-radius: 8px 8px 0 0;
+  background: var(--color-surface); font-size: 0.78rem; color: var(--color-ink-soft);
+  width: 13rem;
+}
+.tab.noche { background: var(--color-terminal-chrome); color: var(--color-terminal-ink); }
+.tab i { width: 16px; height: 16px; flex: none; }
+.ico-180 .lg-ico-cursor, .ico-32 .lg-ico-cursor { animation: lg-parpadeo 1s steps(1, end) 3; }
+
+/* ---------- Tarjeta para redes ---------- */
+.og-fila { display: flex; gap: 1.2rem; flex-wrap: wrap; padding: 1.6rem 1.8rem; }
+.og {
+  position: relative; width: 600px; height: 315px; flex: none;
+  background: var(--color-bg); overflow: hidden;
+  border: 1px solid var(--color-line); border-radius: var(--radius-md);
+  padding: 26px 30px 22px;
+  display: grid; grid-template-rows: auto 1fr auto;
+}
+.og-logo { position: relative; z-index: 1; }
+.og-titulo {
+  position: relative; z-index: 1;
+  font-family: var(--font-display); font-weight: 400;
+  font-size: 38px; line-height: 1; letter-spacing: -0.015em;
+  max-width: 330px; margin: 0; align-self: center;
+}
+.og-titulo em { font-style: italic; }
+.og-pie {
+  position: relative; z-index: 1;
+  font-family: var(--font-mono); font-size: 10px; font-weight: 500; letter-spacing: 0.12em;
+  text-transform: uppercase; color: var(--color-ink-dim); margin: 0;
+  max-width: 300px;
+}
+.og-pie.minus { text-transform: none; letter-spacing: 0.02em; font-size: 12px; font-weight: 700; color: var(--color-ink); }
+.og-pie.minus b { color: var(--color-accent); }
+.og-retrato { position: absolute; right: 22px; bottom: 0; height: 286px; width: auto; }
+.hl {
+  background-image: linear-gradient(to top, transparent 0.22em, var(--color-marker) 0.22em, var(--color-marker) 0.72em, transparent 0.72em);
+  background-repeat: no-repeat;
+}
+
+/* ---------- Movimiento ---------- */
+.mov { display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; padding: 1.4rem 1.8rem; }
+.mov p { margin: 0; color: var(--color-ink-soft); font-size: 0.92rem; max-width: 64ch; }
+.repetir {
+  font: 700 0.82rem/1.6 var(--font-body);
+  border: 0; cursor: pointer;
+  padding: 0.5rem 1rem; border-radius: var(--radius-pill);
+  box-shadow: inset 0 0 0 1.5px var(--color-line-strong);
+  background: transparent; color: var(--color-ink);
+}
+.repetir:hover { background: var(--color-line-strong); color: var(--color-bg); }
+:focus-visible { outline: 2px solid var(--color-accent); outline-offset: 2px; }
+
+/* ---------- A favor / en contra ---------- */
+.balance {
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px;
+  background: var(--color-line); border: 1px solid var(--color-line); border-radius: var(--radius-md); overflow: hidden;
+}
+@media (max-width: 1000px) { .balance { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 620px) { .balance { grid-template-columns: 1fr; } }
+.balance > div { background: var(--color-surface-raised); padding: 1.3rem 1.3rem 1.1rem; }
+.balance h3 { margin: 0 0 0.7rem; }
+.balance ul { margin: 0; padding: 0; list-style: none; display: grid; gap: 0.7rem; }
+.balance li { font-size: 0.9rem; line-height: 1.5; color: var(--color-ink-soft); padding-left: 0.9rem; position: relative; }
+.balance li::before { content: ""; position: absolute; left: 0; top: 0.62em; width: 0.38rem; height: 1.5px; background: var(--color-ink-dim); }
+.balance p { margin: 0; font-size: 0.9rem; line-height: 1.5; color: var(--color-ink-soft); }
+
+/* ---------- Cierre ---------- */
+.tabla-wrap { overflow-x: auto; margin-top: 1.4rem; }
+table { border-collapse: collapse; width: 100%; min-width: 46rem; font-size: 0.9rem; }
+th, td { text-align: left; padding: 0.75rem 0.9rem; border-bottom: 1px solid var(--color-line); vertical-align: top; }
+thead th { font-family: var(--font-mono); font-size: 0.68rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--color-ink-dim); font-weight: 500; border-bottom: 1.5px solid var(--color-line-strong); }
+tbody th { font-weight: 700; color: var(--color-ink); width: 14rem; }
+td { color: var(--color-ink-soft); }
+td.num { font-family: var(--font-mono); font-size: 0.82rem; }
+.lectura { max-width: 64ch; }
+.lectura p { color: var(--color-ink-soft); margin: 0 0 1rem; }
+.lectura p:first-of-type { font-family: var(--font-display); font-size: clamp(1.5rem, 2.8vw, 2rem); line-height: 1.15; color: var(--color-ink); letter-spacing: -0.01em; }
+</style>
+<link rel="stylesheet" href="logos.css">
+</head>
+<body>
+<main class="pagina">
+
+  <header class="intro">
+    <p class="folio">IDENTIDAD · <b>LOGOTIPO</b> · 1 DE OCTUBRE DE 2026</p>
+    <h1>Tres logotipos. La T se queda.</h1>
+    <p class="lede">
+      Lo que se queda: la cuenta T, con el cargo en tinta a la izquierda y el
+      abono en verde a la derecha. Lo que cambia es lo que la acompaña. Una
+      alternativa por cada pilar del posicionamiento (contador, persona y
+      desarrollador), distantes a propósito, y las tres en un solo renglón.
+    </p>
+    <p class="como">
+      Cada logotipo entra al cargar, y el botón «Repetir la entrada» lo vuelve
+      a correr; también responde al cursor. Las medidas y los contrastes de
+      cada tarjeta se calculan sobre el render, no se escribieron a mano.
+    </p>
+  </header>
+
+  <!-- ============ REFERENCIA ============ -->
+  <section class="alt" id="actual">
+    <div class="alt-head">
+      <div>
+        <p class="folio">REFERENCIA · <b>EL ACTUAL</b></p>
+        <h2>Lo que hay hoy</h2>
+      </div>
+      <div class="alt-concepto">
+        <p>
+          El isotipo y, a su lado, el nombre del sitio en dos renglones:
+          soycontador arriba y el .ai colgando abajo. Se lee como icono más
+          dirección web, y el .ai, que es la mitad de la tesis, queda como nota
+          al pie.
+        </p>
+      </div>
+    </div>
+    <div class="bloque">
+      <p class="folio">CABECERA · DÍA</p>
+      <div class="marco" data-cab="actual"></div>
+    </div>
+    <div class="bloque">
+      <p class="folio">CELULAR · 390 PX</p>
+      <div class="movil-par">
+        <div class="marco movil" data-cab="actual" data-movil></div>
+        <div class="marco movil noche" data-cab="actual" data-movil></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ A ============ -->
+  <section class="alt" id="contrapartida" data-alt="contrapartida">
+    <div class="alt-head">
+      <div>
+        <p class="folio">ALTERNATIVA A · <b>PILAR CONTADOR</b></p>
+        <h2>Contrapartida</h2>
+      </div>
+      <div class="alt-concepto">
+        <p>
+          El nombre entra a la cuenta T. La raya de arriba cubre todo el
+          logotipo y el asta lo parte en dos: del lado del cargo, soycontador
+          en tinta; del lado del abono, .ai en verde. Ya no es un icono al lado
+          de un texto: es una sola figura.
+        </p>
+        <p>
+          Y dice la tesis de la marca sin una palabra más: la IA no es un total
+          al pie, es la contrapartida que completa la partida doble.
+        </p>
+        <p class="queja"><b>Por qué resuelve la queja</b>Un solo renglón, y el .ai deja de colgar: ahora tiene su propio lado de la cuenta.</p>
+      </div>
+    </div>
+    <div class="bloque">
+      <p class="folio">CABECERA · DÍA Y NOCHE</p>
+      <div class="marco" data-cab="contrapartida"></div>
+      <div class="marco noche" data-cab="contrapartida"></div>
+      <ul class="medidas" data-medidas="escritorio"></ul>
+    </div>
+    <div class="bloque">
+      <p class="folio">CELULAR · 390 PX</p>
+      <div class="movil-par">
+        <div class="marco movil" data-cab="contrapartida" data-movil></div>
+        <div class="marco movil noche" data-cab="contrapartida" data-movil></div>
+      </div>
+      <ul class="medidas" data-medidas="movil"></ul>
+    </div>
+    <div class="bloque">
+      <p class="folio">ESCALERA DE TAMAÑOS · ALTO TOTAL DEL LOGOTIPO</p>
+      <div class="marco escalera lg-quieto" data-escalera="contrapartida"></div>
+    </div>
+    <div class="bloque">
+      <p class="folio">ÍCONO · LA T CON SUS RENGLONES, CON LA RAYA A SANGRE</p>
+      <div class="marco iconos" data-iconos="contrapartida"></div>
+    </div>
+    <div class="bloque">
+      <p class="folio">EN UNA TARJETA PARA REDES</p>
+      <div class="marco og-fila lg-quieto" data-og="contrapartida"></div>
+    </div>
+    <div class="bloque">
+      <p class="folio">MOVIMIENTO</p>
+      <div class="marco mov">
+        <button class="repetir" type="button" data-repetir="contrapartida">Repetir la entrada</button>
+        <p>La raya se traza de lado a lado, el asta baja y los dos asientos suben a su renglón; el abono llega al último. Un segundo en total. En hover el asta se alarga, como quien abre espacio para el siguiente asiento.</p>
+      </div>
+    </div>
+    <div class="bloque">
+      <div class="balance">
+        <div>
+          <h3 class="folio">A <b>FAVOR</b></h3>
+          <ul>
+            <li>Resuelve exactamente la queja (un renglón, el .ai con su lugar) sin tirar nada: Space Grotesk, el .ai en mono verde y la T se quedan.</li>
+            <li>Es el único de los tres que convierte la tesis en dibujo. Un contador lo lee como cuenta T al primer vistazo.</li>
+            <li>El cambio más barato: el favicon sigue siendo la T con renglones, y el OG y los banners solo cambian el bloque del logotipo.</li>
+          </ul>
+        </div>
+        <div>
+          <h3 class="folio">EN <b>CONTRA</b></h3>
+          <ul>
+            <li>Sigue diciendo soycontador.ai. Si lo que molesta es el nombre del sitio en sí, no lo resuelve.</li>
+            <li>La T queda asimétrica (cargo largo, abono corto). Quien no es contador puede leer la raya como un techo y no como una cuenta.</li>
+          </ul>
+        </div>
+        <div>
+          <h3 class="folio"><b>RIESGOS</b></h3>
+          <ul>
+            <li>A 24 px de alto la raya y el asta quedan en 2 px. Ese mínimo ya va fijo en el CSS; por debajo se pierde la cuenta.</li>
+            <li>Con el filete de la cabecera abajo, hay dos rayas horizontales. La del logotipo tiene que seguir siendo la más gruesa para no confundirse con él.</li>
+          </ul>
+        </div>
+        <div>
+          <h3 class="folio">SI SE <b>ELIGE</b></h3>
+          <p>DESIGN.md cambia «Logotipo: dos líneas, siempre» por «un renglón, con el nombre dentro de la cuenta T». Favicon: la T con renglones, con la raya a sangre. OG y banners: se rehace el bloque del logotipo en las plantillas de design/piezas, nada más.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ B ============ -->
+  <section class="alt" id="firma" data-alt="firma">
+    <div class="alt-head">
+      <div>
+        <p class="folio">ALTERNATIVA B · <b>PILAR PERSONA</b></p>
+        <h2>Firma</h2>
+      </div>
+      <div class="alt-concepto">
+        <p>
+          La marca es la persona. Israel Castro en la serif de los titulares,
+          con la T como sello antes del nombre, como el sello de un contador
+          público al pie de un documento.
+        </p>
+        <p>
+          El dominio deja de ser el logotipo: baja a descriptor, en mono y en
+          el mismo renglón, detrás de un filete. En el celular desaparece,
+          porque ahí ya está en la barra de direcciones.
+        </p>
+        <p class="queja"><b>Por qué resuelve la queja</b>El nombre del sitio sale del centro de la cabecera. Lo que queda dice quién habla, que es lo que vende este sitio: «TodoConta vende software, soycontador.ai vende a Israel».</p>
+      </div>
+    </div>
+    <div class="bloque">
+      <p class="folio">CABECERA · DÍA Y NOCHE</p>
+      <div class="marco" data-cab="firma"></div>
+      <div class="marco noche" data-cab="firma"></div>
+      <ul class="medidas" data-medidas="escritorio"></ul>
+    </div>
+    <div class="bloque">
+      <p class="folio">CELULAR · 390 PX · SIN DESCRIPTOR</p>
+      <div class="movil-par">
+        <div class="marco movil" data-cab="firma" data-movil></div>
+        <div class="marco movil noche" data-cab="firma" data-movil></div>
+      </div>
+      <ul class="medidas" data-medidas="movil"></ul>
+    </div>
+    <div class="bloque">
+      <p class="folio">ESCALERA DE TAMAÑOS · ALTO DEL SELLO</p>
+      <div class="marco escalera lg-quieto" data-escalera="firma"></div>
+    </div>
+    <div class="bloque">
+      <p class="folio">ÍCONO · EL SELLO; COMPLETO, CON SU LEYENDA, EN EL GRANDE</p>
+      <div class="marco iconos" data-iconos="firma"></div>
+    </div>
+    <div class="bloque">
+      <p class="folio">EN UNA TARJETA PARA REDES · EL DOMINIO BAJA AL PIE</p>
+      <div class="marco og-fila lg-quieto" data-og="firma"></div>
+    </div>
+    <div class="bloque">
+      <p class="folio">MOVIMIENTO</p>
+      <div class="marco mov">
+        <button class="repetir" type="button" data-repetir="firma">Repetir la entrada</button>
+        <p>El sello se estampa, la firma sube a su renglón y el descriptor llega después. En hover la firma se subraya de izquierda a derecha, en el verde de acción, porque es un enlace.</p>
+      </div>
+    </div>
+    <div class="bloque">
+      <div class="balance">
+        <div>
+          <h3 class="folio">A <b>FAVOR</b></h3>
+          <ul>
+            <li>La cabecera nombra a la entidad que el sitio existe para posicionar: «Israel Castro» como texto visible en cada página, junto al JSON-LD de Person.</li>
+            <li>Usa la voz de la marca (la serif de los titulares) y se lee como la firma de un columnista: el registro más editorial de los tres.</li>
+            <li>Funciona igual fuera del sitio: firma de correo, LinkedIn, el banner de YouTube, la portada del ebook.</li>
+          </ul>
+        </div>
+        <div>
+          <h3 class="folio">EN <b>CONTRA</b></h3>
+          <ul>
+            <li>El dominio sale de la cabecera, y también es tu usuario de Instagram (@soycontador.ai). Hay que sostenerlo en el OG, el pie y las redes.</li>
+            <li>Es el más largo en escritorio y el de trazo más fino: Instrument Serif pierde finura por debajo de unos 20 px de cuerpo.</li>
+            <li>Si algún día hablan más voces en el sitio (colaboradores del Club), la firma personal se queda corta.</li>
+          </ul>
+        </div>
+        <div>
+          <h3 class="folio"><b>RIESGOS</b></h3>
+          <ul>
+            <li>El aria-label del enlace tiene que cambiar con el logotipo (WCAG 2.5.3), o Lighthouse lo marca. Ya va en logos.js.</li>
+            <li>El sello es un círculo en un sistema de rectángulos redondeados: es una forma nueva, y a 32 px el disco tiene menos área que un ícono cuadrado.</li>
+            <li>Por debajo de 32 px de alto el descriptor ya no se lee: en esos tamaños (una firma de correo chica, una miniatura) va solo el sello con el nombre.</li>
+            <li>«Sello» evoca el sello del contador público: la leyenda solo dice nombre y profesión. Nunca cédula ni nada que no corresponda.</li>
+          </ul>
+        </div>
+        <div>
+          <h3 class="folio">SI SE <b>ELIGE</b></h3>
+          <p>DESIGN.md deroga «el logotipo no usa la serif: es la marca, no un titular». El logotipo pasa a ser el nombre en la display, con el sello. Favicon: el sello. OG: la firma arriba y el dominio al pie. Banners: el nombre ya va en el logotipo, así que sobra el renglón que lo repetía.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ C ============ -->
+  <section class="alt" id="prompt" data-alt="prompt">
+    <div class="alt-head">
+      <div>
+        <p class="folio">ALTERNATIVA C · <b>PILAR DESARROLLADOR</b></p>
+        <h2>Prompt</h2>
+      </div>
+      <div class="alt-concepto">
+        <p>
+          El dominio es un comando. La T hace de prompt, soycontador.ai se
+          teclea una sola vez al cargar y el cursor se queda esperando.
+        </p>
+        <p>
+          Vive dentro de su pestaña de terminal, del color de la terminal de la
+          home: sobre el papel se lee como una ventana abierta, y en el mundo
+          noche como su barra de título.
+        </p>
+        <p class="queja"><b>Por qué resuelve la queja</b>Un renglón en mono: el dominio deja de ser «el nombre de la página» y pasa a ser algo que se escribe. Dice desarrollador sin decirlo.</p>
+      </div>
+    </div>
+    <div class="bloque">
+      <p class="folio">CABECERA · DÍA Y NOCHE</p>
+      <div class="marco" data-cab="prompt"></div>
+      <div class="marco noche" data-cab="prompt"></div>
+      <ul class="medidas" data-medidas="escritorio"></ul>
+    </div>
+    <div class="bloque">
+      <p class="folio">CELULAR · 390 PX</p>
+      <div class="movil-par">
+        <div class="marco movil" data-cab="prompt" data-movil></div>
+        <div class="marco movil noche" data-cab="prompt" data-movil></div>
+      </div>
+      <ul class="medidas" data-medidas="movil"></ul>
+    </div>
+    <div class="bloque">
+      <p class="folio">VARIANTE · SIN PESTAÑA</p>
+      <div class="marco" data-cab="prompt" data-variante="htmlSinPestana"></div>
+    </div>
+    <div class="bloque">
+      <p class="folio">ESCALERA DE TAMAÑOS · ALTO DE LA PESTAÑA</p>
+      <div class="marco escalera lg-quieto" data-escalera="prompt"></div>
+    </div>
+    <div class="bloque">
+      <p class="folio">ÍCONO · EL ABONO SE VUELVE CURSOR</p>
+      <div class="marco iconos" data-iconos="prompt"></div>
+    </div>
+    <div class="bloque">
+      <p class="folio">EN UNA TARJETA PARA REDES</p>
+      <div class="marco og-fila lg-quieto" data-og="prompt"></div>
+    </div>
+    <div class="bloque">
+      <p class="folio">MOVIMIENTO</p>
+      <div class="marco mov">
+        <button class="repetir" type="button" data-repetir="prompt">Repetir la entrada</button>
+        <p>Se teclea una vez (14 letras en 420 ms), el cursor parpadea tres veces y se queda quieto: nada infinito en la cabecera. En hover el cursor vuelve a parpadear dos veces. En el sitio, el tecleo corre solo la primera página de la sesión.</p>
+      </div>
+    </div>
+    <div class="bloque">
+      <div class="balance">
+        <div>
+          <h3 class="folio">A <b>FAVOR</b></h3>
+          <ul>
+            <li>Es el pilar desarrollador sin una palabra: el nombre se teclea. Ningún logotipo del gremio contable hace esto.</li>
+            <li>Una sola familia (JetBrains Mono, que ya es de la marca), y la pestaña emparenta la cabecera con la terminal de la home y con el mundo noche.</li>
+            <li>El movimiento cuenta algo (se escribe un comando); no adorna.</li>
+          </ul>
+        </div>
+        <div>
+          <h3 class="folio">EN <b>CONTRA</b></h3>
+          <ul>
+            <li>Es el que más se aleja del Avatar A (contador de 45 a 65): un prompt puede leerse como «esto es para programadores», justo la objeción que la home desarma.</li>
+            <li>Catorce caracteres en mono son anchos: en el celular va justo junto al botón.</li>
+            <li>El cursor quieto puede leerse como «cargando».</li>
+          </ul>
+        </div>
+        <div>
+          <h3 class="folio"><b>RIESGOS</b></h3>
+          <ul>
+            <li>Sin la regla de una vez por sesión, el tecleo se repite en cada página. Con reducir movimiento no se teclea nada.</li>
+            <li>Una pestaña oscura en la cabecera de papel es una mancha fuerte: compite con el botón verde por la mirada.</li>
+          </ul>
+        </div>
+        <div>
+          <h3 class="folio">SI SE <b>ELIGE</b></h3>
+          <p>DESIGN.md cambia el logotipo a un solo renglón en mono: Space Grotesk sale del logotipo y la T se vuelve prompt. Favicon: la T con el abono convertido en cursor. OG y banners: la línea de comando en su pestaña. El tecleo necesita su propia regla de movimiento (una vez por sesión).</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ CIERRE ============ -->
+  <section class="alt" id="comparacion">
+    <div class="alt-head">
+      <div>
+        <p class="folio">LAS TRES <b>LADO A LADO</b></p>
+        <h2>Para decidir</h2>
+      </div>
+      <div class="lectura">
+        <p>Si hoy tuviera que elegir uno: A.</p>
+        <p>
+          Es el que resuelve exactamente lo que señalaste (el nombre del sitio
+          tal cual, con el .ai colgando) y lo convierte en la tesis de la marca
+          dibujada, sin tirar nada de lo que ya funciona.
+        </p>
+        <p>
+          B es la apuesta fuerte y tiene el mejor argumento de negocio: el
+          sitio vende a Israel, y el nombre en la cabecera trabaja para la
+          entidad en buscadores y en los LLM. Lo que cuesta es mover el
+          dominio, que también es tu usuario de Instagram.
+        </p>
+        <p>
+          C es el más memorable y el más arriesgado con el lector de 45 a 65.
+          Rinde más como recurso que como logotipo: la pestaña puede vivir en
+          las piezas para un público técnico (el Club, /herramientas).
+        </p>
+      </div>
+    </div>
+    <div class="tabla-wrap">
+      <table>
+        <thead>
+          <tr><th></th><th>A · Contrapartida</th><th>B · Firma</th><th>C · Prompt</th></tr>
+        </thead>
+        <tbody>
+          <tr><th>Pilar</th><td>Contador</td><td>Persona</td><td>Desarrollador</td></tr>
+          <tr><th>Qué nombra</th><td>El sitio, dentro de la cuenta T</td><td>A Israel; el dominio, de descriptor</td><td>El sitio, como comando</td></tr>
+          <tr><th>Familias</th><td>Space Grotesk 700 + JetBrains Mono</td><td>Instrument Serif 400 + JetBrains Mono</td><td>JetBrains Mono</td></tr>
+          <tr><th>Ancho en la cabecera</th><td class="num" data-tabla="contrapartida-ancho">·</td><td class="num" data-tabla="firma-ancho">·</td><td class="num" data-tabla="prompt-ancho">·</td></tr>
+          <tr><th>Celular, 390 px</th><td class="num" data-tabla="contrapartida-movil">·</td><td class="num" data-tabla="firma-movil">·</td><td class="num" data-tabla="prompt-movil">·</td></tr>
+          <tr><th>Cabecera real, de 390 a 1440 px</th><td>Sin desbordes. El punto más justo, 28 px de aire a 881 px</td><td>Sin desbordes. Por debajo de 1024 px el descriptor se oculta (con él desbordaba 98 px a 390 y 73 a 881)</td><td>Sin desbordes. Por debajo de 1024 px baja un punto (con su tamaño desbordaba 6 px a 881)</td></tr>
+          <tr><th>Lectura a 24 px</th><td>Buena; raya y asta en su mínimo de 2 px</td><td>La firma se lee; el descriptor ya no (por debajo de 32 px va sin él)</td><td>Buena dentro de la pestaña</td></tr>
+          <tr><th>Costo de cambio</th><td>Bajo</td><td>Alto</td><td>Medio</td></tr>
+          <tr><th>Riesgo principal</th><td>Que la raya no se lea como cuenta</td><td>Perder el dominio como marca</td><td>Que se lea «para programadores»</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+</main>
+
+<script src="logos.js"></script>
+<script>
+(function () {
+  const L = window.LOGOS;
+
+  /* ---------- El logotipo actual, copiado de Nav.astro ---------- */
+  const ACTUAL =
+    '<svg class="actual-iso" viewBox="5 18 86 60" fill="none" aria-hidden="true">' +
+    '<rect x="12" y="25" width="72" height="5" fill="currentColor"></rect>' +
+    '<rect x="45.5" y="25" width="5" height="46" fill="currentColor"></rect>' +
+    '<rect x="16" y="39" width="24" height="7" fill="currentColor"></rect>' +
+    '<rect x="16" y="52" width="17" height="7" fill="currentColor"></rect>' +
+    '<rect x="56" y="39" width="24" height="7" fill="var(--color-accent)"></rect>' +
+    '<rect x="56" y="52" width="17" height="7" fill="var(--color-accent)"></rect>' +
+    "</svg>" +
+    '<span class="actual-wm"><span class="n">soycontador</span><span class="t">.ai</span></span>';
+
+  function logoHtml(clave, variante, movil) {
+    if (clave === "actual") return ACTUAL;
+    const e = L[clave];
+    if (variante && e[variante]) return e[variante];
+    if (movil && e.htmlMovil) return e.htmlMovil;
+    return e.html;
+  }
+  function ariaDe(clave) {
+    return clave === "actual" ? "soycontador.ai, inicio" : L[clave].aria;
+  }
+
+  /* ---------- Cabeceras ---------- */
+  function cabecera(marco) {
+    const clave = marco.dataset.cab;
+    const movil = marco.hasAttribute("data-movil");
+    marco.innerHTML =
+      '<header class="cab"><nav class="cab-nav" aria-label="Principal (maqueta)">' +
+      '<a class="cab-logo" href="#" aria-label="' + ariaDe(clave) + '">' +
+      logoHtml(clave, marco.dataset.variante, movil) + "</a>" +
+      '<ul class="cab-links"><li><a href="#">Quién soy</a></li><li><a href="#">Testimonios</a></li>' +
+      '<li><a href="#">Qué encuentras aquí</a></li><li><a href="#">Preguntas</a></li></ul>' +
+      '<a class="cab-cta" href="#">Agenda un diagnóstico</a></nav></header>' +
+      '<div class="cab-pagina"></div>';
+  }
+
+  /* ---------- Escalera: cada peldaño se mide para que el alto sea exacto ---------- */
+  const PELDANOS = [80, 48, 32, 24];
+  function cajaVisible(raiz) {
+    /* La unión de todo lo que se dibuja, incluida el asta que sale de la
+       caja del contenedor. */
+    let t = Infinity, b = -Infinity, l = Infinity, r = -Infinity;
+    [raiz, ...raiz.querySelectorAll("*")].forEach((n) => {
+      const c = n.getBoundingClientRect();
+      if (!c.width || !c.height) return;
+      t = Math.min(t, c.top); b = Math.max(b, c.bottom);
+      l = Math.min(l, c.left); r = Math.max(r, c.right);
+    });
+    return { alto: b - t, ancho: r - l };
+  }
+  function ajustaAlto(lg, alto) {
+    lg.style.fontSize = "100px";
+    const h100 = cajaVisible(lg).alto;
+    lg.style.fontSize = (alto * 100) / h100 + "px";
+  }
+  function escalera(marco) {
+    const clave = marco.dataset.escalera;
+    const grande = L[clave].htmlGrande || L[clave].html;
+    marco.innerHTML =
+      '<div class="grande"><div class="peldano" data-alto="80">' + grande +
+      '<span class="folio">80 PX · DETALLE</span></div></div>' +
+      '<div class="chicos">' +
+      PELDANOS.slice(1).map((a) => '<div class="peldano" data-alto="' + a + '">' + L[clave].html +
+        '<span class="folio">' + a + " PX</span></div>").join("") +
+      "</div>";
+  }
+  function midePeldanos(marco) {
+    marco.querySelectorAll(".peldano").forEach((p) => ajustaAlto(p.querySelector(".lg"), +p.dataset.alto));
+  }
+
+  /* ---------- Íconos ---------- */
+  function iconos(marco) {
+    const e = L[marco.dataset.iconos];
+    marco.innerHTML =
+      '<div class="ico"><div class="ico-180">' + e.iconoGrande + '</div><span class="folio">180 PX</span></div>' +
+      '<div class="ico"><div class="ico-32">' + e.icono + '</div><span class="folio">32 PX</span></div>' +
+      '<div class="ico"><div class="tabs">' +
+      '<span class="tab"><i>' + e.icono + "</i>soycontador.ai</span>" +
+      '<span class="tab noche"><i>' + e.icono + "</i>soycontador.ai</span>" +
+      '</div><span class="folio">16 PX, EN LA PESTAÑA</span></div>';
+  }
+
+  /* ---------- Tarjeta para redes ---------- */
+  function og(marco) {
+    const clave = marco.dataset.og;
+    const pie = clave === "firma"
+      ? '<p class="og-pie minus">soycontador<b>.ai</b></p>'
+      : '<p class="og-pie">Israel Castro · Contador público y desarrollador de software</p>';
+    marco.innerHTML =
+      '<div class="og"><div class="og-logo">' + L[clave].html + "</div>" +
+      '<p class="og-titulo">La IA cierra<br>las fáciles.<br><em>Las difíciles</em><br>las cobras <span class="hl">tú</span>.</p>' +
+      pie +
+      '<img class="og-retrato" src="../../../public/assets/israel-cruzado.webp" alt="" width="720" height="961">' +
+      "</div>";
+  }
+  function mideOg(marco) {
+    const lg = marco.querySelector(".og-logo .lg");
+    if (lg) ajustaAlto(lg, marco.dataset.og === "prompt" ? 34 : 30);
+  }
+
+  /* ---------- Medidas y contraste, sobre el render ---------- */
+  function rgb(s) {
+    const m = s.match(/[\d.]+/g).map(Number);
+    return m.slice(0, 3);
+  }
+  function lum([r, g, b]) {
+    const f = (v) => { v /= 255; return v <= 0.04045 ? v / 12.92 : Math.pow((v + 0.055) / 1.055, 2.4); };
+    return 0.2126 * f(r) + 0.7152 * f(g) + 0.0722 * f(b);
+  }
+  function contraste(a, b) {
+    const [x, y] = [lum(rgb(a)), lum(rgb(b))].sort((p, q) => q - p);
+    return (x + 0.05) / (y + 0.05);
+  }
+  const fmt = (n) => n.toFixed(1).replace(".", ",");
+  function li(lista, texto, estado) {
+    const el = document.createElement("li");
+    if (estado) el.className = estado;
+    el.innerHTML = texto;
+    lista.appendChild(el);
+  }
+  const TEXTO = { contrapartida: [".lg-a-cargo", ".lg-a-abono"], firma: [".lg-b-nombre", ".lg-b-dominio b"], prompt: [".lg-c-texto", ".lg-c-cmd b"] };
+
+  function medidas(seccion) {
+    const clave = seccion.dataset.alt;
+    const [selTinta, selVerde] = TEXTO[clave];
+
+    /* Escritorio: ancho, aire contra el menú y contraste en día y noche */
+    const esc = seccion.querySelector('[data-medidas="escritorio"]');
+    esc.innerHTML = "";
+    const [dia, noche] = seccion.querySelectorAll('.marco[data-cab]:not([data-movil]):not([data-variante])');
+    const lgDia = dia.querySelector(".lg");
+    const ancho = cajaVisible(lgDia).ancho;
+    const logoDer = dia.querySelector(".cab-logo").getBoundingClientRect().right;
+    const menuIzq = dia.querySelector(".cab-links").getBoundingClientRect().left;
+    li(esc, "Ancho <b>" + Math.round(ancho) + " px</b>");
+    li(esc, "Aire hasta el menú <b>" + Math.round(menuIzq - logoDer) + " px</b>", menuIzq - logoDer >= 32 ? "ok" : "mal");
+    document.querySelector('[data-tabla="' + clave + '-ancho"]').textContent = Math.round(ancho) + " px";
+    [["día", dia], ["noche", noche]].forEach(([nombre, marco]) => {
+      const fondoEl = clave === "prompt" ? marco.querySelector(".lg-c") : marco.querySelector(".cab");
+      const fondo = getComputedStyle(fondoEl).backgroundColor;
+      const ct = contraste(getComputedStyle(marco.querySelector(selTinta)).color, fondo);
+      const cv = contraste(getComputedStyle(marco.querySelector(selVerde)).color, fondo);
+      const ok = ct >= 4.5 && cv >= 4.5;
+      li(esc, "Contraste " + nombre + " <b>" + fmt(ct) + ":1</b> tinta · <b>" + fmt(cv) + ":1</b> verde", ok ? "ok" : "mal");
+    });
+
+    /* Celular: ¿cabe junto al botón sin partir renglones? */
+    const mov = seccion.querySelector('[data-medidas="movil"]');
+    mov.innerHTML = "";
+    const m = seccion.querySelector(".movil:not(.noche)");
+    const nav = m.querySelector(".cab-nav");
+    const cs = getComputedStyle(nav);
+    const disponible = nav.clientWidth - parseFloat(cs.paddingLeft) - parseFloat(cs.paddingRight);
+    const logo = m.querySelector(".cab-logo").getBoundingClientRect().width;
+    const boton = m.querySelector(".cab-cta").getBoundingClientRect().width;
+    const usado = logo + 16 + boton;
+    /* Un renglón: el texto del logotipo no pasa del alto de una línea. Se
+       mide el texto y no la caja, porque la pestaña de C lleva relleno. */
+    const texto = m.querySelector(selTinta);
+    const unRenglon = texto.getBoundingClientRect().height < parseFloat(getComputedStyle(texto).fontSize) * 1.7;
+    const cabe = usado <= disponible && unRenglon && nav.scrollWidth <= nav.clientWidth;
+    li(mov, "Logotipo <b>" + Math.round(logo) + "</b> + aire <b>16</b> + botón <b>" + Math.round(boton) + "</b> = <b>" + Math.round(usado) + " de " + Math.round(disponible) + " px</b>", cabe ? "ok" : "mal");
+    li(mov, unRenglon ? "Un solo renglón" : "Se parte en dos renglones", unRenglon ? "ok" : "mal");
+    document.querySelector('[data-tabla="' + clave + '-movil"]').textContent =
+      (cabe ? "Cabe: " : "No cabe: ") + Math.round(usado) + " de " + Math.round(disponible) + " px";
+  }
+
+  function fuentes() {
+    /* Una cara "loaded" por familia es la prueba de que no se dibujó con la
+       de respaldo. */
+    const cargadas = new Set();
+    document.fonts.forEach((f) => { if (f.status === "loaded") cargadas.add(f.family.replace(/"/g, "")); });
+    const req = ["Space Grotesk Variable", "JetBrains Mono Variable", "Instrument Serif"];
+    document.querySelectorAll('[data-medidas="escritorio"]').forEach((ul) => {
+      const ok = req.every((r) => cargadas.has(r));
+      li(ul, ok ? "Fuentes reales cargadas" : "Faltan fuentes: " + req.filter((r) => !cargadas.has(r)).join(", "), ok ? "ok" : "mal");
+    });
+    window.__fuentes = [...cargadas];
+  }
+
+  /* ---------- Montaje ---------- */
+  function monta(raiz) {
+    raiz.querySelectorAll("[data-cab]").forEach(cabecera);
+    raiz.querySelectorAll("[data-escalera]").forEach(escalera);
+    raiz.querySelectorAll("[data-iconos]").forEach(iconos);
+    raiz.querySelectorAll("[data-og]").forEach(og);
+  }
+  function mide(raiz) {
+    raiz.querySelectorAll("[data-escalera]").forEach(midePeldanos);
+    raiz.querySelectorAll("[data-og]").forEach(mideOg);
+  }
+
+  monta(document);
+  document.fonts.ready.then(() => {
+    mide(document);
+    /* Las medidas se toman con la entrada terminada: durante el tecleo la
+       pestaña de C todavía no tiene su ancho final. */
+    setTimeout(() => {
+      document.querySelectorAll("[data-alt]").forEach(medidas);
+      fuentes();
+      document.documentElement.dataset.listo = "1";
+    }, 1400);
+  });
+
+  document.querySelectorAll("[data-repetir]").forEach((b) =>
+    b.addEventListener("click", () => {
+      const seccion = document.getElementById(b.dataset.repetir);
+      monta(seccion);
+      mide(seccion);
+    }),
+  );
+})();
+</script>
+</body>
+</html>

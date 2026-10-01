@@ -11,6 +11,7 @@ h1 { font-size: 1.3rem; margin-bottom: 0.4rem; }
 p.sub { color: #9BA1AE; font-size: 0.9rem; margin-bottom: 2rem; max-width: 70ch; line-height: 1.55; }
 h2.ronda { font-size: 0.78rem; letter-spacing: .14em; text-transform: uppercase; color: #3DD68C; margin: 2.6rem 0 .3rem; }
 p.ronda-sub { color: #9BA1AE; font-size: 0.85rem; margin-bottom: 1.4rem; max-width: 78ch; line-height: 1.55; }
+code { font-family: ui-monospace, monospace; font-size: .8em; color: #C9D2E0; }
 .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.2rem; }
 @media (max-width: 1100px) { .grid { grid-template-columns: 1fr; } }
 .col h3 { font-size: 1rem; margin-bottom: 0.3rem; }
@@ -27,10 +28,83 @@ a.open { display: inline-block; margin: 0.6rem 0 0; color: #7FB4FF; font-size: 0
 <body>
 <h1>soycontador.ai · direcciones de diseño</h1>
 <p class="sub">
-  Mismo contenido real, distintas identidades. Abre cada una en pestaña
-  completa para verla con calma (y en el celular). La ronda 2 explora
-  MOVIMIENTO: los tres conservan los dos verdes de la marca (#0A7B45 para
-  acción, #3DD68C para marcador) y cambian el ritmo, no la promesa.
+  Mismo contenido real, distintas direcciones. Abre cada una en pestaña
+  completa para verla con calma (y en el celular). Todas conservan los dos
+  verdes de la marca (#0A7B45 para acción, #3DD68C para marcador). En Chrome
+  abren con doble clic; en Safari o Firefox, con
+  <code>node design/mockups/mundos/servir.mjs</code>.
+</p>
+
+<h2 class="ronda">Ronda 3 · mundos (2026-10-01)</h2>
+<p class="ronda-sub">
+  Misma home, mismo copy, mismo sistema de diseño. Lo único que cambia es cómo
+  se pasa de una sección a otra: la página se divide en cuatro actos y cada
+  cambio de acto es un cambio de mundo, de día (papel) a noche (la terminal) y
+  de regreso. Las tres usan el mismo mapa de mundos, así que la comparación es
+  del MECANISMO. Se arman sobre el HTML real compilado
+  (<code>node design/mockups/mundos/armar.mjs</code>). Ábrelos en pestaña
+  completa y bájalos con calma; la barrita de abajo a la izquierda cambia de
+  dirección sin perder la altura y deja probar los logotipos en la cabecera.
+  La auditoría y el porqué de cada una están en <code>design/MUNDOS.md</code>.
+</p>
+<div class="grid">
+  <div class="col">
+    <h3>G · Hojas <span class="tag viva">elegida</span></h3>
+    <p>El libro mayor se hojea. Cada mundo es una hoja que sube desde abajo y se asienta sobre la anterior, que se hunde y deja ver la mesa (de noche). El plumón lo pasas tú con el scroll, y al final la última hoja se levanta y debajo está el pie.</p>
+    <div class="swatches"><i style="background:#FBFAF7"></i><i style="background:#0D1420"></i><i style="background:#0A7B45"></i><i style="background:#3DD68C"></i></div>
+    <iframe src="g-hojas.html?limpio" title="Dirección G" loading="lazy"></iframe>
+    <a class="open" href="g-hojas.html" target="_blank">Abrir G en pestaña completa →</a>
+  </div>
+  <div class="col">
+    <h3>H · Portal <span class="tag">la más cinematográfica</span></h3>
+    <p>Cada mundo se abre por una ventana. El punto final de "tú." se abre y te mete a la noche; la tarjeta de tu criterio se vuelve el día; las seis puertas viven en una ventana de terminal que se expande a pantalla completa y se vuelve a cerrar al salir.</p>
+    <div class="swatches"><i style="background:#FBFAF7"></i><i style="background:#0D1420"></i><i style="background:#0A7B45"></i><i style="background:#3DD68C"></i></div>
+    <iframe src="h-portal.html?limpio" title="Dirección H" loading="lazy"></iframe>
+    <a class="open" href="h-portal.html" target="_blank">Abrir H en pestaña completa →</a>
+  </div>
+  <div class="col">
+    <h3>I · Jornada <span class="tag">sin costuras</span></h3>
+    <p>La página es un día de trabajo y cambia la luz, no el lugar: toda la pantalla pasa de día a noche a la vez, como cuando se apaga la luz del despacho. La escena amanece cuando se enciende tu renglón, y una cabeza de página en el margen dice en qué cuenta vas.</p>
+    <div class="swatches"><i style="background:#FBFAF7"></i><i style="background:#0D1420"></i><i style="background:#0A7B45"></i><i style="background:#3DD68C"></i></div>
+    <iframe src="i-jornada.html?limpio" title="Dirección I" loading="lazy"></iframe>
+    <a class="open" href="i-jornada.html" target="_blank">Abrir I en pestaña completa →</a>
+  </div>
+</div>
+
+<h2 class="ronda">Qué encuentras aquí · tres formas (2026-10-01)</h2>
+<p class="ronda-sub">
+  Sobre la elegida (G · Hojas, con el logotipo A en la cabecera y el asiento de
+  cierre ya en papel). Mismo copy y mismo marcado de las seis puertas, así que
+  la medición de clics sigue igual; cambia solo cómo se muestran. Dentro del
+  prototipo se cambian con la barrita de abajo a la izquierda.
+</p>
+<div class="grid">
+  <div class="col">
+    <h3>1 · Catálogo <span class="tag viva">elegida</span></h3>
+    <p>El catálogo de cuentas: seis renglones numerados, todo a la vista. Al bajar, una regla de lectura enciende el renglón que cruza la línea de lectura, como quien recorre el libro con una regla.</p>
+    <iframe src="g-hojas.html?limpio&amp;ofertas=catalogo#ofertas" title="Qué encuentras aquí: catálogo" loading="lazy"></iframe>
+    <a class="open" href="g-hojas.html?ofertas=catalogo#ofertas" target="_blank">Abrir el catálogo →</a>
+  </div>
+  <div class="col">
+    <h3>2 · Puertas <span class="tag">la más vistosa</span></h3>
+    <p>Seis puertas de verdad, una junto a otra, con el nombre en el canto. La que señalas se abre con luz. En celular se apilan: el primer toque abre, el segundo entra.</p>
+    <iframe src="g-hojas.html?limpio&amp;ofertas=puertas#ofertas" title="Qué encuentras aquí: puertas" loading="lazy"></iframe>
+    <a class="open" href="g-hojas.html?ofertas=puertas#ofertas" target="_blank">Abrir las puertas →</a>
+  </div>
+  <div class="col">
+    <h3>3 · Plana <span class="tag">la más escaneable</span></h3>
+    <p>La plana de revista: tres por dos, sin tarjetas, con filetes y el ícono de cada puerta a la vista. Las celdas suben en cascada al entrar.</p>
+    <iframe src="g-hojas.html?limpio&amp;ofertas=plana#ofertas" title="Qué encuentras aquí: plana" loading="lazy"></iframe>
+    <a class="open" href="g-hojas.html?ofertas=plana#ofertas" target="_blank">Abrir la plana →</a>
+  </div>
+</div>
+
+<h2 class="ronda">Logotipo · tres alternativas (2026-10-01)</h2>
+<p class="ronda-sub">
+  La T de cargo y abono se queda; lo que se explora es cómo va el nombre. Una
+  alternativa por cada pilar del posicionamiento (contador, persona,
+  desarrollador), deliberadamente lejos entre sí. <b>Elegida: A · Contrapartida.</b>
+  <a class="open" href="logos/index.html" target="_blank">Abrir las alternativas de logotipo →</a>
 </p>
 
 <h2 class="ronda">Ronda 2 · movimiento (2026-09-07)</h2>
@@ -55,7 +129,7 @@ a.open { display: inline-block; margin: 0.6rem 0 0; color: #7FB4FF; font-size: 0
     <a class="open" href="e-consola-nocturna.html" target="_blank">Abrir E en pestaña completa →</a>
   </div>
   <div class="col">
-    <h3>F · Editorial cinético <span class="tag">más "bonito"</span></h3>
+    <h3>F · Editorial cinético <span class="tag viva">en producción</span></h3>
     <p>El sitio como reportaje de revista: serif grande, mucho aire y movimiento amarrado al scroll. La mañana se cuenta en una sección fija que avanza al bajar, y las seis puertas se recorren de lado.</p>
     <div class="swatches"><i style="background:#FBFAF7"></i><i style="background:#14161A"></i><i style="background:#0A7B45"></i><i style="background:#3DD68C"></i></div>
     <iframe src="f-editorial-cinetico.html" title="Dirección F" loading="lazy"></iframe>
@@ -73,7 +147,7 @@ a.open { display: inline-block; margin: 0.6rem 0 0; color: #7FB4FF; font-size: 0
     <a class="open" href="a-manifiesto-editorial.html" target="_blank">Abrir A en pestaña completa →</a>
   </div>
   <div class="col">
-    <h3>B · Libro mayor × terminal <span class="tag viva">en producción</span></h3>
+    <h3>B · Libro mayor × terminal <span class="tag">en producción hasta 2026-09-07</span></h3>
     <p>El contador con traje de ingeniero, literal: retícula de libro mayor + terminal. Space Grotesk + JetBrains Mono, verde registro. Firma: la póliza del hero.</p>
     <div class="swatches"><i style="background:#FAFBFD"></i><i style="background:#101828"></i><i style="background:#0A7B45"></i><i style="background:#0D1420"></i></div>
     <a class="open" href="b-libro-mayor-terminal.html" target="_blank">Abrir B en pestaña completa →</a>

@@ -83,3 +83,104 @@
   /* Curva de movimiento única. Ver design/DESIGN.md, "Reglas de movimiento". */
   --ease-f: cubic-bezier(0.16, 0.84, 0.28, 1);
 }
+
+/*
+ * ---------- Mundos: día y noche (2026-10-01, design/MUNDOS.md) ----------
+ *
+ * La home se divide en actos y cada cambio de acto es un cambio de mundo. El
+ * DÍA es el papel, con los tokens de arriba tal cual. La NOCHE es la
+ * terminal extendida a una sección completa: NO hay hex nuevos, y donde la
+ * familia terminal no traía un valor (tarjeta, filete y tinta tenue sobre
+ * oscuro) se deriva de sus propios tokens con color-mix. Contrastes medidos:
+ *
+ *   tinta              terminal-bright   15.7:1 sobre el fondo
+ *   tinta suave        terminal-ink      8.37:1 fondo, 7.65:1 chrome
+ *   tinta tenue        ink 60% + dim     5.98:1 fondo, 4.86:1 tarjeta
+ *   acción             terminal-ok       9.84:1; texto del botón 9.84:1
+ *   plumón             ok 40% sobre bg   6.78:1 con la tinta encima
+ *
+ * El #0A7B45 sobre la noche da 3.46:1 y no pasa AA: en la noche la acción se
+ * lee en terminal-ok, que es lo que la banda de la guía ya hacía.
+ *
+ * Un mundo se pide con data-mundo="dia|noche" en cualquier contenedor y todo
+ * lo de adentro se recolorea sin tocar un componente. Registrar los colores
+ * con @property los vuelve interpolables: la cabecera cambia de mundo con una
+ * transición y no de golpe.
+ */
+@property --color-bg { syntax: "<color>"; inherits: true; initial-value: #fbfaf7; }
+@property --color-surface { syntax: "<color>"; inherits: true; initial-value: #f3f1eb; }
+@property --color-surface-raised { syntax: "<color>"; inherits: true; initial-value: #fff; }
+@property --color-line { syntax: "<color>"; inherits: true; initial-value: #e3e0d8; }
+@property --color-line-strong { syntax: "<color>"; inherits: true; initial-value: #14161a; }
+@property --color-ink { syntax: "<color>"; inherits: true; initial-value: #14161a; }
+@property --color-ink-soft { syntax: "<color>"; inherits: true; initial-value: #454a54; }
+@property --color-ink-dim { syntax: "<color>"; inherits: true; initial-value: #666b75; }
+@property --color-accent { syntax: "<color>"; inherits: true; initial-value: #0a7b45; }
+@property --color-accent-hover { syntax: "<color>"; inherits: true; initial-value: #066035; }
+@property --color-accent-contrast { syntax: "<color>"; inherits: true; initial-value: #fff; }
+@property --color-accent-soft { syntax: "<color>"; inherits: true; initial-value: #e4f4eb; }
+@property --color-marker { syntax: "<color>"; inherits: true; initial-value: #3dd68c; }
+
+/* Las dos paletas se capturan en la raíz, donde los tokens todavía valen lo
+   de arriba. Así un pedazo de día puede vivir dentro de la noche (la tarjeta
+   del cuarto renglón de la escena) sin repetir un solo hex. */
+:root {
+  --dia-bg: var(--color-bg);
+  --dia-surface: var(--color-surface);
+  --dia-surface-raised: var(--color-surface-raised);
+  --dia-line: var(--color-line);
+  --dia-line-strong: var(--color-line-strong);
+  --dia-ink: var(--color-ink);
+  --dia-ink-soft: var(--color-ink-soft);
+  --dia-ink-dim: var(--color-ink-dim);
+  --dia-accent: var(--color-accent);
+  --dia-accent-hover: var(--color-accent-hover);
+  --dia-accent-contrast: var(--color-accent-contrast);
+  --dia-accent-soft: var(--color-accent-soft);
+  --dia-marker: var(--color-marker);
+
+  --noche-bg: var(--color-terminal-bg);
+  --noche-surface: var(--color-terminal-chrome);
+  --noche-surface-raised: color-mix(in oklab, var(--color-terminal-ink) 8%, var(--color-terminal-chrome));
+  --noche-line: color-mix(in oklab, var(--color-terminal-ink) 22%, var(--color-terminal-bg));
+  --noche-line-strong: var(--color-terminal-bright);
+  --noche-ink: var(--color-terminal-bright);
+  --noche-ink-soft: var(--color-terminal-ink);
+  --noche-ink-dim: color-mix(in oklab, var(--color-terminal-ink) 60%, var(--color-terminal-dim));
+  --noche-accent: var(--color-terminal-ok);
+  --noche-accent-hover: color-mix(in oklab, var(--color-terminal-ok) 80%, var(--color-terminal-bright));
+  --noche-accent-contrast: var(--color-terminal-bg);
+  --noche-accent-soft: color-mix(in oklab, var(--color-terminal-ok) 16%, var(--color-terminal-bg));
+  --noche-marker: color-mix(in oklab, var(--color-terminal-ok) 40%, var(--color-terminal-bg));
+}
+
+[data-mundo="dia"] {
+  --color-bg: var(--dia-bg);
+  --color-surface: var(--dia-surface);
+  --color-surface-raised: var(--dia-surface-raised);
+  --color-line: var(--dia-line);
+  --color-line-strong: var(--dia-line-strong);
+  --color-ink: var(--dia-ink);
+  --color-ink-soft: var(--dia-ink-soft);
+  --color-ink-dim: var(--dia-ink-dim);
+  --color-accent: var(--dia-accent);
+  --color-accent-hover: var(--dia-accent-hover);
+  --color-accent-contrast: var(--dia-accent-contrast);
+  --color-accent-soft: var(--dia-accent-soft);
+  --color-marker: var(--dia-marker);
+}
+[data-mundo="noche"] {
+  --color-bg: var(--noche-bg);
+  --color-surface: var(--noche-surface);
+  --color-surface-raised: var(--noche-surface-raised);
+  --color-line: var(--noche-line);
+  --color-line-strong: var(--noche-line-strong);
+  --color-ink: var(--noche-ink);
+  --color-ink-soft: var(--noche-ink-soft);
+  --color-ink-dim: var(--noche-ink-dim);
+  --color-accent: var(--noche-accent);
+  --color-accent-hover: var(--noche-accent-hover);
+  --color-accent-contrast: var(--noche-accent-contrast);
+  --color-accent-soft: var(--noche-accent-soft);
+  --color-marker: var(--noche-marker);
+}

@@ -16,18 +16,19 @@ const { nav = [], cta } = Astro.props;
 
 <header class="site-header">
   <nav class="container-default site-nav" aria-label="Principal">
+    {/*
+      Logotipo "Contrapartida" (elegido el 2026-10-01, design/MUNDOS.md §8):
+      el nombre vive DENTRO de la cuenta T. La raya cubre todo el logotipo y
+      el asta separa el cargo (soycontador, en tinta) del abono (.ai, en
+      verde). Es la tesis de la marca sin una palabra: la IA es la
+      contrapartida que completa la partida doble. El nombre accesible
+      contiene el texto visible (WCAG 2.5.3).
+    */}
     <a class="site-logo" href="/" aria-label="soycontador.ai, inicio">
-      <svg class="site-isotipo" viewBox="5 18 86 60" fill="none" aria-hidden="true">
-        <rect x="12" y="25" width="72" height="5" fill="currentColor"></rect>
-        <rect x="45.5" y="25" width="5" height="46" fill="currentColor"></rect>
-        <rect x="16" y="39" width="24" height="7" fill="currentColor"></rect>
-        <rect x="16" y="52" width="17" height="7" fill="currentColor"></rect>
-        <rect x="56" y="39" width="24" height="7" fill="var(--color-accent)"></rect>
-        <rect x="56" y="52" width="17" height="7" fill="var(--color-accent)"></rect>
-      </svg>
-      <span class="site-wordmark">
-        <span class="site-wordmark-nombre">soycontador</span>
-        <span class="site-wordmark-tld">.ai</span>
+      <span class="logo-cuenta">
+        <span class="logo-cargo">soycontador</span>
+        <span class="logo-asta" aria-hidden="true"></span>
+        <span class="logo-abono">.ai</span>
       </span>
     </a>
     {nav.length > 0 && (
@@ -42,12 +43,29 @@ const { nav = [], cta } = Astro.props;
 </header>
 
 <style>
+  /*
+   * Papel translúcido y no la banda blanca fría (#FFF sobre papel #FBFAF7)
+   * que fue hasta la ronda 3. En la home toma el mundo de lo que tiene debajo:
+   * el script de las hojas le pone data-mundo y los colores registrados en
+   * tokens.css se interpolan. 92% y no menos: cuando debajo hay dos mundos a
+   * la vez (una hoja que se hunde), a menos opacidad las orillas del otro
+   * asomaban como franjas por el desenfoque.
+   */
   .site-header {
-    background: var(--color-surface-raised);
-    border-bottom: 1px solid var(--color-line);
+    background: color-mix(in oklab, var(--color-bg) 92%, transparent);
+    -webkit-backdrop-filter: saturate(1.4) blur(16px);
+    backdrop-filter: saturate(1.4) blur(16px);
+    border-bottom: 1px solid color-mix(in oklab, var(--color-line) 80%, transparent);
+    color: var(--color-ink);
     position: sticky;
     top: 0;
     z-index: 5;
+    transition-property:
+      --color-bg, --color-surface, --color-surface-raised, --color-line, --color-line-strong,
+      --color-ink, --color-ink-soft, --color-ink-dim, --color-accent, --color-accent-hover,
+      --color-accent-contrast, --color-accent-soft, --color-marker;
+    transition-duration: 0.5s;
+    transition-timing-function: var(--ease-f);
   }
   .site-nav {
     display: flex;
@@ -56,40 +74,120 @@ const { nav = [], cta } = Astro.props;
     gap: 1rem;
     padding-block: 1rem;
   }
-  /*
-   * Logotipo: isotipo (cuenta T, abono verde a la derecha) + wordmark de dos
-   * líneas. "soycontador" en la sans del sitio, ".ai" en mono y en verde: la
-   * única parte que cambia de familia. Ver design/DESIGN.md.
-   */
   .site-logo {
     display: inline-flex;
-    align-items: center;
-    gap: 0.6rem;
     text-decoration: none;
     color: var(--color-ink);
   }
-  /* viewBox recortado al asiento (deja un renglón de aire por lado) */
-  .site-isotipo {
-    height: 1.7rem;
-    width: auto;
-    flex: none;
-  }
-  .site-wordmark {
-    display: flex;
-    flex-direction: column;
-    line-height: 0.94;
-  }
-  .site-wordmark-nombre {
-    font-size: 1.05rem;
+  /*
+   * La cuenta T hecha logotipo. La raya y el asta tienen el grueso del trazo
+   * de la letra en 700 y la raya sobresale del texto por los dos lados, como
+   * en el isotipo. Sin la serif: es la marca, no un titular. En la noche se
+   * vuelve clara con el abono en #3DD68C sin una regla más, porque solo usa
+   * --color-ink y --color-accent.
+   */
+  .logo-cuenta {
+    --raya: max(2px, 0.15em);
+    --hueco: 0.24em;
+    --lado: 0.3em;
+    position: relative;
+    display: inline-flex;
+    align-items: baseline;
+    gap: var(--lado);
+    padding: calc(var(--raya) + var(--hueco)) 0.14em 0;
+    font-family: var(--font-body);
     font-weight: 700;
+    font-size: 1.18rem;
+    line-height: 1;
+    white-space: nowrap;
+  }
+  .logo-cuenta::before {
+    content: "";
+    position: absolute;
+    inset: 0 0 auto;
+    height: var(--raya);
+    background: currentColor;
+    transform-origin: left center;
+  }
+  .logo-cargo {
+    display: inline-block;
     letter-spacing: -0.035em;
   }
-  .site-wordmark-tld {
+  /* El asta sube hasta tocar la raya y baja más que las letras: es el eje
+     de la cuenta, no un separador de texto. */
+  .logo-asta {
+    align-self: stretch;
+    flex: none;
+    width: var(--raya);
+    background: currentColor;
+    margin-top: calc(-1 * var(--hueco));
+    margin-bottom: -0.22em;
+    transform-origin: top center;
+    transition: margin-bottom 260ms var(--ease-f);
+  }
+  .logo-abono {
+    display: inline-block;
     font-family: var(--font-mono);
-    font-size: 0.82rem;
-    font-weight: 700;
+    font-size: 0.92em;
     letter-spacing: -0.02em;
     color: var(--color-accent);
+  }
+  /* Al pasar el mouse el asta crece, como quien alarga la cuenta para el
+     siguiente asiento. */
+  .site-logo:hover .logo-asta {
+    margin-bottom: -0.42em;
+  }
+  /* La entrada: la raya se traza, el asta baja y los dos lados suben a su
+     renglón; el abono llega al último. Una vez por sesión (BaseLayout pone
+     html.logo-visto): en un sitio de varias páginas, la cabecera no puede
+     moverse a cada clic. */
+  .logo-cuenta::before {
+    animation: logo-traza 420ms var(--ease-f) both;
+  }
+  .logo-asta {
+    animation: logo-baja 360ms var(--ease-f) 160ms both;
+  }
+  .logo-cargo {
+    animation: logo-sube 520ms var(--ease-f) 220ms both;
+  }
+  .logo-abono {
+    animation: logo-sube 520ms var(--ease-f) 480ms both;
+  }
+  :global(html.logo-visto) .logo-cuenta::before,
+  :global(html.logo-visto) .logo-cuenta > * {
+    animation: none;
+  }
+  @keyframes logo-traza {
+    from {
+      transform: scaleX(0);
+    }
+  }
+  @keyframes logo-baja {
+    from {
+      transform: scaleY(0);
+    }
+  }
+  @keyframes logo-sube {
+    from {
+      opacity: 0;
+      transform: translateY(0.38em);
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .site-header {
+      transition: none;
+    }
+    .logo-cuenta::before,
+    .logo-cuenta > * {
+      animation: none;
+    }
+  }
+  /* En 390 px el logotipo comparte renglón con el botón (168 px): medido, a
+     este tamaño mide 146 y caben los dos con aire. */
+  @media (max-width: 480px) {
+    .logo-cuenta {
+      font-size: 1.08rem;
+    }
   }
   /* En la cabecera los enlaces van sin envolver: con cuatro entradas, entre
      760 y 880 px la última se caía a un segundo renglón. Antes de que no

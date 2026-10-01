@@ -81,6 +81,15 @@ body {
   color: var(--color-accent);
 }
 
+/* Un contenedor con mundo (data-mundo, ver tokens.css) pinta su propio
+   fondo y su tinta: así una sección de noche no depende de que el body la
+   pinte. La cabecera y el pie traen sus propias reglas. */
+.mundo[data-mundo],
+section[data-mundo] {
+  background-color: var(--color-bg);
+  color: var(--color-ink);
+}
+
 /* La cabecera es pegajosa: sin este margen, un salto de ancla aterriza con
    el folio de la sección tapado por ella. */
 main [id] {

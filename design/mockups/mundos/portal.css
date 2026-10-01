@@ -1,0 +1,140 @@
+/*
+ * H · Portal: cada mundo se abre por una ventana.
+ *
+ * El contenido del mundo nuevo NO se mueve mientras la abertura crece: está
+ * quieto en su lugar y la abertura lo REVELA. Eso la separa de Hojas (que
+ * desliza hojas encima) y de Jornada (que cambia la luz de toda la pantalla).
+ *
+ * Todo cuelga de html.portal-activo, que pone portal.js solo cuando hay
+ * JavaScript y el sistema NO pide menos movimiento. Sin esa clase la página
+ * queda como la base de la ronda 3: los mundos pintados por sección, quietos.
+ *
+ * Los valores que cambian por cuadro (los recortes) los escribe el JS directo
+ * en cada elemento, no en variables de :root: una variable en la raíz obliga
+ * a recalcular el estilo de toda la página en cada cuadro.
+ */
+
+/* ---------- 1. El punto final se abre (portada → escena) ----------
+   La escena sube hasta el borde superior del documento y queda ENCIMA de la
+   portada: su capa fija está pegada desde el primer pixel de scroll, recortada
+   a un círculo que nace en el punto de "tú." y crece hasta cubrirlo todo. La
+   envoltura de la escena es transparente (si pintara su fondo, la portada
+   quedaría sobre noche); la noche la pinta la capa fija. */
+html.portal-activo .portal-escena {
+  background: transparent;
+  margin-top: calc(var(--portal-sube, 0px) * -1);
+}
+html.portal-activo .portal-escena .escena {
+  height: var(--portal-alto-escena, 320vh);
+}
+/* La capa fija mide lo mismo que la cuenta del JS (innerHeight y no 100svh):
+   si midiera menos, al soltarse asomaría por debajo de la vuelta. */
+html.portal-activo .portal-escena .escena-fija {
+  height: var(--portal-vh, 100svh);
+  background: var(--color-bg);
+  z-index: 2;
+}
+
+/* ---------- 2. Tu criterio abre el día (escena → vuelta) ----------
+   La vuelta se queda fija detrás de una pista del largo del gesto y se recorta
+   al rect de la cuarta tarjeta; el recorte crece hasta la pantalla completa.
+   Encima de la noche (z 3) pero invisible hasta que empieza el gesto. */
+html.portal-activo .portal-dia2 {
+  margin-top: calc(var(--portal-traslape, 0px) * -1);
+}
+html.portal-activo .portal-pista {
+  height: calc(var(--portal-exp, 0px) + var(--portal-alto-vuelta, 100svh));
+}
+html.portal-activo .portal-pista > .vuelta {
+  position: sticky;
+  top: 0;
+  z-index: 3;
+  /* Nunca más bajita que la ventana: tapa por completo a la escena que se
+     suelta detrás de ella al mismo tiempo. */
+  min-height: var(--portal-vh, 100svh);
+  clip-path: inset(100% 0 0 0);
+}
+/* Mientras la ventana es chica solo deja ver papel: si se asomara ya el
+   retrato, lo primero que aparecería sería un pedazo de sudadera oscura y la
+   tarjeta de papel se leería como una mancha. El retrato sube a su lugar
+   cuando la ventana ya pasó de la mitad (entra desde abajo, 0.62 s). */
+html.portal-activo .portal-pista > .vuelta .vuelta-retrato {
+  transform: translateY(2.5rem);
+  opacity: 0;
+  transition:
+    transform 0.62s var(--ease-f),
+    opacity 0.4s var(--ease-f);
+}
+html.portal-activo .portal-pista > .vuelta.portal-retrato-sube .vuelta-retrato {
+  transform: none;
+  opacity: 1;
+}
+
+/* La tarjeta de papel se queda un instante sobre su ventana y se disuelve: así
+   el renglón no desaparece de golpe cuando empieza a abrirse. */
+.portal-fantasma.portal-fantasma {
+  position: fixed;
+  z-index: 4;
+  margin: 0;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: none;
+}
+
+/* ---------- 3 y 4. Entrar y salir de la terminal (noche 2) ----------
+   La noche 2 llega como una ventana de terminal metida en el papel, con su
+   barra y su semáforo, y se abre a pantalla completa al llegar arriba. Al
+   terminarse, se vuelve a cerrar en ventana y se va. */
+html.portal-activo .portal-noche2 {
+  position: relative;
+}
+.portal-barra {
+  position: absolute;
+  inset: 0 0 auto 0;
+  z-index: 1;
+  height: 2.6rem;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding-inline: calc(var(--portal-x, 0px) + 1.15rem);
+  background: var(--color-terminal-chrome);
+  pointer-events: none;
+}
+.portal-barra i {
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+}
+.portal-barra i:nth-child(1) {
+  background: var(--color-semaforo-rojo);
+}
+.portal-barra i:nth-child(2) {
+  background: var(--color-semaforo-ambar);
+}
+.portal-barra i:nth-child(3) {
+  background: var(--color-semaforo-verde);
+}
+html:not(.portal-activo) .portal-barra {
+  display: none;
+}
+
+/* ---------- 6. Tipografía cinética ----------
+   El primer titular del mundo nuevo sube por renglones detrás de su máscara
+   cuando la abertura termina (el mismo gesto que .reng en la portada). La
+   máscara gana 0.16em abajo para no morder los descendentes de la serif, y
+   lo devuelve con margen negativo: el renglón no cambia de alto. */
+.portal-reng {
+  display: block;
+  overflow: hidden;
+  padding-bottom: 0.16em;
+  margin-bottom: -0.16em;
+}
+.portal-reng > span {
+  display: block;
+  transform: translateY(118%);
+  transition: transform 0.62s var(--ease-f) var(--d, 0s);
+}
+.portal-sube .portal-reng > span {
+  transform: none;
+}
