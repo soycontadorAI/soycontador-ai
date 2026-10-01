@@ -97,8 +97,8 @@ sección de la llamada de descubrimiento.
   ajenas. Se entrega exactamente lo que promete la hoja (logo en portada y
   cierre, mención de apertura y cierre, segmento de 60 s sin demo, línea en
   el entregable) para medirlo y llevar números reales a la venta de
-  noviembre. **Al aire se dice que Certera es de Pepe y de Israel** (decisión
-  de Israel): un patrocinio propio presentado como ajeno le quita
+  noviembre. **Al aire se nombra que Israel trabaja en Certera de la mano con
+  Pepe**: un patrocinio con interés propio presentado como ajeno le quita
   credibilidad al paquete que se vende después. La oferta al público es el
   piloto gratis de Certera (10 lugares, 1 RFC, 90 días, $0) por el alias
   soycontador.ai/certera, que falta crear. No choca con la exclusión de
@@ -117,4 +117,10 @@ sección de la llamada de descubrimiento.
   solicitudes, no visitas. Además, la página dice que el piloto es «para 10
   clientes de Mesa Privada y Miembros PRO» y que quedan 6 (dato del 13-sep):
   confirmar con Pepe que se abre a la audiencia del canal antes del live.
+- **2026-10-01.** Cómo se dice: Certera **es de Pepe**. El trato 50/50 es
+  de palabra y no hay documento firmado, así que al aire no se dice «es
+  nuestra» ni «la hacemos Pepe y yo», sino que es una app en la que Israel
+  trabaja de la mano con Pepe (difusión y revisión del código). Así se
+  nombra el interés de Israel sin afirmar una propiedad que todavía no
+  existe. Si se firma, se revisa.
 
