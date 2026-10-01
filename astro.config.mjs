@@ -47,6 +47,16 @@ export default defineConfig({
     // dicta en público hasta verificar que la página del curso ya existe.
     '/crearapp': { status: 302, destination: 'https://fiscalistas.ai/cursos/crea-una-webapp-sin-saber-programar/' },
     '/crear-app': { status: 302, destination: 'https://fiscalistas.ai/cursos/crea-una-webapp-sin-saber-programar/' },
+    // Certera, la app de Pepe y mía que presenta la serie de octubre de 2026
+    // (piloto de patrocinio). El alias va en el QR y se dicta en cámara, así
+    // que es 302 por la misma razón que los de arriba. Las UTM viajan en el
+    // destino: un 302 de Vercel no deja rastro en nuestra analítica, así que
+    // el conteo depende de que la página de Certera las lea (pendiente con
+    // Pepe, ver docs/patrocinios/README.md).
+    '/certera': {
+      status: 302,
+      destination: 'https://certera.fiscalistas.ai/plataforma?utm_source=soycontador&utm_medium=youtube&utm_campaign=jueves-octubre-2026&utm_content=qr-alias',
+    },
   },
   env: {
     schema: {
