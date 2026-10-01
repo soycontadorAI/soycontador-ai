@@ -1,0 +1,424 @@
+/*
+ * Tres alternativas de logotipo para soycontador.ai (2026-10-01).
+ *
+ * Solo consume tokens de src/styles/tokens.css, así que el logotipo cambia de
+ * mundo solo: una sección oscura que remapea --color-ink y --color-accent
+ * (tinta → terminal-bright, verde de acción → terminal-ok) lo recibe ya en su
+ * versión clara, sin una regla más.
+ *
+ * Las dos piezas que llevan superficie propia (el sello de B y la pestaña de
+ * C) usan la familia terminal, que ningún mundo remapea. Lo único que ajustan
+ * en la noche es su fondo, para no desaparecer contra la cabecera oscura; eso
+ * cuelga de un ancestro [data-mundo="noche"] o .noche. Sin ese ancestro el
+ * logotipo sigue legible: solo pierde el disco o la pestaña.
+ *
+ * Movimiento: una sola curva (--ease-f), ningún tramo pasa de 620 ms, todo
+ * entra desde abajo y prefers-reduced-motion deja el estado final.
+ */
+
+.lg {
+  display: inline-flex;
+  align-items: center;
+  color: var(--color-ink);
+  line-height: 1;
+  white-space: nowrap;
+  text-decoration: none;
+  -webkit-font-smoothing: antialiased;
+}
+.lg svg {
+  display: block;
+  overflow: visible;
+}
+
+/* ================================================================
+   A · CONTRAPARTIDA
+   La cuenta T deja de ser un icono al lado del nombre: el nombre vive
+   dentro. La raya cubre todo el logotipo, el asta separa el cargo
+   (soycontador, en tinta) del abono (.ai, en verde).
+   ================================================================ */
+.lg-a {
+  /* La raya y el asta tienen el grueso del trazo de la letra en 700. */
+  --raya: max(2px, 0.15em);
+  --hueco: 0.24em; /* de la raya al tope de las ascendentes */
+  --lado: 0.3em; /* aire a cada lado del asta, como en el isotipo */
+  position: relative;
+  align-items: baseline;
+  gap: var(--lado);
+  /* La raya sobresale del texto por los dos lados, como en el isotipo. */
+  padding: calc(var(--raya) + var(--hueco)) 0.14em 0;
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 1.18rem;
+}
+.lg-a::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: var(--raya);
+  background: currentColor;
+  transform-origin: left center;
+}
+.lg-a-cargo {
+  letter-spacing: -0.035em;
+}
+.lg-a-asta {
+  align-self: stretch;
+  flex: none;
+  width: var(--raya);
+  background: currentColor;
+  /* Sube hasta tocar la raya y baja más que las letras: es el eje de la
+     cuenta, no un separador de texto. */
+  margin-top: calc(-1 * var(--hueco));
+  margin-bottom: -0.22em;
+  transform-origin: top center;
+}
+.lg-a-abono {
+  font-family: var(--font-mono);
+  font-size: 0.92em;
+  letter-spacing: -0.02em;
+  color: var(--color-accent);
+}
+/* Los renglones de cargo y abono, solo donde caben (tamaños grandes): el
+   segundo asiento de cada lado. Miden lo mismo de los dos lados, como en el
+   isotipo (17 de 24): al 71% del .ai, que es el asiento corto. Van dentro de
+   cada lado para que el asta los abarque. */
+.lg-a-cargo i,
+.lg-a-abono i {
+  display: none;
+}
+.lg-a.con-renglones .lg-a-cargo i,
+.lg-a.con-renglones .lg-a-abono i {
+  display: block;
+  width: 1.12em;
+  height: var(--raya);
+  margin-top: 0.3em;
+  background: currentColor;
+  transform-origin: left center;
+  animation: lg-traza 420ms var(--ease-f) 620ms both;
+}
+
+/* Entrada: la raya se traza de lado a lado, el asta baja y los dos
+   asientos suben a su renglón. El abono llega al último: es la
+   contrapartida que completa la partida. 1 s en total, 520 ms el tramo
+   más largo. */
+.lg-a::before {
+  animation: lg-traza 420ms var(--ease-f) both;
+}
+.lg-a-asta {
+  animation: lg-baja 360ms var(--ease-f) 160ms both;
+}
+.lg-a-cargo {
+  display: inline-block;
+  animation: lg-sube 520ms var(--ease-f) 220ms both;
+}
+.lg-a-abono {
+  display: inline-block;
+  animation: lg-sube 520ms var(--ease-f) 480ms both;
+}
+/* Hover: el asta crece un poco, como quien alarga la cuenta para el
+   siguiente asiento. */
+.lg-a .lg-a-asta {
+  transition: margin-bottom 260ms var(--ease-f);
+}
+a:hover > .lg-a .lg-a-asta,
+.lg-a:hover .lg-a-asta {
+  margin-bottom: -0.42em;
+}
+
+/* ================================================================
+   B · FIRMA
+   La marca es la persona. El nombre en la display de la marca y la T
+   como sello antes de la firma. El dominio baja a descriptor, en la
+   misma línea, detrás de un filete.
+   ================================================================ */
+.lg-b {
+  gap: 0.42em;
+  font-size: 1.6rem;
+}
+.lg-b-sello {
+  flex: none;
+  width: 1.08em;
+  height: 1.08em;
+  /* El centro óptico del disco va con la altura de las mayúsculas de la
+     serif, que es baja: sin esto el sello flota arriba del nombre. */
+  transform: translateY(-0.02em);
+}
+.lg-b-sello svg {
+  width: 100%;
+  height: 100%;
+}
+.lg-b-sello .disco {
+  fill: var(--color-terminal-bg);
+}
+.lg-b-sello .t {
+  fill: var(--color-terminal-bright);
+}
+.lg-b-sello .abono {
+  fill: var(--color-terminal-ok);
+}
+.lg-b-nombre {
+  font-family: var(--font-display);
+  font-weight: 400;
+  letter-spacing: -0.012em;
+  /* La caja de línea de Instrument Serif deja aire abajo: se compensa
+     para que el nombre quede centrado contra el sello. */
+  transform: translateY(0.05em);
+}
+.lg-b-filete {
+  flex: none;
+  width: 1px;
+  height: 0.78em;
+  margin-left: 0.12em;
+  background: var(--color-ink-dim);
+}
+.lg-b-dominio {
+  font-family: var(--font-mono);
+  font-size: 0.4em;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  color: var(--color-ink-dim);
+}
+.lg-b-dominio b {
+  font-weight: 700;
+  color: var(--color-accent);
+}
+/* El subrayado de la firma: aparece en hover, de izquierda a derecha, en
+   el verde de acción (es un enlace). */
+.lg-b-nombre {
+  background-image: linear-gradient(var(--color-accent), var(--color-accent));
+  background-repeat: no-repeat;
+  background-position: 0 100%;
+  background-size: 0 1.5px;
+  padding-bottom: 0.06em;
+  transition: background-size 420ms var(--ease-f);
+}
+a:hover > .lg-b .lg-b-nombre,
+.lg-b:hover .lg-b-nombre {
+  background-size: 100% 1.5px;
+}
+/* En la noche el sello sube un tono para no perderse contra la cabecera:
+   el disco pasa al cromo de la terminal, la T y el abono no cambian. */
+:is([data-mundo="noche"], .noche) .lg-b-sello .disco {
+  fill: var(--color-terminal-chrome);
+}
+/* Sin descriptor cuando no cabe (móvil): la URL ya dice el dominio. */
+.lg-b.sin-dominio .lg-b-filete,
+.lg-b.sin-dominio .lg-b-dominio {
+  display: none;
+}
+
+/* Entrada: el sello se estampa, la firma sube y el descriptor llega
+   después. 1.04 s en total, 560 ms el tramo más largo. */
+.lg-b-sello {
+  animation: lg-estampa 360ms var(--ease-f) both;
+}
+.lg-b-nombre {
+  display: inline-block;
+  animation: lg-sube 560ms var(--ease-f) 180ms both;
+}
+.lg-b-filete {
+  animation: lg-baja 300ms var(--ease-f) 520ms both;
+  transform-origin: center;
+}
+.lg-b-dominio {
+  display: inline-block;
+  animation: lg-sube 520ms var(--ease-f) 520ms both;
+}
+
+/* ================================================================
+   C · PROMPT
+   El dominio es un comando que se teclea. La T hace de prompt, el .ai
+   va en verde y el cursor espera. Por defecto va en su pestaña de
+   terminal; en la noche la pestaña pasa al cromo de la terminal.
+   ================================================================ */
+.lg-c {
+  gap: 0.5em;
+  font-family: var(--font-mono);
+  font-weight: 700;
+  font-size: 0.98rem;
+  letter-spacing: 0;
+}
+.lg-c-prompt {
+  flex: none;
+  width: 1.2em;
+  height: 1em;
+}
+.lg-c-prompt svg {
+  width: 100%;
+  height: 100%;
+}
+.lg-c-prompt .t {
+  fill: currentColor;
+}
+.lg-c-prompt .abono {
+  fill: var(--color-accent);
+}
+/* El comando reserva su ancho final desde el primer cuadro: si creciera
+   letra por letra, el menú de la cabecera (que va centrado entre el
+   logotipo y el botón) se recorrería medio carácter con cada tecla. Lo
+   que crece es el texto de adentro, y el cursor lo sigue. */
+.lg-c-cmd {
+  display: inline-flex;
+  align-items: center;
+  width: calc(14ch + 0.08em + 0.56em);
+}
+.lg-c-texto {
+  display: inline-block;
+  overflow: hidden;
+  /* 14 caracteres exactos: soycontador.ai. Es mono, así que cada uno mide
+     1ch y el tecleo con steps() cae justo en cada letra. */
+  width: 14ch;
+  /* Margen para que las descendentes no se corten con el overflow. */
+  padding-block: 0.12em;
+  margin-block: -0.12em;
+}
+.lg-c-cmd b {
+  font-weight: inherit;
+  color: var(--color-accent);
+}
+.lg-c-cursor {
+  flex: none;
+  width: 0.56em;
+  height: 1.08em;
+  margin-left: 0.08em; /* pegado al último carácter, como en una terminal */
+  background: currentColor;
+}
+
+/* La pestaña: el logotipo como una terminal abierta en la cabecera. Usa
+   solo la familia terminal, así que no depende del mundo. */
+.lg-c.pestana {
+  padding: 0.5em 0.72em 0.5em 0.6em;
+  border-radius: var(--radius-sm);
+  background: var(--color-terminal-bg);
+  color: var(--color-terminal-bright);
+  transition: background-color 300ms var(--ease-f);
+}
+.lg-c.pestana .lg-c-prompt .abono,
+.lg-c.pestana .lg-c-cmd b {
+  fill: var(--color-terminal-ok);
+  color: var(--color-terminal-ok);
+}
+:is([data-mundo="noche"], .noche) .lg-c.pestana {
+  background: var(--color-terminal-chrome);
+}
+
+/* Entrada: se teclea UNA vez (14 letras en 420 ms), el cursor parpadea
+   tres veces y se queda quieto. Nada infinito en la cabecera. */
+.lg-c-texto {
+  animation: lg-teclea 420ms steps(14, end) 160ms both;
+}
+.lg-c-cursor {
+  animation: lg-parpadeo 500ms steps(1, end) 640ms 3;
+}
+/* Hover: el cursor vuelve a parpadear dos veces, como quien regresa a
+   la terminal. */
+a:hover > .lg-c .lg-c-cursor,
+.lg-c:hover .lg-c-cursor {
+  animation: lg-parpadeo 500ms steps(1, end) 0ms 2;
+}
+
+/* ================================================================
+   Anchos. Medido en la cabecera real (Nav.astro, con el menú de cuatro
+   enlaces y el botón), no en el comparador:
+
+   - Entre 881 y 1023 px vuelve el menú y la cabecera se aprieta: con su
+     descriptor, B desbordaba 73 px a 881 y C desbordaba 6. Por debajo
+     de 1024, B pierde el descriptor (la URL ya dice el dominio) y C
+     baja un punto.
+   - En el celular (≤480 px) el logotipo comparte renglón con el botón,
+     que mide 168 px: de los 342 útiles de un teléfono de 390, menos 16
+     de aire, el logotipo tiene que medir 158 o menos. Quedan A 146,
+     B 141 y C 150.
+
+   `.movil` es el gancho del comparador, que pinta el celular en un
+   marco de 390 px dentro de una ventana ancha.
+   ================================================================ */
+@media (max-width: 1023px) {
+  .lg-b-filete,
+  .lg-b-dominio {
+    display: none;
+  }
+  .lg-c {
+    font-size: 0.86rem;
+  }
+}
+.movil .lg-b-filete,
+.movil .lg-b-dominio {
+  display: none;
+}
+@media (max-width: 480px) {
+  .lg-a {
+    font-size: 1.08rem;
+  }
+  .lg-c {
+    font-size: 0.8rem;
+  }
+  .lg-c.pestana {
+    padding-inline: 0.45em 0.55em;
+  }
+}
+.movil .lg-a {
+  font-size: 1.08rem;
+}
+.movil .lg-c {
+  font-size: 0.8rem;
+}
+.movil .lg-c.pestana {
+  padding-inline: 0.45em 0.55em;
+}
+
+/* ================================================================
+   Coreografía compartida
+   ================================================================ */
+@keyframes lg-traza {
+  from {
+    transform: scaleX(0);
+  }
+}
+@keyframes lg-baja {
+  from {
+    transform: scaleY(0);
+  }
+}
+@keyframes lg-sube {
+  from {
+    opacity: 0;
+    transform: translateY(0.38em);
+  }
+}
+@keyframes lg-estampa {
+  from {
+    opacity: 0;
+    transform: translateY(-0.02em) scale(1.22);
+  }
+}
+@keyframes lg-teclea {
+  from {
+    width: 0;
+  }
+}
+@keyframes lg-parpadeo {
+  50% {
+    opacity: 0;
+  }
+}
+
+/* El sitio es de varias páginas: si la entrada corriera en cada
+   navegación, la cabecera se movería a cada clic. logos.js pone esta
+   clase cuando el logotipo ya se vio en la sesión. */
+.lg-quieto .lg,
+.lg-quieto .lg *,
+.lg-quieto .lg::before {
+  animation: none !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lg,
+  .lg *,
+  .lg::before {
+    animation: none !important;
+    transition: none !important;
+  }
+}
