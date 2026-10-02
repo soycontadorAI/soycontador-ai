@@ -29,6 +29,9 @@ const { nav = [], cta } = Astro.props;
         <span class="logo-cargo">soycontador</span>
         <span class="logo-asta" aria-hidden="true"></span>
         <span class="logo-abono">.ai</span>
+        {/* Los cuatro renglones del isotipo: aparecen cuando el logotipo se
+            compacta al bajar (ver el estilo y el script de abajo). */}
+        <span class="logo-renglones" aria-hidden="true"><i class="c1"></i><i class="c2"></i><i class="a1"></i><i class="a2"></i></span>
       </span>
     </a>
     {nav.length > 0 && (
@@ -134,9 +137,141 @@ const { nav = [], cta } = Astro.props;
   }
   /* Al pasar el mouse el asta crece, como quien alarga la cuenta para el
      siguiente asiento. */
-  .site-logo:hover .logo-asta {
+  .site-header:not(.logo-compacto) .site-logo:hover .logo-asta {
     margin-bottom: -0.42em;
   }
+  /*
+   * EL LOGOTIPO COMPACTO (idea de Israel, 2026-10-01). Al bajar, el nombre se
+   * asienta en la cuenta: "soycontador" se comprime en los renglones del
+   * cargo (tinta) y ".ai" en los del abono (verde), la raya se recoge y queda
+   * el isotipo, la T con sus cuatro asientos. Al subir, regresa.
+   *
+   * Todo es transform y opacity: el ancho del logotipo no cambia y por eso el
+   * menú y el botón no se mueven. El destino es el isotipo de siempre
+   * (viewBox 86×60) llevado a em, a 1.44em de alto; el origen lo mide el
+   * script, porque depende de cómo se dibujó la letra.
+   */
+  .logo-renglones {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+  }
+  .logo-renglones i {
+    position: absolute;
+    height: 0.168em;
+    background: currentColor;
+    transform-origin: left center;
+  }
+  .logo-renglones .a1,
+  .logo-renglones .a2 {
+    background: var(--color-accent);
+  }
+  .logo-renglones .c1,
+  .logo-renglones .a1 {
+    top: 0.336em;
+    width: 0.576em;
+  }
+  .logo-renglones .c2,
+  .logo-renglones .a2 {
+    top: 0.648em;
+    width: 0.408em;
+  }
+  .logo-renglones .c1,
+  .logo-renglones .c2 {
+    left: 0.096em;
+  }
+  .logo-renglones .a1,
+  .logo-renglones .a2 {
+    left: 1.056em;
+  }
+
+  /* Al EXPANDIR (estas transiciones son las del estado completo): el segundo
+     renglón se recoge, el primero se apaga, y la palabra, que reaparece
+     comprimida encima de él, se despliega a su lugar. */
+  .logo-renglones .c1,
+  .logo-renglones .a1 {
+    opacity: 0;
+    transition: opacity 0.12s linear;
+  }
+  .logo-renglones .c2,
+  .logo-renglones .a2 {
+    transform: scaleX(0);
+    transition: transform 0.22s var(--ease-f);
+  }
+  /* Cada palabra se mueve en dos ejes con tiempos distintos (translate y
+     scale para lo horizontal, transform para lo vertical): con los dos ejes
+     juntos la palabra solo se encogía, como si se alejara. Al expandir, la
+     línea primero se estira a su largo y al final se despliega en palabra. */
+  .logo-cargo,
+  .logo-abono {
+    transform-origin: 0 0;
+    transition:
+      translate 0.4s var(--ease-f),
+      scale 0.4s var(--ease-f),
+      transform 0.26s var(--ease-f) 0.24s,
+      opacity 0.12s linear;
+  }
+  /* La raya y el asta viajan con el mismo tiempo que lo horizontal de las
+     palabras: así el asta se queda siempre entre el cargo y el abono. Con
+     tiempos distintos se adelantaba y cruzaba por encima de la palabra. */
+  .logo-cuenta::before {
+    transition: transform 0.4s var(--ease-f);
+  }
+  .logo-asta {
+    transition:
+      transform 0.4s var(--ease-f),
+      margin-bottom 260ms var(--ease-f);
+  }
+
+  /* Al COMPACTAR: cada palabra se comprime hasta volverse su primer renglón
+     y en ese momento se funde con él; el segundo se traza de izquierda a
+     derecha, como se escribe un asiento. Menos de 600 ms en total. */
+  .logo-compacto .logo-cuenta::before {
+    transform: scaleX(var(--raya-sx, 1));
+    transition: transform 0.4s var(--ease-f) 0.06s;
+  }
+  .logo-compacto .logo-asta {
+    transform: translateX(var(--asta-dx, 0px)) scaleY(var(--asta-sy, 1));
+    transition: transform 0.4s var(--ease-f) 0.06s;
+  }
+  /* Primero se aplana (la palabra se vuelve una franja), luego se recorre y
+     se acorta hasta su renglón, y ahí se funde con él. */
+  .logo-compacto .logo-cargo {
+    translate: var(--cargo-dx, 0px) var(--cargo-dy, 0px);
+    scale: var(--cargo-sx, 1) 1;
+    transform: scaleY(var(--cargo-sy, 1));
+  }
+  .logo-compacto .logo-abono {
+    translate: var(--abono-dx, 0px) var(--abono-dy, 0px);
+    scale: var(--abono-sx, 1) 1;
+    transform: scaleY(var(--abono-sy, 1));
+  }
+  .logo-compacto .logo-cargo,
+  .logo-compacto .logo-abono {
+    opacity: 0;
+    transition:
+      transform 0.26s var(--ease-f),
+      translate 0.4s var(--ease-f) 0.06s,
+      scale 0.4s var(--ease-f) 0.06s,
+      opacity 0.14s linear 0.32s;
+  }
+  .logo-compacto .logo-renglones .c1,
+  .logo-compacto .logo-renglones .a1 {
+    opacity: 1;
+    transition: opacity 0.14s linear 0.32s;
+  }
+  .logo-compacto .logo-renglones .c2,
+  .logo-compacto .logo-renglones .a2 {
+    transform: none;
+    transition: transform 0.36s var(--ease-f) 0.22s;
+  }
+  /* Una página que abre a media altura recibe el logotipo ya compacto, sin
+     animarse. */
+  .logo-sin-transicion .logo-cuenta::before,
+  .logo-sin-transicion .logo-cuenta * {
+    transition: none !important;
+  }
+
   /* La entrada: la raya se traza, el asta baja y los dos lados suben a su
      renglón; el abono llega al último. Una vez por sesión (BaseLayout pone
      html.logo-visto): en un sitio de varias páginas, la cabecera no puede
@@ -178,8 +313,10 @@ const { nav = [], cta } = Astro.props;
       transition: none;
     }
     .logo-cuenta::before,
-    .logo-cuenta > * {
+    .logo-cuenta > *,
+    .logo-renglones i {
       animation: none;
+      transition: none;
     }
   }
   /* En 390 px el logotipo comparte renglón con el botón (168 px): medido, a
@@ -224,3 +361,83 @@ const { nav = [], cta } = Astro.props;
     }
   }
 </style>
+
+<script>
+  /*
+   * El logotipo compacto: mide el origen (dónde quedó cada palabra, el asta y
+   * la raya) y deja en variables lo que cada pieza tiene que moverse para
+   * volverse el isotipo. Después solo cambia una clase al bajar y al subir;
+   * las transiciones son del CSS. Con menos movimiento no se compacta: el
+   * logotipo completo se queda.
+   */
+  const cabecera = document.querySelector<HTMLElement>(".site-header");
+  const cuenta = cabecera?.querySelector<HTMLElement>(".logo-cuenta");
+  const cargo = cuenta?.querySelector<HTMLElement>(".logo-cargo");
+  const abono = cuenta?.querySelector<HTMLElement>(".logo-abono");
+  const asta = cuenta?.querySelector<HTMLElement>(".logo-asta");
+  const quieto = matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  if (cabecera && cuenta && cargo && abono && asta && !quieto) {
+    /* El isotipo en em (viewBox 86×60 a 1.44em de alto, con la raya alineada
+       a la orilla izquierda del logotipo): largo de la raya, orilla del asta,
+       alto del asta desde la raya, grueso y altura de los renglones, dónde
+       empieza cada lado y el largo del primer renglón. */
+    const ISO = { raya: 1.728, asta: 0.804, alto: 1.104, grueso: 0.168, arriba: 0.336, cargo: 0.096, abono: 1.056, largo: 0.576 };
+
+    const mide = () => {
+      // offset* ignora las transformaciones: se puede medir en cualquier estado.
+      const em = parseFloat(getComputedStyle(cuenta).fontSize);
+      const pon = (nombre: string, valor: number, unidad = "") => cuenta.style.setProperty(nombre, valor.toFixed(4) + unidad);
+      pon("--raya-sx", (ISO.raya * em) / cuenta.offsetWidth);
+      pon("--asta-dx", ISO.asta * em - asta.offsetLeft, "px");
+      // El asta empieza donde termina la raya (su offsetTop es el grueso de la raya).
+      pon("--asta-sy", (ISO.alto * em - asta.offsetTop) / asta.offsetHeight);
+      for (const [el, lado, x] of [[cargo, "cargo", ISO.cargo], [abono, "abono", ISO.abono]] as const) {
+        pon(`--${lado}-dx`, x * em - el.offsetLeft, "px");
+        pon(`--${lado}-dy`, ISO.arriba * em - el.offsetTop, "px");
+        pon(`--${lado}-sx`, (ISO.largo * em) / el.offsetWidth);
+        pon(`--${lado}-sy`, (ISO.grueso * em) / el.offsetHeight);
+      }
+    };
+
+    /* Se compacta pasando 72 px y se expande hasta volver a menos de 24: entre
+       las dos alturas no cambia, para que no parpadee si el lector se detiene
+       justo ahí. */
+    let compacto = false;
+    const revisa = () => {
+      const quiere = compacto ? scrollY > 24 : scrollY > 72;
+      if (quiere === compacto) return;
+      compacto = quiere;
+      cabecera.classList.toggle("logo-compacto", compacto);
+    };
+
+    mide();
+    document.fonts?.ready.then(mide);
+    addEventListener("resize", mide);
+
+    // Si la página abre a media altura, el logotipo llega compacto y sin entrada.
+    if (scrollY > 72) {
+      document.documentElement.classList.add("logo-visto");
+      cabecera.classList.add("logo-sin-transicion");
+      revisa();
+      requestAnimationFrame(() => requestAnimationFrame(() => cabecera.classList.remove("logo-sin-transicion")));
+    }
+    // La entrada corre una vez: al terminar se apaga, para que al expandir no
+    // se vuelva a disparar.
+    setTimeout(() => document.documentElement.classList.add("logo-visto"), 1100);
+
+    let pedido = false;
+    addEventListener(
+      "scroll",
+      () => {
+        if (pedido) return;
+        pedido = true;
+        requestAnimationFrame(() => {
+          pedido = false;
+          revisa();
+        });
+      },
+      { passive: true },
+    );
+  }
+</script>

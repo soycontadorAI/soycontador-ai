@@ -126,6 +126,16 @@ debajo), que Israel sentía como "el nombre de la página tal cual".
   claro con el abono en #3DD68C sin una regla más.
 - Entra una vez por sesión (la raya se traza, el asta baja, el cargo sube y el
   abono llega al último; `html.logo-visto` lo apaga en la segunda página).
+- **Al bajar se compacta en el isotipo** (idea de Israel, 2026-10-01): el nombre
+  se asienta en la cuenta. `soycontador` se aplana, se recorre a su renglón y
+  se funde en los renglones del cargo (tinta); `.ai`, en los del abono
+  (verde); el segundo renglón de cada lado se traza de izquierda a derecha y la
+  raya se recoge. Queda la T con sus cuatro asientos, y al subir se despliega
+  otra vez. Se compacta pasando 72 px y regresa abajo de 24 (entre las dos no
+  cambia, para no parpadear). Todo es transform y opacity, así que el ancho no
+  cambia y el menú no se mueve; lo vertical y lo horizontal de cada palabra
+  llevan tiempos distintos, porque juntos la palabra solo se encogía. Menos de
+  600 ms. Con reducir movimiento no se compacta.
 - Mide 160 px en la cabecera y 146 en un teléfono de 390, junto al botón.
 - Los cuatro renglones de cargo y abono siguen en **el isotipo**, que es el
   favicon y el ícono. Pendiente: las plantillas de Open Graph y los banners
