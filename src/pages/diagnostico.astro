@@ -567,6 +567,7 @@ const TECLAS = ["A", "B", "C", "D"];
 
 <script>
   import { medir } from "../lib/medir";
+  import { leerOrigen, paraMedicion } from "../lib/origen";
 
   type Clave = string;
   interface Respuesta { id: string; campo: string; clave: Clave; valor: string }
@@ -784,6 +785,7 @@ const TECLAS = ["A", "B", "C", "D"];
             newsletter: contacto.newsletter,
             hp: contacto.hp,
             referrer: location.href,
+            origen: leerOrigen(),
           }),
         });
         const body = await resp.json();
@@ -833,6 +835,7 @@ const TECLAS = ["A", "B", "C", "D"];
         rol: rol?.clave,
         equipo: equipo?.clave,
         entra: tiempo,
+        ...paraMedicion(),
       });
     }
 

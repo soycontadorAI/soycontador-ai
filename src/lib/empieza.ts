@@ -4,7 +4,7 @@
  * El escalón anterior a Claude para Contadores (Fiscalistas.AI). Sale de la
  * encuesta de agosto de 2026 al boletín: el 70 % estaba en nivel cero o
  * aficionado y no está listo para 8 horas de Claude Code. La definición
- * completa (precio, por qué Claude Pro obligatorio, calendario de venta) vive
+ * completa (precio, por qué Claude Pro recomendado, calendario de venta) vive
  * en `docs/taller-empieza-aqui.md`.
  *
  * Este taller SÍ publica precio: es producto de precio fijo, como el ebook.
@@ -191,9 +191,9 @@ export const FAQ_EMPIEZA = [
       "El taller es de Claude y solo de Claude, a propósito. En dos horas con gente que empieza, dos herramientas son caos, y el proyecto que configuramos es una función concreta de Claude. Lo que aprendas el sábado es lo que vas a usar el lunes.",
   },
   {
-    pregunta: "¿Por qué hace falta Claude Pro y no la versión gratuita?",
+    pregunta: "¿Necesito Claude Pro?",
     respuesta:
-      "Porque el plan gratuito tiene límites de uso que se topan en una sesión intensa, y que te salga 'alcanzaste tu límite' a la mitad del bloque de XML rompe el taller. Cuesta unos $400 MXN al mes, se paga aparte, y es la misma cuenta que vas a seguir usando. Si no la tienes, en el correo de confirmación te digo cómo sacarla en cinco minutos.",
+      "No es obligatorio, pero te lo recomiendo. El plan gratuito tiene un límite de uso que se agota en una sesión intensa, y que te salga 'alcanzaste tu límite' a mitad del bloque de XML te deja sin terminar la práctica. Cuesta unos $400 MXN al mes y puedes cancelarla antes de que se renueve. Si no la tienes, en el correo de confirmación te digo cómo sacarla en cinco minutos.",
   },
   {
     pregunta: "¿Qué pasa si no puedo en vivo?",
@@ -213,6 +213,6 @@ export const FAQ_EMPIEZA = [
   {
     pregunta: "¿Cuánto cuesta el taller?",
     respuesta:
-      "$697 MXN, pago único, más tu suscripción a Claude Pro, que se paga aparte. Si cancelas hasta dos días antes de tu fecha te devuelvo el dinero completo.",
+      "$697 MXN, pago único. Te recomiendo además una suscripción a Claude Pro (unos $400 MXN al mes, se paga aparte). Si cancelas el taller hasta dos días antes de tu fecha te devuelvo el dinero completo.",
   },
 ] as const;

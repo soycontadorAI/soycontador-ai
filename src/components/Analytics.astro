@@ -53,6 +53,19 @@ const pixel = enProduccion ? MEDICION.metaPixel : null;
   </script>
 )}
 
+{
+  /*
+    Fuera de la condición de GA a propósito: el origen se guarda aunque el tag
+    no cargue (bloqueador, preview). Es lo que liga un lead con la página y la
+    fuente que lo trajo; ver lib/origen.ts.
+  */
+}
+<script>
+  import { capturarOrigen } from "../lib/origen";
+
+  capturarOrigen();
+</script>
+
 {ga && (
   <script>
     import { medir } from "../lib/medir";

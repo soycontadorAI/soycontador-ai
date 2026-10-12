@@ -163,17 +163,20 @@ const CTA: Enlace = urlAbierta
         <div class="sec-head"><h2 class="folio">LO QUE <b>NECESITAS</b></h2></div>
         <div class="necesitas" data-reveal>
           {/*
-            Claude Pro se pide como parte del precio real, no como requisito
-            seco: la mayoría de quien compra esto no paga ninguna herramienta
-            hoy, y el trámite espanta más que el costo. El porqué del plan de
-            pago (límites del gratuito en vivo) está en la FAQ.
+            Claude Pro se RECOMIENDA, no se exige (decisión de Israel,
+            2026-10-12; antes era obligatorio). El porqué (el límite del plan
+            gratuito se agota a media práctica) y la salida (se cancela antes
+            de que se renueve) están en el bloque y en la FAQ.
           */}
           <p>
-            <b>Una cuenta de {EMPIEZA.herramienta.nombre}.</b> Cuesta aparte,
-            {" "}{EMPIEZA.herramienta.costoTexto}, y es la misma que vas a usar
-            el lunes. Si no la tienes, en el correo de confirmación te digo cómo
-            sacarla en cinco minutos, y los primeros minutos del taller son para
-            que todos la tengan abierta antes de empezar.
+            <b>Una suscripción a {EMPIEZA.herramienta.nombre}, que te recomiendo.</b>{" "}
+            Cuesta {EMPIEZA.herramienta.costoTexto}. El plan gratuito tiene
+            límites de uso, y si se te acaban a media práctica te quedas a
+            medias. Si después del taller no te sirve, la cancelas antes de que
+            se renueve. Apuesto a que no la cancelas: con lo que vemos en las
+            dos horas, el tiempo que recuperas vale mucho más que eso. Si no la
+            tienes, en el correo de confirmación te digo cómo sacarla en cinco
+            minutos.
           </p>
           <p><b>Computadora, no celular.</b> Se trabaja en vivo, con archivos.</p>
           <p><b>Nada más.</b> Ni programación, ni IA, ni haber leído nada. Cero.</p>
@@ -203,7 +206,7 @@ const CTA: Enlace = urlAbierta
         <div class="sec-head"><h2 class="folio">CÓMO <b>APARTAR</b> TU LUGAR</h2></div>
         <article class="compra" data-reveal>
           <p class="folio">{fechaFolio.toUpperCase()} · <b>{EMPIEZA.horario.toUpperCase()}</b></p>
-          <p class="precio"><b>{EMPIEZA.precioTexto}</b> <span>pago único, más tu cuenta de {EMPIEZA.herramienta.nombre}</span></p>
+          <p class="precio"><b>{EMPIEZA.precioTexto}</b> <span>pago único · recomendado: {EMPIEZA.herramienta.nombre}, aparte</span></p>
           <ul class="incluye">
             {INCLUYE.map((item) => (
               <li>{item}</li>

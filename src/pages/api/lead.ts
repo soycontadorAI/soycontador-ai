@@ -6,7 +6,7 @@
  * la lista debe tener esos campos creados en Sendy con esos nombres exactos.
  *
  * Body JSON: { email, nombre?, whatsapp?, rol?, interes?, mensaje?, empresa?,
- *              equipo?, nivelIA?, cuando?, hp?, referrer? }
+ *              equipo?, nivelIA?, cuando?, hp?, referrer?, origen? }
  * (los campos extendidos los usa el formulario de precalificación empresarial)
  * Respuesta:  { ok, status: 'confirm' | 'already' | 'invalido' | 'error', error? }
  *
@@ -21,6 +21,7 @@
 import type { APIRoute } from "astro";
 
 import { enviar } from "../../lib/correo";
+import { CORREO_COPIA } from "astro:env/server";
 import { asuntoLead, htmlLead, textoLead, type DatosLead } from "../../lib/correo-lead";
 import { calendarioDe } from "../../lib/site";
 import { suscribir, type EstadoSendy } from "../../lib/sendy";
@@ -36,6 +37,74 @@ const CAMPOS_LEGIBLES = {
   Cuando: "Para cuándo",
   Mensaje: "Lo que me contaste",
 } as const;
+
+/** Etiquetas de lo que llega en `origen`, en el orden en que se leen. */
+const ETIQUETAS_ORIGEN = {
+  aterrizaje: "Aterrizó en",
+  referente: "Vino de",
+  utm_source: "utm_source",
+  utm_medium: "utm_medium",
+  utm_campaign: "utm_campaign",
+  utm_content: "utm_content",
+} as const;
+
+type Origen = Partial<Record<keyof typeof ETIQUETAS_ORIGEN, string>>;
+
+/**
+ * El navegador manda el origen como objeto; aquí se reduce a las llaves
+ * conocidas y se recorta cada valor. Nunca se reenvía el objeto crudo.
+ */
+function limpiarOrigen(v: unknown): Origen {
+  if (!v || typeof v !== "object") return {};
+  const crudo = v as Record<string, unknown>;
+  const limpio: Origen = {};
+  for (const llave of Object.keys(ETIQUETAS_ORIGEN) as (keyof Origen)[]) {
+    const valor = texto(crudo[llave], 120);
+    if (valor) limpio[llave] = valor;
+  }
+  return limpio;
+}
+
+/**
+ * Aviso interno de dónde salió el lead. Va APARTE del acuse porque el acuse
+ * lleva a Israel en copia oculta: es el mismo mensaje que lee el visitante, y
+ * lo que aquí se dice (de qué sitio venía, qué etiqueta de campaña traía) no es
+ * para él. Sin copia oculta ni respuesta: es una nota para Israel, no un hilo.
+ *
+ * Si falla no pasa nada: el acuse ya es el registro del lead.
+ */
+async function avisarOrigen(datos: {
+  email: string;
+  nombre: string;
+  interes: string;
+  paginaEnvio: string;
+  origen: Origen;
+}): Promise<void> {
+  if (!CORREO_COPIA) return;
+
+  const filas: [string, string][] = [
+    ["Lead", datos.nombre ? `${datos.nombre} <${datos.email}>` : datos.email],
+    ...(datos.interes ? ([["Interés", datos.interes]] as [string, string][]) : []),
+    ["Envió desde", datos.paginaEnvio || "(no llegó)"],
+    ...(Object.keys(ETIQUETAS_ORIGEN) as (keyof Origen)[])
+      .filter((k) => datos.origen[k])
+      .map((k) => [ETIQUETAS_ORIGEN[k], datos.origen[k] as string] as [string, string]),
+  ];
+  // Sin aterrizaje ni referente ni utm: entró directo, o el navegador no
+  // guardó nada. Se dice, para que la ausencia no parezca un error del aviso.
+  if (!Object.keys(datos.origen).length) filas.push(["Origen", "directo o sin dato"]);
+
+  const textoPlano = filas.map(([k, v]) => `${k}: ${v}`).join("\n");
+  const esc = (s: string) => s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+
+  await enviar({
+    para: CORREO_COPIA,
+    asunto: `Origen del lead: ${datos.nombre || datos.email}`,
+    texto: textoPlano,
+    html: `<pre style="font-family:ui-monospace,Menlo,monospace;font-size:13px;line-height:1.6">${esc(textoPlano)}</pre>`,
+    copiaOculta: null,
+  });
+}
 
 async function enviarAcuse(datos: {
   email: string;
@@ -135,6 +204,14 @@ export const POST: APIRoute = async ({ request }) => {
     campos,
     origen,
     newsletter: quiereNewsletter,
+  });
+
+  await avisarOrigen({
+    email,
+    nombre,
+    interes: campos.Interes,
+    paginaEnvio: origen,
+    origen: limpiarOrigen(raw.origen),
   });
 
   /*

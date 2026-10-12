@@ -53,7 +53,7 @@ const PAGINAS: Array<{ ruta: string; titulo: string; que: string }> = [
   {
     ruta: "/empieza",
     titulo: `Taller: ${EMPIEZA.nombreCompleto}`,
-    que: `taller en vivo de 2 horas para contadores sin experiencia en IA (${edicionesVigentes().map((e) => e.fechaTexto.toLowerCase() + (e.agotado ? ", agotado" : "")).join(" y ") || "próxima fecha por anunciar"}; ${EMPIEZA.precioTexto}, pago único; requiere cuenta de ${EMPIEZA.herramienta.nombre}, que se paga aparte). Es el paso anterior al curso Claude para Contadores`,
+    que: `taller en vivo de 2 horas para contadores sin experiencia en IA (${edicionesVigentes().map((e) => e.fechaTexto.toLowerCase() + (e.agotado ? ", agotado" : "")).join(" y ") || "próxima fecha por anunciar"}; ${EMPIEZA.precioTexto}, pago único; se recomienda una suscripción a ${EMPIEZA.herramienta.nombre}, que se paga aparte). Es el paso anterior al curso Claude para Contadores`,
   },
   {
     ruta: "/despachos",

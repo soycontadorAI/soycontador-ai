@@ -321,6 +321,19 @@ reglas:
   tamaño de equipo. Todo pasa por `medir()` de `lib/medir.ts`, que además es
   inofensivo cuando el tag no está (bloqueador, preview, local).
 
+**Origen de los leads** (`lib/origen.ts`). `Analytics.astro` guarda en
+`sessionStorage`, en TODAS las páginas y aunque GA no cargue, la primera
+página de la sesión, el dominio de referencia y los `utm_*`. Los formularios
+que mandan a `/api/lead` lo envían como `origen`, y la API manda a Israel un
+correo aparte ("Origen del lead: ..."), sin copia oculta ni respuesta. Va
+aparte porque el acuse del visitante lleva a Israel en copia oculta: es el
+mismo mensaje, y ahí no puede ir lo que el visitante no debe leer. A GA4 solo
+llega la versión corta (`fuente`, `aterrizaje`, `pagina_envio`) en
+`lead_enviado`, `diagnostico_enviado` y `diagnostico_datos`. Para que el dato
+sirva, los enlaces que Israel comparte llevan `utm_source`, `utm_medium` y
+`utm_campaign` (correo: `utm_medium=email`). El formulario de newsletter no
+manda origen.
+
 Eventos: `alta_newsletter` (con lista), `lead_enviado` (interés y rol),
 `diagnostico_enviado` (modalidad, equipo y urgencia), `agenda_abierta`,
 `clic_puerta` (cuál de las seis), `clic_curso` y `video_reproducido` (el ID
