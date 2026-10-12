@@ -244,6 +244,7 @@ const opcionesInteres = [
 
 <script>
   import { medir } from "../lib/medir";
+  import { leerOrigen, paraMedicion } from "../lib/origen";
 
   document.querySelectorAll<HTMLFormElement>("[data-lead]").forEach((form) => {
     form.addEventListener("submit", async (e) => {
@@ -267,6 +268,7 @@ const opcionesInteres = [
             newsletter: data.get("newsletter") === "si",
             hp: data.get("hp"),
             referrer: location.href,
+            origen: leerOrigen(),
           }),
         });
         const body = await resp.json();
@@ -299,6 +301,7 @@ const opcionesInteres = [
             interes: String(data.get("interes") ?? ""),
             rol: String(data.get("rol") ?? ""),
             newsletter: data.get("newsletter") === "si",
+            ...paraMedicion(),
           });
           form.reset();
         }
