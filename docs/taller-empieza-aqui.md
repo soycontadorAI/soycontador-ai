@@ -39,8 +39,11 @@ y nombre, no se pega en un chat.
 
 ## Requisitos
 
-- **Claude Pro, obligatorio (decisión de Israel, 2026-09-20).** No es
-  filtro de público: es que el plan gratuito tiene límites de uso que se
+- **Claude Pro, recomendado (decisión de Israel, 2026-10-12; el 2026-09-20 era
+  obligatorio).** Se suavizó para no espantar a quien no paga ninguna
+  herramienta hoy: la página y el correo dicen que se recomienda, que se puede
+  cancelar antes de que se renueve y que lo esperable es que no haga falta
+  cancelarla. El riesgo no cambió: es que el plan gratuito tiene límites de uso que se
   topan en una sesión intensa, y que a diez personas les salga "alcanzaste tu
   límite" a la mitad del bloque de XML rompe el taller en vivo, frente a
   principiantes. Y quien no va a pagar la herramienta no conserva el hábito el
@@ -61,7 +64,8 @@ y nombre, no se pega en un chat.
 - Computadora, no celular. Se trabaja en vivo.
 - Ningún conocimiento previo. Cero. Ni de programación ni de IA.
 
-Descartado: aceptar el plan gratuito. Solo se reconsidera si una prueba real
+Sigue sin prometerse que el plan gratuito aguante: quien llegue con él lo hace
+sabiendo que puede toparse con el límite. Solo se promete si una prueba real
 con cuenta nueva aguanta las dos horas del taller sin topar, con fecha de
 verificación; los límites cambian sin aviso y no se promete lo que no se
 probó.
@@ -188,8 +192,9 @@ Asunto: **Lo que pidieron en la encuesta, con fecha**
 > horas no hay tiempo para dos herramientas, y lo que aprendas el sábado es lo
 > que vas a usar el lunes.
 >
-> Lo que sí hace falta: computadora y una cuenta de Claude Pro. La cuenta
-> cuesta aparte, unos $400 al mes, y es la misma que vas a seguir usando.
+> Lo que sí hace falta: computadora. Y te recomiendo una suscripción a Claude
+> Pro: cuesta aparte, unos $400 al mes, y si no te sirve la cancelas antes de
+> que se renueve.
 > Si no la tienes, no te preocupes ahora: en el correo de confirmación te
 > explico cómo sacarla en cinco minutos, y los primeros minutos del taller
 > son para que todos la tengan abierta antes de empezar.
@@ -226,8 +231,8 @@ Asunto: **Tu lugar del 17 de octubre, y cinco minutos de tarea**
 1. Precio: $697, con $497 de lanzamiento para los 60 de la encuesta, vía
    cupón de nas.io con vencimiento el 12 de octubre, al segmento de Sendy que
    contestó la encuesta.
-2. Solo Claude, y Claude Pro obligatorio, pedido como parte del precio real
-   y con los tres apoyos de arriba.
+2. Solo Claude, y Claude Pro (obligatorio el 2026-09-20; recomendado desde el
+   2026-10-12), con los tres apoyos de arriba.
 3. Fecha: sábado 17 de octubre, 11:00 a 13:00, hora del centro.
 4. Cobro: nas.io.
 5. El precio se publica en la página, en los cuatro lugares.

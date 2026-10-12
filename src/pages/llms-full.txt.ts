@@ -85,7 +85,7 @@ ${HERRAMIENTAS.map((h) => `### ${h.nombre} (${h.estado})\n\n${h.descripcion}\n\n
 ${EMPIEZA.descripcion}
 
 Fechas: ${edicionesVigentes().map((e) => e.fechaTexto + (e.agotado ? " (agotado)" : "")).join("; ") || "próxima por anunciar"}. ${EMPIEZA.horario}. ${EMPIEZA.sede}. Cupo: ${EMPIEZA.cupo} por fecha; cuando una se llena se abre la siguiente.
-Precio: ${EMPIEZA.precioTexto}, pago único. Requiere cuenta de ${EMPIEZA.herramienta.nombre} (${EMPIEZA.herramienta.costoTexto}, se paga aparte). ${EMPIEZA.garantia}
+Precio: ${EMPIEZA.precioTexto}, pago único. Se recomienda una suscripción a ${EMPIEZA.herramienta.nombre} (${EMPIEZA.herramienta.costoTexto}, se paga aparte y se puede cancelar); no es obligatoria. ${EMPIEZA.garantia}
 Es el paso anterior al curso Claude para Contadores (Fiscalistas.AI).
 
 Con qué sales:
