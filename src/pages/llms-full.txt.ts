@@ -92,7 +92,7 @@ Con qué sales:
 ${ENTREGABLES.map((e) => `- ${e.titulo}: ${e.texto}`).join("\n")}
 
 Las dos horas:
-${BLOQUES.map((b) => `- Min ${b.minutos}, ${b.titulo}: ${b.texto} Sales con: ${b.sale}.`).join("\n")}
+${BLOQUES.map((b) => `- ${b.titulo}: ${b.texto} Sales con: ${b.sale}.`).join("\n")}
 
 Incluye:
 ${INCLUYE.map((i) => `- ${i}`).join("\n")}

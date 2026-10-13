@@ -1,5 +1,5 @@
 /**
- * Taller "Empieza aquí": Claude para contadores en 2 horas.
+ * Taller "Empieza aquí": tu primer día con Claude (2 horas en vivo).
  *
  * El escalón anterior a Claude para Contadores (Fiscalistas.AI). Sale de la
  * encuesta de agosto de 2026 al boletín: el 70 % estaba en nivel cero o
@@ -56,9 +56,11 @@ export const EDICIONES: readonly Edicion[] = [
 
 export const EMPIEZA = {
   nombre: "Empieza aquí",
-  titulo: "Claude para contadores en 2 horas",
+  /* Ya no dice "Claude para contadores": se confundía con el curso de 8 horas
+     (Israel, 2026-10-13). Las 2 horas viven en el folio y en el precio. */
+  titulo: "tu primer día con Claude",
   /** Para el <title> y el JSON-LD, donde el nombre corto no dice nada solo */
-  nombreCompleto: "Empieza aquí: Claude para contadores en 2 horas",
+  nombreCompleto: "Empieza aquí: tu primer día con Claude",
   descripcion:
     "Taller en vivo de 2 horas para contadores que no han usado inteligencia artificial o la probaron y les contestó como blog. Sales con un proyecto de Claude configurado para tu despacho, un prompt que cita el fundamento legal y tu primer lote de XML convertido en tabla y revisado. Sin conocimientos previos.",
   horario: "11:00 a 13:00, hora del centro de México",
@@ -70,7 +72,11 @@ export const EMPIEZA = {
   /** Lo que se paga aparte, dicho de frente: es parte del precio real */
   herramienta: {
     nombre: "Claude Pro",
-    costoTexto: "unos $400 MXN al mes",
+    /* Claude lo muestra en dólares; el aproximado en pesos va entre paréntesis.
+       Dato del proveedor: verificado en claude.com/pricing el 2026-10-13
+       (Pro, US$20 al mes; US$17 al mes con plan anual). */
+    costoTexto: "US$20 al mes (aprox. $400 MXN)",
+    verificado: "2026-10-13",
   },
   garantia:
     "Si cancelas hasta dos días antes de tu fecha te devuelvo el dinero completo. Si no puedes asistir en vivo, la grabación es tuya 30 días.",
@@ -94,6 +100,19 @@ export function edicionAbierta(hoy = new Date()): Edicion | null {
 export function checkoutDe(e: Edicion, contenido = "pagina"): string | null {
   return e.checkout ? conUtm(e.checkout, contenido) : null;
 }
+
+/**
+ * Video atemporal de la página (por qué tomar el taller): sin fechas ni
+ * precio, para que sirva en cualquier edición. Mientras `id` sea null la
+ * página NO pinta el hueco. Al grabarlo: subir a YouTube, pegar el ID aquí y
+ * dejar la carátula 1280x720 (< 100 KB) en `public/assets/`.
+ */
+export const VIDEO_EMPIEZA: { id: string | null; titulo: string; poster: string; cinta: string } = {
+  id: null,
+  titulo: "Por qué tomar el taller Empieza aquí",
+  poster: "/assets/empieza-video.jpg",
+  cinta: "Por qué empezar aquí",
+};
 
 /** La promesa: con qué sales. Es el argumento entero de la página. */
 export const ENTREGABLES = [
@@ -135,38 +154,33 @@ export const PARA_QUIEN = [
 
 export const BLOQUES = [
   {
-    minutos: "0 a 10",
     titulo: "Qué es y qué no",
     texto:
       "Predice, no piensa. Por qué resume una novela entera y no sabe que tu cliente es RESICO. Por qué contesta como blog.",
     sale: "La expectativa correcta",
   },
   {
-    minutos: "10 a 40",
     titulo: "Cómo se le pide",
     texto:
       "La misma consulta fiscal, mal y bien: rol, contexto, instrucción, formato. Se agrega el renglón que exige el fundamento. Cada quien lo prueba con una duda propia.",
     sale: "Tu primer prompt que cita artículo",
   },
   {
-    minutos: "40 a 70",
     titulo: "Tu proyecto",
     texto:
       "Se crea el proyecto de Claude del despacho. Qué se guarda ahí y qué nunca: los tres niveles, del chat público al canal controlado.",
     sale: "El proyecto configurado",
   },
   {
-    minutos: "70 a 105",
     titulo: "La primera tarea",
     texto:
       "Lote de XML ficticios, tabla en Excel, revisión. Es la conciliación más simple que existe, y es la que Daniel hoy hace en minutos.",
     sale: "La tarea hecha y el prompt para repetirla",
   },
   {
-    minutos: "105 a 120",
     titulo: "Qué sigue",
     texto:
-      "Qué puedes hacer con esto la semana que entra, y dónde termina este taller y empieza el curso de 8 horas.",
+      "Qué puedes hacer con esto la semana que entra y cómo seguir si quieres ir más a fondo.",
     sale: "El mapa",
   },
 ] as const;
@@ -193,7 +207,7 @@ export const FAQ_EMPIEZA = [
   {
     pregunta: "¿Necesito Claude Pro?",
     respuesta:
-      "No es obligatorio, pero te lo recomiendo. El plan gratuito tiene un límite de uso que se agota en una sesión intensa, y que te salga 'alcanzaste tu límite' a mitad del bloque de XML te deja sin terminar la práctica. Cuesta unos $400 MXN al mes y puedes cancelarla antes de que se renueve. Si no la tienes, en el correo de confirmación te digo cómo sacarla en cinco minutos.",
+      "No es obligatorio, pero te lo recomiendo. El plan gratuito tiene un límite de uso que se agota en una sesión intensa, y que te salga 'alcanzaste tu límite' a mitad del bloque de XML te deja sin terminar la práctica. Cuesta US$20 al mes (aprox. $400 MXN) y puedes cancelarla antes de que se renueve. Si no la tienes, en el correo de confirmación te digo cómo sacarla en cinco minutos.",
   },
   {
     pregunta: "¿Qué pasa si no puedo en vivo?",
@@ -213,6 +227,6 @@ export const FAQ_EMPIEZA = [
   {
     pregunta: "¿Cuánto cuesta el taller?",
     respuesta:
-      "$697 MXN, pago único. Te recomiendo además una suscripción a Claude Pro (unos $400 MXN al mes, se paga aparte). Si cancelas el taller hasta dos días antes de tu fecha te devuelvo el dinero completo.",
+      "$697 MXN, pago único. Te recomiendo además una suscripción a Claude Pro (US$20 al mes, aprox. $400 MXN, se paga aparte). Si cancelas el taller hasta dos días antes de tu fecha te devuelvo el dinero completo.",
   },
 ] as const;

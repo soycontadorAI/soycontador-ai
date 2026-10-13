@@ -1,6 +1,8 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import FaqBlock from "../components/FaqBlock.astro";
+import Hojas from "../components/Hojas.astro";
+import VideoFacade from "../components/VideoFacade.astro";
 import { COLABORACION } from "../lib/capacitacion";
 import {
   BLOQUES,
@@ -9,6 +11,7 @@ import {
   FAQ_EMPIEZA,
   INCLUYE,
   PARA_QUIEN,
+  VIDEO_EMPIEZA,
   checkoutDe,
   edicionAbierta,
   edicionesVigentes,
@@ -57,218 +60,266 @@ const CTA: Enlace = urlAbierta
   nav={NAV}
   cta={CTA}
 >
-  <main>
-    <section class="hero">
-      <div class="container-default hero-grid">
-        <div>
-          <p class="folio">TALLER EN VIVO · <b>{fechaFolio.toUpperCase()}</b> · 11:00</p>
-          <h1 class="titulo-xl">{EMPIEZA.nombre}: <span class="hl">{EMPIEZA.titulo}</span></h1>
-          <p class="hero-headline">Sales con tres cosas hechas, no con apuntes.</p>
-          {/*
-            El ángulo es de Israel (2026-09-20): esta página existe para quien
-            vio Claude para Contadores y sintió que todavía no era para él.
-            Por eso se nombra el curso de frente y se dice "el paso de antes",
-            no "una alternativa": es la misma escalera.
-          */}
-          <p class="hero-gancho">
-            ¿Viste {COLABORACION?.nombre ?? "Claude para Contadores"} y sentiste que todavía no es para ti?{" "}
-            <span class="tenue">Este es el paso de antes. Dos horas, y empiezas a sacarle provecho.</span>
-          </p>
-          <div class="hero-precio">
-            <p class="precio">
-              <b>{EMPIEZA.precioTexto}</b>
-              <span>pago único · {EMPIEZA.duracion} · cupo de {EMPIEZA.cupo}</span>
+  {/*
+    Los mundos de la home (Hojas.astro, 2026-10-01): día, noche, día, noche,
+    día. Elegida por Israel el 2026-10-13 entre tres variantes (ver
+    docs/empieza-rediseno-2026-10.md). `data-pausa` es el ritmo de lectura:
+    una hoja alta se queda fija 30% de la ventana con su final a la vista antes
+    de que la siguiente la tape (en la home no se usa).
+  */}
+  <main data-pausa="0.3">
+    <div class="mundo" data-mundo="dia">
+      <section class="hero">
+        <div class="container-default hero-grid">
+          <div>
+            <p class="folio">TALLER EN VIVO · <b>{fechaFolio.toUpperCase()}</b> · 11:00 · 2 HORAS</p>
+            <h1 class="titulo-xl">{EMPIEZA.nombre}: <span class="hl">{EMPIEZA.titulo}</span></h1>
+            <p class="hero-headline">Sales con tres cosas hechas, no con apuntes.</p>
+            {/*
+              Sin mencionar el curso grande (Israel, 2026-10-13): quien llega
+              sin contexto o prefiere "el otro" y no aprovecha este, o no sabe
+              de qué le hablamos. La escalera se sube DESPUÉS: al cierre del
+              taller, por correo o WhatsApp.
+            */}
+            <p class="hero-gancho">
+              ¿Ni la has abierto, o la probaste y te contestó como blog?{" "}
+              <span class="tenue">En dos horas, en vivo y con tus propios casos, dejas de mirarla desde afuera.</span>
             </p>
-            <div class="hero-acciones">
-              {urlAbierta ? (
-                <a class="btn btn-primary" href={urlAbierta} rel="noopener">Apartar mi lugar</a>
-              ) : ediciones.length ? (
-                <span class="btn btn-primary btn-espera" aria-disabled="true">Cupo lleno. La siguiente fecha, en unos días</span>
-              ) : (
-                <span class="btn btn-primary btn-espera" aria-disabled="true">Próxima fecha por anunciar</span>
+            <div class="hero-precio">
+              <p class="precio">
+                <b>{EMPIEZA.precioTexto}</b>
+                <span>pago único · {EMPIEZA.duracion} · cupo de {EMPIEZA.cupo}</span>
+              </p>
+              <div class="hero-acciones">
+                {urlAbierta ? (
+                  <a class="btn btn-primary" href={urlAbierta} rel="noopener">Apartar mi lugar</a>
+                ) : ediciones.length ? (
+                  <span class="btn btn-primary btn-espera" aria-disabled="true">Cupo lleno. La siguiente fecha, en unos días</span>
+                ) : (
+                  <span class="btn btn-primary btn-espera" aria-disabled="true">Próxima fecha por anunciar</span>
+                )}
+                <a class="btn btn-ghost" href="#las-dos-horas">Ver las dos horas</a>
+              </div>
+              {ediciones.length > 1 && (
+                <ul class="fechas" aria-label="Fechas">
+                  {ediciones.map((e) => (
+                    <li class:list={{ agotada: e.agotado }}>
+                      {e.fechaTexto}
+                      <span class="folio">{e.agotado ? "AGOTADO" : "QUEDAN LUGARES"}</span>
+                    </li>
+                  ))}
+                </ul>
               )}
-              <a class="btn btn-ghost" href="#las-dos-horas">Ver las dos horas</a>
             </div>
-            {ediciones.length > 1 && (
-              <ul class="fechas" aria-label="Fechas">
-                {ediciones.map((e) => (
-                  <li class:list={{ agotada: e.agotado }}>
-                    {e.fechaTexto}
-                    <span class="folio">{e.agotado ? "AGOTADO" : "QUEDAN LUGARES"}</span>
-                  </li>
-                ))}
-              </ul>
-            )}
           </div>
+          <aside class="entregables" aria-labelledby="entregables-titulo">
+            {/* El video es atemporal (sin fecha ni precio) y sirve en cada
+                edición. Hasta que exista su ID de YouTube no se pinta. */}
+            {VIDEO_EMPIEZA.id && (
+              <div class="entregables-video">
+                <VideoFacade
+                  videoId={VIDEO_EMPIEZA.id}
+                  titulo={VIDEO_EMPIEZA.titulo}
+                  poster={VIDEO_EMPIEZA.poster}
+                  cinta={VIDEO_EMPIEZA.cinta}
+                />
+              </div>
+            )}
+            <p class="folio" id="entregables-titulo">CON QUÉ <b>SALES</b></p>
+            <ol>
+              {ENTREGABLES.map((e, i) => (
+                <li>
+                  <span class="entregable-num">{String(i + 1).padStart(2, "0")}</span>
+                  <span>
+                    <b>{e.titulo}</b>
+                    <span class="entregable-texto">{e.texto}</span>
+                  </span>
+                </li>
+              ))}
+            </ol>
+          </aside>
         </div>
-        <aside class="entregables" aria-labelledby="entregables-titulo">
-          <p class="folio" id="entregables-titulo">CON QUÉ <b>SALES</b></p>
-          <ol>
-            {ENTREGABLES.map((e, i) => (
-              <li>
-                <span class="entregable-num">{String(i + 1).padStart(2, "0")}</span>
-                <span>
-                  <b>{e.titulo}</b>
-                  <span class="entregable-texto">{e.texto}</span>
-                </span>
+      </section>
+
+      <section id="para-quien">
+        <div class="container-default">
+          <div class="sec-head"><h2 class="folio">PARA <b>QUIÉN</b> ES</h2></div>
+          <div class="perfiles">
+            {PARA_QUIEN.map((p, i) => (
+              <article class="perfil" data-reveal style={`--reveal-delay: ${i * 0.08}s`}>
+                <h3>{p.titulo}</h3>
+                <p>{p.texto}</p>
+              </article>
+            ))}
+          </div>
+          <p class="no-es" data-reveal>
+            Y para quién no: si ya usas proyectos de Claude y quieres construir
+            con Claude Code, este taller se te queda corto. <a href="#faq">Aquí te digo por dónde seguir.</a>
+          </p>
+        </div>
+      </section>
+    </div>
+
+    <div class="mundo" data-mundo="noche">
+      <section id="las-dos-horas">
+        <div class="container-default">
+          <div class="sec-head"><h2 class="folio">LAS <b>DOS HORAS</b>, EN CINCO BLOQUES</h2></div>
+          {/* Sin minutos (Israel, 2026-10-13): a veces se extiende o va más
+              rápido y no quiere la presión del reloj. El orden sí es fijo. */}
+          <p class="intro-bloques" data-reveal>
+            Ritmo de taller, no de plática: cada bloque termina con algo hecho en
+            tu pantalla. El orden es este; los tiempos se ajustan al grupo. Los
+            datos son ficticios y te los llevas.
+          </p>
+          <ol class="bloques">
+            {BLOQUES.map((b, i) => (
+              <li class="bloque" data-reveal>
+                <span class="bloque-num" aria-hidden="true">{String(i + 1).padStart(2, "0")}</span>
+                <div>
+                  <h3>{b.titulo}</h3>
+                  <p>{b.texto}</p>
+                  <p class="bloque-sale"><span class="folio">SALES CON</span> {b.sale}</p>
+                </div>
               </li>
             ))}
           </ol>
-        </aside>
-      </div>
-    </section>
-
-    <section id="para-quien">
-      <div class="container-default">
-        <div class="sec-head"><h2 class="folio">PARA <b>QUIÉN</b> ES</h2></div>
-        <div class="perfiles">
-          {PARA_QUIEN.map((p, i) => (
-            <article class="perfil" data-reveal style={`--reveal-delay: ${i * 0.08}s`}>
-              <h3>{p.titulo}</h3>
-              <p>{p.texto}</p>
-            </article>
-          ))}
-        </div>
-        <p class="no-es" data-reveal>
-          Y para quién no: si ya usas proyectos de Claude y quieres construir con
-          Claude Code, sáltate este y ve directo a <a href="/capacitacion">{COLABORACION?.nombre ?? "Claude para Contadores"}</a>.
-        </p>
-      </div>
-    </section>
-
-    <section id="las-dos-horas">
-      <div class="container-default">
-        <div class="sec-head"><h2 class="folio">LAS <b>DOS HORAS</b>, BLOQUE POR BLOQUE</h2></div>
-        <p class="intro-bloques" data-reveal>
-          Ritmo de taller, no de plática: cada bloque termina con algo hecho en
-          tu pantalla. Los datos son ficticios y te los llevas.
-        </p>
-        <ol class="bloques">
-          {BLOQUES.map((b) => (
-            <li class="bloque" data-reveal>
-              <span class="bloque-min folio">MIN <b>{b.minutos}</b></span>
-              <div>
-                <h3>{b.titulo}</h3>
-                <p>{b.texto}</p>
-                <p class="bloque-sale"><span class="folio">SALES CON</span> {b.sale}</p>
-              </div>
-            </li>
-          ))}
-        </ol>
-      </div>
-    </section>
-
-    <section id="necesitas" class="necesitas-sec">
-      <div class="container-narrow">
-        <div class="sec-head"><h2 class="folio">LO QUE <b>NECESITAS</b></h2></div>
-        <div class="necesitas" data-reveal>
-          {/*
-            Claude Pro se RECOMIENDA, no se exige (decisión de Israel,
-            2026-10-12; antes era obligatorio). El porqué (el límite del plan
-            gratuito se agota a media práctica) y la salida (se cancela antes
-            de que se renueve) están en el bloque y en la FAQ.
-          */}
-          <p>
-            <b>Una suscripción a {EMPIEZA.herramienta.nombre}, que te recomiendo.</b>{" "}
-            Cuesta {EMPIEZA.herramienta.costoTexto}. El plan gratuito tiene
-            límites de uso, y si se te acaban a media práctica te quedas a
-            medias. Si después del taller no te sirve, la cancelas antes de que
-            se renueve. Apuesto a que no la cancelas: con lo que vemos en las
-            dos horas, el tiempo que recuperas vale mucho más que eso. Si no la
-            tienes, en el correo de confirmación te digo cómo sacarla en cinco
-            minutos.
-          </p>
-          <p><b>Computadora, no celular.</b> Se trabaja en vivo, con archivos.</p>
-          <p><b>Nada más.</b> Ni programación, ni IA, ni haber leído nada. Cero.</p>
-        </div>
-      </div>
-    </section>
-
-    {daniel && (
-      <section>
-        <div class="container-narrow">
-          <div class="sec-head"><h2 class="folio">ALGUIEN QUE <b>YA EMPEZÓ</b></h2></div>
-          <figure class="prueba" data-reveal>
-            <blockquote>"{daniel.antes}"</blockquote>
-            <p class="prueba-texto">
-              {daniel.nombre} lleva solo su despacho en {daniel.ciudad}. Hoy
-              encuentra en minutos la diferencia entre el auxiliar de bancos y el
-              estado de cuenta, que le tomaba horas. Lo cuenta en 3 minutos:{" "}
-              <a href={`/#testimonio-${daniel.slug}`}>su testimonio →</a>
-            </p>
-          </figure>
         </div>
       </section>
-    )}
 
-    <section id="apartar">
-      <div class="container-default">
-        <div class="sec-head"><h2 class="folio">CÓMO <b>APARTAR</b> TU LUGAR</h2></div>
-        <article class="compra" data-reveal>
-          <p class="folio">{fechaFolio.toUpperCase()} · <b>{EMPIEZA.horario.toUpperCase()}</b></p>
-          <p class="precio"><b>{EMPIEZA.precioTexto}</b> <span>pago único · recomendado: {EMPIEZA.herramienta.nombre}, aparte</span></p>
-          <ul class="incluye">
-            {INCLUYE.map((item) => (
-              <li>{item}</li>
-            ))}
-          </ul>
-          {ediciones.length > 1 ? (
-            <ul class="compra-fechas">
-              {ediciones.map((e) => {
-                const url = e.agotado ? null : checkoutDe(e, "ficha");
-                return (
-                  <li class:list={{ agotada: e.agotado }}>
-                    <span>{e.fechaTexto}</span>
-                    {url ? (
-                      <a class="btn btn-primary" href={url} rel="noopener">Apartar mi lugar</a>
-                    ) : (
-                      <span class="folio">{e.agotado ? "AGOTADO" : "ABRE EN UNOS DÍAS"}</span>
-                    )}
-                  </li>
-                );
-              })}
-            </ul>
-          ) : urlAbierta ? (
-            <a class="btn btn-primary" href={urlAbierta} rel="noopener">Apartar mi lugar</a>
-          ) : ediciones.length ? (
-            <p class="espera-texto">Esta fecha se llenó. La siguiente se anuncia en unos días en el boletín; si quieres que te avise, <a href="/contacto">escríbeme</a>.</p>
-          ) : (
-            <p class="espera-texto">Esta fecha ya pasó. La siguiente se anuncia en el boletín y en <a href="/jueves">Jueves de ContadorIA</a>.</p>
-          )}
-          <p class="garantia folio">// {EMPIEZA.garantia.toUpperCase()}</p>
-        </article>
-      </div>
-    </section>
-
-    <section>
-      <div class="container-narrow">
-        <div class="sec-head"><h2 class="folio">QUIÉN <b>LO DA</b></h2></div>
-        <div class="autor" data-reveal>
-          <img src="/assets/israel-castro.jpg" alt="Israel Castro" width="120" height="120" loading="lazy" />
-          <div>
+      <section id="necesitas">
+        <div class="container-narrow">
+          <div class="sec-head"><h2 class="folio">LO QUE <b>NECESITAS</b></h2></div>
+          <div class="necesitas" data-reveal>
+            {/*
+              Claude Pro se RECOMIENDA, no se exige (decisión de Israel,
+              2026-10-12; antes era obligatorio). El porqué (el límite del plan
+              gratuito se agota a media práctica) y la salida (se cancela antes
+              de que se renueve) están en el bloque y en la FAQ. El precio va
+              en dólares, como lo muestra Claude, con el aproximado en pesos.
+            */}
             <p>
-              Soy Israel Castro, contador público con 14 años de ejercicio y
-              desarrollador de software. Empecé capturando pólizas y peleándome
-              con el portal del SAT, igual que tú.
+              <b>Una suscripción a {EMPIEZA.herramienta.nombre}, que te recomiendo.</b>{" "}
+              Cuesta {EMPIEZA.herramienta.costoTexto}. El plan gratuito tiene
+              límites de uso, y si se te acaban a media práctica te quedas a
+              medias. Si después del taller no te sirve, la cancelas antes de que
+              se renueve. Apuesto a que no la cancelas: con lo que vemos en las
+              dos horas, el tiempo que recuperas vale mucho más que eso. Si no la
+              tienes, en el correo de confirmación te digo cómo sacarla en cinco
+              minutos.
+              <span class="nota-fecha">Precio en claude.com/pricing, verificado el {EMPIEZA.herramienta.verificado}.</span>
             </p>
-            <p>
-              Cada jueves resuelvo un problema de despacho en vivo en{" "}
-              <a href="/jueves">Jueves de ContadorIA</a>, y doy los módulos de
-              Claude Code y de Excel en {COLABORACION?.nombre ?? "Claude para Contadores"}. Este taller
-              es lo que le daría a alguien antes de cualquiera de las dos cosas.
-            </p>
+            <p><b>Computadora, no celular.</b> Se trabaja en vivo, con archivos.</p>
+            <p><b>Nada más.</b> Ni programación, ni IA, ni haber leído nada. Cero.</p>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
+    </div>
 
-    <section id="faq">
-      <div class="container-narrow">
-        <div class="sec-head"><h2 class="folio">PREGUNTAS <b>DIRECTAS</b></h2></div>
-        <FaqBlock items={FAQ_EMPIEZA} />
-      </div>
-    </section>
+    <div class="mundo" data-mundo="dia">
+      {daniel && (
+        <section>
+          <div class="container-narrow">
+            <div class="sec-head"><h2 class="folio">ALGUIEN QUE <b>YA EMPEZÓ</b></h2></div>
+            <figure class="prueba" data-reveal>
+              <blockquote>"{daniel.antes}"</blockquote>
+              <p class="prueba-texto">
+                {daniel.nombre} lleva solo su despacho en {daniel.ciudad}. Hoy
+                encuentra en minutos la diferencia entre el auxiliar de bancos y el
+                estado de cuenta, que le tomaba horas. Lo cuenta en 3 minutos:{" "}
+                <a href={`/#testimonio-${daniel.slug}`}>su testimonio →</a>
+              </p>
+            </figure>
+          </div>
+        </section>
+      )}
+
+      {/* Antes de apartar: primero quién es, luego cuánto cuesta. El recorte
+          sin fondo reemplaza al círculo azul de la foto anterior. */}
+      <section id="autor">
+        <div class="container-default">
+          <div class="sec-head"><h2 class="folio">QUIÉN <b>LO DA</b></h2></div>
+          <div class="autor" data-reveal>
+            <img
+              src="/assets/israel-saco-invita.webp"
+              alt="Israel Castro invitando a pasar"
+              width="760"
+              height="1018"
+              loading="lazy"
+              decoding="async"
+            />
+            <div class="autor-texto">
+              <p>
+                Soy Israel Castro, contador público con 14 años de ejercicio y
+                desarrollador de software. Empecé capturando pólizas y peleándome
+                con el portal del SAT, igual que tú.
+              </p>
+              <p>
+                Cada jueves resuelvo un problema de despacho en vivo en{" "}
+                <a href="/jueves">Jueves de ContadorIA</a>, y doy los módulos de
+                Claude Code y de Excel en {COLABORACION?.nombre ?? "Claude para Contadores"}. Este taller
+                es lo que le daría a alguien antes de cualquiera de las dos cosas.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <div class="mundo" data-mundo="noche">
+      <section id="apartar">
+        <div class="container-default">
+          <div class="sec-head"><h2 class="folio">CÓMO <b>APARTAR</b> TU LUGAR</h2></div>
+          <article class="compra" data-reveal>
+            <div class="compra-izq">
+              <p class="folio">{fechaFolio.toUpperCase()} · <b>{EMPIEZA.horario.toUpperCase()}</b></p>
+              <ul class="incluye">
+                {INCLUYE.map((item) => (
+                  <li>{item}</li>
+                ))}
+              </ul>
+            </div>
+            <div class="compra-der">
+              <p class="precio"><b>{EMPIEZA.precioTexto}</b> <span>pago único · recomendado: {EMPIEZA.herramienta.nombre}, aparte</span></p>
+              {ediciones.length > 1 ? (
+                <ul class="compra-fechas">
+                  {ediciones.map((e) => {
+                    const url = e.agotado ? null : checkoutDe(e, "ficha");
+                    return (
+                      <li class:list={{ agotada: e.agotado }}>
+                        <span>{e.fechaTexto}</span>
+                        {url ? (
+                          <a class="btn btn-primary" href={url} rel="noopener">Apartar mi lugar</a>
+                        ) : (
+                          <span class="folio">{e.agotado ? "AGOTADO" : "ABRE EN UNOS DÍAS"}</span>
+                        )}
+                      </li>
+                    );
+                  })}
+                </ul>
+              ) : urlAbierta ? (
+                <a class="btn btn-primary" href={urlAbierta} rel="noopener">Apartar mi lugar</a>
+              ) : ediciones.length ? (
+                <p class="espera-texto">Esta fecha se llenó. La siguiente se anuncia en unos días en el boletín; si quieres que te avise, <a href="/contacto">escríbeme</a>.</p>
+              ) : (
+                <p class="espera-texto">Esta fecha ya pasó. La siguiente se anuncia en el boletín y en <a href="/jueves">Jueves de ContadorIA</a>.</p>
+              )}
+              <p class="garantia folio">// {EMPIEZA.garantia.toUpperCase()}</p>
+            </div>
+          </article>
+        </div>
+      </section>
+    </div>
+
+    <div class="mundo" data-mundo="dia">
+      <section id="faq">
+        <div class="container-narrow">
+          <div class="sec-head"><h2 class="folio">PREGUNTAS <b>DIRECTAS</b></h2></div>
+          <FaqBlock items={FAQ_EMPIEZA} />
+        </div>
+      </section>
+    </div>
   </main>
+  <Hojas />
 </BaseLayout>
 
 <style>
@@ -376,6 +427,9 @@ const CTA: Enlace = urlAbierta
     box-shadow: 10px 10px 0 var(--color-line);
     padding: 1.6rem 1.8rem 1.2rem;
   }
+  .entregables-video {
+    margin-bottom: 1.4rem;
+  }
   .entregables ol {
     list-style: none;
     margin: 0.8rem 0 0;
@@ -458,16 +512,23 @@ const CTA: Enlace = urlAbierta
   }
   .bloque {
     display: grid;
-    grid-template-columns: 8rem 1fr;
-    gap: 1.4rem;
+    grid-template-columns: 5rem 1fr;
+    gap: 1.2rem;
     padding: 1.3rem 0;
     border-bottom: 1px solid var(--color-line);
   }
   @media (max-width: 640px) {
     .bloque {
       grid-template-columns: 1fr;
-      gap: 0.4rem;
+      gap: 0.2rem;
     }
+  }
+  .bloque-num {
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-size: 2.6rem;
+    line-height: 1;
+    color: var(--color-accent);
   }
   .bloque h3 {
     margin: 0 0 0.4rem;
@@ -488,9 +549,6 @@ const CTA: Enlace = urlAbierta
     margin-right: 0.4rem;
   }
 
-  .necesitas-sec {
-    background: var(--color-surface);
-  }
   .necesitas p {
     margin: 0 0 1rem;
     color: var(--color-ink-soft);
@@ -500,6 +558,14 @@ const CTA: Enlace = urlAbierta
   }
   .necesitas b {
     color: var(--color-ink);
+  }
+  /* El dato del proveedor lleva su fecha de verificación (AGENTS.md). */
+  .nota-fecha {
+    display: block;
+    margin-top: 0.5rem;
+    font-family: var(--font-mono);
+    font-size: 0.76rem;
+    color: var(--color-ink-dim);
   }
 
   .prueba {
@@ -527,21 +593,43 @@ const CTA: Enlace = urlAbierta
     text-decoration: none;
   }
 
+  /* La tarjeta ocupa el ancho y se parte en dos: lo que incluye a la izquierda
+     y la decisión (precio, fecha, botón) en un panel de otra superficie. */
   .compra {
-    max-width: 34rem;
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
     border: 1px solid var(--color-line-strong);
     border-radius: var(--radius-md);
     background: var(--color-surface-raised);
     box-shadow: 8px 8px 0 var(--color-line);
+    overflow: hidden;
+  }
+  @media (max-width: 800px) {
+    .compra {
+      grid-template-columns: 1fr;
+    }
+  }
+  .compra-izq {
     padding: 1.9rem 2rem;
   }
-  .compra .precio {
-    margin: 0.9rem 0 1.3rem;
+  .compra-der {
+    padding: 1.9rem 2rem;
+    background: var(--color-surface);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 1.1rem;
+  }
+  .compra-der .precio {
+    margin: 0;
+  }
+  .compra-der .btn {
+    justify-content: center;
   }
   .incluye {
     list-style: none;
     padding: 0;
-    margin: 0 0 1.8rem;
+    margin: 0.9rem 0 0;
   }
   .incluye li {
     padding: 0.55rem 0 0.55rem 1.6rem;
@@ -589,22 +677,31 @@ const CTA: Enlace = urlAbierta
     text-decoration: none;
   }
   .garantia {
-    margin: 1.4rem 0 0;
+    margin: 0;
   }
 
+  /* Recorte sin fondo, apoyado en el borde de abajo de la sección */
   .autor {
     display: grid;
-    grid-template-columns: 120px 1fr;
-    gap: 1.8rem;
-    align-items: start;
+    grid-template-columns: minmax(180px, 280px) 1fr;
+    gap: 2.4rem;
+    align-items: end;
   }
-  @media (max-width: 700px) {
+  @media (max-width: 760px) {
     .autor {
       grid-template-columns: 1fr;
     }
+    .autor img {
+      max-width: 220px;
+    }
   }
   .autor img {
-    border-radius: 50%;
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+  .autor-texto {
+    padding-bottom: 1.2rem;
   }
   .autor p {
     margin: 0 0 0.9rem;
