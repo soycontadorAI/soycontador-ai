@@ -162,6 +162,7 @@
      Una hoja más baja que la ventana se fija bajo la cabecera. Una más alta se
      fija cuando su borde de abajo toca el de la ventana: así se lee completa
      antes de que la siguiente empiece a taparla. */
+  const pausa = main ? Math.min(0.6, Math.max(0, parseFloat(main.dataset.pausa ?? "0") || 0)) : 0;
   const topes: number[] = [];
   let altoPie = 0;
   function mide() {
@@ -169,9 +170,18 @@
     const vh = innerHeight;
     const alto = cabecera ? cabecera.offsetHeight : 0;
     hojas.forEach((h, i) => {
-      const t = h.offsetHeight <= vh - alto ? alto : vh - h.offsetHeight;
+      const alta = h.offsetHeight > vh - alto;
+      const t = alta ? vh - h.offsetHeight : alto;
       topes[i] = t;
       h.style.setProperty("--tope", `${t}px`);
+      /* La pausa: una hoja alta se queda fija con su final a la vista mientras
+         la siguiente todavía está debajo de la ventana (su margen), así el
+         último renglón se lee antes de que lo tape. Es opt-in con
+         <main data-pausa="0.3"> (fracción de la ventana); sin él, cero. */
+      if (pausa && i < hojas.length - 1) {
+        const m = alta ? `${Math.round(pausa * vh)}px` : "";
+        if (h.style.marginBottom !== m) h.style.marginBottom = m;
+      }
     });
     altoPie = pie ? pie.offsetHeight : 0;
     main.style.setProperty("--alto-pie", `${altoPie}px`);
@@ -179,7 +189,7 @@
   }
 
   /* ---------- El plumón que pasas tú ---------- */
-  const marcas = vivo && main ? [...main.querySelectorAll<HTMLElement>(".hl")].filter((el) => !el.closest(".portada-titulo")) : [];
+  const marcas = vivo && main ? [...main.querySelectorAll<HTMLElement>(".hl")].filter((el) => !el.closest(".portada-titulo, h1")) : [];
   marcas.forEach((el) => el.setAttribute("data-trazo", ""));
 
   const antes = hojas.map(() => ({ asentar: -1, hundir: -1, oculta: false }));
