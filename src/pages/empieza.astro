@@ -239,14 +239,6 @@ const CTA: Enlace = urlAbierta
         <div class="container-default">
           <div class="sec-head"><h2 class="folio">QUIÉN <b>LO DA</b></h2></div>
           <div class="autor" data-reveal>
-            <img
-              src="/assets/israel-saco-invita.webp"
-              alt="Israel Castro invitando a pasar"
-              width="760"
-              height="1018"
-              loading="lazy"
-              decoding="async"
-            />
             <div class="autor-texto">
               <p>
                 Soy Israel Castro, contador público con 14 años de ejercicio y
@@ -260,6 +252,14 @@ const CTA: Enlace = urlAbierta
                 es lo que le daría a alguien antes de cualquiera de las dos cosas.
               </p>
             </div>
+            <img
+              src="/assets/israel-saco-invita.webp"
+              alt="Israel Castro invitando a pasar"
+              width="760"
+              height="1018"
+              loading="lazy"
+              decoding="async"
+            />
           </div>
         </div>
       </section>
@@ -680,10 +680,12 @@ const CTA: Enlace = urlAbierta
     margin: 0;
   }
 
-  /* Recorte sin fondo, apoyado en el borde de abajo de la sección */
+  /* Recorte sin fondo, apoyado en el borde de abajo de la sección. Va a la
+     derecha del texto: en la foto el gesto señala a la izquierda, y así
+     apunta hacia lo que se lee. */
   .autor {
     display: grid;
-    grid-template-columns: minmax(180px, 280px) 1fr;
+    grid-template-columns: 1fr minmax(180px, 280px);
     gap: 2.4rem;
     align-items: end;
   }
@@ -693,6 +695,7 @@ const CTA: Enlace = urlAbierta
     }
     .autor img {
       max-width: 220px;
+      margin-left: auto;
     }
   }
   .autor img {
