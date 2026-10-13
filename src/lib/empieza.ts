@@ -143,7 +143,7 @@ export const PARA_QUIEN = [
   {
     titulo: "Probaste ChatGPT y te contestó como blog",
     texto:
-      "Respuestas genéricas que no sirven para un caso real. No es la herramienta: es cómo se le pide. Eso se arregla en los primeros 30 minutos.",
+      "Respuestas genéricas que no sirven para un caso real. No es la herramienta: es cómo se le pide. Eso se arregla en el primer bloque.",
   },
   {
     titulo: "Leíste el libro y no te has atrevido",

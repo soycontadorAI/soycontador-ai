@@ -135,75 +135,69 @@ copy y datos (`empieza.ts`, `llms-full.txt.ts`), la página en mundos
 (`empieza.astro`), la pausa de lectura opt-in en `Hojas.astro`
 (`<main data-pausa="0.3">`) y la skill acotada en `AGENTS.md`. Se verificó solo
 a ojo, en escritorio, que la hoja alta se queda fija antes de que entre la
-siguiente. Esto es lo que falta. Pegar tal cual:
+siguiente. Esto es lo que falta. Pegar tal cual (cabe en el límite de 4000 caracteres de /goal):
 
 ```
 /goal Cerrar el retoque de /empieza (variante A, mundos de la home) en la rama
-feat/empieza-retoque, que ya trae la implementación sin commitear. Está
-terminado cuando: (1) pnpm build pasa; (2) Lighthouse de /empieza, móvil y
-escritorio, da 100 en accesibilidad, buenas prácticas y SEO, y rendimiento no
-baja de la línea base de origin/main (LCP ≤ 2.5 s, CLS ≤ 0.1, TBT ≤ 200 ms);
-(3) con prefers-reduced-motion la página queda estática y legible, y en móvil
-(390 px) cada hoja se alcanza a leer completa antes de que entre la siguiente;
-(4) el QA de copy de AGENTS.md pasa (sin raya, MX, nombre correcto, ningún
-precio de high ticket, Claude Pro como recomendado y no obligatorio, y NINGUNA
-mención del bono ni de descuentos del curso en nada publicable); (5)
-grep del nombre viejo no encuentra "Claude para contadores en 2 horas" en nada
-publicable; (6) hay un PR abierto, sin mergear.
+feat/empieza-retoque, que ya trae la implementación sin commitear. Terminado
+cuando: (1) pnpm build pasa; (2) Lighthouse de /empieza, móvil y escritorio:
+100 en accesibilidad, buenas prácticas y SEO, y rendimiento sin bajar de la
+línea base de origin/main (LCP ≤ 2.5 s, CLS ≤ 0.1, TBT ≤ 200 ms); (3) con
+prefers-reduced-motion la página queda estática y legible, y en móvil (390 px)
+cada hoja se lee completa antes de que entre la siguiente; (4) el QA de copy de
+AGENTS.md pasa (sin raya, MX, nombre correcto, ningún precio de high ticket,
+Claude Pro recomendado y no obligatorio, NINGUNA mención del bono ni de
+descuentos del curso en nada publicable); (5) grep de "Claude para contadores
+en 2 horas" no encuentra nada publicable; (6) hay un PR abierto, sin mergear.
 
-Contexto que NO se vuelve a decidir: variante A elegida; Claude Pro se
-recomienda (decisión del 2026-10-12); el curso grande no se menciona en el
-hero ni en "para quién no" (queda en la FAQ y en la bio); sin minutos en los
-bloques; el bono del curso NUNCA se menciona en público (página, FAQ, JSON-LD, llms.txt,
-llms-full.txt, redes): va solo por correo o WhatsApp a quien ya tomó el taller;
-el video es atemporal y su ID es null hasta que Israel lo grabe, así
-que no se pinta hueco. Lee docs/empieza-rediseno-2026-10.md antes de empezar.
+NO se vuelve a decidir: variante A; Claude Pro se recomienda (2026-10-12); el
+curso grande no va en el hero ni en "para quién no" (queda en FAQ y bio); sin
+minutos en los bloques; el bono NUNCA se menciona en público (página, FAQ,
+JSON-LD, llms.txt, llms-full.txt, redes): va solo por correo o WhatsApp a quien
+ya tomó el taller; el ID del video es null hasta que Israel lo grabe, no se
+pinta hueco. Lee docs/empieza-rediseno-2026-10.md antes de empezar.
 
 Reglas: respeta AGENTS.md (DS por tokens, Instrument Serif siempre 400, un
-avatar por página). La skill landing-page-design aplica SOLO en lo que
-AGENTS.md permite. No instales scroll-world ni librerías de animación. No
-toques la home: la pausa de Hojas es opt-in y debe seguir siéndolo. Sin deploy
-por terminal. Commits y PR a nombre de Israel: SIN Co-Authored-By ni pie de
-"Generated with Claude Code" (el harness los agrega por defecto, quítalos).
-Stagea SOLO estos archivos y nada más del árbol: AGENTS.md,
+avatar por página); la skill landing-page-design solo en lo que AGENTS.md
+permite. No instales scroll-world ni librerías de animación. No toques la home:
+la pausa de Hojas es opt-in y se queda así. Sin deploy por terminal. Commits y
+PR a nombre de Israel, SIN Co-Authored-By ni pie "Generated with Claude Code"
+(el harness los agrega, quítalos). Stagea SOLO: AGENTS.md,
 .claude/skills/landing-page-design, design/mockups/empieza,
 docs/empieza-rediseno-2026-10.md, docs/video-empieza-guion.md,
-src/components/Hojas.astro,
-src/lib/empieza.ts, src/pages/empieza.astro, src/pages/llms-full.txt.ts (y lo
-que el QA obligue a tocar). El resto de lo modificado o sin seguimiento
-(.gitignore, docs/jueves, docs/patrocinios, package.json, design/piezas,
-design/salidas, docs/invitados, docs/lib, docs/correos/2026-10-01-*) es de
-otro trabajo.
+src/components/Hojas.astro, src/lib/empieza.ts, src/pages/empieza.astro,
+src/pages/llms-full.txt.ts (y lo que el QA obligue a tocar). Todo lo demás del
+árbol (.gitignore, package.json, docs/jueves, docs/patrocinios,
+docs/invitados, docs/lib, docs/correos/2026-10-01-*, design/piezas,
+design/salidas) es de otro trabajo.
 
-Pasos, cada uno con su modelo (cambiar con /model entre pasos):
-0. [Sonnet 5.5, esfuerzo bajo] Línea base: worktree temporal de origin/main
-   (git worktree add + pnpm install --frozen-lockfile + pnpm build), Lighthouse
-   de /empieza móvil y escritorio, 3 corridas, mediana. Guarda la tabla en el
-   documento y borra el worktree.
-1. [Sonnet 5.5, medio] Sobre el árbol actual: pnpm build; Lighthouse igual que
-   en el paso 0; capturas de móvil (390 px) y escritorio, cada sección, con el
-   mismo recorrido por transiciones de hoja. Revisa llms.txt, llms-full.txt y
-   el JSON-LD generados: nombre nuevo, sin "Min", Claude Pro recomendado.
-2. [Opus 5.5, alto] Corrige lo que el paso 1 encuentre, con dato exacto (nunca
-   a ojo): contraste en la noche (.nota-fecha, .compra-der), CLS de la foto y
-   del recorte, altura de hoja en móvil y con teclado/zoom, comportamiento
-   cuando Hojas no está vivo (sin JS o reduced-motion), y el ancla #faq del
-   "para quién no". Si la pausa estorba en móvil, bájala con un valor por
-   media query, no la quites.
-3. [Sonnet 5.5, bajo] Vuelve a medir. Si algo no cumple, regresa al paso 2 con
-   el número.
+Pasos (cambiar con /model entre pasos):
+0. [Sonnet 5.5, bajo] Línea base: worktree temporal de origin/main (pnpm
+   install --frozen-lockfile + build), Lighthouse de /empieza móvil y
+   escritorio, 3 corridas, mediana. Guarda la tabla en el documento y borra el
+   worktree.
+1. [Sonnet 5.5, medio] En el árbol actual: pnpm build; mismo Lighthouse;
+   capturas móvil (390 px) y escritorio de cada sección, recorriendo las
+   transiciones de hoja. Revisa llms.txt, llms-full.txt y JSON-LD: nombre
+   nuevo, sin "Min", Claude Pro recomendado.
+2. [Opus 5.5, alto] Corrige lo del paso 1 con dato exacto, nunca a ojo:
+   contraste en la noche (.nota-fecha, .compra-der), CLS de foto y recorte,
+   altura de hoja en móvil y con teclado/zoom, comportamiento sin Hojas vivo
+   (sin JS o reduced-motion), ancla #faq de "para quién no". Si la pausa
+   estorba en móvil, bájala con un valor por media query, no la quites.
+3. [Sonnet 5.5, bajo] Vuelve a medir; si algo no cumple, regresa al 2 con el
+   número.
 4. [Opus 5.5, alto, contexto limpio] Revisión independiente: /code-review del
-   diff, nombre accesible de botones, orden de foco con las hojas fijas, y QA
-   de copy. Aplica lo confirmado.
-5. [Sonnet 5.5, medio] Commit(s) y PR (solo los archivos listados). Aparte, en
-   docs/correos/, el guion de cierre del taller y 2 correos de seguimiento, más
-   una versión corta de cada uno para WhatsApp, con el bono (vigente 30 días tras
-   el taller): monto y canje como [POR CONFIRMAR], voz de Israel, sin raya. El
-   bono solo vive en esos textos; nada se envía ni se publica. Van en su propio
-   commit.
+   diff, nombre accesible de botones, orden de foco con hojas fijas, QA de
+   copy. Aplica lo confirmado.
+5. [Sonnet 5.5, medio] Commit(s) y PR solo con los archivos listados. Aparte,
+   en docs/correos/ y en su propio commit: guion de cierre del taller y 2
+   correos de seguimiento, más versión corta de cada uno para WhatsApp, con el
+   bono (30 días tras el taller): monto y canje como [POR CONFIRMAR], voz de
+   Israel, sin raya. El bono solo vive ahí; nada se envía ni se publica.
 
-Al terminar: lista lo que quedó sin hacer (video e ID de YouTube, bono) y pega
-las medidas de Lighthouse tal cual, sin inventar cifras.
+Al terminar: lista lo pendiente (video e ID de YouTube, bono) y pega las
+medidas de Lighthouse tal cual, sin inventar cifras.
 ```
 
 ### Por qué esa mezcla de modelos
@@ -224,3 +218,31 @@ el mismo con rol, contexto, instrucción y formato, citando el artículo.
 (3) "En dos horas sales con un proyecto, un prompt y tu primera tarea hecha,
 y sin saber nada antes". Cierre: "El enlace está aquí abajo". Misma toma
 sirve para cualquier edición.
+
+---
+
+## 7. Medición (2026-10-13)
+
+Lighthouse 12, Chrome headless, `/empieza/` servido desde el build estático
+(`.vercel/output/static`), 3 corridas por factor, mediana. Línea base =
+`origin/main` (4731aee) en un worktree temporal, ya borrado.
+
+| | Móvil base | Móvil rama | Escritorio base | Escritorio rama |
+|---|---|---|---|---|
+| Rendimiento (3 corridas) | 91, 95, 95 | 96, 95, 95 | 100, 100, 100 | 100, 100, 100 |
+| Accesibilidad / Buenas prácticas / SEO | 100 / 100 / 100 | 100 / 100 / 100 | 100 / 100 / 100 | 100 / 100 / 100 |
+| LCP (mediana) | 2.42 s | 2.41 s | 0.57 s | 0.52 s |
+| CLS (mediana) | 0.049 | 0 | 0.034 | 0.049 |
+| TBT (mediana) | 0 ms | 0 ms | 0 ms | 0 ms |
+
+Comprobado con Puppeteer (390 px, 1440 px y 390x500 como teclado/zoom): cada
+hoja se lee completa antes de que la siguiente la tape (con `data-pausa="0.3"`
+quedan 140 a 280 px de scroll de pausa); con `prefers-reduced-motion` no se
+activa `hojas-vivo` y la página es estática y legible; sin desborde
+horizontal; `#faq` deja el título visible bajo la cabecera en móvil y
+escritorio; `color-contrast` en 1 en todas las corridas; ningún `aria-label`
+omite su texto visible; todas las imágenes traen ancho y alto.
+
+Medidas de la última corrida, tras el último cambio de código. El CLS de
+escritorio varía entre corridas (0.006 y 0.049 en dos pasadas del mismo
+build); ambas bajo el límite de 0.1.

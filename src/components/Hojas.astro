@@ -189,7 +189,7 @@
   }
 
   /* ---------- El plumón que pasas tú ---------- */
-  const marcas = vivo && main ? [...main.querySelectorAll<HTMLElement>(".hl")].filter((el) => !el.closest(".portada-titulo")) : [];
+  const marcas = vivo && main ? [...main.querySelectorAll<HTMLElement>(".hl")].filter((el) => !el.closest(".portada-titulo, h1")) : [];
   marcas.forEach((el) => el.setAttribute("data-trazo", ""));
 
   const antes = hojas.map(() => ({ asentar: -1, hundir: -1, oculta: false }));
