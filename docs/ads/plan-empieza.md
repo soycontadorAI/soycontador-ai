@@ -16,17 +16,31 @@ Para qué edición: la del 17-oct ya no da tiempo (pixel, revisión de Meta y fa
 de aprendizaje toman días). Se monta para la **siguiente**; su fecha y su
 checkout en nas.com aún no existen (`src/lib/empieza.ts`, edición comentada).
 
-## 2. El problema de medición (lo que condiciona todo)
+## 2. Medición: la compra ocurre en nas.com
 
-El cobro vive en **nas.com**, otro dominio. El pixel de soycontador.ai ve la
-visita y el clic a "Apartar mi lugar", pero **no ve la compra**. Consecuencias:
+El cobro vive en **nas.com**, otro dominio, así que el pixel de soycontador.ai
+solo ve la visita y el clic a "Apartar mi lugar". **Dato de Israel
+(2026-10-14): nas.com permite configurar un pixel de Facebook**, lo que abre
+la compra como evento. Hay un conflicto que resolver antes de usarlo:
 
-- Meta no puede optimizar a "compra": no la ve. Se optimiza a un paso previo
-  (visita a la página o clic al checkout).
-- "Quién compró" se cruza a mano: nas.com contra el origen del clic
-  (`utm_*`, `lib/origen.ts`). Es lento pero sirve a este volumen.
-- Alternativa `[POR DECIDIR]`: preguntar a nas.com si admite pixel o
-  redirección con parámetro en su página de gracias. `[VERIFICAR]`
+- El checkout actual es `communityCode=TODOCONTA_CLUB`: el taller está como
+  evento dentro de la comunidad de **TodoConta** en nas.com. `[VERIFICAR]` si
+  el pixel de nas.com se configura por comunidad. Si es así, el pixel que se
+  ponga ahí aplica a todo lo de esa comunidad.
+- Poner ahí el pixel de soycontador.ai mezcla las compras de TodoConta con las
+  de este proyecto. Dejar el de TodoConta hace que la compra del taller llegue
+  al pixel equivocado y no sirva para optimizar estos anuncios.
+- Salidas `[POR DECIDIR]`: (a) comunidad propia de soycontador.ai en nas.com,
+  con su pixel; (b) usar un solo pixel para ambas marcas y asumir la mezcla;
+  (c) no usar el pixel de nas.com y medir compras a mano (cruce con `utm_*` y
+  `lib/origen.ts`).
+- `[VERIFICAR]` qué eventos manda nas.com (compra, inicio de pago), si admite
+  parámetros de campaña y si cambiar de comunidad afecta enlaces, correos y
+  ventas ya hechas.
+
+Si se resuelve, Meta puede optimizar a **compra**; si no, se optimiza a clic
+al checkout. Con volumen bajo (25 lugares) conviene decidirlo por cuántas
+compras se esperan, no por pureza.
 
 Eventos propuestos en la página (sin dato personal, regla de AGENTS.md):
 `clic_checkout` (con edición y origen), `ver_dos_horas` (llegó al bloque).
@@ -130,6 +144,6 @@ Meta (developers.facebook.com, "Ads MCP server").
 ## 10. Abierto
 
 - Fecha y checkout de la siguiente edición en nas.com.
-- Si nas.com permite medir la compra.
+- Cuál de las tres salidas de la sección 2 (comunidad propia, pixel único o medición a mano) y cómo configura nas.com su pixel.
 - Si el MCP sirve sin app propia y qué objetivos acepta.
 - Qué hacer con los comentarios de los anuncios (alguien debe responder).
