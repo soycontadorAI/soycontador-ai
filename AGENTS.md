@@ -33,6 +33,11 @@ Stack: Astro 7 estático + adapter Vercel (solo `/api/newsletter` es serverless)
   vive en `COLABORACION` y no en `TALLER`, y no se emite JSON-LD de oferta. NO publicar: el ancla de organizaciones
   ($3,500-4,000/hora, referencia interna de cotización), la capacitación empresarial
   (solo cotización por llamada tras formulario) ni el Club (cierre por aplicación).
+- BONO DEL CURSO (decisión Israel 2026-10-13): quien toma el taller "Empieza
+  aquí" recibe, por correo o WhatsApp y solo 30 días después, un bono para
+  subir al curso de Fiscalistas.AI. **No se menciona en NINGÚN lugar público**
+  (páginas, FAQ, JSON-LD, `llms.txt`, `llms-full.txt`, redes): es el motivo
+  para subir de escalón, no un gancho de venta del taller.
 - POSICIONAMIENTO, en tres niveles (corrección de Israel 2026-08-30):
   - SÍ, es identidad y diferenciador: "contador público y desarrollador de software".
     Israel ES developer (estudió programación y trabajó como desarrollador en una startup).
@@ -286,6 +291,23 @@ copy propio; jamás copiar párrafos del blog o landing de TodoConta.
   `data-mundo="dia|noche"` y los tokens se remapean solos; la noche no tiene hex nuevos.
   Reglas en la sección "Mundos" de `design/DESIGN.md`; auditoría y alternativas en
   `design/MUNDOS.md`. El logotipo es "Contrapartida" (el nombre dentro de la cuenta T).
+
+### La skill `landing-page-design` (instalada el 2026-10-13)
+
+Vive en `.claude/skills/landing-page-design/`, copia sin tocar de
+elayadesign/ai-design-skills. Es de terceros y su Parte B dice que "este
+archivo gana" sobre cualquier otra cosa, así que aquí se acota:
+
+- **Sí se usa:** la Parte A entera (intake, estructura, conversión, FAQ,
+  riesgo), B7 (revelados con IntersectionObserver, nunca scroll sin
+  throttle), B9 (estados), B10 (lo que se olvida al publicar) y B11 (el lema
+  que se enciende palabra por palabra).
+- **NO se usa, gana este archivo:** tipografías y "sin itálicas" (Instrument
+  Serif + Space Grotesk + JetBrains Mono, con la itálica de la serif),
+  escala Tailwind y espaciado en px (aquí rem/clamp), la paleta oscura fija
+  (la noche sale de tokens terminal), "sin borde de un solo lado", el
+  degradado en el H1 (aquí va el `.hl`), el nav en píldora de vidrio (el menú
+  es de cada página) y recomendar `noindex` en ofertas con fecha.
 
 ## Entidad (SEO/AEO)
 
