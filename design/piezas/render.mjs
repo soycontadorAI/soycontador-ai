@@ -8,6 +8,7 @@
  *   og-<pagina>.html          → public/og-<pagina>.png      (lo sirve el sitio)
  *   banner-<superficie>.html  → design/salidas/             (se sube a mano)
  *   miniatura-<serie>-<n>.html → design/salidas/            (se sube a mano)
+ *   caratula-<video>.html     → public/assets/<video>.jpg (fachada de un video)
  *
  * Lo que el sitio sirve sale a `public/`. Lo que se sube a mano a una
  * plataforma sale a `design/salidas/`, que no se publica.
@@ -24,6 +25,11 @@
  *
  *   <meta name="lienzo" content="1200x630">
  *   <meta name="salida" content="public/og-despachos.png">
+ *
+ * Si la salida termina en `.jpg`, sale JPG (calidad 82, o la que diga
+ * `<meta name="calidad">`). Las carátulas de video van en JPG porque se
+ * cargan en la página y tienen que pesar menos de 100 KB; en PNG pesan cinco
+ * veces eso.
  *
  * Por qué existe: hasta ahora los OG se renderizaban a mano y el archivo
  * quedaba en `public/` sin nada que lo reprodujera. El resultado fue que
@@ -110,7 +116,10 @@ for (const plantilla of plantillas) {
     process.exit(1);
   }
 
-  const bytes = await pagina.screenshot({ type: "png" });
+  const jpg = /\.jpe?g$/i.test(salida);
+  const bytes = await pagina.screenshot(
+    jpg ? { type: "jpeg", quality: Number(leerMeta(html, "calidad") ?? 82) } : { type: "png" },
+  );
   const destino = resolve(RAIZ, salida);
   mkdirSync(dirname(destino), { recursive: true });
   writeFileSync(destino, bytes);
