@@ -104,11 +104,12 @@ export function checkoutDe(e: Edicion, contenido = "pagina"): string | null {
 /**
  * Video atemporal de la página (por qué tomar el taller): sin fechas ni
  * precio, para que sirva en cualquier edición. Mientras `id` sea null la
- * página NO pinta el hueco. Al grabarlo: subir a YouTube, pegar el ID aquí y
- * dejar la carátula 1280x720 (< 100 KB) en `public/assets/`.
+ * página NO pinta el hueco. La carátula NO es la miniatura de YouTube (esa es
+ * de CTR y desentona aquí): sale de `design/piezas/caratula-empieza.html`
+ * con `node design/piezas/render.mjs caratula-empieza`.
  */
 export const VIDEO_EMPIEZA: { id: string | null; titulo: string; poster: string; cinta: string } = {
-  id: null,
+  id: "QCA6xuvNSeM",
   titulo: "Por qué tomar el taller Empieza aquí",
   poster: "/assets/empieza-video.jpg",
   cinta: "Por qué empezar aquí",
