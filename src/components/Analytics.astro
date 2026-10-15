@@ -68,7 +68,7 @@ const pixel = enProduccion ? MEDICION.metaPixel : null;
 
 {ga && (
   <script>
-    import { medir } from "../lib/medir";
+    import { medir, medirMeta } from "../lib/medir";
 
     /*
       Dos eventos que no viven en ningún formulario y por eso se escuchan aquí,
@@ -95,6 +95,20 @@ const pixel = enProduccion ? MEDICION.metaPixel : null;
          mismo. */
       const href = enlace.getAttribute("href") ?? "";
       if (href === "/claude") medir("clic_curso", { curso: "claude-para-contadores" });
+
+      /* El clic al checkout de nas.com: la compra ocurre en otro dominio, así
+         que este clic es lo último que ve el sitio. A Meta solo el del taller
+         (/empieza); a GA, cualquiera, con la página de origen. */
+      let destino: URL | null = null;
+      try {
+        destino = new URL(href, location.href);
+      } catch {}
+      if (destino && /(^|\.)nas\.(com|io)$/.test(destino.hostname) && destino.pathname.includes("checkout")) {
+        medir("clic_checkout", { pagina: location.pathname });
+        if (location.pathname.startsWith("/empieza")) {
+          medirMeta("InitiateCheckout", { content_name: "empieza-aqui" });
+        }
+      }
 
       /* El enlace de agendar aparece solo después de enviar un formulario, así
          que este clic es la señal de intención más alta del sitio. */

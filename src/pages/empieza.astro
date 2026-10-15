@@ -322,6 +322,13 @@ const CTA: Enlace = urlAbierta
   <Hojas />
 </BaseLayout>
 
+<script>
+  import { medirMeta } from "../lib/medir";
+
+  // Pixel de Meta: quien llega a la página del taller. Sin datos personales.
+  medirMeta("ViewContent", { content_name: "empieza-aqui" });
+</script>
+
 <style>
   section {
     padding: 3.4rem 0;

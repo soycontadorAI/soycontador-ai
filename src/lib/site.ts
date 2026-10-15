@@ -140,8 +140,9 @@ export const EBOOK = {
 export const MEDICION = {
   /** GA4. Null apaga la medición por completo. */
   ga: "G-TR03XNSEKC",
-  /** Pixel de Meta. Pendiente del ID; en null no se carga. */
-  metaPixel: null as string | null,
+  /** Pixel de Meta (conjunto de datos de soycontador.ai, no el de TodoConta).
+   *  En null no se carga. */
+  metaPixel: "1407516788160351" as string | null,
 } as const;
 
 /** Un enlace de menú, de pie o de botón. */
