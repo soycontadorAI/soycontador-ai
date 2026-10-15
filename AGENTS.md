@@ -366,8 +366,11 @@ El aviso de privacidad ya declara la medición. Al agregar cualquier
 herramienta nueva hay que actualizarlo en el mismo commit: la obligación de la
 LFPDPPP es informarlo ahí.
 
-Pendiente: el pixel de Meta. `MEDICION.metaPixel` está en `null` y el bloque
-ya existe en `Analytics.astro`; solo falta el ID.
+El pixel de Meta (2026-10-14) es el de soycontador.ai, no el de TodoConta, y
+`MEDICION.metaPixel` lo trae. Solo manda `PageView` y dos eventos propios por
+`medirMeta()`: `ViewContent` (llegada a /empieza) e `InitiateCheckout` (clic al
+checkout de nas.com desde /empieza). La coincidencia avanzada automática va
+APAGADA en el panel de Meta: no se manda ningún dato personal.
 
 ## Nada lleva marca de IA
 

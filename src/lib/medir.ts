@@ -27,3 +27,14 @@ export function medir(evento: string, datos: Datos = {}): void {
   for (const [k, v] of Object.entries(datos)) if (v !== undefined && v !== "") limpio[k] = v;
   window.gtag?.("event", evento, limpio);
 }
+
+/**
+ * Evento estándar del pixel de Meta. Mismas reglas que `medir`: inofensivo
+ * si el pixel no cargó, y sin datos personales. Solo los eventos que definimos
+ * aquí; la coincidencia avanzada automática de Meta va apagada.
+ */
+export function medirMeta(evento: "ViewContent" | "InitiateCheckout", datos: Datos = {}): void {
+  const limpio: Datos = {};
+  for (const [k, v] of Object.entries(datos)) if (v !== undefined && v !== "") limpio[k] = v;
+  window.fbq?.("track", evento, limpio);
+}
