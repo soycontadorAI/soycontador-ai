@@ -75,6 +75,37 @@ export function leerOrigen(): Origen {
   }
 }
 
+/** El checkout de nas.com (taller y ebook): la compra ocurre allá. */
+export function esCheckoutNas(url: URL): boolean {
+  return /(^|\.)nas\.(com|io)$/.test(url.hostname) && url.pathname.includes("checkout");
+}
+
+/**
+ * El enlace al checkout con el origen de la visita, para que la venta en
+ * nas.com se pueda ligar al anuncio. Dos cosas, y nada más del enlace se toca
+ * (communityId, ticketTypeObjectId y compañía quedan igual):
+ *
+ * - `fbclid`: el ID del clic en el anuncio de Meta. Sin él, el pixel del otro
+ *   lado no tiene con qué atribuir la compra a ese clic.
+ * - `utm_*`: los fijos del enlace se cambian EN BLOQUE por los de la visita,
+ *   o no se tocan. Si llegó con al menos uno, mandan los suyos y los fijos
+ *   que falten se quitan: mezclar su "facebook" con nuestro "web" inventaría
+ *   una fuente que nadie usó.
+ */
+export function conOrigenDeVisita(href: string, visita: URLSearchParams): string {
+  const u = new URL(href);
+  const fbclid = visita.get("fbclid");
+  if (fbclid && /^[\w.-]{1,500}$/.test(fbclid)) u.searchParams.set("fbclid", fbclid);
+  if (UTM.some((k) => recorta(visita.get(k)))) {
+    for (const k of UTM) {
+      const v = recorta(visita.get(k), 100);
+      if (v) u.searchParams.set(k, v);
+      else u.searchParams.delete(k);
+    }
+  }
+  return u.toString();
+}
+
 /**
  * Las tres etiquetas que van a GA4 con el evento de lead. `fuente` es lo más
  * específico que haya: el utm_source que Israel puso, o el dominio de origen,

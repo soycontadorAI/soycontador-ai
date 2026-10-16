@@ -9,6 +9,7 @@ import {
   EMPIEZA,
   ENTREGABLES,
   FAQ_EMPIEZA,
+  HORARIO,
   INCLUYE,
   PARA_QUIEN,
   VIDEO_EMPIEZA,
@@ -72,7 +73,7 @@ const CTA: Enlace = urlAbierta
       <section class="hero">
         <div class="container-default hero-grid">
           <div>
-            <p class="folio">TALLER EN VIVO · <b>{fechaFolio.toUpperCase()}</b> · 11:00 · 2 HORAS</p>
+            <p class="folio">TALLER EN VIVO · <b>{fechaFolio.toUpperCase()}</b> · {HORARIO.inicio} · 2 HORAS</p>
             <h1 class="titulo-xl">{EMPIEZA.nombre}: <span class="hl">{EMPIEZA.titulo}</span></h1>
             <p class="hero-headline">Sales con tres cosas hechas, no con apuntes.</p>
             {/*
@@ -323,10 +324,55 @@ const CTA: Enlace = urlAbierta
 </BaseLayout>
 
 <script>
+  import { PIXEL_EMPIEZA } from "../lib/empieza";
   import { medirMeta } from "../lib/medir";
+  import { conOrigenDeVisita, esCheckoutNas } from "../lib/origen";
 
   // Pixel de Meta: quien llega a la página del taller. Sin datos personales.
-  medirMeta("ViewContent", { content_name: "empieza-aqui" });
+  medirMeta("ViewContent", PIXEL_EMPIEZA);
+
+  const aCheckout = (a: HTMLAnchorElement): boolean => {
+    try {
+      return esCheckoutNas(new URL(a.href));
+    } catch {
+      return false;
+    }
+  };
+
+  /* Los botones al checkout se llevan el fbclid y los utm_* con los que
+     llegó la visita (ver conOrigenDeVisita). Se reescribe el href al cargar y
+     no en el clic, para que también sirva con "abrir en pestaña nueva". */
+  const visita = new URLSearchParams(location.search);
+  for (const a of document.querySelectorAll<HTMLAnchorElement>("a[href]")) {
+    if (aCheckout(a)) a.href = conOrigenDeVisita(a.href, visita);
+  }
+
+  /* InitiateCheckout: uno por clic y antes de irse. Al navegar, el navegador
+     puede cancelar la petición del pixel a medio camino, así que el clic se
+     detiene 300 ms y luego se navega. El candado se traga el segundo clic de
+     un doble clic, y se suelta antes de navegar para que un "atrás" (que
+     restaura la página tal cual) no lo encuentre cerrado. Si el clic abre
+     otra pestaña, esta página sigue viva y no hace falta esperar. Sin pixel
+     (local, preview, bloqueador) el enlace funciona como siempre. */
+  let saliendo = false;
+  document.addEventListener("click", (e) => {
+    const a = (e.target as HTMLElement | null)?.closest?.("a");
+    if (!a || !aCheckout(a)) return;
+    if (saliendo) {
+      e.preventDefault();
+      return;
+    }
+    medirMeta("InitiateCheckout", PIXEL_EMPIEZA);
+    const otraPestana = e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || a.target === "_blank";
+    if (!window.fbq || otraPestana) return;
+    e.preventDefault();
+    saliendo = true;
+    const destino = a.href;
+    setTimeout(() => {
+      saliendo = false;
+      location.assign(destino);
+    }, 300);
+  });
 </script>
 
 <style>
