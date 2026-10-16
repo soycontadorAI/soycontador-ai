@@ -95,6 +95,43 @@ Reglas de Meta que cuidar `[VERIFICAR]`: no aludir a atributos personales del
 lector ("a tus 50 años...") ni prometer resultados económicos. La edad es
 ventaja, no carencia, y eso se dice sin señalar al lector.
 
+### Creativos listos (2026-10-16)
+
+Los dos usan el ángulo "me contestó como blog", a propósito: la primera prueba
+compara formato (video contra imagen), no mensaje. Ninguno lleva fecha, precio
+en pantalla ni cupo, para que crucen de una edición a la siguiente. Cada uno es
+UN anuncio con sus dos formatos, y Meta pone el que toca en cada ubicación.
+
+| Creativo | Feed (4:5) y Stories/Reels (9:16) | Fuente |
+|---|---|---|
+| Video | `anuncio-4x5.mp4` y `anuncio-9x16.mp4` | `hyperframes-30-days/renders/empieza/vertical/` |
+| Imagen | `design/salidas/anuncio-empieza-4x5.png` y `-9x16.png` | `design/piezas/anuncio-empieza-*.html` |
+
+Texto del anuncio de imagen (título "Taller en vivo: tu primer día con Claude",
+descripción "2 horas por Zoom · $697 MXN", botón "Más información"):
+
+```
+¿Le preguntaste algo a la IA y te contestó como blog?
+
+No fue la herramienta. Fue cómo se le pidió.
+
+En el taller “Empieza aquí” practicamos en vivo cómo pedirle las cosas a Claude para que te conteste como contador y te cite el fundamento. Dos horas por Zoom, grupo de 25, y cada bloque termina con algo hecho en tu pantalla:
+
+✓ Tu proyecto de Claude configurado para tu despacho
+✓ Un prompt que cita el fundamento
+✓ Tu primer lote de XML convertido en tabla y revisado
+
+No necesitas saber programar ni haber usado IA. $697 MXN, y la grabación es tuya 30 días.
+
+La próxima fecha está en el enlace 👇
+```
+
+Parámetros de URL: `utm_source={{site_source_name}}&utm_medium=paid&utm_campaign=empieza&utm_content=imagen-blog`.
+Meta llena `fb` o `ig` según dónde se vio. La campaña va sin edición (no
+`empieza-<edicion>` como dice la sección 9) porque el anuncio corre de una
+edición a otra; la fecha del clic dice a cuál le tocó. El video lleva los
+mismos con su propio `utm_content`, para poder compararlos.
+
 ## 6. Cómo se elige al ganador
 
 Fijar ANTES de activar, para no decidir a ojo:
