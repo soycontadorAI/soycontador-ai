@@ -372,6 +372,17 @@ El pixel de Meta (2026-10-14) es el de soycontador.ai, no el de TodoConta, y
 checkout de nas.com desde /empieza). La coincidencia avanzada automática va
 APAGADA en el panel de Meta: no se manda ningún dato personal.
 
+Desde el 2026-10-16 cada evento del pixel (PageView incluido) lleva su
+`eventID`, que es la llave de deduplicación contra la API de conversiones, y
+`medirMeta()` lo devuelve. Los dos eventos del taller mandan `PIXEL_EMPIEZA`
+(`lib/empieza.ts`): valor, moneda, `content_type` y `content_ids`, todos
+parámetros estándar, porque el conjunto de datos está en categoría
+restringida y uno personalizado no pasa. `InitiateCheckout` vive en
+`empieza.astro`, no en `Analytics.astro`: detiene el clic 300 ms para que la
+petición salga antes de navegar. Esa misma página reescribe los enlaces al
+checkout con el `fbclid` y los `utm_*` de la visita (`conOrigenDeVisita()` de
+`lib/origen.ts`; los utm se cambian en bloque o no se tocan).
+
 ## Nada lleva marca de IA
 
 Commits, PRs y cualquier entregable salen **a nombre de Israel, sin firma de

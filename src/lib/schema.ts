@@ -4,7 +4,7 @@
  */
 
 import { APENDICES, COMPRA, EDICION, PARTES } from "./ebook";
-import { EDICIONES, EMPIEZA } from "./empieza";
+import { EDICIONES, EMPIEZA, HORARIO, isoDe } from "./empieza";
 import { CLUB, EBOOK, PERSONA, PROGRAMA, SITE, TRAILER } from "./site";
 import type { FaqItem } from "./faqs";
 import type { Testimonio } from "./testimonios";
@@ -205,8 +205,8 @@ export function empiezaCourse(): JsonLdObject {
       "@type": "CourseInstance",
       courseMode: "Online",
       courseWorkload: "PT2H",
-      startDate: `${e.inicio}T11:00:00-06:00`,
-      endDate: `${e.inicio}T13:00:00-06:00`,
+      startDate: isoDe(e),
+      endDate: isoDe(e, HORARIO.fin),
       location: { "@type": "VirtualLocation", url: `${SITE.url}/empieza` },
       maximumAttendeeCapacity: EMPIEZA.cupo,
     })),
@@ -214,9 +214,9 @@ export function empiezaCourse(): JsonLdObject {
       "@type": "Offer",
       name: EMPIEZA.nombreCompleto,
       price: EMPIEZA.precio,
-      priceCurrency: "MXN",
+      priceCurrency: EMPIEZA.moneda,
       availability: "https://schema.org/InStock",
-      validThrough: `${EDICIONES[EDICIONES.length - 1].inicio}T11:00:00-06:00`,
+      validThrough: isoDe(EDICIONES[EDICIONES.length - 1]),
       url: `${SITE.url}/empieza`,
     },
   };

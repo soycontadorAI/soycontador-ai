@@ -9,9 +9,15 @@
  *
  * Este taller SÍ publica precio: es producto de precio fijo, como el ebook.
  * La regla de "no publicar" es del high ticket (aclaración de Israel,
- * 2026-09-20). Al cambiarlo hay que tocar los cuatro lugares: aquí (que
- * alimenta la página y el JSON-LD), llms.txt y llms-full.txt.
+ * 2026-09-20). El precio se escribe UNA vez (`PRECIO`) y de ahí salen la
+ * página, la FAQ, el JSON-LD, llms.txt, llms-full.txt y el pixel de Meta.
+ *
+ * CADA EDICIÓN NUEVA se cambia aquí y en ningún otro archivo: la fecha y el
+ * checkout en `EDICIONES`, y la hora en `HORARIO` si cambia.
  */
+
+const PRECIO = 697;
+const MONEDA = "MXN";
 
 function conUtm(url: string, contenido: string): string {
   const u = new URL(url);
@@ -54,6 +60,18 @@ export const EDICIONES: readonly Edicion[] = [
   // { inicio: "2026-10-24", fechaTexto: "Sábado 24 de octubre", checkout: null },
 ];
 
+/**
+ * La hora de las ediciones, del centro de México. Esa zona no cambia de
+ * horario desde 2022, así que el desfase es fijo. De aquí salen el folio de la
+ * página, el horario en texto y las fechas del JSON-LD.
+ */
+export const HORARIO = { inicio: "11:00", fin: "13:00", zona: "-06:00" } as const;
+
+/** Fecha y hora ISO de una edición (por omisión, la de inicio). */
+export function isoDe(e: Edicion, hora: string = HORARIO.inicio): string {
+  return `${e.inicio}T${hora}:00${HORARIO.zona}`;
+}
+
 export const EMPIEZA = {
   nombre: "Empieza aquí",
   /* Ya no dice "Claude para contadores": se confundía con el curso de 8 horas
@@ -63,12 +81,13 @@ export const EMPIEZA = {
   nombreCompleto: "Empieza aquí: tu primer día con Claude",
   descripcion:
     "Taller en vivo de 2 horas para contadores que no han usado inteligencia artificial o la probaron y les contestó como blog. Sales con un proyecto de Claude configurado para tu despacho, un prompt que cita el fundamento legal y tu primer lote de XML convertido en tabla y revisado. Sin conocimientos previos.",
-  horario: "11:00 a 13:00, hora del centro de México",
+  horario: `${HORARIO.inicio} a ${HORARIO.fin}, hora del centro de México`,
   duracion: "2 horas en vivo",
   sede: "Por Zoom, con grabación disponible 30 días",
   cupo: 25,
-  precio: "697",
-  precioTexto: "$697 MXN",
+  precio: PRECIO,
+  moneda: MONEDA,
+  precioTexto: `$${PRECIO} ${MONEDA}`,
   /** Lo que se paga aparte, dicho de frente: es parte del precio real */
   herramienta: {
     nombre: "Claude Pro",
@@ -82,8 +101,21 @@ export const EMPIEZA = {
     "Si cancelas hasta dos días antes de tu fecha te devuelvo el dinero completo. Si no puedes asistir en vivo, la grabación es tuya 30 días.",
 } as const;
 
+/**
+ * Lo que recibe el pixel de Meta en ViewContent e InitiateCheckout: el
+ * producto, nunca la persona. SOLO parámetros estándar de Meta: el conjunto
+ * de datos está en una categoría restringida y uno personalizado no pasa.
+ */
+export const PIXEL_EMPIEZA = {
+  content_name: "empieza-aqui",
+  content_type: "product",
+  content_ids: ["taller-empieza"],
+  value: PRECIO,
+  currency: MONEDA,
+} as const;
+
 function limiteDe(e: Edicion): Date {
-  return new Date(`${e.inicio}T23:59:59-06:00`);
+  return new Date(`${e.inicio}T23:59:59${HORARIO.zona}`);
 }
 
 /** Las ediciones que todavía no pasan, en orden de fecha (agotadas incluidas). */
@@ -228,6 +260,6 @@ export const FAQ_EMPIEZA = [
   {
     pregunta: "¿Cuánto cuesta el taller?",
     respuesta:
-      "$697 MXN, pago único. Te recomiendo además una suscripción a Claude Pro (US$20 al mes, aprox. $400 MXN, se paga aparte). Si cancelas el taller hasta dos días antes de tu fecha te devuelvo el dinero completo.",
+      `${EMPIEZA.precioTexto}, pago único. Te recomiendo además una suscripción a Claude Pro (US$20 al mes, aprox. $400 MXN, se paga aparte). Si cancelas el taller hasta dos días antes de tu fecha te devuelvo el dinero completo.`,
   },
 ] as const;

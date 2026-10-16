@@ -23,7 +23,8 @@ const pixel = enProduccion ? MEDICION.metaPixel : null;
     is:inline a propósito: este bloque tiene que ejecutarse tal cual y definir
     window.gtag de forma síncrona, ANTES de que corra cualquier script que
     quiera medir algo. Si Astro lo empaqueta, se difiere y los primeros
-    eventos se pierden.
+    eventos se pierden. Por lo mismo, el PageView del pixel arma su eventID
+    a mano con la receta de nuevoEventId() (lib/medir.ts): aquí no hay import.
   */
 }
 {ga && (
@@ -49,7 +50,10 @@ const pixel = enProduccion ? MEDICION.metaPixel : null;
     t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
     document,'script','https://connect.facebook.net/en_US/fbevents.js');
     fbq('init', pixel);
-    fbq('track', 'PageView');
+    var c = window.crypto;
+    fbq('track', 'PageView', {}, {
+      eventID: c && c.randomUUID ? c.randomUUID() : Date.now().toString(36) + '-' + Math.random().toString(36).slice(2, 12)
+    });
   </script>
 )}
 
@@ -68,7 +72,8 @@ const pixel = enProduccion ? MEDICION.metaPixel : null;
 
 {ga && (
   <script>
-    import { medir, medirMeta } from "../lib/medir";
+    import { medir } from "../lib/medir";
+    import { esCheckoutNas } from "../lib/origen";
 
     /*
       Dos eventos que no viven en ningún formulario y por eso se escuchan aquí,
@@ -97,18 +102,14 @@ const pixel = enProduccion ? MEDICION.metaPixel : null;
       if (href === "/claude") medir("clic_curso", { curso: "claude-para-contadores" });
 
       /* El clic al checkout de nas.com: la compra ocurre en otro dominio, así
-         que este clic es lo último que ve el sitio. A Meta solo el del taller
-         (/empieza); a GA, cualquiera, con la página de origen. */
+         que este clic es lo último que ve el sitio. A GA, cualquiera, con la
+         página de origen. El InitiateCheckout de Meta vive en empieza.astro:
+         es solo del taller y tiene que esperar a salir antes de navegar. */
       let destino: URL | null = null;
       try {
         destino = new URL(href, location.href);
       } catch {}
-      if (destino && /(^|\.)nas\.(com|io)$/.test(destino.hostname) && destino.pathname.includes("checkout")) {
-        medir("clic_checkout", { pagina: location.pathname });
-        if (location.pathname.startsWith("/empieza")) {
-          medirMeta("InitiateCheckout", { content_name: "empieza-aqui" });
-        }
-      }
+      if (destino && esCheckoutNas(destino)) medir("clic_checkout", { pagina: location.pathname });
 
       /* El enlace de agendar aparece solo después de enviar un formulario, así
          que este clic es la señal de intención más alta del sitio. */
