@@ -80,13 +80,39 @@ export function esCheckoutNas(url: URL): boolean {
   return /(^|\.)nas\.(com|io)$/.test(url.hostname) && url.pathname.includes("checkout");
 }
 
+const FBCLID = /^[\w.-]{1,500}$/;
+
+/**
+ * El fbclid de la visita: el de la URL y, si no viene, el de la cookie `_fbc`.
+ *
+ * La URL solo lo trae en la página donde aterrizó el anuncio. Si la persona
+ * llegó a la home y después entró a /empieza, o salió y volvió por otro
+ * enlace, ya no está ahí. El pixel lo guarda en `_fbc` (cookie de este
+ * dominio, 90 días) con la forma `fb.<subdominio>.<fecha>.<fbclid>`, así que
+ * se toma el cuarto segmento. Si el navegador le quitó el fbclid a la URL
+ * (Safari privado, Firefox estricto, Brave), el pixel tampoco lo vio y la
+ * cookie no existe: ese caso no tiene arreglo de este lado.
+ */
+function fbclidDe(visita: URLSearchParams): string | null {
+  const deUrl = visita.get("fbclid");
+  if (deUrl && FBCLID.test(deUrl)) return deUrl;
+  try {
+    const fbc = document.cookie.match(/(?:^|;\s*)_fbc=([^;]+)/)?.[1];
+    const partes = fbc ? decodeURIComponent(fbc).split(".") : [];
+    const deCookie = partes[0] === "fb" ? partes[3] : undefined;
+    return deCookie && FBCLID.test(deCookie) ? deCookie : null;
+  } catch {
+    return null;
+  }
+}
+
 /**
  * El enlace al checkout con el origen de la visita, para que la venta en
  * nas.com se pueda ligar al anuncio. Dos cosas, y nada más del enlace se toca
  * (communityId, ticketTypeObjectId y compañía quedan igual):
  *
  * - `fbclid`: el ID del clic en el anuncio de Meta. Sin él, el pixel del otro
- *   lado no tiene con qué atribuir la compra a ese clic.
+ *   lado no tiene con qué atribuir la compra a ese clic. Ver `fbclidDe`.
  * - `utm_*`: los fijos del enlace se cambian EN BLOQUE por los de la visita,
  *   o no se tocan. Si llegó con al menos uno, mandan los suyos y los fijos
  *   que falten se quitan: mezclar su "facebook" con nuestro "web" inventaría
@@ -94,8 +120,8 @@ export function esCheckoutNas(url: URL): boolean {
  */
 export function conOrigenDeVisita(href: string, visita: URLSearchParams): string {
   const u = new URL(href);
-  const fbclid = visita.get("fbclid");
-  if (fbclid && /^[\w.-]{1,500}$/.test(fbclid)) u.searchParams.set("fbclid", fbclid);
+  const fbclid = fbclidDe(visita);
+  if (fbclid) u.searchParams.set("fbclid", fbclid);
   if (UTM.some((k) => recorta(visita.get(k)))) {
     for (const k of UTM) {
       const v = recorta(visita.get(k), 100);

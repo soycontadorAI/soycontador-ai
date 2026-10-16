@@ -381,7 +381,15 @@ restringida y uno personalizado no pasa. `InitiateCheckout` vive en
 `empieza.astro`, no en `Analytics.astro`: detiene el clic 300 ms para que la
 petición salga antes de navegar. Esa misma página reescribe los enlaces al
 checkout con el `fbclid` y los `utm_*` de la visita (`conOrigenDeVisita()` de
-`lib/origen.ts`; los utm se cambian en bloque o no se tocan).
+`lib/origen.ts`; los utm se cambian en bloque o no se tocan). El `fbclid` sale
+de la URL o, si no viene, de la cookie `_fbc` que deja el pixel: cubre a quien
+aterrizó por el anuncio en otra página y llegó a /empieza después.
+
+Si al probar el `fbclid` no aparece en los enlaces, primero ver si sigue en la
+barra de direcciones: Safari privado, Firefox estricto, Brave y algunas listas
+de uBlock/AdGuard lo borran de la URL antes de que la página lo lea (los
+`utm_*` no). Y no se revisa en "ver código fuente": lo agrega JavaScript al
+cargar, así que el HTML de origen nunca lo trae (2026-10-16).
 
 ## Nada lleva marca de IA
 
