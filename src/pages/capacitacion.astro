@@ -157,7 +157,7 @@ const jsonLd = graph(
               {empiezaAbierta && (
                 <p class="colab-antes">
                   ¿Sientes que todavía no es para ti? Hay un paso de antes:{" "}
-                  <a href="/empieza">{EMPIEZA.nombre}, {EMPIEZA.duracion.replace(" en vivo", "")} el {empiezaAbierta.fechaTexto.toLowerCase().replace("sábado ", "")}</a>.
+                  <a href="/empieza">{EMPIEZA.nombre}, {EMPIEZA.duracion.replace(" en vivo", "")} el {empiezaAbierta.fechaTexto.toLowerCase().replace(/^(sábado|jueves) /, "")}</a>.
                 </p>
               )}
             </div>
