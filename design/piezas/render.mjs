@@ -9,6 +9,7 @@
  *   banner-<superficie>.html  → design/salidas/             (se sube a mano)
  *   miniatura-<serie>-<n>.html → design/salidas/            (se sube a mano)
  *   caratula-<video>.html     → public/assets/<video>.jpg (fachada de un video)
+ *   anuncio-<campaña>-<formato>.html → design/salidas/  (se sube a Meta Ads)
  *
  * Lo que el sitio sirve sale a `public/`. Lo que se sube a mano a una
  * plataforma sale a `design/salidas/`, que no se publica.

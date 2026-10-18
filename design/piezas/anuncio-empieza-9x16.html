@@ -1,0 +1,193 @@
+<!doctype html>
+<html lang="es-MX">
+<head>
+<meta charset="utf-8">
+<meta name="lienzo" content="1080x1920">
+<meta name="salida" content="design/salidas/anuncio-empieza-9x16.png">
+<title>anuncio-empieza-9x16</title>
+<style>
+/* ============================================================
+   Anuncio de imagen del taller "Empieza aquí" para Stories y Reels (9:16).
+   `node design/piezas/render.mjs anuncio-empieza-9x16`.
+   Es el par de `anuncio-empieza-4x5.html` (el feed): mismo copy, mismo orden,
+   y todo lo que se diga ahí sobre el ángulo y lo atemporal vale aquí.
+
+   Lo propio de este lienzo son las zonas que tapa la interfaz: arriba, la
+   barra de progreso y el nombre de la cuenta (unos 250px); abajo, el botón
+   del anuncio (unos 380px). El texto vive entre las dos. La mano de Israel
+   sí entra a la franja de abajo, porque apunta justo a ese botón.
+
+   Mismo ángulo que el video del anuncio (la objeción "me contestó como blog"
+   y su vuelta), a propósito: así la primera prueba compara formato, imagen
+   contra video, y no dos cosas a la vez (docs/ads/plan-empieza.md, sección 5).
+
+   ATEMPORAL, como el video: sin fecha, sin precio, sin cupo. Corre de una
+   edición a la siguiente; la fecha y el precio viven en /empieza y en el
+   texto del anuncio, que se cambian sin volver a renderizar.
+
+   En el celular el lienzo se ve a un tercio: lo que se tiene que leer no baja
+   de 36px, y solo las etiquetas en mono, que son de apoyo, van más chicas.
+   Israel va en sudadera (el registro del Avatar A) y señala hacia abajo,
+   donde Meta pone el botón del anuncio.
+   ============================================================ */
+@font-face {
+  font-family: "Instrument Serif";
+  font-style: normal; font-weight: 400; font-display: block;
+  src: url("../../node_modules/@fontsource/instrument-serif/files/instrument-serif-latin-400-normal.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Instrument Serif";
+  font-style: italic; font-weight: 400; font-display: block;
+  src: url("../../node_modules/@fontsource/instrument-serif/files/instrument-serif-latin-400-italic.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Space Grotesk"; font-weight: 100 900; font-display: block;
+  src: url("../../node_modules/@fontsource-variable/space-grotesk/files/space-grotesk-latin-wght-normal.woff2") format("woff2");
+}
+@font-face {
+  font-family: "JetBrains Mono"; font-weight: 100 800; font-display: block;
+  src: url("../../node_modules/@fontsource-variable/jetbrains-mono/files/jetbrains-mono-latin-wght-normal.woff2") format("woff2");
+}
+:root {
+  --bg: #FBFAF7;
+  --ink: #14161A;
+  --ink-soft: #454A54;
+  --ink-dim: #666B75;
+  --accent: #0A7B45;
+  --marker: #3DD68C;
+  --line: #E3E0D8;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  position: relative;
+  width: 1080px; height: 1920px; overflow: hidden;
+  background: var(--bg); color: var(--ink);
+  font-family: "Space Grotesk", sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Cabecera: el logotipo del sitio y qué es esto */
+.cab {
+  position: absolute; top: 250px; left: 72px; right: 72px;
+  display: flex; align-items: center; justify-content: space-between;
+}
+.logo { display: flex; align-items: center; gap: 18px; }
+.logo svg { width: 58px; height: 40px; color: var(--ink); }
+.wordmark { line-height: 1; }
+.wordmark .nombre { display: block; font-weight: 700; font-size: 33px; letter-spacing: -0.035em; }
+.wordmark .tld { display: block; font-family: "JetBrains Mono", monospace; font-weight: 700; font-size: 21px; color: var(--accent); margin-top: 3px; }
+.kicker {
+  font-family: "JetBrains Mono", monospace; font-weight: 600;
+  font-size: 24px; letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--accent);
+}
+
+/* La objeción y su vuelta, el mismo gesto que la carátula del video */
+.texto { position: absolute; left: 72px; top: 400px; z-index: 1; }
+.objecion {
+  font-family: "Instrument Serif", serif; font-weight: 400; font-style: italic;
+  font-size: 88px; line-height: 1.06; letter-spacing: -0.01em;
+  color: var(--ink-dim);
+  white-space: nowrap;
+}
+.giro {
+  font-family: "Instrument Serif", serif; font-weight: 400;
+  font-size: 176px; line-height: 0.98; letter-spacing: -0.02em;
+  margin-top: 30px;
+  white-space: nowrap;
+}
+/* El plumón, calibrado como en el sitio: 0.22em abajo o se lee como tachado */
+.giro b {
+  font-weight: 400;
+  background-image: linear-gradient(
+    to top,
+    transparent 0.22em,
+    var(--marker) 0.22em,
+    var(--marker) 0.72em,
+    transparent 0.72em
+  );
+  background-repeat: no-repeat;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+}
+.remate {
+  font-family: "Instrument Serif", serif; font-weight: 400; font-style: italic;
+  font-size: 70px; line-height: 1.1;
+  color: var(--ink-soft);
+  margin-top: 34px;
+  white-space: nowrap;
+}
+
+/* Lo que te llevas: tres renglones, cada uno algo hecho en tu pantalla */
+.sales {
+  position: absolute; left: 72px; top: 1090px; width: 470px; z-index: 1;
+  border-top: 2px solid var(--ink);
+  padding-top: 24px;
+}
+.sales h2 {
+  font-family: "JetBrains Mono", monospace; font-weight: 600;
+  font-size: 22px; letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--ink-dim);
+  margin-bottom: 20px;
+}
+.sales ul { list-style: none; display: grid; gap: 16px; }
+.sales li {
+  display: grid; grid-template-columns: 34px 1fr; gap: 14px; align-items: start;
+  font-weight: 500; font-size: 36px; line-height: 1.16; letter-spacing: -0.01em;
+  text-wrap: balance;
+}
+.sales li svg { width: 34px; height: 34px; margin-top: 4px; }
+
+/*
+   El recorte llega cortado a los dos lados (los brazos tocan el canto). El de
+   la derecha coincide con el borde del lienzo; el de la izquierda quedaría
+   como un tajo vertical a media imagen, así que la manga se desvanece en el
+   papel. La mano empieza al 14 % del ancho y el desvanecido acaba antes.
+*/
+.retrato {
+  position: absolute;
+  right: 0; bottom: 0;
+  height: 860px; width: auto;
+  display: block;
+  -webkit-mask-image: linear-gradient(to right, transparent 0, #000 11%);
+  mask-image: linear-gradient(to right, transparent 0, #000 11%);
+}
+</style>
+</head>
+<body>
+  <div class="cab">
+    <div class="logo">
+      <svg viewBox="5 18 86 60" fill="none" aria-hidden="true">
+        <rect x="12" y="25" width="72" height="5" fill="currentColor"></rect>
+        <rect x="45.5" y="25" width="5" height="46" fill="currentColor"></rect>
+        <rect x="16" y="39" width="24" height="7" fill="currentColor"></rect>
+        <rect x="16" y="52" width="17" height="7" fill="currentColor"></rect>
+        <rect x="56" y="39" width="24" height="7" fill="#0A7B45"></rect>
+        <rect x="56" y="52" width="17" height="7" fill="#0A7B45"></rect>
+      </svg>
+      <span class="wordmark">
+        <span class="nombre">soycontador</span>
+        <span class="tld">.ai</span>
+      </span>
+    </div>
+    <p class="kicker">Taller en vivo · por Zoom</p>
+  </div>
+
+  <div class="texto">
+    <p class="objecion">“¿Te contestó como blog?”</p>
+    <p class="giro"><b>No fue la</b><br><b>herramienta.</b></p>
+    <p class="remate">Fue cómo se le pidió.</p>
+  </div>
+
+  <div class="sales">
+    <h2>En dos horas sales con</h2>
+    <ul>
+      <li><svg viewBox="0 0 24 24" fill="none" stroke="#0A7B45" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12.5l5 5L20 6.5"/></svg>Tu proyecto de Claude configurado</li>
+      <li><svg viewBox="0 0 24 24" fill="none" stroke="#0A7B45" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12.5l5 5L20 6.5"/></svg>Un prompt que cita el fundamento</li>
+      <li><svg viewBox="0 0 24 24" fill="none" stroke="#0A7B45" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12.5l5 5L20 6.5"/></svg>Tu primer lote de XML revisado</li>
+    </ul>
+  </div>
+
+  <img class="retrato" src="../../public/assets/israel-senala-abajo.webp" alt="">
+</body>
+</html>
