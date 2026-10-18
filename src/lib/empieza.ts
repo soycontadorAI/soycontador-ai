@@ -50,14 +50,14 @@ export interface Edicion {
 
 export const EDICIONES: readonly Edicion[] = [
   {
-    inicio: "2026-10-17",
-    fechaTexto: "Sábado 17 de octubre",
+    inicio: "2026-10-29",
+    fechaTexto: "Jueves 29 de octubre",
     checkout:
-      "https://nas.com/checkout-global?communityId=67ab5a14d444670df4027cad&communityCode=TODOCONTA_CLUB&sourceInfoType=event&sourceInfoOrigin=6aaf95ba7d4e46c810c12971&ticketCount=1&ticketTypeObjectId=6aaf95ba7d4e46c810c12972",
+      "https://nas.com/checkout-global?requestor=signupRequestor&communityCode=TODOCONTA_CLUB&communityId=67ab5a14d444670df4027cad&redirectTo=https%3A%2F%2Fnas.com%2Fmb%2Fcommunities%2F67ab5a14d444670df4027cad%2Fevents%2F6ad3ffacd4af52506ec9d19f&sourceInfoType=event&sourceInfoOrigin=6ad3ffacd4af52506ec9d19f",
   },
   // Segunda edición, SOLO si la del 17 se llena: se destapa, se crea el
   // evento en nas.com y se pega su checkout. Mientras, no existe para nadie.
-  // { inicio: "2026-10-24", fechaTexto: "Sábado 24 de octubre", checkout: null },
+  // { inicio: "2026-11-05", fechaTexto: "Jueves 5 de noviembre", checkout: null },
 ];
 
 /**
@@ -65,7 +65,7 @@ export const EDICIONES: readonly Edicion[] = [
  * horario desde 2022, así que el desfase es fijo. De aquí salen el folio de la
  * página, el horario en texto y las fechas del JSON-LD.
  */
-export const HORARIO = { inicio: "11:00", fin: "13:00", zona: "-06:00" } as const;
+export const HORARIO = { inicio: "18:00", fin: "20:00", zona: "-06:00" } as const;
 
 /** Fecha y hora ISO de una edición (por omisión, la de inicio). */
 export function isoDe(e: Edicion, hora: string = HORARIO.inicio): string {
@@ -235,7 +235,7 @@ export const FAQ_EMPIEZA = [
   {
     pregunta: "¿Sirve si uso ChatGPT?",
     respuesta:
-      "El taller es de Claude y solo de Claude, a propósito. En dos horas con gente que empieza, dos herramientas son caos, y el proyecto que configuramos es una función concreta de Claude. Lo que aprendas el sábado es lo que vas a usar el lunes.",
+      "El taller es de Claude y solo de Claude, a propósito. En dos horas con gente que empieza, dos herramientas son caos, y el proyecto que configuramos es una función concreta de Claude. Lo que aprendas en el taller es lo que vas a usar el lunes.",
   },
   {
     pregunta: "¿Necesito Claude Pro?",
