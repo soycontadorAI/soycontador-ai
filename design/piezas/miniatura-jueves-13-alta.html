@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="es-MX">
+<head>
+<meta charset="utf-8">
+<meta name="lienzo" content="1280x720">
+<meta name="salida" content="design/salidas/miniatura-jueves-13-alta.png">
+<title>miniatura-jueves-13-alta</title>
+<style>
+/* ============================================================
+   Miniatura del Jueves #13, "Errores de CFDI" (1280x720).
+   `node design/piezas/render.mjs miniatura-jueves-13-alta`.
+
+   Sale de `miniatura-jueves-11-alta.html` y conserva su sistema (fondo casi
+   negro, sans en caja alta, el verde del plumón como único color, retrato
+   con contorno blanco). El porqué de salirse del DS del sitio está en la 10.
+
+   Lo que cambia:
+   - El gancho: "ERRORES / DE CFDI", el nombre del episodio. El título del
+     video dice el resto ("lo que el SAT ve y tu sistema no").
+   - Las palabras fantasma: los dos lados del cruce, timbrado y registrado.
+   - El icono: un CFDI con una tacha, en lugar del sobre.
+   - El retrato: apoyado en la mesa (la postura de revisar), en sudadera
+     porque YouTube es el registro del Avatar A.
+   ============================================================ */
+@font-face {
+  font-family: "Space Grotesk"; font-weight: 100 900; font-display: block;
+  src: url("../../node_modules/@fontsource-variable/space-grotesk/files/space-grotesk-latin-wght-normal.woff2") format("woff2");
+}
+:root {
+  --fondo: #0E1113;
+  --fondo-alto: #191D20;
+  --verde: #3DD68C;
+  --verde-hondo: #0A7B45;
+  --hueso: #FFFFFF;
+  --fantasma: rgba(255, 255, 255, 0.075);
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  position: relative;
+  width: 1280px; height: 720px; overflow: hidden;
+  background: radial-gradient(120% 140% at 18% 12%, var(--fondo-alto) 0%, var(--fondo) 62%);
+  font-family: "Space Grotesk", sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── Las esquirlas ──
+   Ojo con los desbordes: `bottom` o `right` negativos SÍ cuentan como
+   contenido fuera de la caja y el guardarraíl del render los rechaza (pasó
+   con -30px abajo). Para que una esquirla se salga del cuadro, se recorta
+   con clip-path, no se empuja con coordenadas negativas hacia abajo o a la
+   derecha. Hacia arriba y a la izquierda sí se puede. ──────────────────────────────────────────────────────────
+   Geometría, no textura: tres polígonos que hacen de "estallido" detrás de la
+   figura y le dan profundidad al lado derecho sin robarle contraste al texto.
+   Se quedan del lado del retrato a propósito. */
+.esquirla { position: absolute; background: var(--verde); }
+.e1 { top: -40px;  left: 640px; width: 200px; height: 230px; clip-path: polygon(40% 0, 100% 18%, 62% 100%, 0 52%); opacity: .95; }
+.e2 { top: 520px;  left: 600px; width: 120px; height: 150px; clip-path: polygon(0 0, 100% 34%, 44% 100%); opacity: .55; }
+.e3 { bottom: 0; left: 700px; width: 240px; height: 210px; clip-path: polygon(22% 0, 100% 40%, 70% 100%, 0 86%); opacity: .8; }
+.e4 { top: 140px; left: 880px; width: 90px; height: 110px; clip-path: polygon(0 20%, 100% 0, 66% 100%); opacity: .45; }
+
+/* ── Las marcas ajenas, de fondo ───────────────────────────────────────────
+   Solo la palabra, sin logotipo. Son contexto: dicen de qué herramientas
+   habla el video sin competir con el gancho. */
+.marca-ia {
+  position: absolute; z-index: 0;
+  font-weight: 700; letter-spacing: -0.02em;
+  color: var(--fantasma);
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+.m-arriba { top: 42px;  left: 52px;  font-size: 92px; }
+.m-abajo  { bottom: 40px; left: 52px; font-size: 92px; }
+/* Dos de los tres números, no los tres: el tercero encimaba con el sobre y a
+   210px todo eso se vuelve una mancha. */
+
+/* ── El gancho ─────────────────────────────────────────────────────────────
+   Dos renglones y cuatro palabras. Es lo único que tiene que sobrevivir el
+   escalado a 210px. */
+.gancho {
+  position: absolute; z-index: 2;
+  left: 56px; top: 178px;
+}
+.linea-1 {
+  display: block;
+  font-size: 152px; font-weight: 700; line-height: 0.88;
+  letter-spacing: -0.045em;
+  color: var(--verde);
+  text-transform: uppercase;
+}
+/* El bloque verde con la palabra encima: el plumón de la marca, llevado al
+   extremo que pide un feed. */
+.linea-2 {
+  display: inline-block;
+  margin-top: 16px;
+  padding: 6px 30px 16px;
+  background: var(--verde);
+  color: #0E1113;
+  font-size: 128px; font-weight: 700; line-height: 0.9;
+  letter-spacing: -0.04em;
+  text-transform: uppercase;
+}
+
+/* El sobre con aviso. SVG propio: un cuerpo, la solapa y un círculo con el
+   signo de admiración, que es lo que lo vuelve "carta del SAT" y no correo. */
+.sobre {
+  position: absolute; z-index: 2;
+  left: 640px; top: 340px;
+  width: 140px; height: 140px;
+  color: var(--verde);
+}
+
+/* ── El retrato ────────────────────────────────────────────────────────────
+   Con contorno blanco, que es lo que lo despega del fondo oscuro. Son ocho
+   sombras duras del mismo color (el mismo truco que `figura-sticker` en
+   social-studio), más una difusa para asentarlo. */
+.retrato {
+  position: absolute; z-index: 3;
+  /* 530px es el máximo que cabe: el recorte mide 900x1205, así que a 530 de
+     ancho da 710 de alto y entra en los 720 del lienzo. Más ancho y el
+     guardarraíl del render lo rechaza, que es justo lo que hizo la primera
+     vez (se salía 30px de alto). */
+  right: 0; bottom: 0;
+  width: 530px; height: auto; display: block;
+  filter:
+    drop-shadow(7px 0 0 #fff) drop-shadow(-7px 0 0 #fff)
+    drop-shadow(0 7px 0 #fff) drop-shadow(0 -7px 0 #fff)
+    drop-shadow(5px 5px 0 #fff) drop-shadow(-5px -5px 0 #fff)
+    drop-shadow(5px -5px 0 #fff) drop-shadow(-5px 5px 0 #fff)
+    drop-shadow(0 18px 34px rgba(0, 0, 0, 0.55));
+}
+</style>
+</head>
+<body>
+  <span class="marca-ia m-arriba">Timbrado</span>
+  <span class="marca-ia m-abajo">Registrado</span>
+
+  <div class="esquirla e1"></div>
+  <div class="esquirla e2"></div>
+  <div class="esquirla e3"></div>
+  <div class="esquirla e4"></div>
+
+  <div class="gancho">
+    <span class="linea-1">Errores</span>
+    <span class="linea-2">de CFDI</span>
+  </div>
+
+  <svg class="sobre" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+       stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+    <path d="M4 2.5h8.5L17 7v12.5a1.5 1.5 0 0 1-1.5 1.5H4a1.5 1.5 0 0 1-1.5-1.5V4A1.5 1.5 0 0 1 4 2.5z" fill="currentColor" stroke="none" opacity=".18"/>
+    <path d="M4 2.5h8.5L17 7v12.5a1.5 1.5 0 0 1-1.5 1.5H4a1.5 1.5 0 0 1-1.5-1.5V4A1.5 1.5 0 0 1 4 2.5z"/>
+    <path d="M12.5 2.5V7H17M6 11h7M6 14.5h5"/>
+    <circle cx="17.5" cy="17.5" r="4.3" fill="#0E1113"/>
+    <circle cx="17.5" cy="17.5" r="4.3"/>
+    <path d="M15.8 15.8l3.4 3.4M19.2 15.8l-3.4 3.4"/>
+  </svg>
+
+  <img class="retrato" src="../../public/assets/israel-apoyado-hoodie.webp" alt="">
+</body>
+</html>
