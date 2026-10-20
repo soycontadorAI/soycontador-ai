@@ -54,11 +54,16 @@ export function webSite(): JsonLdObject {
  */
 export function capacitacionService(): JsonLdObject {
   return {
-    "@type": "ProfessionalService",
+    /* "Service" y no "ProfessionalService" (2026-10-18): ProfessionalService
+       es un subtipo de LocalBusiness que se lee como despacho que da servicios
+       contables, y Meta clasificó el dominio como "Servicio financiero". Esto
+       es capacitación; `category` lo dice explícito. */
+    "@type": "Service",
     "@id": `${SITE.url}/capacitacion#servicio`,
     name: "Capacitación en IA para contadores y despachos contables",
     description:
-      "Capacitación en inteligencia artificial aplicada al trabajo fiscal: taller de 8 horas en sesiones de 2 horas, programas para empresas y despachos, y licenciamiento para organizaciones y capacitadoras en México.",
+      "Capacitación en inteligencia artificial aplicada al trabajo contable: taller de 8 horas en sesiones de 2 horas, programas para empresas y despachos, y licenciamiento para organizaciones y capacitadoras en México.",
+    category: "Educación y capacitación profesional",
     url: `${SITE.url}/capacitacion`,
     provider: personRef(),
     areaServed: { "@type": "Country", name: "México" },

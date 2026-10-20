@@ -385,6 +385,12 @@ checkout con el `fbclid` y los `utm_*` de la visita (`conOrigenDeVisita()` de
 de la URL o, si no viene, de la cookie `_fbc` que deja el pixel: cubre a quien
 aterrizó por el anuncio en otra página y llegó a /empieza después.
 
+**Categoría de Meta (2026-10-18).** Meta clasificó soycontador.ai como
+"Servicio financiero" y el pixel quedó en configuración básica. Revisión y
+cambios en `docs/meta-categoria.md`. Regla: en títulos, descripciones y
+JSON-LD lo primero es lo que se vende (cursos, talleres, capacitación); lo
+fiscal y lo bancario va como tema de las clases, nunca como servicio.
+
 Si al probar el `fbclid` no aparece en los enlaces, primero ver si sigue en la
 barra de direcciones: Safari privado, Firefox estricto, Brave y algunas listas
 de uBlock/AdGuard lo borran de la URL antes de que la página lo lea (los

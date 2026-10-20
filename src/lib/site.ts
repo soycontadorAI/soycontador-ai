@@ -24,10 +24,17 @@ export const SITE = {
   locale: "es_MX",
   lang: "es-MX",
 
+  /*
+   * Título y descripción por defecto (los usa la home). Desde 2026-10-18 abren
+   * con "cursos y talleres": Meta clasificó el dominio como "Servicio
+   * financiero" y restringió el pixel (docs/meta-categoria.md). El sitio es
+   * educación profesional y eso tiene que ser lo primero que lea un
+   * clasificador. Evitar aquí "operación fiscal", "banco" o "finanzas".
+   */
   titleDefault:
-    "Israel Castro. Contador público y desarrollador de software. IA para contadores en México",
+    "Israel Castro, contador público y desarrollador. Cursos y talleres de IA para contadores en México",
   descriptionDefault:
-    "Soy Israel Castro, contador público y desarrollador de software. Ayudo a contadores y despachos de México a automatizar su operación fiscal con IA: talleres, soluciones a la medida, herramientas como TodoConta y su conexión MCP, y el live semanal Jueves de ContadorIA.",
+    "Cursos y talleres de inteligencia artificial para contadores en México. Soy Israel Castro, contador público y desarrollador de software, y enseño a contadores y despachos a usar IA en su trabajo diario: talleres en vivo, capacitación para despachos, el ebook IA para Contadores y el live semanal Jueves de ContadorIA.",
 
   claim:
     "La IA no te va a reemplazar. Pero un contador que sabe usar IA para volverse infraestructura sí va a reemplazar al que no.",
@@ -58,6 +65,8 @@ export const PERSONA = {
   ],
 
   knowsAbout: [
+    "capacitación en inteligencia artificial para contadores",
+    "cursos de IA para contadores",
     "inteligencia artificial para contadores",
     "IA para contadores",
     "Claude para contadores",
