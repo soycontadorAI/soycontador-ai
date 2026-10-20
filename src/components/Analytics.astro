@@ -103,7 +103,7 @@ const pixel = enProduccion ? MEDICION.metaPixel : null;
 
       /* El clic al checkout de nas.com: la compra ocurre en otro dominio, así
          que este clic es lo último que ve el sitio. A GA, cualquiera, con la
-         página de origen. El InitiateCheckout de Meta vive en empieza.astro:
+         página de origen. El AddToCart de Meta vive en empieza.astro:
          es solo del taller y tiene que esperar a salir antes de navegar. */
       let destino: URL | null = null;
       try {

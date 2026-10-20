@@ -347,7 +347,11 @@ const CTA: Enlace = urlAbierta
     if (aCheckout(a)) a.href = conOrigenDeVisita(a.href, visita);
   }
 
-  /* InitiateCheckout: uno por clic y antes de irse. Al navegar, el navegador
+  /* AddToCart, y no InitiateCheckout (2026-10-20): nas.com dispara su propio
+     InitiateCheckout, sin valor, al abrir el checkout, y con dos eventos
+     iguales cada visita se contaba dos veces sin forma de deduplicarlas.
+     InitiateCheckout queda solo para nas.com; este clic es la intención previa.
+     Uno por clic y antes de irse. Al navegar, el navegador
      puede cancelar la petición del pixel a medio camino, así que el clic se
      detiene 300 ms y luego se navega. El candado se traga el segundo clic de
      un doble clic, y se suelta antes de navegar para que un "atrás" (que
@@ -362,7 +366,7 @@ const CTA: Enlace = urlAbierta
       e.preventDefault();
       return;
     }
-    medirMeta("InitiateCheckout", PIXEL_EMPIEZA);
+    medirMeta("AddToCart", PIXEL_EMPIEZA);
     const otraPestana = e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || a.target === "_blank";
     if (!window.fbq || otraPestana) return;
     e.preventDefault();

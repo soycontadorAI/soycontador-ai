@@ -102,7 +102,7 @@ export const EMPIEZA = {
 } as const;
 
 /**
- * Lo que recibe el pixel de Meta en ViewContent e InitiateCheckout: el
+ * Lo que recibe el pixel de Meta en ViewContent y AddToCart: el
  * producto, nunca la persona. SOLO parámetros estándar de Meta: el conjunto
  * de datos está en una categoría restringida y uno personalizado no pasa.
  */
