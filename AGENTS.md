@@ -368,16 +368,23 @@ LFPDPPP es informarlo ahí.
 
 El pixel de Meta (2026-10-14) es el de soycontador.ai, no el de TodoConta, y
 `MEDICION.metaPixel` lo trae. Solo manda `PageView` y dos eventos propios por
-`medirMeta()`: `ViewContent` (llegada a /empieza) e `InitiateCheckout` (clic al
+`medirMeta()`: `ViewContent` (llegada a /empieza) y `AddToCart` (clic al
 checkout de nas.com desde /empieza). La coincidencia avanzada automática va
 APAGADA en el panel de Meta: no se manda ningún dato personal.
+
+**Por qué `AddToCart` y no `InitiateCheckout` (2026-10-20).** nas.com tiene
+el mismo pixel y dispara su propio `InitiateCheckout` (sin valor ni moneda) al
+abrir el checkout. Con los dos, cada visita se contaba doble y Meta marcaba el
+31% de los eventos sin precio. `InitiateCheckout` es de nas.com; el clic desde
+el sitio es `AddToCart`. Si nas.com algún día permite apagar el suyo, se
+puede regresar.
 
 Desde el 2026-10-16 cada evento del pixel (PageView incluido) lleva su
 `eventID`, que es la llave de deduplicación contra la API de conversiones, y
 `medirMeta()` lo devuelve. Los dos eventos del taller mandan `PIXEL_EMPIEZA`
 (`lib/empieza.ts`): valor, moneda, `content_type` y `content_ids`, todos
 parámetros estándar, porque el conjunto de datos está en categoría
-restringida y uno personalizado no pasa. `InitiateCheckout` vive en
+restringida y uno personalizado no pasa. `AddToCart` vive en
 `empieza.astro`, no en `Analytics.astro`: detiene el clic 300 ms para que la
 petición salga antes de navegar. Esa misma página reescribe los enlaces al
 checkout con el `fbclid` y los `utm_*` de la visita (`conOrigenDeVisita()` de

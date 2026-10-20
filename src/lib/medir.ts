@@ -53,7 +53,7 @@ export function nuevoEventId(): string {
  * Devuelve el `eventID`, para mandar el mismo evento desde el servidor el día
  * que haya API de conversiones propia.
  */
-export function medirMeta(evento: "ViewContent" | "InitiateCheckout", datos: DatosMeta = {}): string {
+export function medirMeta(evento: "ViewContent" | "AddToCart", datos: DatosMeta = {}): string {
   const limpio: DatosMeta = {};
   for (const [k, v] of Object.entries(datos)) if (v !== undefined && v !== "") limpio[k] = v;
   const eventID = nuevoEventId();
