@@ -6,7 +6,8 @@
  * la lista debe tener esos campos creados en Sendy con esos nombres exactos.
  *
  * Body JSON: { email, nombre?, whatsapp?, rol?, interes?, mensaje?, empresa?,
- *              equipo?, nivelIA?, cuando?, hp?, referrer?, origen? }
+ *              equipo?, nivelIA?, cuando?, usoClaude?, proyectosClaude?, hp?,
+ *              referrer?, origen? }
  * (los campos extendidos los usa el formulario de precalificación empresarial)
  * Respuesta:  { ok, status: 'confirm' | 'already' | 'invalido' | 'error', error? }
  *
@@ -34,6 +35,8 @@ const CAMPOS_LEGIBLES = {
   Interes: "Interés",
   Equipo: "Tamaño del equipo",
   NivelIA: "Uso de IA hoy",
+  UsoClaude: "Ha usado Claude",
+  ProyectosClaude: "Proyectos o archivos en Claude",
   Cuando: "Para cuándo",
   Mensaje: "Lo que me contaste",
 } as const;
@@ -77,6 +80,7 @@ async function avisarOrigen(datos: {
   email: string;
   nombre: string;
   interes: string;
+  nivel: string;
   paginaEnvio: string;
   origen: Origen;
 }): Promise<void> {
@@ -85,6 +89,7 @@ async function avisarOrigen(datos: {
   const filas: [string, string][] = [
     ["Lead", datos.nombre ? `${datos.nombre} <${datos.email}>` : datos.email],
     ...(datos.interes ? ([["Interés", datos.interes]] as [string, string][]) : []),
+    ...(datos.nivel ? ([["Nivel sugerido", datos.nivel]] as [string, string][]) : []),
     ["Envió desde", datos.paginaEnvio || "(no llegó)"],
     ...(Object.keys(ETIQUETAS_ORIGEN) as (keyof Origen)[])
       .filter((k) => datos.origen[k])
@@ -137,6 +142,20 @@ async function enviarAcuse(datos: {
   });
 }
 
+/**
+ * A dónde mandar a quien pidió capacitación para sí, según sus dos
+ * respuestas. Es una sugerencia para Israel en el aviso interno, no una
+ * decisión: el visitante no la ve. Solo "lo uso seguido" Y "trabajo con
+ * proyectos o archivos" salta al curso largo; cualquier otra combinación,
+ * incluida una respuesta a medias, empieza en el taller de 2 horas.
+ */
+function nivelSugerido(uso: string, proyectos: string): string {
+  if (!uso && !proyectos) return "";
+  return uso === "Lo uso seguido" && proyectos === "Sí"
+    ? "Claude para Contadores (/claude)"
+    : "Empieza aquí (/empieza)";
+}
+
 export const prerender = false;
 
 interface LeadResponse {
@@ -187,6 +206,18 @@ export const POST: APIRoute = async ({ request }) => {
     NivelIA: texto(raw.nivelIA, 80),
     Cuando: texto(raw.cuando, 80),
   };
+  /*
+   * El nivel en Claude NO entra a `campos`: ese objeto viaja completo a Sendy,
+   * que descarta en silencio lo que no tiene definido en la lista. Va solo al
+   * acuse y al aviso interno.
+   */
+  const usoClaude = texto(raw.usoClaude, 40);
+  const proyectosClaude = texto(raw.proyectosClaude, 40);
+  const camposAcuse = {
+    ...campos,
+    UsoClaude: usoClaude,
+    ProyectosClaude: proyectosClaude,
+  };
 
   /** Casilla marcada a mano. Cualquier otra cosa es "no". */
   const quiereNewsletter = raw.newsletter === true;
@@ -201,7 +232,7 @@ export const POST: APIRoute = async ({ request }) => {
   const enviado = await enviarAcuse({
     email,
     nombre,
-    campos,
+    campos: camposAcuse,
     origen,
     newsletter: quiereNewsletter,
   });
@@ -210,6 +241,7 @@ export const POST: APIRoute = async ({ request }) => {
     email,
     nombre,
     interes: campos.Interes,
+    nivel: nivelSugerido(usoClaude, proyectosClaude),
     paginaEnvio: origen,
     origen: limpiarOrigen(raw.origen),
   });
