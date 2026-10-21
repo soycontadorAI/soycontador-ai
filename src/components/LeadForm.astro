@@ -84,6 +84,28 @@ const opcionesInteres = [
           ))}
         </select>
       </div>
+      {/*
+        Solo para "Capacitación para mí": decide si la persona entra al taller
+        de 2 horas (/empieza) o directo al curso largo (/claude). Se muestra
+        con el interés elegido y, oculto, se deshabilita: un select
+        deshabilitado no viaja en el FormData, así que nadie manda un nivel
+        que no contestó.
+      */}
+      <div class="campo" data-nivel hidden>
+        <label for="lead-uso-claude">¿Has usado Claude?</label>
+        <select id="lead-uso-claude" name="usoClaude" disabled>
+          <option value="Nunca">Nunca</option>
+          <option value="Lo he probado">Lo he probado</option>
+          <option value="Lo uso seguido">Lo uso seguido</option>
+        </select>
+      </div>
+      <div class="campo" data-nivel hidden>
+        <label for="lead-proyectos-claude">¿Trabajas con proyectos o archivos (XML, Excel) en Claude?</label>
+        <select id="lead-proyectos-claude" name="proyectosClaude" disabled>
+          <option value="No">No</option>
+          <option value="Sí">Sí</option>
+        </select>
+      </div>
       <div class="campo campo-full">
         <label for="lead-mensaje">Cuéntame en una línea qué te está comiendo el tiempo (opcional)</label>
         <textarea id="lead-mensaje" name="mensaje" rows="2" maxlength="500" placeholder="Ej. cada mes pierdo dos días armando el mismo reporte…"></textarea>
@@ -247,6 +269,18 @@ const opcionesInteres = [
   import { leerOrigen, paraMedicion } from "../lib/origen";
 
   document.querySelectorAll<HTMLFormElement>("[data-lead]").forEach((form) => {
+    const interes = form.querySelector<HTMLSelectElement>("[name=interes]");
+    const niveles = form.querySelectorAll<HTMLElement>("[data-nivel]");
+    const mostrarNivel = () => {
+      const si = interes?.value === "Capacitación para mí";
+      niveles.forEach((campo) => {
+        campo.hidden = !si;
+        campo.querySelector("select")?.toggleAttribute("disabled", !si);
+      });
+    };
+    interes?.addEventListener("change", mostrarNivel);
+    mostrarNivel();
+
     form.addEventListener("submit", async (e) => {
       e.preventDefault();
       const msg = form.querySelector<HTMLElement>("[data-lead-msg]");
@@ -264,6 +298,8 @@ const opcionesInteres = [
             whatsapp: data.get("whatsapp"),
             rol: data.get("rol"),
             interes: data.get("interes"),
+            usoClaude: data.get("usoClaude"),
+            proyectosClaude: data.get("proyectosClaude"),
             mensaje: data.get("mensaje"),
             newsletter: data.get("newsletter") === "si",
             hp: data.get("hp"),
