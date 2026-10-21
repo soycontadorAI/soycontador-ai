@@ -100,13 +100,10 @@ A es la apuesta segura si el sábado no da tiempo.
 
 ### Escalera de valor: va fuera de la página
 
-Cierre del taller + 1 o 2 correos (o WhatsApp) posteriores, con el bono de unos
-$500 si toman el curso completo en los primeros 30 días. **El bono no se
-menciona en ningún lugar público** (decisión de Israel, 2026-10-13): es la
-recompensa por haber tomado el taller. Pendiente de Israel antes de
-redactar: el bono es sobre un curso alojado en Fiscalistas.AI, así que hace
-falta confirmar cómo se canjea (cupón de ellos o descuento tuyo) y si lo
-cubren. No se publica precio del curso en esta página.
+Cierre del taller + 1 o 2 correos (o WhatsApp) posteriores, solo para quien ya
+tomó el taller. Su contenido es interno y no se menciona en ningún lugar
+público (decisión de Israel, 2026-10-13). No se publica precio del curso en
+esta página.
 
 ## 4. Lugares que cambian al renombrar (no solo la página)
 
@@ -146,13 +143,13 @@ línea base de origin/main (LCP ≤ 2.5 s, CLS ≤ 0.1, TBT ≤ 200 ms); (3) con
 prefers-reduced-motion la página queda estática y legible, y en móvil (390 px)
 cada hoja se lee completa antes de que entre la siguiente; (4) el QA de copy de
 AGENTS.md pasa (sin raya, MX, nombre correcto, ningún precio de high ticket,
-Claude Pro recomendado y no obligatorio, NINGUNA mención del bono ni de
-descuentos del curso en nada publicable); (5) grep de "Claude para contadores
+Claude Pro recomendado y no obligatorio, NINGUNA oferta ni descuento del
+curso en nada publicable); (5) grep de "Claude para contadores
 en 2 horas" no encuentra nada publicable; (6) hay un PR abierto, sin mergear.
 
 NO se vuelve a decidir: variante A; Claude Pro se recomienda (2026-10-12); el
 curso grande no va en el hero ni en "para quién no" (queda en FAQ y bio); sin
-minutos en los bloques; el bono NUNCA se menciona en público (página, FAQ,
+minutos en los bloques; lo posterior al taller NUNCA se menciona en público (página, FAQ,
 JSON-LD, llms.txt, llms-full.txt, redes): va solo por correo o WhatsApp a quien
 ya tomó el taller; el ID del video es null hasta que Israel lo grabe, no se
 pinta hueco. Lee docs/empieza-rediseno-2026-10.md antes de empezar.
@@ -191,12 +188,11 @@ Pasos (cambiar con /model entre pasos):
    diff, nombre accesible de botones, orden de foco con hojas fijas, QA de
    copy. Aplica lo confirmado.
 5. [Sonnet 5.5, medio] Commit(s) y PR solo con los archivos listados. Aparte,
-   en docs/correos/ y en su propio commit: guion de cierre del taller y 2
-   correos de seguimiento, más versión corta de cada uno para WhatsApp, con el
-   bono (30 días tras el taller): monto y canje como [POR CONFIRMAR], voz de
-   Israel, sin raya. El bono solo vive ahí; nada se envía ni se publica.
+   sin subirlo al repo: guion de cierre del taller y 2 correos de seguimiento,
+   más versión corta de cada uno para WhatsApp, voz de Israel, sin raya. Nada
+   se envía ni se publica.
 
-Al terminar: lista lo pendiente (video e ID de YouTube, bono) y pega las
+Al terminar: lista lo pendiente (video e ID de YouTube) y pega las
 medidas de Lighthouse tal cual, sin inventar cifras.
 ```
 

@@ -75,7 +75,7 @@ no el público.
 ## 5. Matriz de creativos
 
 Una herramienta por pieza (regla de AGENTS.md): todo habla de **Claude**.
-El copy respeta el QA de AGENTS.md: español MX, tuteo, sin raya, sin bono ni
+El copy respeta el QA de AGENTS.md: español MX, tuteo, sin raya, sin ofertas posteriores ni
 descuento del curso, sin precio de high ticket, Claude Pro "recomendado".
 
 | Ángulo (el miedo) | Gancho de ejemplo |
