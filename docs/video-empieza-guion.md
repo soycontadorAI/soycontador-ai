@@ -18,7 +18,7 @@ Va en la tarjeta de "Con qué sales" (`VIDEO_EMPIEZA` en `src/lib/empieza.ts`).
 
 - Fechas, días ni horas: "este sábado", "el 17", "mañana". "Dos horas" sí.
 - Precio, descuentos, cupos con número ni "últimos lugares".
-- El bono, el curso grande ni Fiscalistas.AI (el bono nunca es público).
+- Ofertas posteriores al taller, el curso grande ni Fiscalistas.AI.
 - "Gratis", "en dos horas dominas Claude", ni cifras de ahorro de tiempo sin
   dato real.
 - "Yo sí programo", "escribo código todos los días" (ver AGENTS.md).
