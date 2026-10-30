@@ -139,6 +139,12 @@ nada de ahí a una página sin revisar la tabla de precios de este archivo.
   desayuné") y la polémica llega hasta el oficio y el negocio, **nunca al
   criterio fiscal**. El lineamiento de origen está al lado.
 
+- `docs/ads/`: anuncios de Meta para el taller "Empieza aquí". El plan
+  (`plan-empieza.md`) y el resumen de la campaña real
+  (`campana-meta-taller-empieza-oct2026.md`), con las métricas, las
+  referencias iniciales y la tabla de resultados. Los reportes de rendimiento
+  se leen contra ese archivo.
+
 La metodología es la de Eloisa Wolf. La oferta de despachos ya está
 productizada en `todoconta-apps/docs/taller-ia-despachos.md`: no se redefine
 aquí.

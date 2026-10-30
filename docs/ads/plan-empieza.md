@@ -1,6 +1,10 @@
 # Plan de anuncios para el taller "Empieza aquí" (borrador, 2026-10-13)
 
-Estado: **plan para revisar con Israel. No se ha tocado nada de Meta.** Israel
+> **2026-10-16: la primera campaña ya se lanzó.** Lo que se hizo de verdad
+> (cuentas, eventos, estructura, qué medir y el registro de resultados) está en
+> `campana-meta-taller-empieza-oct2026.md`. Este plan queda como antecedente.
+
+Estado original: **plan para revisar con Israel. No se ha tocado nada de Meta.** Israel
 está creando la Página de Facebook y el portafolio de negocio de soycontador.ai.
 Lo marcado `[POR DECIDIR]` o `[VERIFICAR]` no se asume.
 
