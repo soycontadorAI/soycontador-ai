@@ -203,9 +203,15 @@ export const NAV_PAGINAS = [
  * Mientras `default` sea null, el enlace no se pinta en ningún lado y el flujo
  * termina en el formulario, como hasta ahora.
  */
-export type PropositoCita = "diagnostico" | "cotizacion" | "capacitacion";
+export type PropositoCita = "diagnostico" | "cotizacion" | "capacitacion" | "patrocinio";
 
 const CALENDARIOS: Partial<Record<PropositoCita, string>> & { default: string | null } = {
+  /** "Patrocinio de serie · Jueves de ContadorIA", 30 min con 15 de colchón y
+      formulario (empresa, cargo). Ninguna página la pinta: es la que va en la
+      hoja compartible y en los mensajes a marcas (docs/patrocinios/). Se partió
+      de la general el 2026-10-26 porque su descripción le habla a un contador
+      con un proceso que le duele, no a una marca. */
+  patrocinio: "https://calendar.app.google/TVcbajeBKZmiScUg9",
   /** "Llamada con Israel Castro", 15 min con 15 de colchón, con Meet. Programación
       de citas de Workspace. Todas las llamadas duran lo mismo (decisión de
       Israel 2026-09-21; guion en docs/llamada-diagnostico.md). El colchón es

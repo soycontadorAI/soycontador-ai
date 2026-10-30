@@ -32,3 +32,4 @@ pnpm-debug.log*
 
 # PDF de la hoja de patrocinios: se rehace con pnpm patrocinios:hoja
 docs/patrocinios/salida/
+docs/invitados/salida/
